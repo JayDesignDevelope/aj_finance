@@ -1738,6 +1738,8 @@ function initTypoAnimations() {
     '.sip-section .section-title',
     '.eligibility-section .section-title',
     '.features-section .section-title',
+    '.process-section .section-title',
+    '.partners-section .section-title',
     '.faq-section .section-title',
     '.apply-section .section-title',
     '.testimonials-section .section-title',
@@ -1807,6 +1809,8 @@ function initTypoAnimations() {
     '.sip-section .section-subtitle',
     '.eligibility-section .section-subtitle',
     '.features-section .section-subtitle',
+    '.process-section .section-subtitle',
+    '.partners-section .section-subtitle',
     '.faq-section .section-subtitle',
     '.apply-section .section-subtitle',
     '.testimonials-section .section-subtitle',
@@ -1838,3 +1842,51 @@ function initTypoAnimations() {
 
 // Call on load
 window.addEventListener('load', initTypoAnimations, { once: true });
+
+// ── Banking partner logo fallbacks ──────────────────────────────────────────
+// If Clearbit is unreachable (sandbox / offline), replace broken <img> with
+// a branded SVG letter-mark so cards always look polished.
+(function initLogoFallbacks() {
+  const LOGOS = {
+    'hdfcbank.com':    { label: 'HDFC',  sub: 'BANK',    bg: '#004C8F' },
+    'sbi.co.in':       { label: 'SBI',   sub: 'BANK',    bg: '#22409A' },
+    'icicibank.com':   { label: 'ICICI', sub: 'BANK',    bg: '#F36C21' },
+    'axisbank.com':    { label: 'AXIS',  sub: 'BANK',    bg: '#97144D' },
+    'kotak.com':       { label: 'KMB',   sub: 'KOTAK',   bg: '#EE3124' },
+    'lichfl.com':      { label: 'LIC',   sub: 'HFL',     bg: '#006838' },
+    'bajajfinserv.in': { label: 'BAJAJ', sub: 'FINSERV', bg: '#0038A8' },
+    'pnbhousing.com':  { label: 'PNB',   sub: 'HOUSING', bg: '#005A8E' },
+  };
+
+  function makeSVG({ label, sub, bg }) {
+    const fs = label.length >= 5 ? 9 : label.length === 4 ? 11 : 14;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'partner-logo');
+    svg.setAttribute('viewBox', '0 0 52 52');
+    svg.innerHTML = `
+      <rect width="52" height="52" rx="8" fill="${bg}"/>
+      <text x="26" y="25" text-anchor="middle"
+            font-family="Plus Jakarta Sans,Arial,sans-serif"
+            font-weight="800" font-size="${fs}" fill="white" letter-spacing="1">${label}</text>
+      <text x="26" y="37" text-anchor="middle"
+            font-family="Plus Jakarta Sans,Arial,sans-serif"
+            font-weight="500" font-size="7.5" fill="rgba(255,255,255,0.75)" letter-spacing="1.5">${sub}</text>
+    `;
+    return svg;
+  }
+
+  function swapIfBroken(img) {
+    const domain = img.src.split('/').pop() || '';
+    const def = LOGOS[domain] || { label: '?', sub: '', bg: '#888' };
+    img.parentNode.replaceChild(makeSVG(def), img);
+  }
+
+  document.querySelectorAll('.partner-logo').forEach(img => {
+    // Already failed before this script ran
+    if (img.complete && img.naturalWidth === 0) {
+      swapIfBroken(img);
+    } else {
+      img.addEventListener('error', function () { swapIfBroken(this); });
+    }
+  });
+})();
