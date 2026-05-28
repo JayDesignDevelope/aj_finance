@@ -354,6 +354,37 @@ function initGSAPScrollAnimations() {
         });
     });
 
+    // Process steps
+    gsap.utils.toArray('.pstep').forEach((el, i) => {
+        ScrollTrigger.create({
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+            onEnter: () => {
+                gsap.fromTo(el,
+                    { opacity: 0, y: 28 },
+                    { opacity: 1, y: 0, duration: 0.55, delay: i * 0.12, ease: 'power2.out' }
+                );
+            }
+        });
+    });
+
+    // Banking partner cards
+    gsap.utils.toArray('.partner-card').forEach(el => {
+        const delay = parseFloat(el.dataset.delay || 0) / 1000;
+        ScrollTrigger.create({
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+            onEnter: () => {
+                gsap.fromTo(el,
+                    { opacity: 0, y: 24 },
+                    { opacity: 1, y: 0, duration: 0.5, delay, ease: 'power2.out' }
+                );
+            }
+        });
+    });
+
     // Section headers & form blocks (products, features, sip, app, testimonials, cta)
     gsap.utils.toArray('.section-header.animate-on-scroll, .sip-content.animate-on-scroll, .sip-result.animate-on-scroll, .app-content.animate-on-scroll, .app-visual.animate-on-scroll').forEach(el => {
         ScrollTrigger.create({
