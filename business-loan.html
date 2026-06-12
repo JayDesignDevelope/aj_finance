@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Loan | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs"><button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button><button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button><button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button><button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button><button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button></div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more →</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">WHY AJ FINANCE</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">₹0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call →</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a></div>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">BUSINESS LOAN</div>
+                <h1 class="product-hero-title">Grow Your Business with Funding Up to ₹5 Crores</h1>
+                <p class="product-hero-subtitle">Whether you're expanding operations, buying equipment, or managing cash flow — get the right business loan from India's top banks and NBFCs with expert guidance.</p>
+                <div class="product-hero-stats">
+                    <div><div class="phs-val">12%</div><div class="phs-label">From p.a.</div></div>
+                    <div><div class="phs-val">₹5 Cr</div><div class="phs-label">Max Loan</div></div>
+                    <div><div class="phs-val">7–10 Days</div><div class="phs-label">Disbursal</div></div>
+                </div>
+                <div class="product-hero-cta">
+                    <a href="index.html#get-started" class="btn-primary">Apply Now</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">Business Loan Snapshot</div>
+                <div class="pvcard-rows">
+                    <div class="pvcard-row"><span class="pvcard-key">Loan Amount</span><span class="pvcard-val positive">₹1 Crore</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Interest Rate</span><span class="pvcard-val positive">12% p.a.</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Monthly EMI</span><span class="pvcard-val">₹2,22,444/mo</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Tenure</span><span class="pvcard-val">5 Years</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Collateral</span><span class="pvcard-val positive">Optional</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Business Vintage</span><span class="pvcard-val">Min 2 Years</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">KEY FEATURES</div><h2 class="section-title">Why Get Your Business Loan Through AJ Finance?</h2></div></div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20"/><path d="M9 22V12h6v10M8 7h1M15 7h1M8 11h1M15 11h1"/></svg></div><div class="fc-title-pg">Loans for All Business Types</div><p class="fc-desc-pg">Sole proprietorships, partnerships, private limited companies, and LLPs — all are eligible. We have loan products tailored to your business structure and vintage.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Expansion & Capex Funding</div><p class="fc-desc-pg">Fund business expansion, purchase machinery or equipment, acquire commercial property, or open new branches — structured loans designed for growth capital needs.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="fc-title-pg">Fast Processing</div><p class="fc-desc-pg">Our dedicated business loan desk ensures faster turnaround compared to direct bank applications. Most cases are processed and sanctioned within 7–10 working days.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div class="fc-title-pg">Secured & Unsecured Options</div><p class="fc-desc-pg">Choose between collateral-backed loans at lower rates or clean unsecured business loans based on your turnover and banking track record. We structure what works best.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="fc-title-pg">Turnover-Based Eligibility</div><p class="fc-desc-pg">Loan eligibility is calculated based on your annual turnover, profit, banking behaviour, and GST returns — not just income tax filings, making it accessible to more businesses.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="fc-title-pg">Expert Business Financial Advisory</div><p class="fc-desc-pg">Our advisors understand business finance deeply. We help you structure the loan correctly — right product, right tenure, right lender — to minimize cost and maximize flexibility.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Who Can Apply?</h2>
+                <p class="section-subtitle">Business loans are available for established businesses with a proven track record. Here are the standard eligibility criteria across most lenders:</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">✓</span>Proprietor, partner, or director aged 21–65 years</li>
+                    <li><span class="elig-check">✓</span>Business vintage of minimum 2 years in the same line of activity</li>
+                    <li><span class="elig-check">✓</span>Minimum annual business turnover of ₹40 lakhs</li>
+                    <li><span class="elig-check">✓</span>Business should be profitable for at least 1 of the last 2 years</li>
+                    <li><span class="elig-check">✓</span>CIBIL score of 700+ for promoter and business entity</li>
+                    <li><span class="elig-check">✓</span>GST registration and regular return filing preferred</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">✓</span>KYC documents of promoter (Aadhaar &amp; PAN)</li>
+                        <li><span class="elig-check">✓</span>Business registration / GST certificate</li>
+                        <li><span class="elig-check">✓</span>ITR with profit &amp; loss and balance sheet (2 years)</li>
+                        <li><span class="elig-check">✓</span>Bank statements (last 12 months)</li>
+                        <li><span class="elig-check">✓</span>GST returns (last 6 months)</li>
+                        <li><span class="elig-check">✓</span>Business ownership proof and address proof</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">THE PROCESS</div><h2 class="section-title">How It Works</h2></div></div>
+        <div class="steps-grid-pg">
+            <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Discuss Your Business Need</div><p class="step-desc-pg">Share your business profile, turnover, purpose of loan, and required amount with our business loan advisor for a detailed needs assessment.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Receive Customised Offers</div><p class="step-desc-pg">We match your business profile with the most suitable lenders and present structured loan offers with rate, tenure, security requirements, and EMI details.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Document Submission</div><p class="step-desc-pg">Submit business financials, KYC, and supporting documents. Our team handles the bank relationship, field investigation coordination, and CA liaison.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Sanction & Disbursal</div><p class="step-desc-pg">Post credit committee approval, the loan is sanctioned and disbursed to your business account — typically within 7–10 working days of complete submission.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><h2 class="section-title">Frequently Asked Questions</h2></div></div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the minimum turnover required for a business loan?</div><div class="faq-a-pg">Most banks and NBFCs require a minimum annual turnover of ₹40–50 lakhs. However, some digital lenders and NBFCs offer loans to businesses with turnovers as low as ₹20 lakhs if the business has a strong banking track record and CIBIL score. We assess your specific profile and match you accordingly.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can a startup get a business loan?</div><div class="faq-a-pg">Traditional banks typically require a business vintage of 2+ years. However, government-backed schemes like MUDRA and CGTMSE, as well as some fintech NBFCs, provide loans to newer businesses based on the promoter's profile, business plan, and CIBIL score. We advise on the best available path for startups.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Is collateral mandatory for a business loan?</div><div class="faq-a-pg">Not necessarily. Unsecured business loans up to ₹50 lakhs are available based on business turnover and banking behaviour. For larger amounts or lower rates, collateral (property, machinery, or securities) can improve eligibility and reduce the interest rate significantly.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I get a business loan if my company has reported a loss in one year?</div><div class="faq-a-pg">A loss in one year doesn't automatically disqualify you, especially if the following year shows recovery and profitability. Lenders will assess the reason for the loss, business trajectory, cash flow from banking statements, and overall financial health before making a credit decision.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the interest rate range for business loans in India?</div><div class="faq-a-pg">Business loan rates typically range from 12% to 22% per annum depending on lender type, business profile, collateral offered, and credit score. PSU banks generally offer the lowest rates (12–15%) for secured loans, while NBFCs and fintech lenders may charge 16–22% for unsecured or risk-heavy profiles.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Ready to Fund Your Business Growth?</h2>
+            <p class="product-cta-sub">Our business finance advisors help you access the right loan product at the right rate. Free consultation, end-to-end support.</p>
+            <div class="product-cta-btns"><a href="index.html#get-started" class="btn-cta-white">Apply Now</a><a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a></div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;"><h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2></div></div>
+        <div class="related-grid-pg">
+            <a href="msme-loan.html" class="related-card-pg"><div class="related-card-name">MSME Loan</div><div class="related-card-desc">Government-backed MSME loans up to ₹2 Crores at 8.5%</div></a>
+            <a href="working-capital.html" class="related-card-pg"><div class="related-card-name">Working Capital</div><div class="related-card-desc">Revolving credit lines to manage day-to-day operations</div></a>
+            <a href="lap.html" class="related-card-pg"><div class="related-card-name">Loan Against Property</div><div class="related-card-desc">Unlock up to 65% of your property value for business needs</div></a>
+            <a href="project-funding.html" class="related-card-pg"><div class="related-card-name">Project Funding</div><div class="related-card-desc">Large-scale project finance for real estate & infrastructure</div></a>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a><p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p><div class="footer-contact-details" style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;"><p><strong>Email:</strong> support@ajfinance.in</p><p><strong>Phone:</strong> +91 98765 43210</p><p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana – 500032</p></div></div><div class="footer-links-grid"><div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div><div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div><div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div><div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div></div></div><div class="footer-bottom"><div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies.</p></div><div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div></div></div></footer>
+    <script src="product-pages.js"></script>
+</body>
+</html>

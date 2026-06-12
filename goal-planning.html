@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal-Based Financial Planning | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,\'loans\')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,\'wealth\')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,\'insurance\')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,\'tools\')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,\'advisory\')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY AJ FINANCE</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero wealth-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">GOAL PLANNING</div>
+                <h1 class="product-hero-title">Achieve Every Financial Goal with a Personalised Investment Roadmap</h1>
+                <p class="product-hero-subtitle">Whether it is your child's education, a home purchase, retirement, or a world trip — goal-based planning identifies the exact investment needed today to reach each goal on time.</p>
+                <div class="product-hero-stats"><div><div class="phs-val">Free Planning</div><div class="phs-label">Session</div></div><div><div class="phs-val">Goal-Based</div><div class="phs-label">Investing</div></div><div><div class="phs-val">Expert</div><div class="phs-label">Guidance</div></div></div>
+                <div class="product-hero-cta">
+                    <a href="index.html#get-started" class="btn-primary">Book Free Session</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">Goal Planning Example</div>
+                <div class="pvcard-rows"><div class="pvcard-row"><span class="pvcard-key">Goal</span><span class="pvcard-val">Child's Education</span></div><div class="pvcard-row"><span class="pvcard-key">Timeline</span><span class="pvcard-val">15 Years</span></div><div class="pvcard-row"><span class="pvcard-key">Future Value Needed</span><span class="pvcard-val positive">Rs.50 Lakhs</span></div><div class="pvcard-row"><span class="pvcard-key">Monthly SIP Required</span><span class="pvcard-val positive">Rs.8,500</span></div><div class="pvcard-row"><span class="pvcard-key">Expected Return</span><span class="pvcard-val">12% CAGR</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">KEY FEATURES</div>
+                <h2 class="section-title">What Makes Goal-Based Planning Effective?</h2>
+            </div>
+        </div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="fc-title-pg">Clear Target for Each Goal</div><p class="fc-desc-pg">Every goal gets its own investment bucket with a defined corpus target, timeline, and product allocation. This prevents mixing short-term and long-term money.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Inflation-Adjusted Planning</div><p class="fc-desc-pg">We calculate your future goal corpus at today's inflation rates. A college education that costs Rs.15 lakhs today may cost Rs.40 lakhs in 15 years — we plan for that actual future cost.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><div class="fc-title-pg">Product Selection by Goal Horizon</div><p class="fc-desc-pg">Short-term goals (under 3 years) use debt funds and liquid instruments. Medium-term goals use balanced funds. Long-term goals (5+ years) use equity mutual funds for maximum growth.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Automation via SIP</div><p class="fc-desc-pg">Once your goal is defined, we set up automatic monthly SIPs so every goal is funded on autopilot. No remembering, no manual transfers.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="fc-title-pg">Periodic Review and Rebalancing</div><p class="fc-desc-pg">We review your goal progress every 6 months. If a goal is behind schedule, we increase the SIP. If ahead, we may rebalance to protect gains.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="fc-title-pg">Single Advisor for All Goals</div><p class="fc-desc-pg">One dedicated advisor manages your complete goal stack — education, home, retirement, emergency corpus. Holistic visibility prevents over- or under-investment.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Who Needs Goal-Based Planning?</h2>
+                <p class="section-subtitle">Anyone with specific financial objectives and a desire to reach them methodically rather than investing randomly.</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">&#10003;</span>Salaried professionals with multiple competing financial priorities</li>
+                    <li><span class="elig-check">&#10003;</span>Parents planning for children's education 5–20 years away</li>
+                    <li><span class="elig-check">&#10003;</span>Individuals 5–25 years from retirement</li>
+                    <li><span class="elig-check">&#10003;</span>Homebuyers accumulating a down payment</li>
+                    <li><span class="elig-check">&#10003;</span>Those saving for business start-up capital</li>
+                    <li><span class="elig-check">&#10003;</span>Young investors starting their first investment journey</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">&#10003;</span>PAN Card (for investment accounts)</li>
+                        <li><span class="elig-check">&#10003;</span>Aadhaar Card (KYC)</li>
+                        <li><span class="elig-check">&#10003;</span>Bank account details (for SIP auto-debit)</li>
+                        <li><span class="elig-check">&#10003;</span>Existing investment statements (to assess current progress)</li>
+                        <li><span class="elig-check">&#10003;</span>Latest salary slip or ITR (for income-based planning)</li>
+                        <li><span class="elig-check">&#10003;</span>KYC completion with one AMFI-registered mutual fund platform</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">THE PROCESS</div>
+                <h2 class="section-title">How It Works</h2>
+            </div>
+        </div>
+        <div class="steps-grid-pg">
+                        <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Free Goal Planning Call</div><p class="step-desc-pg">A 45-minute session with our AMFI-registered advisor. You share your goals, timelines, and current investments. We map the gap.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Personalised Investment Plan</div><p class="step-desc-pg">Receive a written goal plan with: corpus targets per goal, monthly SIP amounts, recommended products, and expected timelines.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Set Up Investments</div><p class="step-desc-pg">We help you start SIPs in the recommended funds with auto-debit from your bank account. Takes 30 minutes.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Review Every 6 Months</div><p class="step-desc-pg">Bi-annual check-ins to assess progress against each goal. Adjust SIP amounts if needed. Rebalance as goals near completion.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">How many goals can I plan for simultaneously?</div><div class="faq-a-pg">There is no limit. Most clients plan for 3–5 simultaneous goals: emergency corpus, home down payment, children's education, retirement, and discretionary goals like travel or a car. We create a separate investment bucket for each — usually SIPs into different mutual funds with distinct mandates.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What if I cannot afford the full SIP needed for all goals?</div><div class="faq-a-pg">We prioritise based on goal urgency and flexibility. Retirement is almost always the first priority because it is non-negotiable and far away (giving more time to compound). We then allocate remaining savings to other goals in order of priority. As income grows, we scale up SIPs to close the gap.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">How is goal-based planning different from just investing in SIPs?</div><div class="faq-a-pg">Ad-hoc SIPs are invested without a clear purpose or timeline, making it hard to know if you are on track. Goal-based planning assigns each rupee a specific purpose and measures progress against a defined target. It also prevents withdrawing long-term money for short-term needs because each goal's money is ring-fenced.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What happens to my plan if markets fall significantly?</div><div class="faq-a-pg">Market falls are expected in long-term investing. Our plan already accounts for volatility — the SIP amounts are set to reach the goal even through market cycles. We do not exit equity funds during corrections; in fact, SIPs buy more units when prices fall, which is beneficial for long-term goals.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I start goal planning with a very small amount?</div><div class="faq-a-pg">Absolutely. We have clients who start with Rs.2,000 per month and grow from there. The most important thing is to start — even a small, consistent SIP makes a material difference over 10–15 years due to compounding. We design realistic plans that fit your current income, not an ideal budget.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section wealth-cta">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Start Planning for Every Goal You Have</h2>
+            <p class="product-cta-sub">Free 45-minute goal planning session with our AMFI-registered advisors.</p>
+            <div class="product-cta-btns">
+                <a href="index.html#get-started" class="btn-cta-white">Book Free Session</a>
+                <a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;">
+                <h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2>
+            </div>
+        </div>
+        <div class="related-grid-pg">
+            <a href="sip.html" class="related-card-pg"><div class="related-card-name">SIP</div><div class="related-card-desc">Systematic investment plan — start with Rs.500 per month</div></a>
+            <a href="nps.html" class="related-card-pg"><div class="related-card-name">NPS</div><div class="related-card-desc">Government-backed retirement corpus building</div></a>
+            <a href="retirement-planning.html" class="related-card-pg"><div class="related-card-name">Retirement Planning</div><div class="related-card-desc">Detailed retirement corpus planning and strategy</div></a>
+            <a href="tax-planning.html" class="related-card-pg"><div class="related-card-name">Tax Planning (ELSS)</div><div class="related-card-desc">Save up to Rs.46,800 in tax while investing for the future</div></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@ajfinance.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="product-pages.js"></script>
+</body>
+</html>

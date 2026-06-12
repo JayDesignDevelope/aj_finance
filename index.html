@@ -15,14 +15,207 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-left">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <svg width="130" height="24" viewBox="0 0 380 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text>
                     </svg>
                 </a>
                 <div class="nav-links">
-                    <!-- Loans Dropdown -->
-                    <div class="nav-item dropdown" id="loansDropdown">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+
+                    <!-- Services Tab Mega Dropdown -->
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">
+                            Services
+                            <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="smp-panel" id="smpPanel">
+                            <!-- Tab headers -->
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+                            </div>
+                            <!-- LOANS panel -->
+                            <div class="smp-content active" id="smp-loans">
+                                <div class="smp-col">
+                                    <div class="smp-col-title">PERSONAL</div>
+                                    <a href="home-loan.html" class="smp-link">Home Loan</a>
+                                    <a href="personal-loan.html" class="smp-link">Personal Loan</a>
+                                    <a href="top-up-loan.html" class="smp-link">Top-Up Loan</a>
+                                    <a href="auto-loan.html" class="smp-link">Auto Loan</a>
+                                    <a href="education-loan.html" class="smp-link">Education Loan</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">BUSINESS</div>
+                                    <a href="business-loan.html" class="smp-link">Business Loan</a>
+                                    <a href="msme-loan.html" class="smp-link">MSME Loan</a>
+                                    <a href="working-capital.html" class="smp-link">Working Capital</a>
+                                    <a href="lap.html" class="smp-link">Loan Against Property</a>
+                                    <a href="las.html" class="smp-link">Loan Against Securities</a>
+                                    <a href="bridge-financing.html" class="smp-link">Bridge Financing</a>
+                                    <a href="project-funding.html" class="smp-link">Project Funding</a>
+                                    <a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">QUICK ACCESS</div>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('emi');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 13h8M8 17h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>EMI Calculator</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('eligibility');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Eligibility Check</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('cibil');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L15 8H21L16 12L18 19L12 15L6 19L8 12L3 8H9L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>CIBIL Score Check</a>
+                                    <a href="#sanction" class="smp-link smp-link-icon" onclick="closeSMP()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/></svg>Sanction Letter Review</a>
+                                </div>
+                                <div class="smp-featured">
+                                    <img class="smp-featured-art" src="assets/illustrations/finance-landmark.png" alt="" aria-hidden="true">
+                                    <div class="smp-featured-label">FEATURED GUIDE</div>
+                                    <div class="smp-featured-title">Hidden loan charges that cost more than the rate</div>
+                                    <p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p>
+                                    <a href="blog.html" class="smp-featured-link">Read guide →</a>
+                                </div>
+                            </div>
+                            <!-- WEALTH panel -->
+                            <div class="smp-content" id="smp-wealth">
+                                <div class="smp-col">
+                                    <div class="smp-col-title">SYSTEMATIC INVESTING</div>
+                                    <a href="mutual-funds.html" class="smp-link">Mutual Funds</a>
+                                    <a href="sip.html" class="smp-link">SIP</a>
+                                    <a href="swp.html" class="smp-link">SWP</a>
+                                    <a href="stp.html" class="smp-link">STP</a>
+                                    <a href="nps.html" class="smp-link">NPS</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div>
+                                    <a href="pms.html" class="smp-link">PMS</a>
+                                    <a href="aif.html" class="smp-link">AIF</a>
+                                    <a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a>
+                                    <a href="reits.html" class="smp-link">REITs</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">LIFE PLANNING</div>
+                                    <a href="goal-planning.html" class="smp-link">Goal Planning</a>
+                                    <a href="retirement-planning.html" class="smp-link">Retirement Planning</a>
+                                    <a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a>
+                                    <a href="wealth-management.html" class="smp-link">Wealth Management</a>
+                                    <a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a>
+                                </div>
+                                <div class="smp-featured">
+                                    <img class="smp-featured-art" src="assets/illustrations/wealth-observatory.png" alt="" aria-hidden="true">
+                                    <div class="smp-featured-label">FEATURED GUIDE</div>
+                                    <div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div>
+                                    <p class="smp-featured-desc">The power of compounding &amp; rupee cost averaging explained</p>
+                                    <a href="blog.html" class="smp-featured-link">Read guide →</a>
+                                </div>
+                            </div>
+                            <!-- INSURANCE panel -->
+                            <div class="smp-content" id="smp-insurance">
+                                <div class="smp-col">
+                                    <div class="smp-col-title">LIFE INSURANCE</div>
+                                    <a href="term-insurance.html" class="smp-link">Term Insurance</a>
+                                    <a href="ulip.html" class="smp-link">ULIP</a>
+                                    <a href="child-plan.html" class="smp-link">Child Plan</a>
+                                    <a href="retirement-plan.html" class="smp-link">Retirement Plan</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">HEALTH INSURANCE</div>
+                                    <a href="health-insurance.html" class="smp-link">Individual Health</a>
+                                    <a href="family-floater.html" class="smp-link">Family Floater</a>
+                                    <a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a>
+                                    <a href="critical-illness.html" class="smp-link">Critical Illness</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">GENERAL &amp; GROUP</div>
+                                    <a href="motor-insurance.html" class="smp-link">Motor Insurance</a>
+                                    <a href="home-insurance.html" class="smp-link">Home Insurance</a>
+                                    <a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a>
+                                </div>
+                                <div class="smp-featured">
+                                    <img class="smp-featured-art" src="assets/illustrations/finance-landmark.png" alt="" aria-hidden="true">
+                                    <div class="smp-featured-label">FEATURED GUIDE</div>
+                                    <div class="smp-featured-title">7 health insurance mistakes Indian families make</div>
+                                    <p class="smp-featured-desc">Underinsuring, ignoring sub-limits &amp; restoration benefits</p>
+                                    <a href="blog.html" class="smp-featured-link">Read guide →</a>
+                                </div>
+                            </div>
+                            <!-- TOOLS panel -->
+                            <div class="smp-content" id="smp-tools">
+                                <div class="smp-col">
+                                    <div class="smp-col-title">LOAN TOOLS</div>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('emi');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18" stroke="currentColor" stroke-width="2"/></svg>EMI Calculator</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('balance');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17 1l4 4-4 4M7 23l-4-4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Balance Transfer Calc</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('compare');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>Loan Comparison</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">CHECK &amp; PLAN</div>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('eligibility');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Eligibility Checker</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('cibil');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L15 8H21L16 12L18 19L12 15L6 19L8 12L3 8H9L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>CIBIL Score Check</a>
+                                    <a href="#" class="smp-link smp-link-icon" onclick="openTool('sip');closeSMP();return false;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SIP Calculator</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">ADVISORY TOOLS</div>
+                                    <a href="#sanction" class="smp-link smp-link-icon" onclick="closeSMP()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/></svg>Sanction Letter Review</a>
+                                    <a href="#get-started" class="smp-link smp-link-icon" onclick="closeSMP()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Talk to an Advisor</a>
+                                </div>
+                                <div class="smp-featured">
+                                    <img class="smp-featured-art" src="assets/illustrations/finance-landmark.png" alt="" aria-hidden="true">
+                                    <div class="smp-featured-label">FREE SERVICE</div>
+                                    <div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div>
+                                    <p class="smp-featured-desc">We identify hidden clauses in 4 hours — at zero cost</p>
+                                    <a href="#sanction" class="smp-featured-link" onclick="closeSMP()">Learn more →</a>
+                                </div>
+                            </div>
+                            <!-- ADVISORY panel -->
+                            <div class="smp-content" id="smp-advisory">
+                                <div class="smp-col">
+                                    <div class="smp-col-title">OUR SERVICES</div>
+                                    <a href="advisory.html" class="smp-link">Loan Advisory</a>
+                                    <a href="advisory.html" class="smp-link">Investment Advisory</a>
+                                    <a href="advisory.html" class="smp-link">Insurance Review</a>
+                                    <a href="advisory.html" class="smp-link">Credit Score Improvement</a>
+                                    <a href="advisory.html" class="smp-link">Financial Planning</a>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">HOW IT WORKS</div>
+                                    <div class="smp-steps">
+                                        <div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div>
+                                        <div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div>
+                                        <div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div>
+                                        <div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div>
+                                    </div>
+                                </div>
+                                <div class="smp-col">
+                                    <div class="smp-col-title">WHY AJ FINANCE</div>
+                                    <div class="smp-why-list">
+                                        <div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div>
+                                        <div class="smp-why-item"><span class="smp-why-val">₹0</span><span class="smp-why-label">Advisory cost</span></div>
+                                        <div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div>
+                                        <div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div>
+                                    </div>
+                                </div>
+                                <div class="smp-featured smp-featured-cta">
+                                    <img class="smp-featured-art" src="assets/illustrations/finance-landmark.png" alt="" aria-hidden="true">
+                                    <div class="smp-featured-label">FREE ADVISORY</div>
+                                    <div class="smp-featured-title">Book a 45-minute financial review</div>
+                                    <p class="smp-featured-desc">No sales pitch. Just honest, expert guidance for your goals.</p>
+                                    <a href="#get-started" class="smp-featured-btn" onclick="closeSMP()">Book Free Call</a>
+                                </div>
+                            </div>
+                            <!-- Footer bar -->
+                            <div class="smp-footer-bar">
+                                <span>Need help choosing? <a href="#get-started" onclick="closeSMP()">Book a 45-minute call →</a></span>
+                                <a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+
+                    <!-- Old Loans Dropdown (hidden — kept for tool onclick refs) -->
+                    <div class="nav-item dropdown" id="loansDropdown" style="display:none">
                         <a href="#products" class="nav-link">
                             Loans
                             <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -98,7 +291,7 @@
                         </div>
                     </div>
                     <!-- Tools Dropdown -->
-                    <div class="nav-item dropdown" id="toolsDropdown">
+                    <div class="nav-item dropdown" id="toolsDropdown" style="display:none">
                         <a href="#tools" class="nav-link">
                             Tools
                             <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -164,8 +357,78 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Wealth Dropdown -->
+                    <div class="nav-item dropdown" id="wealthDropdown" style="display:none">
+                        <a href="#wealth-section" class="nav-link">
+                            Wealth
+                            <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu dropdown-mega">
+                            <div class="mega-col">
+                                <div class="mega-col-title">Systematic Investing</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7H21V11" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Mutual Funds</span><span class="dropdown-desc">Diversified fund investments</span></div></a>
+                                <a href="#" class="dropdown-item" onclick="openTool('sip'); return false;"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#00d09c" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#00d09c" stroke-width="2" stroke-linecap="round"/></svg></div><div><span class="dropdown-title">SIP</span><span class="dropdown-desc">Systematic Investment Plan</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 1V23M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#00d09c" stroke-width="2" stroke-linecap="round"/></svg></div><div><span class="dropdown-title">Tax Planning</span><span class="dropdown-desc">ELSS &amp; 80C tax-saving funds</span></div></a>
+                            </div>
+                            <div class="mega-col">
+                                <div class="mega-col-title">Managed &amp; Alternative</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#eef0ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#5367ff" stroke-width="2"/><path d="M3 9h18M9 21V9" stroke="#5367ff" stroke-width="2"/></svg></div><div><span class="dropdown-title">Bonds &amp; Fixed Income</span><span class="dropdown-desc">Stable returns with security</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#eef0ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#5367ff" stroke-width="2" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">REITs</span><span class="dropdown-desc">Real estate investment trusts</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#eef0ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#5367ff" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#5367ff" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#5367ff" stroke-width="2"/></svg></div><div><span class="dropdown-title">PMS / AIF</span><span class="dropdown-desc">Portfolio &amp; alternative funds</span></div></a>
+                            </div>
+                            <div class="mega-col">
+                                <div class="mega-col-title">Life Planning</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fff8e8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L15 8H21L16 12L18 19L12 15L6 19L8 12L3 8H9L12 2Z" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Retirement Planning</span><span class="dropdown-desc">Build your retirement corpus</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fff8e8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#f5a623" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/></svg></div><div><span class="dropdown-title">Goal Planning</span><span class="dropdown-desc">Achieve life financial goals</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fff8e8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#f5a623" stroke-width="2"/><path d="M3 9h18" stroke="#f5a623" stroke-width="2"/></svg></div><div><span class="dropdown-title">NPS</span><span class="dropdown-desc">National Pension System</span></div></a>
+                            </div>
+                            <div class="mega-featured">
+                                <div class="mega-featured-label">Featured Guide</div>
+                                <div class="mega-featured-title">SIP vs Lump Sum: Which builds more wealth for you?</div>
+                                <a href="#blog" class="mega-featured-link">Read Guide →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insurance Dropdown -->
+                    <div class="nav-item dropdown" id="insuranceDropdown" style="display:none">
+                        <a href="#insurance-section" class="nav-link">
+                            Insurance
+                            <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu dropdown-mega">
+                            <div class="mega-col">
+                                <div class="mega-col-title">Life Insurance</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fce8e4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#eb5b3c" stroke-width="2" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Term Insurance</span><span class="dropdown-desc">Pure life cover at low premium</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fce8e4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L15 8H21L16 12L18 19L12 15L6 19L8 12L3 8H9L12 2Z" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Child Plan</span><span class="dropdown-desc">Secure your child's future</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#fce8e4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round"/></svg></div><div><span class="dropdown-title">Retirement Plan</span><span class="dropdown-desc">Pension &amp; annuity plans</span></div></a>
+                            </div>
+                            <div class="mega-col">
+                                <div class="mega-col-title">Health Insurance</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#00b386" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="#00b386" stroke-width="2"/></svg></div><div><span class="dropdown-title">Individual Cover</span><span class="dropdown-desc">Personal health protection</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#00b386" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#00b386" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#00b386" stroke-width="2"/></svg></div><div><span class="dropdown-title">Family Floater</span><span class="dropdown-desc">Cover your entire family</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#e8f9f4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#00b386" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="#00b386" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Critical Illness</span><span class="dropdown-desc">Lump sum for major illnesses</span></div></a>
+                            </div>
+                            <div class="mega-col">
+                                <div class="mega-col-title">General &amp; Group</div>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#f3eeff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="13" rx="2" stroke="#8b5cf6" stroke-width="2"/><path d="M16 7V5a4 4 0 00-8 0v2" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/></svg></div><div><span class="dropdown-title">Motor Insurance</span><span class="dropdown-desc">Car &amp; bike coverage</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#f3eeff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round"/></svg></div><div><span class="dropdown-title">Home Insurance</span><span class="dropdown-desc">Property &amp; contents cover</span></div></a>
+                                <a href="#" class="dropdown-item"><div class="dropdown-icon" style="background:#f3eeff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#8b5cf6" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#8b5cf6" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#8b5cf6" stroke-width="2"/></svg></div><div><span class="dropdown-title">Group Insurance</span><span class="dropdown-desc">GMC &amp; GPA for SME teams</span></div></a>
+                            </div>
+                            <div class="mega-featured">
+                                <div class="mega-featured-label">Featured Guide</div>
+                                <div class="mega-featured-title">Term vs Whole Life: Which is right for you?</div>
+                                <a href="#blog" class="mega-featured-link">Read Guide →</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- More Dropdown -->
-                    <div class="nav-item dropdown" id="moreDropdown">
+                    <div class="nav-item dropdown" id="moreDropdown" style="display:none">
                         <a href="#" class="nav-link">
                             More
                             <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -225,7 +488,7 @@
                 </div>
             </div>
             <div class="nav-right">
-                <div class="nav-search" id="navSearch">
+                <div class="nav-search" id="navSearch" style="display:none">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                         <circle cx="11" cy="11" r="7" stroke="#44475b" stroke-width="2"/>
                         <path d="M16 16L21 21" stroke="#44475b" stroke-width="2" stroke-linecap="round"/>
@@ -236,12 +499,11 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     <span>+91 98765 43210</span>
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="nav-whatsapp" aria-label="WhatsApp">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="#" class="btn-login">Login</a>
-                <a href="#apply" class="btn-signup">Apply Now</a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <a href="#get-started" class="btn-signup">Talk to an Advisor</a>
             </div>
             <button class="mobile-toggle" id="mobileToggle">
                 <span></span><span></span><span></span>
@@ -251,12 +513,118 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#products">Our Services</a>
-        <a href="#about">About Us</a>
-        <a href="#eligibility">Check Eligibility</a>
-        <a href="#faq">FAQs</a>
-        <a href="#apply" class="btn-signup">Apply Now</a>
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a>
+        <a href="personal-loan.html">Personal Loan</a>
+        <a href="business-loan.html">Business Loan</a>
+        <a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a>
+        <a href="sip.html">SIP</a>
+        <a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a>
+        <a href="health-insurance.html">Health Insurance</a>
+        <a href="motor-insurance.html">Motor Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="#get-started" class="btn-signup">Talk to an Advisor</a>
     </div>
+
+    <!-- SMP Overlay -->
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <!-- Scrolling Ticker -->
+    <section class="ticker-section">
+        <div class="ticker-wrap">
+            <div class="ticker" id="ticker">
+                <div class="ticker-item">
+                    <span class="ticker-name">Personal Loan</span>
+                    <span class="ticker-price">from 10.49%</span>
+                    <span class="ticker-change positive">Low Interest</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Business Loan</span>
+                    <span class="ticker-price">from 14.0%</span>
+                    <span class="ticker-change positive">Fast Approval</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Home Loan</span>
+                    <span class="ticker-price">from 8.35%</span>
+                    <span class="ticker-change positive">Lowest Rates</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Loan Against Property</span>
+                    <span class="ticker-price">from 9.5%</span>
+                    <span class="ticker-change positive">Flexible Tenure</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Professional Loan</span>
+                    <span class="ticker-price">from 10.75%</span>
+                    <span class="ticker-change positive">Quick Disbursal</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">SBI</span>
+                    <span class="ticker-price">PL @ 11.15%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">HDFC Bank</span>
+                    <span class="ticker-price">PL @ 10.75%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">ICICI Bank</span>
+                    <span class="ticker-price">PL @ 10.85%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+                <!-- Duplicated for seamless loop -->
+                <div class="ticker-item">
+                    <span class="ticker-name">Personal Loan</span>
+                    <span class="ticker-price">from 10.49%</span>
+                    <span class="ticker-change positive">Low Interest</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Business Loan</span>
+                    <span class="ticker-price">from 14.0%</span>
+                    <span class="ticker-change positive">Fast Approval</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Home Loan</span>
+                    <span class="ticker-price">from 8.35%</span>
+                    <span class="ticker-change positive">Lowest Rates</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Loan Against Property</span>
+                    <span class="ticker-price">from 9.5%</span>
+                    <span class="ticker-change positive">Flexible Tenure</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">Professional Loan</span>
+                    <span class="ticker-price">from 10.75%</span>
+                    <span class="ticker-change positive">Quick Disbursal</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">SBI</span>
+                    <span class="ticker-price">PL @ 11.15%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">HDFC Bank</span>
+                    <span class="ticker-price">PL @ 10.75%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-name">ICICI Bank</span>
+                    <span class="ticker-price">PL @ 10.85%</span>
+                    <span class="ticker-change positive">Trusted Partner</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -300,35 +668,89 @@
             </div>
             <div class="hero-visual" id="heroVisual">
                 <div class="hero-iso-wrap">
-                  <svg id="heroIsoSvg" viewBox="0 0 560 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
-                  <!-- Floating badges -->
-                  <div class="hiso-badge badge-approved">
-                    <div class="hiso-badge-icon" style="background:#e8faf5">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#00d09c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="hero-orbit hero-orbit-one"></div>
+                    <div class="hero-orbit hero-orbit-two"></div>
+                    <svg id="heroIsoSvg" viewBox="0 0 620 470" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+
+                    <div class="market-board market-board-main" aria-hidden="true">
+                        <div class="market-board-head">
+                            <span class="market-board-kicker"><i></i> Market pulse</span>
+                            <span class="market-board-time">NSE · LIVE</span>
+                        </div>
+                        <div class="market-board-value">
+                            <strong data-market-value>84,286</strong>
+                            <span>+1.82%</span>
+                        </div>
+                        <svg class="market-board-chart" viewBox="0 0 240 92" fill="none">
+                            <defs>
+                                <linearGradient id="heroMarketFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#00d09c" stop-opacity=".34"/>
+                                    <stop offset="100%" stop-color="#00d09c" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <g class="market-chart-grid">
+                                <path d="M0 18H240M0 46H240M0 74H240"/>
+                                <path d="M40 0V92M96 0V92M152 0V92M208 0V92"/>
+                            </g>
+                            <path class="market-chart-fill" d="M0 78L22 72L42 75L62 58L82 64L104 47L124 52L146 34L166 40L188 22L208 28L240 8V92H0Z" fill="url(#heroMarketFill)"/>
+                            <path class="market-chart-line" d="M0 78L22 72L42 75L62 58L82 64L104 47L124 52L146 34L166 40L188 22L208 28L240 8"/>
+                            <circle class="market-chart-dot" cx="240" cy="8" r="4"/>
+                        </svg>
+                        <div class="market-board-bars">
+                            <span style="--bar:38%"></span><span style="--bar:56%"></span><span style="--bar:47%"></span>
+                            <span style="--bar:72%"></span><span style="--bar:64%"></span><span style="--bar:88%"></span>
+                            <span style="--bar:78%"></span><span style="--bar:100%"></span>
+                        </div>
                     </div>
-                    <div>
-                      <div class="hiso-badge-label">Loan Approved</div>
-                      <div class="hiso-badge-val">₹5,00,000</div>
+
+                    <div class="market-clock-card" aria-hidden="true">
+                        <div class="market-clock-face">
+                            <span class="clock-mark mark-12"></span><span class="clock-mark mark-3"></span>
+                            <span class="clock-mark mark-6"></span><span class="clock-mark mark-9"></span>
+                            <span class="clock-hand clock-hour"></span>
+                            <span class="clock-hand clock-minute"></span>
+                            <span class="clock-hand clock-second"></span>
+                            <span class="clock-pin"></span>
+                        </div>
+                        <div>
+                            <span class="market-clock-label">Market opens</span>
+                            <strong id="heroDigitalTime">09:15</strong>
+                        </div>
                     </div>
-                  </div>
-                  <div class="hiso-badge badge-rate">
-                    <div class="hiso-badge-icon" style="background:#eef0ff">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 5L5 19M9 7a2 2 0 11-4 0 2 2 0 014 0zm10 10a2 2 0 11-4 0 2 2 0 014 0z" stroke="#5367ff" stroke-width="2" stroke-linecap="round"/></svg>
+
+                    <div class="market-rate-stack" aria-hidden="true">
+                        <div class="market-rate-card is-active">
+                            <span>HOME LOAN</span><strong>8.35%</strong><em>Best rate</em>
+                        </div>
+                        <div class="market-rate-card">
+                            <span>BUSINESS</span><strong>11.90%</strong><em>Fast approval</em>
+                        </div>
+                        <div class="market-rate-card">
+                            <span>PERSONAL</span><strong>10.49%</strong><em>Low EMI</em>
+                        </div>
                     </div>
-                    <div>
-                      <div class="hiso-badge-label">Best Rate</div>
-                      <div class="hiso-badge-val">8.5% p.a.</div>
+
+                    <div class="hero-market-ticker" aria-hidden="true">
+                        <div class="hero-market-ticker-track">
+                            <span>NIFTY 50 <b>+1.24%</b></span><span>SENSEX <b>+0.96%</b></span>
+                            <span>BANK NIFTY <b>+1.41%</b></span><span>HOME LOAN <b>8.35%</b></span>
+                            <span>NIFTY 50 <b>+1.24%</b></span><span>SENSEX <b>+0.96%</b></span>
+                            <span>BANK NIFTY <b>+1.41%</b></span><span>HOME LOAN <b>8.35%</b></span>
+                        </div>
                     </div>
-                  </div>
-                  <div class="hiso-badge badge-cibil">
-                    <div class="hiso-badge-icon" style="background:#fff8ed">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="#f5a623" stroke-width="2" fill="#f5a623" opacity="0.85" stroke-linejoin="round"/></svg>
+
+                    <div class="hiso-badge badge-approved">
+                        <div class="hiso-badge-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div><div class="hiso-badge-label">Loan approved</div><div class="hiso-badge-val">₹5,00,000</div></div>
                     </div>
-                    <div>
-                      <div class="hiso-badge-label">CIBIL Score</div>
-                      <div class="hiso-badge-val">780 Excellent</div>
+                    <div class="hiso-badge badge-cibil">
+                        <div class="hiso-badge-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7M17 7H21V11" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div><div class="hiso-badge-label">Credit health</div><div class="hiso-badge-val">780 · Excellent</div></div>
                     </div>
-                  </div>
                 </div>
                 <!-- legacy phone mockup (hidden, kept for non-JS) -->
                 <div class="hero-phone-mockup" style="display:none">
@@ -443,96 +865,47 @@
         </div>
     </section>
 
-    <!-- Scrolling Ticker -->
-    <section class="ticker-section">
-        <div class="ticker-wrap">
-            <div class="ticker" id="ticker">
-                <div class="ticker-item">
-                    <span class="ticker-name">Personal Loan</span>
-                    <span class="ticker-price">from 10.49%</span>
-                    <span class="ticker-change positive">Low Interest</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Business Loan</span>
-                    <span class="ticker-price">from 14.0%</span>
-                    <span class="ticker-change positive">Fast Approval</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Home Loan</span>
-                    <span class="ticker-price">from 8.35%</span>
-                    <span class="ticker-change positive">Lowest Rates</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Loan Against Property</span>
-                    <span class="ticker-price">from 9.5%</span>
-                    <span class="ticker-change positive">Flexible Tenure</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Professional Loan</span>
-                    <span class="ticker-price">from 10.75%</span>
-                    <span class="ticker-change positive">Quick Disbursal</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">SBI</span>
-                    <span class="ticker-price">PL @ 11.15%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">HDFC Bank</span>
-                    <span class="ticker-price">PL @ 10.75%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">ICICI Bank</span>
-                    <span class="ticker-price">PL @ 10.85%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
-                </div>
-                <!-- Duplicated for seamless loop -->
-                <div class="ticker-item">
-                    <span class="ticker-name">Personal Loan</span>
-                    <span class="ticker-price">from 10.49%</span>
-                    <span class="ticker-change positive">Low Interest</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Business Loan</span>
-                    <span class="ticker-price">from 14.0%</span>
-                    <span class="ticker-change positive">Fast Approval</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Home Loan</span>
-                    <span class="ticker-price">from 8.35%</span>
-                    <span class="ticker-change positive">Lowest Rates</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Loan Against Property</span>
-                    <span class="ticker-price">from 9.5%</span>
-                    <span class="ticker-change positive">Flexible Tenure</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">Professional Loan</span>
-                    <span class="ticker-price">from 10.75%</span>
-                    <span class="ticker-change positive">Quick Disbursal</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">SBI</span>
-                    <span class="ticker-price">PL @ 11.15%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">HDFC Bank</span>
-                    <span class="ticker-price">PL @ 10.75%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-name">ICICI Bank</span>
-                    <span class="ticker-price">PL @ 10.85%</span>
-                    <span class="ticker-change positive">Trusted Partner</span>
+    <!-- Lender Logos Carousel -->
+    <section class="lenders-section">
+        <div class="lenders-inner">
+            <div class="lenders-heading gsap-fade">Trusted by <strong>25+ Lenders</strong> across India</div>
+            <div class="lenders-track-wrap">
+                <div class="lenders-track">
+                    <div class="lender-badge lb-sbi">SBI</div>
+                    <div class="lender-badge lb-hdfc">HDFC Bank</div>
+                    <div class="lender-badge lb-icici">ICICI Bank</div>
+                    <div class="lender-badge lb-kotak">Kotak Mahindra</div>
+                    <div class="lender-badge lb-axis">Axis Bank</div>
+                    <div class="lender-badge lb-bajaj">Bajaj Finserv</div>
+                    <div class="lender-badge lb-lic">LIC HFL</div>
+                    <div class="lender-badge lb-pnb">PNB Housing</div>
+                    <div class="lender-badge lb-tata">Tata Capital</div>
+                    <div class="lender-badge lb-idfc">IDFC First</div>
+                    <div class="lender-badge lb-lt">L&amp;T Finance</div>
+                    <div class="lender-badge lb-ab">Aditya Birla</div>
+                    <div class="lender-badge lb-piramal">Piramal Finance</div>
+                    <div class="lender-badge lb-yes">Yes Bank</div>
+                    <div class="lender-badge lb-indus">IndusInd Bank</div>
+                    <!-- duplicate for seamless loop -->
+                    <div class="lender-badge lb-sbi">SBI</div>
+                    <div class="lender-badge lb-hdfc">HDFC Bank</div>
+                    <div class="lender-badge lb-icici">ICICI Bank</div>
+                    <div class="lender-badge lb-kotak">Kotak Mahindra</div>
+                    <div class="lender-badge lb-axis">Axis Bank</div>
+                    <div class="lender-badge lb-bajaj">Bajaj Finserv</div>
+                    <div class="lender-badge lb-lic">LIC HFL</div>
+                    <div class="lender-badge lb-pnb">PNB Housing</div>
+                    <div class="lender-badge lb-tata">Tata Capital</div>
+                    <div class="lender-badge lb-idfc">IDFC First</div>
+                    <div class="lender-badge lb-lt">L&amp;T Finance</div>
+                    <div class="lender-badge lb-ab">Aditya Birla</div>
+                    <div class="lender-badge lb-piramal">Piramal Finance</div>
+                    <div class="lender-badge lb-yes">Yes Bank</div>
+                    <div class="lender-badge lb-indus">IndusInd Bank</div>
                 </div>
             </div>
         </div>
     </section>
-
-
 
     <!-- Numbers That Matter Section -->
     <section class="numbers-section" id="numbers">
@@ -601,6 +974,94 @@
                     </div>
                     <div class="number-label">Secure & Encrypted</div>
                     <div class="number-bar"><div class="number-bar-fill" data-width="100" style="background:#00b386"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Verticals / What We Offer Section -->
+    <section class="verticals-section" id="verticals">
+        <div class="container">
+            <div class="section-header gsap-fade">
+                <div class="section-eyebrow">What We Offer</div>
+                <h2 class="section-title">Specialists in Three Verticals.<br>Working as One Team for You.</h2>
+                <p class="section-subtitle">Loans, Wealth &amp; Insurance — coordinated by a single dedicated advisor for your complete financial journey.</p>
+            </div>
+            <div class="verticals-grid">
+                <!-- Loans Card -->
+                <div class="vertical-card gsap-fade">
+                    <div class="vc-header">
+                        <div class="vc-icon" style="background:linear-gradient(135deg,#e8faf4,#c8f0e4)">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 1V23M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#00d09c" stroke-width="2" stroke-linecap="round"/></svg>
+                        </div>
+                        <div>
+                            <span class="vc-count">13 Products</span>
+                            <h3 class="vc-title">Loans</h3>
+                        </div>
+                    </div>
+                    <p class="vc-desc">From home loans to project funding, we compare 25+ lenders to get you the right rate with transparent disbursal at every step.</p>
+                    <div class="vc-stats-row">
+                        <span>7.25% from p.a.</span>
+                        <span>₹100Cr max loan</span>
+                        <span>25+ lenders</span>
+                    </div>
+                    <div class="vc-product-list">
+                        <a href="home-loan.html" class="vc-product-pill">Home Loan</a><a href="personal-loan.html" class="vc-product-pill">Personal Loan</a><a href="business-loan.html" class="vc-product-pill">Business Loan</a><a href="top-up-loan.html" class="vc-product-pill">Top-Up Loan</a><a href="msme-loan.html" class="vc-product-pill">MSME Loan</a><a href="working-capital.html" class="vc-product-pill">Working Capital</a><a href="lap.html" class="vc-product-pill">Loan Against Property</a><a href="las.html" class="vc-product-pill">Loan Against Securities</a><a href="bridge-financing.html" class="vc-product-pill">Bridge Financing</a><a href="project-funding.html" class="vc-product-pill">Project Funding</a><a href="unsecured-business-loan.html" class="vc-product-pill">Unsecured Business Loan</a><a href="auto-loan.html" class="vc-product-pill">Auto Loan</a><a href="education-loan.html" class="vc-product-pill">Education Loan</a>
+                    </div>
+                    <div class="vc-cta-row">
+                        <a href="#products" class="vc-cta-primary">Explore All Loans</a>
+                        <a href="#" class="vc-cta-secondary" onclick="openTool('emi'); return false;">EMI Calculator</a>
+                    </div>
+                </div>
+                <!-- Wealth Card -->
+                <div class="vertical-card vc-wealth gsap-fade">
+                    <div class="vc-header">
+                        <div class="vc-icon" style="background:linear-gradient(135deg,#eef0ff,#dde0ff)">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7H21V11" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div>
+                            <span class="vc-count" style="color:#5367ff">14 Products</span>
+                            <h3 class="vc-title">Wealth Management</h3>
+                        </div>
+                    </div>
+                    <p class="vc-desc">From SIP to Bonds to Retirement — goal-based investment planning by AMFI-registered advisors who put your growth first.</p>
+                    <div class="vc-stats-row" style="color:#5367ff">
+                        <span>₹10Cr+ invested</span>
+                        <span>200+ investors</span>
+                        <span>AMFI registered</span>
+                    </div>
+                    <div class="vc-product-list">
+                        <a href="mutual-funds.html" class="vc-product-pill">Mutual Funds</a><a href="sip.html" class="vc-product-pill">SIP</a><a href="swp.html" class="vc-product-pill">SWP</a><a href="stp.html" class="vc-product-pill">STP</a><a href="tax-planning.html" class="vc-product-pill">Tax Planning (ELSS)</a><a href="pms.html" class="vc-product-pill">PMS</a><a href="aif.html" class="vc-product-pill">AIF</a><a href="bonds.html" class="vc-product-pill">Bonds &amp; Fixed Income</a><a href="reits.html" class="vc-product-pill">REITs</a><a href="retirement-planning.html" class="vc-product-pill">Retirement Planning</a><a href="nps.html" class="vc-product-pill">NPS</a><a href="goal-planning.html" class="vc-product-pill">Goal Planning</a><a href="wealth-management.html" class="vc-product-pill">Wealth Management</a><a href="portfolio-advisory.html" class="vc-product-pill">Portfolio Advisory</a>
+                    </div>
+                    <div class="vc-cta-row">
+                        <a href="#wealth-section" class="vc-cta-primary" style="background:#5367ff;border-color:#5367ff">Explore Wealth</a>
+                        <a href="#" class="vc-cta-secondary" style="color:#5367ff;border-color:rgba(83,103,255,0.35)" onclick="openTool('sip'); return false;">SIP Calculator</a>
+                    </div>
+                </div>
+                <!-- Insurance Card -->
+                <div class="vertical-card vc-insurance gsap-fade">
+                    <div class="vc-header">
+                        <div class="vc-icon" style="background:linear-gradient(135deg,#fce8e4,#fdd0c8)">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#eb5b3c" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div>
+                            <span class="vc-count" style="color:#eb5b3c">8 Products</span>
+                            <h3 class="vc-title">Insurance</h3>
+                        </div>
+                    </div>
+                    <p class="vc-desc">Life, health, commercial and group insurance — advisor-first approach to ensure you're covered, not just sold a policy.</p>
+                    <div class="vc-stats-row" style="color:#eb5b3c">
+                        <span>15+ insurer partners</span>
+                        <span>8 products</span>
+                        <span>SME group cover</span>
+                    </div>
+                    <div class="vc-product-list">
+                        <a href="term-insurance.html" class="vc-product-pill">Term Insurance</a><a href="ulip.html" class="vc-product-pill">ULIP</a><a href="health-insurance.html" class="vc-product-pill">Individual Health</a><a href="family-floater.html" class="vc-product-pill">Family Floater</a><a href="senior-citizen-cover.html" class="vc-product-pill">Senior Citizen Cover</a><a href="critical-illness.html" class="vc-product-pill">Critical Illness</a><a href="motor-insurance.html" class="vc-product-pill">Motor Insurance</a><a href="group-insurance.html" class="vc-product-pill">Group GMC &amp; GPA</a>
+                    </div>
+                    <div class="vc-cta-row">
+                        <a href="#insurance-section" class="vc-cta-primary" style="background:#eb5b3c;border-color:#eb5b3c">Explore Insurance</a>
+                        <a href="#" class="vc-cta-secondary" style="color:#eb5b3c;border-color:rgba(235,91,60,0.35)">Cover Calculator</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -711,6 +1172,46 @@
         </div>
     </section>
 
+    <!-- Wealth Management Callout -->
+    <section class="wealth-callout-section" id="wealth-section">
+        <div class="container">
+            <div class="callout-grid">
+                <div class="callout-content gsap-fade">
+                    <div class="callout-eyebrow" style="color:#5367ff">Wealth Management</div>
+                    <h2 class="callout-title">Grow Your Wealth <span style="color:#5367ff">Systematically</span></h2>
+                    <ul class="callout-features">
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#5367ff" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mutual Funds &amp; SIP investments tailored to your goals</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#5367ff" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Portfolio advisory &amp; rebalancing with market insights</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#5367ff" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Goal-based planning for education, retirement &amp; milestones</li>
+                    </ul>
+                    <div class="callout-stat-badge">
+                        <span>₹10Cr+ Invested</span><span class="csb-sep">·</span><span>200+ Investors</span><span class="csb-sep">·</span><span>AMFI Registered</span>
+                    </div>
+                    <a href="#apply" class="btn-primary callout-cta" style="background:#5367ff;border-color:#5367ff;margin-top:24px;display:inline-flex;">Explore Wealth Plans</a>
+                </div>
+                <div class="callout-visual wealth-visual-scene gsap-fade">
+                    <img class="wealth-visual-art" src="assets/illustrations/wealth-observatory.png" alt="Illustration of a wealth observatory tracking long-term portfolio growth">
+                    <div class="wealth-chart-card wealth-chart-float">
+                        <div class="wcc-header">
+                            <span class="wcc-title">Portfolio Growth</span>
+                            <span class="wcc-badge">+14.2% YTD</span>
+                        </div>
+                        <svg class="wealth-graph" viewBox="0 0 300 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs><linearGradient id="wealthGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5367ff" stop-opacity="0.25"/><stop offset="100%" stop-color="#5367ff" stop-opacity="0"/></linearGradient></defs>
+                            <polyline points="0,120 30,108 60,100 90,88 120,78 150,60 180,52 210,40 240,30 270,20 300,10" fill="none" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="0,120 30,108 60,100 90,88 120,78 150,60 180,52 210,40 240,30 270,20 300,10 300,140 0,140" fill="url(#wealthGrad)" stroke="none"/>
+                            <circle cx="300" cy="10" r="5" fill="#5367ff"/>
+                        </svg>
+                        <div class="wcc-bottom">
+                            <div class="wcc-stat"><span class="wcc-sl">Starting Value</span><span class="wcc-sv">₹1,00,000</span></div>
+                            <div class="wcc-stat"><span class="wcc-sl">Current Value</span><span class="wcc-sv positive">₹2,84,000</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== Financial Services Section ===== -->
     <section class="fin-services-section" id="financial-services">
         <div class="container">
@@ -766,6 +1267,48 @@
                 </div>
             </div>
             <p class="fsc-note">We are a guidance &amp; referral service — not direct sellers of investment or insurance products.</p>
+        </div>
+    </section>
+
+    <!-- Insurance Callout Section -->
+    <section class="insurance-callout-section" id="insurance-section">
+        <div class="container">
+            <div class="callout-grid callout-grid-reverse">
+                <div class="callout-visual gsap-fade">
+                    <div class="insurance-cards-visual">
+                        <div class="insv-card">
+                            <div class="insv-icon" style="background:linear-gradient(135deg,#fce8e4,#fdd0c8)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#eb5b3c" stroke-width="2" stroke-linejoin="round"/></svg></div>
+                            <div><div class="insv-title">Life Insurance</div><div class="insv-desc">Income protection &amp; legacy planning</div></div>
+                            <a href="term-insurance.html" class="insv-link">Explore →</a>
+                        </div>
+                        <div class="insv-card">
+                            <div class="insv-icon" style="background:linear-gradient(135deg,#e8f9f4,#ccf2e5)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#00b386" stroke-width="2"/><circle cx="12" cy="7" r="4" stroke="#00b386" stroke-width="2"/></svg></div>
+                            <div><div class="insv-title">Health Insurance</div><div class="insv-desc">Cashless cover for family &amp; individuals</div></div>
+                            <a href="health-insurance.html" class="insv-link">Explore →</a>
+                        </div>
+                        <div class="insv-card">
+                            <div class="insv-icon" style="background:linear-gradient(135deg,#eef0ff,#dde1ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="13" rx="2" stroke="#5367ff" stroke-width="2"/><path d="M16 7V5a4 4 0 00-8 0v2" stroke="#5367ff" stroke-width="2" stroke-linecap="round"/></svg></div>
+                            <div><div class="insv-title">General Insurance</div><div class="insv-desc">Motor, home &amp; travel coverage</div></div>
+                            <a href="motor-insurance.html" class="insv-link">Explore →</a>
+                        </div>
+                        <div class="insv-card">
+                            <div class="insv-icon" style="background:linear-gradient(135deg,#f3eeff,#e4d9ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#8b5cf6" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="#8b5cf6" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#8b5cf6" stroke-width="2"/></svg></div>
+                            <div><div class="insv-title">Group Insurance</div><div class="insv-desc">GMC &amp; GPA cover for SME teams</div></div>
+                            <a href="group-insurance.html" class="insv-link">Explore →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-content gsap-fade">
+                    <div class="callout-eyebrow" style="color:#eb5b3c">Insurance Advisory</div>
+                    <h2 class="callout-title">Protect What <span style="color:#eb5b3c">Matters Most</span></h2>
+                    <ul class="callout-features">
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Term life &amp; comprehensive health insurance planning</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Motor, home &amp; travel coverage for complete protection</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Group GMC &amp; GPA for SME teams — advisor-first approach</li>
+                    </ul>
+                    <a href="#apply" class="btn-primary callout-cta" style="background:#eb5b3c;border-color:#eb5b3c;margin-top:24px;display:inline-flex;">Explore Insurance Plans</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -899,6 +1442,51 @@
                         Check Eligibility
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section" id="why-choose">
+        <div class="container">
+            <div class="section-header gsap-fade">
+                <div class="section-eyebrow">Why AJ Finance</div>
+                <h2 class="section-title">We Work for You.<br>Not the Lender.</h2>
+                <p class="section-subtitle">As an independent financial advisor, our only incentive is to get you the best deal — from the right lender, at the right rate.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card gsap-fade">
+                    <div class="why-icon-wrap" style="background:linear-gradient(135deg,#e8faf4,#ccf2e5)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#00d09c" stroke-width="2.5"/><circle cx="9" cy="7" r="4" stroke="#00d09c" stroke-width="2.5"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#00d09c" stroke-width="2.5"/></svg>
+                    </div>
+                    <h3 class="why-title">25+ Lender Network</h3>
+                    <p class="why-desc">One application reaches SBI, HDFC, ICICI, Kotak, Bajaj and 20+ more — we compare all so you don't have to.</p>
+                    <div class="why-tagline">You compare; we negotiate.</div>
+                </div>
+                <div class="why-card gsap-fade">
+                    <div class="why-icon-wrap" style="background:linear-gradient(135deg,#eef0ff,#dde1ff)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#5367ff" stroke-width="2.5"/><path d="M12 6v6l4 2" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="why-title">5–7 Days to Disbursal</h3>
+                    <p class="why-desc">From complete document submission to money in your account — your advisor tracks every stage so nothing falls through.</p>
+                    <div class="why-tagline">Fast, tracked, transparent.</div>
+                </div>
+                <div class="why-card gsap-fade">
+                    <div class="why-icon-wrap" style="background:linear-gradient(135deg,#fff8e8,#ffefc2)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 1V23M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#f5a623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3 class="why-title">₹0 Cost to You</h3>
+                    <p class="why-desc">We earn a standard fee from the lender — the same as a bank branch. You pay nothing extra. We just fight harder for you.</p>
+                    <div class="why-tagline">Free advisory. Always.</div>
+                </div>
+                <div class="why-card gsap-fade">
+                    <div class="why-icon-wrap" style="background:linear-gradient(135deg,#fef0ec,#fdddd4)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#eb5b3c" stroke-width="2.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="why-title">1 Dedicated Advisor</h3>
+                    <p class="why-desc">One expert for your entire journey — from first call to disbursed loan. No handoffs, no call centres, no confusion.</p>
+                    <div class="why-tagline">One person. All the way.</div>
                 </div>
             </div>
         </div>
@@ -1053,6 +1641,75 @@
         </div>
     </section>
 
+    <!-- Real Client Outcomes Section -->
+    <section class="outcomes-section" id="outcomes">
+        <div class="container">
+            <div class="section-header gsap-fade">
+                <div class="section-eyebrow">Proven Results</div>
+                <h2 class="section-title">Real Client Outcomes</h2>
+                <p class="section-subtitle">Every number here represents a real client we helped. Results vary, but our commitment doesn't.</p>
+            </div>
+            <div class="outcomes-grid">
+                <div class="outcome-card gsap-fade">
+                    <div class="oc-type">Home Loan · Hyderabad</div>
+                    <div class="oc-metric"><span class="oc-val">8.4%</span><span class="oc-label">p.a. secured</span></div>
+                    <div class="oc-details">
+                        <div class="oc-detail-row"><span>Loan Amount</span><strong>₹65 Lakhs</strong></div>
+                        <div class="oc-detail-row oc-highlight"><span>Amount Saved</span><strong class="positive">₹2.1 Lakhs</strong></div>
+                        <div class="oc-detail-row"><span>Time to Disbursal</span><strong>6 working days</strong></div>
+                    </div>
+                    <div class="oc-footer"><div class="oc-avatar">R</div><div class="oc-client">Ramesh K., Hyderabad</div></div>
+                </div>
+                <div class="outcome-card outcome-featured gsap-fade">
+                    <div class="oc-type">Business Loan · MSME</div>
+                    <div class="oc-metric"><span class="oc-val">₹40L</span><span class="oc-label">approved</span></div>
+                    <div class="oc-details">
+                        <div class="oc-detail-row"><span>Previous Status</span><strong>2 bank rejections</strong></div>
+                        <div class="oc-detail-row oc-highlight"><span>Collateral Required</span><strong class="positive">None (unsecured)</strong></div>
+                        <div class="oc-detail-row"><span>Time to Approval</span><strong>5 working days</strong></div>
+                    </div>
+                    <div class="oc-footer"><div class="oc-avatar">A</div><div class="oc-client">Arjun M., MSME Owner</div></div>
+                </div>
+                <div class="outcome-card gsap-fade">
+                    <div class="oc-type">Loan Against Property · Banjara Hills</div>
+                    <div class="oc-metric"><span class="oc-val">8.2%</span><span class="oc-label">p.a. secured</span></div>
+                    <div class="oc-details">
+                        <div class="oc-detail-row"><span>Loan Amount</span><strong>₹90 Lakhs</strong></div>
+                        <div class="oc-detail-row oc-highlight"><span>Amount Saved</span><strong class="positive">₹3.4 Lakhs</strong></div>
+                        <div class="oc-detail-row"><span>Time to Disbursal</span><strong>8 working days</strong></div>
+                    </div>
+                    <div class="oc-footer"><div class="oc-avatar">P</div><div class="oc-client">Prasad N., Banjara Hills</div></div>
+                </div>
+            </div>
+            <p class="outcomes-disclaimer">* Illustrative outcomes based on past client cases. Actual results depend on individual profile, documentation, and lender decisions.</p>
+            <div class="outcomes-stats gsap-fade">
+                <div class="os-stat"><div class="os-val"><span class="counter" data-target="2000" data-suffix="+" data-decimals="0">0</span></div><div class="os-label">Clients Served</div></div>
+                <div class="os-stat"><div class="os-val"><span>₹</span><span class="counter" data-target="2000" data-suffix="Cr+" data-decimals="0">0</span></div><div class="os-label">Loans Disbursed</div></div>
+                <div class="os-stat"><div class="os-val"><span class="counter" data-target="25" data-suffix="+" data-decimals="0">0</span></div><div class="os-label">Lender Partners</div></div>
+                <div class="os-stat"><div class="os-val"><span class="counter" data-target="98" data-suffix="%" data-decimals="0">0</span></div><div class="os-label">Client Satisfaction</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisory Philosophy CTA -->
+    <section class="advisory-cta-section">
+        <div class="container">
+            <div class="advisory-cta-card gsap-fade">
+                <div class="aca-content">
+                    <h2 class="aca-title">Your Money Deserves an Active Advisor</h2>
+                    <p class="aca-subtitle">Not a brochure. Not a chatbot. A dedicated AJ Finance advisor who knows your profile, monitors your loan, and calls you first when better rates appear.</p>
+                </div>
+                <div class="aca-actions">
+                    <a href="tel:+919876543210" class="btn-primary btn-large aca-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        Call +91 98765 43210
+                    </a>
+                    <a href="#apply" class="btn-outline-white btn-large">Request a Callback</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Eligibility Section -->
     <section class="eligibility-section" id="eligibility">
         <div class="container">
@@ -1108,6 +1765,440 @@
            </div>
        </div>
    </section>
+
+    <!-- ── Language Marquee Section ──────────────────────────── -->
+    <section class="ils-section">
+      <div class="ils-header">
+        <h2 class="ils-title">Finance simplified, <em>in your language</em></h2>
+        <p class="ils-subtitle">Expert loan &amp; investment guidance in 9+ Indian languages</p>
+      </div>
+      <div class="ils-stage" id="ilsStage">
+        <div class="ils-track" id="ilsTrack">
+
+          <!-- Brand card -->
+          <div class="ils-card ils-brand-card">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">TRUSTED SINCE 2018</div>
+              <div class="ils-card-heading" style="font-size:34px;line-height:1.05">Loans<br>Made<br>Simple</div>
+              <div class="ils-card-sub" style="margin-top:10px;font-size:12px;opacity:.75">₹0 advisory · 25+ lenders</div>
+            </div>
+            <div class="ils-art" style="color:#00d09c">
+              <svg viewBox="0 0 230 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Building group isometric hint -->
+                <rect x="70" y="30" width="36" height="90" rx="3" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+                <rect x="112" y="18" width="28" height="102" rx="3" stroke="currentColor" stroke-width="1.5" opacity=".65"/>
+                <rect x="146" y="42" width="24" height="78" rx="3" stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+                <rect x="40" y="55" width="24" height="65" rx="3" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Ground line -->
+                <line x1="20" y1="120" x2="210" y2="120" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                <!-- Growth arrow -->
+                <path d="M30 90 L70 55 L105 70 L155 30 L190 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+                <path d="M180 28 L192 40 L178 44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+                <!-- Dots on line -->
+                <circle cx="70" cy="55" r="3.5" fill="currentColor" opacity=".7"/>
+                <circle cx="155" cy="30" r="3.5" fill="currentColor" opacity=".7"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- हिंदी – India Gate -->
+          <div class="ils-card" style="--bg:#f8f2e8;--txt:#3a1800;--acc:#7c3e0e">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">HINDI</div>
+              <div class="ils-card-heading">हिंदी</div>
+              <div class="ils-card-sub">ऋण सहायता उपलब्ध</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <rect x="15" y="118" width="200" height="14" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".4"/>
+                <rect x="38" y="104" width="154" height="15" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".45"/>
+                <rect x="58" y="46" width="30" height="58" stroke="currentColor" stroke-width="2" fill="none"/>
+                <rect x="142" y="46" width="30" height="58" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M58 46 Q115 2 172 46" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <rect x="70" y="36" width="90" height="13" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <rect x="86" y="10" width="58" height="28" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <path d="M86 10 L86 5 L94 5 L94 10 M102 10 L102 5 L110 5 L110 10 M118 10 L118 5 L126 5 L126 10 M134 10 L134 5 L142 5 L142 10" stroke="currentColor" stroke-width="1.4" fill="none"/>
+                <ellipse cx="115" cy="3" rx="2.5" ry="4" stroke="currentColor" stroke-width="1.2" fill="none"/>
+                <line x1="58" y1="74" x2="88" y2="74" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="142" y1="74" x2="172" y2="74" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="58" y1="92" x2="88" y2="92" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="142" y1="92" x2="172" y2="92" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="28" y1="94" x2="28" y2="118" stroke="currentColor" stroke-width="1.6" opacity=".4"/>
+                <line x1="44" y1="94" x2="44" y2="118" stroke="currentColor" stroke-width="1.6" opacity=".4"/>
+                <line x1="186" y1="94" x2="186" y2="118" stroke="currentColor" stroke-width="1.6" opacity=".4"/>
+                <line x1="202" y1="94" x2="202" y2="118" stroke="currentColor" stroke-width="1.6" opacity=".4"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- தமிழ் – Shore Temple -->
+          <div class="ils-card" style="--bg:#f0e8f5;--txt:#3a0a5a;--acc:#7a1fa0">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">TAMIL</div>
+              <div class="ils-card-heading">தமிழ்</div>
+              <div class="ils-card-sub">கடன் உதவி கிடைக்கும்</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Water ripple -->
+                <path d="M60 135 Q115 130 170 135" stroke="currentColor" stroke-width="1" opacity=".3" fill="none"/>
+                <!-- Left temple tower (tallest) -->
+                <polygon points="85,20 100,120 70,120" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <line x1="74" y1="100" x2="96" y2="100" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+                <line x1="72" y1="85" x2="98" y2="85" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+                <line x1="70" y1="68" x2="100" y2="68" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+                <line x1="68" y1="50" x2="102" y2="50" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+                <!-- Right temple tower (shorter) -->
+                <polygon points="148,38 162,120 134,120" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <line x1="138" y1="100" x2="158" y2="100" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="136" y1="82" x2="160" y2="82" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <line x1="134" y1="63" x2="162" y2="63" stroke="currentColor" stroke-width="1" opacity=".55"/>
+                <!-- Small top finials -->
+                <ellipse cx="85" cy="18" rx="5" ry="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <ellipse cx="148" cy="36" rx="4" ry="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Platform base -->
+                <rect x="50" y="118" width="130" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".6"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- मराठी – Gateway of India -->
+          <div class="ils-card" style="--bg:#cde88a;--txt:#1a3300;--acc:#3a6600">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">MARATHI</div>
+              <div class="ils-card-heading">मराठी</div>
+              <div class="ils-card-sub">कर्ज सहाय्य उपलब्ध</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Sea/water hint -->
+                <path d="M40 138 Q115 133 190 138" stroke="currentColor" stroke-width="1" opacity=".3" fill="none"/>
+                <!-- Left turret -->
+                <rect x="35" y="52" width="36" height="72" rx="2" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <path d="M35 52 Q53 35 71 52" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="53" cy="34" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Right turret -->
+                <rect x="159" y="52" width="36" height="72" rx="2" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <path d="M159 52 Q177 35 195 52" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="177" cy="34" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Central arch body -->
+                <rect x="71" y="70" width="88" height="54" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Arch opening -->
+                <path d="M83 124 L83 88 Q115 65 147 88 L147 124" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Top decorative row -->
+                <line x1="71" y1="70" x2="159" y2="70" stroke="currentColor" stroke-width="1.5" opacity=".7"/>
+                <!-- Crenellations on center -->
+                <path d="M75 70 L75 64 L83 64 L83 70 M95 70 L95 64 L103 64 L103 70 M127 70 L127 64 L135 64 L135 70 M147 70 L147 64 L155 64 L155 70" stroke="currentColor" stroke-width="1.3" fill="none"/>
+                <!-- Platform -->
+                <rect x="20" y="122" width="190" height="10" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/>
+                <!-- Turret windows -->
+                <rect x="44" y="70" width="18" height="22" rx="9" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <rect x="168" y="70" width="18" height="22" rx="9" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- اردو – Taj Mahal -->
+          <div class="ils-card ils-urdu-card" style="--bg:#e4f0f8;--txt:#0a1a3a;--acc:#1a3a6a">
+            <div class="ils-cc" style="direction:rtl;text-align:right">
+              <div class="ils-card-eyebrow" style="direction:ltr;text-align:left;letter-spacing:2px">URDU</div>
+              <div class="ils-card-heading" style="font-size:50px;font-family:serif">اردو</div>
+              <div class="ils-card-sub" style="direction:rtl">قرض سہولت دستیاب ہے</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Reflecting pool -->
+                <rect x="60" y="118" width="110" height="14" rx="3" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".3"/>
+                <line x1="60" y1="125" x2="170" y2="125" stroke="currentColor" stroke-width="1" opacity=".2"/>
+                <!-- Main platform plinth -->
+                <rect x="30" y="104" width="170" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".5"/>
+                <rect x="42" y="95" width="146" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".55"/>
+                <!-- Main building body -->
+                <rect x="68" y="58" width="94" height="38" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Central iwan (main arch) -->
+                <path d="M95 96 L95 70 Q115 52 135 70 L135 96" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Central onion dome -->
+                <path d="M84 58 Q115 14 146 58" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M94 40 Q115 22 136 40" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".7"/>
+                <ellipse cx="115" cy="11" rx="5" ry="8" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Spire on main dome -->
+                <line x1="115" y1="3" x2="115" y2="0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Four chattri (corner small domes) -->
+                <path d="M68 58 Q76 50 84 58" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".75"/>
+                <ellipse cx="76" cy="48" rx="3" ry="5" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".75"/>
+                <path d="M146 58 Q154 50 162 58" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".75"/>
+                <ellipse cx="154" cy="48" rx="3" ry="5" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".75"/>
+                <!-- Four minarets (slender towers at platform corners) -->
+                <rect x="30" y="38" width="12" height="57" rx="3" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".65"/>
+                <path d="M30 38 Q36 28 42 38" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".65"/>
+                <ellipse cx="36" cy="26" rx="3" ry="5" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".65"/>
+                <rect x="188" y="38" width="12" height="57" rx="3" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".65"/>
+                <path d="M188 38 Q194 28 200 38" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".65"/>
+                <ellipse cx="194" cy="26" rx="3" ry="5" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".65"/>
+                <!-- Inner minarets (slightly shorter) -->
+                <rect x="50" y="48" width="10" height="47" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/>
+                <path d="M50 48 Q55 40 60 48" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/>
+                <rect x="170" y="48" width="10" height="47" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/>
+                <path d="M170 48 Q175 40 180 48" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".5"/>
+                <!-- Side decorative arches on main body -->
+                <path d="M70 96 L70 74 Q79 64 88 74 L88 96" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".5"/>
+                <path d="M142 96 L142 74 Q151 64 160 74 L160 96" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".5"/>
+                <!-- Horizontal band detail -->
+                <line x1="68" y1="78" x2="162" y2="78" stroke="currentColor" stroke-width="1" opacity=".4"/>
+                <!-- Reflection of dome in pool -->
+                <path d="M94 118 Q115 132 136 118" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".22" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- తెలుగు – Charminar -->
+          <div class="ils-card" style="--bg:#e0d0f0;--txt:#2a0a5a;--acc:#5a2a8a">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">TELUGU</div>
+              <div class="ils-card-heading">తెలుగు</div>
+              <div class="ils-card-sub">రుణ సహాయం అందుబాటులో</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- 4 minarets -->
+                <rect x="28" y="36" width="22" height="88" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <rect x="180" y="36" width="22" height="88" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <rect x="60" y="50" width="18" height="74" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".7"/>
+                <rect x="152" y="50" width="18" height="74" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".7"/>
+                <!-- Minaret tops -->
+                <path d="M28 36 Q39 18 50 36" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="39" cy="16" rx="5" ry="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M180 36 Q191 18 202 36" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="191" cy="16" rx="5" ry="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Small minaret tops -->
+                <path d="M60 50 Q69 36 78 50" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M152 50 Q161 36 170 50" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Central body -->
+                <rect x="78" y="52" width="74" height="72" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Central arch -->
+                <path d="M92 124 L92 90 Q115 70 138 90 L138 124" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Central dome -->
+                <path d="M88 52 Q115 30 142 52" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <ellipse cx="115" cy="28" rx="12" ry="14" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Horizontal bands on main minarets -->
+                <line x1="28" y1="65" x2="50" y2="65" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="28" y1="90" x2="50" y2="90" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="180" y1="65" x2="202" y2="65" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="180" y1="90" x2="202" y2="90" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <!-- Platform -->
+                <rect x="10" y="122" width="210" height="10" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".45"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ಕನ್ನಡ – Mysore Palace (dark card) -->
+          <div class="ils-card ils-dark-card" style="--bg:#0d1f3c;--txt:#00d09c;--acc:#00d09c">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow" style="opacity:.6">KANNADA</div>
+              <div class="ils-card-heading">ಕನ್ನಡ</div>
+              <div class="ils-card-sub">ಸಾಲ ಸಹಾಯ ಲಭ್ಯ</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Base platform -->
+                <rect x="10" y="118" width="210" height="12" rx="2" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".4"/>
+                <!-- Main palace body -->
+                <rect x="40" y="60" width="150" height="58" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Central elevated section -->
+                <rect x="70" y="42" width="90" height="76" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Central dome -->
+                <path d="M86 42 Q115 14 144 42" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <ellipse cx="115" cy="10" rx="8" ry="11" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Side towers -->
+                <rect x="25" y="74" width="18" height="44" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".7"/>
+                <path d="M25 74 Q34 60 43 74" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <rect x="187" y="74" width="18" height="44" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".7"/>
+                <path d="M187 74 Q196 60 205 74" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Arched windows row -->
+                <path d="M50 100 L50 84 Q58 76 66 84 L66 100" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <path d="M82 100 L82 84 Q90 76 98 84 L98 100" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <path d="M132 100 L132 84 Q140 76 148 100" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <path d="M164 100 L164 84 Q172 76 180 84 L180 100" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <!-- Battlements top -->
+                <path d="M40 60 L40 54 L50 54 L50 60 M62 60 L62 54 L72 54 L72 60 M108 60 L108 54 L118 54 L118 60 M158 60 L158 54 L168 54 L168 60 M178 60 L178 54 L188 54 L188 60" stroke="currentColor" stroke-width="1.3" fill="none" opacity=".6"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- বাংলা – Howrah Bridge -->
+          <div class="ils-card" style="--bg:#d8eef8;--txt:#0a1a4a;--acc:#1a4a8a">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">BENGALI</div>
+              <div class="ils-card-heading">বাংলা</div>
+              <div class="ils-card-sub">ঋণ সহায়তা পাওয়া যায়</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Water -->
+                <path d="M0 128 Q58 124 115 128 Q172 132 230 128" stroke="currentColor" stroke-width="1" opacity=".35" fill="none"/>
+                <!-- Left tower -->
+                <rect x="42" y="22" width="28" height="100" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Right tower -->
+                <rect x="160" y="22" width="28" height="100" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Main truss arch -->
+                <path d="M56 22 Q115 5 174 22" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M56 55 Q115 38 174 55" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+                <!-- Bridge deck -->
+                <line x1="10" y1="104" x2="220" y2="104" stroke="currentColor" stroke-width="3" opacity=".8"/>
+                <!-- Vertical cables left side -->
+                <line x1="56" y1="22" x2="30" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <line x1="56" y1="22" x2="80" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <line x1="56" y1="22" x2="100" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <!-- Vertical cables right side -->
+                <line x1="174" y1="22" x2="200" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <line x1="174" y1="22" x2="150" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <line x1="174" y1="22" x2="130" y2="104" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+                <!-- Truss diagonals -->
+                <line x1="80" y1="22" x2="100" y2="55" stroke="currentColor" stroke-width="1" opacity=".45"/>
+                <line x1="100" y1="22" x2="80" y2="55" stroke="currentColor" stroke-width="1" opacity=".45"/>
+                <line x1="130" y1="22" x2="150" y2="55" stroke="currentColor" stroke-width="1" opacity=".45"/>
+                <line x1="150" y1="22" x2="130" y2="55" stroke="currentColor" stroke-width="1" opacity=".45"/>
+                <!-- Tower horizontal bands -->
+                <line x1="42" y1="45" x2="70" y2="45" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="42" y1="68" x2="70" y2="68" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="160" y1="45" x2="188" y2="45" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="160" y1="68" x2="188" y2="68" stroke="currentColor" stroke-width="1" opacity=".5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ગુજરાતી – Hawa Mahal -->
+          <div class="ils-card" style="--bg:#fde8c8;--txt:#3a1a00;--acc:#c06000">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">GUJARATI</div>
+              <div class="ils-card-heading">ગુજરાતી</div>
+              <div class="ils-card-sub">લોન સહાય ઉપલબ્ધ</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <!-- Hawa Mahal: 5-storey stepped facade -->
+                <!-- Ground level: widest -->
+                <rect x="28" y="108" width="174" height="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="45" y="88" width="140" height="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="60" y="68" width="110" height="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="72" y="48" width="86" height="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="85" y="28" width="60" height="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Top arched pinnacles row -->
+                <path d="M88 28 Q95 18 102 28" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M102 28 Q109 18 116 28" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M116 28 Q123 18 130 28" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M130 28 Q137 18 144 28" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <!-- Windows row 1 (level 5 - top) -->
+                <path d="M89 46 L89 36 Q95 30 101 36 L101 46" stroke="currentColor" stroke-width="1" fill="none" opacity=".7"/>
+                <path d="M107 46 L107 36 Q113 30 119 36 L119 46" stroke="currentColor" stroke-width="1" fill="none" opacity=".7"/>
+                <path d="M125 46 L125 36 Q131 30 137 36 L137 46" stroke="currentColor" stroke-width="1" fill="none" opacity=".7"/>
+                <!-- Windows row 2 (level 4) -->
+                <path d="M76 66 L76 56 Q82 50 88 56 L88 66" stroke="currentColor" stroke-width="1" fill="none" opacity=".65"/>
+                <path d="M94 66 L94 56 Q100 50 106 56 L106 66" stroke="currentColor" stroke-width="1" fill="none" opacity=".65"/>
+                <path d="M124 66 L124 56 Q130 50 136 56 L136 66" stroke="currentColor" stroke-width="1" fill="none" opacity=".65"/>
+                <path d="M142 66 L142 56 Q148 50 154 56 L154 66" stroke="currentColor" stroke-width="1" fill="none" opacity=".65"/>
+                <!-- Windows row 3 (level 3) -->
+                <path d="M64 86 L64 76 Q70 70 76 76 L76 86" stroke="currentColor" stroke-width="1" fill="none" opacity=".6"/>
+                <path d="M82 86 L82 76 Q88 70 94 76 L94 86" stroke="currentColor" stroke-width="1" fill="none" opacity=".6"/>
+                <path d="M136 86 L136 76 Q142 70 148 76 L148 86" stroke="currentColor" stroke-width="1" fill="none" opacity=".6"/>
+                <path d="M154 86 L154 76 Q160 70 166 76 L166 86" stroke="currentColor" stroke-width="1" fill="none" opacity=".6"/>
+                <!-- Windows row 4 (level 2) -->
+                <path d="M50 106 L50 96 Q56 90 62 96 L62 106" stroke="currentColor" stroke-width="1" fill="none" opacity=".55"/>
+                <path d="M68 106 L68 96 Q74 90 80 96 L80 106" stroke="currentColor" stroke-width="1" fill="none" opacity=".55"/>
+                <path d="M150 106 L150 96 Q156 90 162 96 L162 106" stroke="currentColor" stroke-width="1" fill="none" opacity=".55"/>
+                <path d="M168 106 L168 96 Q174 90 180 96 L180 106" stroke="currentColor" stroke-width="1" fill="none" opacity=".55"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- മലയാളം – Kerala Houseboat -->
+          <div class="ils-card" style="--bg:#c0ede4;--txt:#003a30;--acc:#006050">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">MALAYALAM</div>
+              <div class="ils-card-heading">മലയാളം</div>
+              <div class="ils-card-sub">വായ്പ സഹായം ലഭ്യം</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Water -->
+                <path d="M0 115 Q57 110 115 115 Q172 120 230 115" stroke="currentColor" stroke-width="1.5" opacity=".45" fill="none"/>
+                <path d="M0 124 Q57 119 115 124 Q172 129 230 124" stroke="currentColor" stroke-width="1" opacity=".3" fill="none"/>
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".3"/>
+                <!-- Boat hull -->
+                <path d="M25 115 Q115 122 205 115 L200 108 Q115 112 30 108Z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Curved bamboo roof -->
+                <path d="M30 108 Q115 55 200 108" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <!-- Roof ribs (structural arches) -->
+                <path d="M65 108 Q75 78 85 75 Q100 72 115 70 Q125 72 140 75 Q152 78 165 108" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".5"/>
+                <!-- Vertical supports -->
+                <line x1="60" y1="108" x2="60" y2="96" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+                <line x1="80" y1="108" x2="80" y2="82" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+                <line x1="115" y1="108" x2="115" y2="72" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+                <line x1="150" y1="108" x2="150" y2="82" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+                <line x1="170" y1="108" x2="170" y2="96" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+                <!-- Windows on sides -->
+                <rect x="68" y="95" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <rect x="90" y="95" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <rect x="124" y="95" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <rect x="146" y="95" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".6"/>
+                <!-- Palm trees background -->
+                <line x1="18" y1="115" x2="18" y2="50" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <path d="M18 50 Q8 42 5 36 M18 50 Q10 38 14 30 M18 50 Q28 42 31 36 M18 50 Q26 38 22 30" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".35" stroke-linecap="round"/>
+                <line x1="212" y1="115" x2="212" y2="55" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+                <path d="M212 55 Q202 47 199 40 M212 55 Q216 43 220 38 M212 55 Q222 47 225 40" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".35" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ਪੰਜਾਬੀ – Golden Temple -->
+          <div class="ils-card" style="--bg:#fff8e0;--txt:#2a1a00;--acc:#8a6000">
+            <div class="ils-cc">
+              <div class="ils-card-eyebrow">PUNJABI</div>
+              <div class="ils-card-heading">ਪੰਜਾਬੀ</div>
+              <div class="ils-card-sub">ਕਰਜ਼ਾ ਸਹਾਇਤਾ ਉਪਲਬਧ</div>
+            </div>
+            <div class="ils-art">
+              <svg viewBox="0 0 230 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sarovar (sacred pool) reflection -->
+                <rect x="15" y="100" width="200" height="32" rx="4" stroke="currentColor" stroke-width="1.5" fill="none" opacity=".3"/>
+                <line x1="0" y1="132" x2="230" y2="132" stroke="currentColor" stroke-width="1.5" opacity=".3"/>
+                <!-- Causeway -->
+                <rect x="95" y="100" width="40" height="8" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".55"/>
+                <!-- Temple platform -->
+                <rect x="75" y="70" width="80" height="30" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Temple main body -->
+                <rect x="85" y="45" width="60" height="28" stroke="currentColor" stroke-width="1.8" fill="none"/>
+                <!-- Golden Dome -->
+                <path d="M92 45 Q115 18 138 45" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M98 32 Q115 22 132 32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+                <ellipse cx="115" cy="16" rx="7" ry="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                <!-- Small corner domes -->
+                <path d="M78 70 Q85 62 92 70" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/>
+                <path d="M138 70 Q145 62 152 70" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/>
+                <!-- Temple entrance arches -->
+                <path d="M96 73 L96 60 Q107 54 118 60 L118 73" stroke="currentColor" stroke-width="1.2" fill="none" opacity=".65"/>
+                <!-- Horizontal detail bands -->
+                <line x1="85" y1="60" x2="145" y2="60" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <line x1="75" y1="82" x2="155" y2="82" stroke="currentColor" stroke-width="1" opacity=".5"/>
+                <!-- Reflection (mirrored) -->
+                <path d="M92 100 Q115 118 138 100" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".25"/>
+                <rect x="85" y="100" width="60" height="14" stroke="currentColor" stroke-width="1" fill="none" opacity=".2"/>
+                <!-- Water ripples -->
+                <path d="M50 112 Q85 108 115 112 Q145 116 180 112" stroke="currentColor" stroke-width="1" fill="none" opacity=".3"/>
+              </svg>
+            </div>
+          </div>
+
+        </div><!-- /ils-track -->
+      </div><!-- /ils-stage -->
+    </section>
 
     <!-- Features Section -->
     <section class="features-section" id="features">
@@ -1391,6 +2482,179 @@
         </div>
     </section>
 
+    <!-- Sanction Letter Review Section -->
+    <section class="sanction-section" id="sanction">
+        <div class="container">
+            <div class="sanction-grid">
+                <div class="sanction-content gsap-fade">
+                    <div class="sanction-eyebrow">FREE SERVICE</div>
+                    <h2 class="sanction-title">Got a Sanction Letter?<br>Read This Before You Sign.</h2>
+                    <p class="sanction-desc">Most borrowers sign without understanding 6 key clauses that can cost them lakhs over the loan tenure. Our expert reviews your letter in 4 hours — completely free.</p>
+                    <div class="sanction-metrics">
+                        <div class="sm-item"><div class="sm-val">₹1.4L</div><div class="sm-label">Avg. client saving</div></div>
+                        <div class="sm-item"><div class="sm-val">4 hrs</div><div class="sm-label">Review turnaround</div></div>
+                        <div class="sm-item"><div class="sm-val">Free</div><div class="sm-label">No charges, ever</div></div>
+                    </div>
+                    <div class="sanction-issues">
+                        <div class="si-title">Common issues we find:</div>
+                        <div class="si-list">
+                            <div class="si-item si-warn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#f5a623" stroke-width="2"/><line x1="12" y1="9" x2="12" y2="13" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/></svg>Processing fee outside acceptable range</div>
+                            <div class="si-item si-danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><line x1="15" y1="9" x2="9" y2="15" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round"/></svg>Insurance bundled without consent</div>
+                            <div class="si-item si-warn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#f5a623" stroke-width="2"/><line x1="12" y1="9" x2="12" y2="13" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/></svg>Reset clause on internal benchmark</div>
+                            <div class="si-item si-danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#eb5b3c" stroke-width="2"/><line x1="15" y1="9" x2="9" y2="15" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="#eb5b3c" stroke-width="2" stroke-linecap="round"/></svg>MOD charges not disclosed upfront</div>
+                        </div>
+                    </div>
+                    <a href="#apply" class="btn-primary">Get Your Free Sanction Letter Review</a>
+                </div>
+                <div class="sanction-visual gsap-fade">
+                    <div class="sanction-doc-card">
+                        <div class="sdc-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" stroke="#00d09c" stroke-width="2"/><line x1="8" y1="13" x2="16" y2="13" stroke="#00d09c" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="17" x2="16" y2="17" stroke="#00d09c" stroke-width="2" stroke-linecap="round"/></svg>
+                            Sanction Letter Analysis
+                        </div>
+                        <div class="sdc-items">
+                            <div class="sdc-item sdc-ok"><span class="sdc-dot sdc-dot-ok"></span>Interest rate: 8.5% — ✓ Within range</div>
+                            <div class="sdc-item sdc-warn"><span class="sdc-dot sdc-dot-warn"></span>Processing fee: 1.2% — ⚠ Above average</div>
+                            <div class="sdc-item sdc-danger"><span class="sdc-dot sdc-dot-danger"></span>Insurance clause — ✗ Not disclosed</div>
+                            <div class="sdc-item sdc-warn"><span class="sdc-dot sdc-dot-warn"></span>Reset clause — ⚠ Internal benchmark</div>
+                            <div class="sdc-item sdc-ok"><span class="sdc-dot sdc-dot-ok"></span>Prepayment terms — ✓ No penalty</div>
+                        </div>
+                        <div class="sdc-saving"><span>Potential saving identified:</span><strong class="positive">₹1,40,000</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <div class="section-header gsap-fade">
+                <div class="section-eyebrow">Financial Knowledge</div>
+                <h2 class="section-title">From Our Blog</h2>
+                <p class="section-subtitle">Expert guides on loans, investments, insurance, and smart financial decisions.</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#00d09c;background:rgba(0,208,156,0.1)">Home Loans</div>
+                    <h3 class="blog-title">How to Calculate Your Home Loan Eligibility in India (2026 Guide)</h3>
+                    <p class="blog-excerpt">FOIR, LTV, income multipliers, co-applicants — everything you need to know before applying for a home loan in India.</p>
+                    <div class="blog-meta"><span>7 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link">Read Article →</a>
+                </div>
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#5367ff;background:rgba(83,103,255,0.1)">Wealth</div>
+                    <h3 class="blog-title">How Mutual Fund SIPs Build Wealth: A ₹5,000/Month Real-World Example</h3>
+                    <p class="blog-excerpt">Compounding, rupee cost averaging, step-up SIPs — how small amounts grow to crores with patience and consistency.</p>
+                    <div class="blog-meta"><span>7 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link" style="color:#5367ff">Read Article →</a>
+                </div>
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#f5a623;background:rgba(245,166,35,0.1)">Credit Score</div>
+                    <h3 class="blog-title">CIBIL Score 0, -1, or 300: What They Mean and How to Fix Them Fast</h3>
+                    <p class="blog-excerpt">Why -1 is better than 300, what score qualifies for a home loan, and a practical 6-month improvement plan.</p>
+                    <div class="blog-meta"><span>6 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link" style="color:#f5a623">Read Article →</a>
+                </div>
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#eb5b3c;background:rgba(235,91,60,0.1)">Insurance</div>
+                    <h3 class="blog-title">7 Health Insurance Mistakes Indian Families Make (and How to Avoid Them)</h3>
+                    <p class="blog-excerpt">Underinsuring, ignoring sub-limits, skipping restoration benefits — costly mistakes that leave families exposed when it matters most.</p>
+                    <div class="blog-meta"><span>7 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link" style="color:#eb5b3c">Read Article →</a>
+                </div>
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#8b5cf6;background:rgba(139,92,246,0.1)">Business Loans</div>
+                    <h3 class="blog-title">How to Get a Business Loan Without 3 Years of ITR in India</h3>
+                    <p class="blog-excerpt">Bank statement loans, NBFC alternatives, Mudra, CGTMSE — practical paths for new businesses and startups seeking funding.</p>
+                    <div class="blog-meta"><span>7 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link" style="color:#8b5cf6">Read Article →</a>
+                </div>
+                <div class="blog-card gsap-fade">
+                    <div class="blog-cat" style="color:#00b386;background:rgba(0,179,134,0.1)">Hyderabad</div>
+                    <h3 class="blog-title">Hyderabad Property Market 2026: Best Areas and Home Loan Guide</h3>
+                    <p class="blog-excerpt">Price per sqft in Gachibowli, Kondapur, Madhapur, Banjara Hills — and how to get the best home loan rate for each area.</p>
+                    <div class="blog-meta"><span>8 min read</span><span>May 2026</span></div>
+                    <a href="#" class="blog-link" style="color:#00b386">Read Article →</a>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:40px;">
+                <a href="#" class="btn-outline">Browse All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Multi-Step CTA Section -->
+    <section class="final-cta-section" id="get-started">
+        <div class="container">
+            <div class="final-cta-grid">
+                <div class="fct-content gsap-fade">
+                    <div class="fct-eyebrow">Get Started Today</div>
+                    <h2 class="fct-title">Ready to Grow Your<br>Financial Future?</h2>
+                    <p class="fct-desc">Talk to our advisors. No pressure, just honest guidance — whether you need a loan, want to invest, or need to protect your family.</p>
+                    <div class="fct-trust-items">
+                        <div class="fct-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.8)" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Free advisory, no hidden fees</div>
+                        <div class="fct-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.8)" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Callback within 2 hours</div>
+                        <div class="fct-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.8)" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Your data is encrypted and never sold</div>
+                    </div>
+                </div>
+                <div class="fct-form-wrap gsap-fade">
+                    <div class="fct-form-card">
+                        <div id="fctStep1" class="fct-step-panel">
+                            <h4 class="fct-step-title">What are you looking for?</h4>
+                            <div class="fct-service-grid">
+                                <button class="fct-service-btn" onclick="selectFCTService(this,'loans')">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 1V23M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                                    Loans &amp; Funding
+                                </button>
+                                <button class="fct-service-btn" onclick="selectFCTService(this,'wealth')">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7H21V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    Wealth Management
+                                </button>
+                                <button class="fct-service-btn" onclick="selectFCTService(this,'insurance')">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                                    Insurance
+                                </button>
+                                <button class="fct-service-btn" onclick="selectFCTService(this,'advisory')">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                                    Advisory
+                                </button>
+                            </div>
+                        </div>
+                        <div id="fctStep2" class="fct-step-panel" style="display:none">
+                            <h4 class="fct-step-title">Tell us about yourself</h4>
+                            <div class="fct-fields">
+                                <div class="fct-field"><label>Your Name</label><input type="text" id="fctName" placeholder="Full name" /></div>
+                                <div class="fct-field"><label>Mobile Number</label><input type="tel" id="fctPhone" placeholder="10-digit mobile" maxlength="10" /></div>
+                                <div class="fct-field fct-field-full" id="fctDynamic"></div>
+                                <div class="fct-field fct-field-full">
+                                    <label>How can we help? <span style="opacity:0.5;font-size:12px">(optional)</span></label>
+                                    <textarea id="fctMessage" rows="2" placeholder="Tell us about your requirement..."></textarea>
+                                </div>
+                            </div>
+                            <div class="fct-nav-row">
+                                <button class="fct-back-btn" onclick="fctGoBack()">← Back</button>
+                                <button class="fct-submit-btn" onclick="submitFCTForm()">Request a Callback</button>
+                            </div>
+                        </div>
+                        <div id="fctStep3" class="fct-step-panel fct-success-panel" style="display:none">
+                            <div class="fct-success-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#00d09c" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#00d09c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <h4>Your callback is confirmed!</h4>
+                            <p>Our advisor will call you within 2 hours. Or message us directly on WhatsApp for instant support.</p>
+                            <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="fct-wa-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Message on WhatsApp</a>
+                        </div>
+                        <div class="fct-progress-dots">
+                            <span class="fct-dot fct-dot-active" id="fctDot1"></span>
+                            <span class="fct-dot" id="fctDot2"></span>
+                            <span class="fct-dot" id="fctDot3"></span>
+                        </div>
+                        <p class="fct-privacy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Your data is encrypted and never sold to third parties.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- App Download Section (removed) -->
     <section class="app-section" style="display:none">
         <div class="container">
@@ -1559,45 +2823,111 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- Testimonials Carousel Section -->
     <section class="testimonials-section">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2 class="section-title">What Our Customers Say</h2>
-                <p class="section-subtitle">Hear from people who trusted AJ Finance for their loan journey</p>
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-subtitle">Real stories from real clients across Hyderabad and beyond</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card animate-on-scroll" data-delay="0">
+        </div>
+        <div class="testimonials-carousel-wrap">
+            <div class="testimonials-carousel" id="testimonialsCarousel">
+                <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"The process was smooth and transparent. The AJ Finance team guided me professionally throughout the loan process. Highly recommended!"</p>
+                    <p class="testimonial-text">"AJ Finance helped us secure structured debt at the right time. The team's understanding of our business cycle was exceptional. Highly recommended for any SME."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div><div class="author-name">Mukesh Vijaywargi</div><div class="author-role">Director, Business Owner</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Partnering with AJ Finance was a turning point. Their NBFC connections and advisory approach helped us access capital we couldn't get from banks alone."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div><div class="author-name">Subba Rao</div><div class="author-role">MD, Pharma Company</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"AJ Finance helped me get my home loan approved in just 5 days. They negotiated a rate 0.4% lower than what the bank first quoted. That saves me lakhs over 20 years!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">R</div>
-                        <div>
-                            <div class="author-name">Rajesh Kumar</div>
-                            <div class="author-role">Business Owner, Mumbai</div>
-                        </div>
+                        <div><div class="author-name">Ramesh K.</div><div class="author-role">Home Loan · Hyderabad</div></div>
                     </div>
                 </div>
-                <div class="testimonial-card animate-on-scroll" data-delay="150">
+                <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Fast response, secure process, and very supportive staff. Got my personal loan approved within 48 hours. Great experience!"</p>
+                    <p class="testimonial-text">"The insights from AJ Finance helped us optimize our funding model significantly. Their strategic advisory approach is genuinely different from other consultants."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">P</div>
-                        <div>
-                            <div class="author-name">Priya Sharma</div>
-                            <div class="author-role">IT Professional, Bangalore</div>
-                        </div>
+                        <div><div class="author-name">Prasad Nishthala</div><div class="author-role">Founder, Tech Startup</div></div>
                     </div>
                 </div>
-                <div class="testimonial-card animate-on-scroll" data-delay="300">
+                <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"AJ Finance helped me get a home loan with the best interest rate. The team was professional and the entire process was hassle-free."</p>
+                    <p class="testimonial-text">"Got my family's term cover sorted in one afternoon. The advisor explained every clause clearly — no jargon, no pressure. This is how insurance should be sold."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">A</div>
-                        <div>
-                            <div class="author-name">Amit Verma</div>
-                            <div class="author-role">Doctor, New Delhi</div>
-                        </div>
+                        <div><div class="author-name">Arjun M.</div><div class="author-role">Insurance · Gachibowli</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"From the first discussion, AJ Finance felt like a partner rather than a vendor. They tracked every stage of our business loan and kept us updated throughout."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">T</div>
+                        <div><div class="author-name">T.V. Rao</div><div class="author-role">Director, Manufacturing Co.</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"I started my SIP journey with AJ Finance's guidance. They explained risk profiles in plain language and helped me pick funds suited to my goals. Returns have been excellent."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div><div class="author-name">Priya S.</div><div class="author-role">Wealth Management · Secunderabad</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Fast response, secure process, and very supportive team. My personal loan was approved within 48 hours. The team was professional at every step."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">K</div>
+                        <div><div class="author-name">Krishna M.</div><div class="author-role">IT Professional, Hyderabad</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"AJ Finance's expertise in debt structuring transformed how we approach working capital. Our interest costs dropped by 18% after following their advice."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">V</div>
+                        <div><div class="author-name">Vijay Reddy</div><div class="author-role">CFO, Mid-size Company</div></div>
+                    </div>
+                </div>
+                <!-- duplicate for seamless loop -->
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"AJ Finance helped us secure structured debt at the right time. The team's understanding of our business cycle was exceptional. Highly recommended for any SME."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div><div class="author-name">Mukesh Vijaywargi</div><div class="author-role">Director, Business Owner</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Partnering with AJ Finance was a turning point. Their NBFC connections and advisory approach helped us access capital we couldn't get from banks alone."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div><div class="author-name">Subba Rao</div><div class="author-role">MD, Pharma Company</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"AJ Finance helped me get my home loan approved in just 5 days. They negotiated a rate 0.4% lower than what the bank first quoted."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div><div class="author-name">Ramesh K.</div><div class="author-role">Home Loan · Hyderabad</div></div>
                     </div>
                 </div>
             </div>
@@ -1721,29 +3051,29 @@
                 <div class="footer-links-grid">
                     <div class="footer-col">
                         <h4>Services</h4>
-                        <a href="#">Personal Loan</a>
-                        <a href="#">Business Loan</a>
-                        <a href="#">Professional Loan</a>
-                        <a href="#">Home Loan</a>
-                        <a href="#">Loan Against Property</a>
-                        <a href="#">Balance Transfer</a>
+                        <a href="personal-loan.html">Personal Loan</a>
+                        <a href="business-loan.html">Business Loan</a>
+                        <a href="msme-loan.html">MSME Loan</a>
+                        <a href="home-loan.html">Home Loan</a>
+                        <a href="lap.html">Loan Against Property</a>
+                        <a href="top-up-loan.html">Top-Up Loan</a>
                     </div>
                     <div class="footer-col">
                         <h4>Company</h4>
-                        <a href="#">About Us</a>
-                        <a href="#">How It Works</a>
-                        <a href="#">Our Partners</a>
-                        <a href="#">Testimonials</a>
-                        <a href="#">Contact Us</a>
-                        <a href="#">Careers</a>
+                        <a href="about.html">About Us</a>
+                        <a href="advisory.html">How It Works</a>
+                        <a href="about.html">Our Partners</a>
+                        <a href="about.html#testimonials">Testimonials</a>
+                        <a href="contact.html">Contact Us</a>
+                        <a href="contact.html">Careers</a>
                     </div>
                     <div class="footer-col">
                         <h4>Resources</h4>
-                        <a href="#">EMI Calculator</a>
-                        <a href="#">Eligibility Checker</a>
-                        <a href="#">Loan Guide</a>
-                        <a href="#">FAQ</a>
-                        <a href="#">Blog</a>
+                        <a href="#" onclick="openTool('emi');return false;">EMI Calculator</a>
+                        <a href="#" onclick="openTool('eligibility');return false;">Eligibility Checker</a>
+                        <a href="blog.html">Loan Guide</a>
+                        <a href="advisory.html">FAQ</a>
+                        <a href="blog.html">Blog</a>
                         <a href="#">Sitemap</a>
                     </div>
                     <div class="footer-col">

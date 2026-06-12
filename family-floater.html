@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Floater Health Insurance | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,\'loans\')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,\'wealth\')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,\'insurance\')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,\'tools\')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,\'advisory\')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY AJ FINANCE</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+    <section class="product-hero insurance-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">FAMILY FLOATER</div>
+                <h1 class="product-hero-title">One Policy to Protect Your Entire Family's Health</h1>
+                <p class="product-hero-subtitle">A family floater plan covers all members of your family under a single sum insured — more affordable than individual plans for young families with children.</p>
+                <div class="product-hero-stats"><div><div class="phs-val">Cover 2–6 Members</div><div class="phs-label">Single Policy</div></div><div><div class="phs-val">Rs.5L to Rs.50L</div><div class="phs-label">Sum Insured</div></div><div><div class="phs-val">Cost-Effective</div><div class="phs-label">vs individual plans</div></div></div>
+                <div class="product-hero-cta"><a href="index.html#get-started" class="btn-primary">Get Started</a><a href="contact.html" class="btn-outline">Talk to Advisor</a></div>
+            </div>
+            <div class="product-hero-visual"><div class="pvcard-title">Family Floater Example</div><div class="pvcard-rows"><div class="pvcard-row"><span class="pvcard-key">Family</span><span class="pvcard-val">Self + Spouse + 2 Kids</span></div><div class="pvcard-row"><span class="pvcard-key">Sum Insured</span><span class="pvcard-val positive">Rs.25 Lakhs</span></div><div class="pvcard-row"><span class="pvcard-key">Annual Premium</span><span class="pvcard-val positive">Rs.22,500</span></div><div class="pvcard-row"><span class="pvcard-key">Cashless Hospitals</span><span class="pvcard-val positive">10,000+</span></div><div class="pvcard-row"><span class="pvcard-key">Restoration Benefit</span><span class="pvcard-val positive">Unlimited</span></div></div></div>
+        </div>
+    </section>
+    <section class="features-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">KEY FEATURES</div><h2 class="section-title">Benefits of Family Floater Health Insurance</h2></div></div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="fc-title-pg">Cover the Entire Family in One Policy</div><p class="fc-desc-pg">A single policy covers self, spouse, and dependent children up to age 25. Some plans extend to parents and in-laws. Simpler management with one renewal date and one premium.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Cost-Effective for Young Families</div><p class="fc-desc-pg">For a family where members are young and relatively healthy, the floater premium is significantly lower than buying separate individual policies for each member.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Restoration Benefit</div><p class="fc-desc-pg">If the sum insured is exhausted during the year due to one claim, restoration benefits replenish the sum insured for subsequent claims by other family members — at no extra cost.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="fc-title-pg">Waiver of Premium on Critical Illness</div><p class="fc-desc-pg">Some plans waive future premiums if the primary insured is diagnosed with a critical illness, ensuring the family remains covered even if the breadwinner is ill.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="fc-title-pg">Maternity and Newborn Cover</div><p class="fc-desc-pg">Plans include maternity benefit for planned deliveries after the waiting period, plus newborn cover from day 1. Essential for families planning to have children.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="fc-title-pg">Annual Preventive Health Check</div><p class="fc-desc-pg">Leading plans include annual preventive health check-up for all covered members as a free service. Blood tests, ECG, and basic screening at no additional cost.</p></div>
+        </div>
+    </section>
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div><div class="section-eyebrow">ELIGIBILITY</div><h2 class="section-title">Family Floater Eligibility</h2><p class="section-subtitle">Any nuclear family — self, spouse, and dependent children. Some plans include parents and in-laws.</p>
+                <ul class="elig-list">                    <li><span class="elig-check">&#10003;</span>Self aged 18–65 (as primary insured)</li>
+                    <li><span class="elig-check">&#10003;</span>Spouse and children automatically covered as dependents</li>
+                    <li><span class="elig-check">&#10003;</span>Children covered from 3 months to 25 years (plan dependent)</li>
+                    <li><span class="elig-check">&#10003;</span>Parents can be added in some floater plans up to age 60</li>
+                    <li><span class="elig-check">&#10003;</span>Honest declaration of all pre-existing conditions required</li>
+                    <li><span class="elig-check">&#10003;</span>Minimum sum insured Rs.3 lakhs; recommended Rs.15 lakhs for families</li></ul></div>
+            <div><div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);">
+                <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                <ul class="elig-list">                        <li><span class="elig-check">&#10003;</span>PAN Card (primary insured)</li>
+                        <li><span class="elig-check">&#10003;</span>Aadhaar for all family members</li>
+                        <li><span class="elig-check">&#10003;</span>Passport-size photographs</li>
+                        <li><span class="elig-check">&#10003;</span>Medical history declaration for all members</li>
+                        <li><span class="elig-check">&#10003;</span>Doctor reports for existing health conditions</li>
+                        <li><span class="elig-check">&#10003;</span>Bank account details (auto-debit)</li></ul></div></div>
+        </div>
+    </section>
+    <section class="steps-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">THE PROCESS</div><h2 class="section-title">How It Works</h2></div></div>
+        <div class="steps-grid-pg">            <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Assess Family Health Needs</div><p class="step-desc-pg">Share family composition, ages, city, and any existing health conditions. We recommend the right sum insured and identify plans that cover each member's specific health situation.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Compare Plans with Floater Vs Individual</div><p class="step-desc-pg">We present the cost comparison: separate individual plans vs a floater vs a combination of floater + top-up. For most young families, a floater with top-up is the most cost-effective.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Apply for All Family Members</div><p class="step-desc-pg">Submit one proposal covering all family members. Declaration of health conditions is done for each member. We pre-check all declarations to ensure accuracy.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Policy Active — All Members Covered</div><p class="step-desc-pg">All enrolled family members can use the cashless network from day 1. Add a newborn within 90 days of birth to extend coverage automatically.</p></div></div>
+    </section>
+    <section class="faq-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><h2 class="section-title">Frequently Asked Questions</h2></div></div>
+        <div class="faq-list-pg">            <div class="faq-item-pg"><div class="faq-q-pg">Should I choose a family floater or separate individual policies?</div><div class="faq-a-pg">For young families where all members are healthy, a floater is more economical. As members age or if one has chronic conditions, individual policies may be better because an older member's claims will exhaust the shared floater sum insured, leaving others unprotected. A common strategy: floater for self and children, separate policy for parents.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What happens if the entire floater sum insured is used up in one hospitalisation?</div><div class="faq-a-pg">If a single hospitalisation exhausts the entire sum insured, remaining family members have no cover for the rest of the year unless you have a restoration benefit or top-up plan. This is the main risk of floater plans. We recommend choosing plans with unlimited restoration to mitigate this.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I add a newborn to my existing floater policy?</div><div class="faq-a-pg">Yes, most plans allow adding a newborn within 90 days of birth to the existing floater. Some plans cover the newborn from day 1 automatically. Contact the insurer or us within this window — missing it means the child can only be added at renewal. We remind you and handle the endorsement.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What is a super top-up health insurance plan?</div><div class="faq-a-pg">A super top-up plan kicks in when your hospitalisation bill exceeds a defined deductible (say Rs.5 lakhs in a year). It is an affordable way to increase your total cover. For example: base floater of Rs.10L + super top-up of Rs.40L with Rs.10L deductible. Total coverage: Rs.50L at much lower cost than a Rs.50L floater.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can working children buy a family floater for their parents?</div><div class="faq-a-pg">Yes, many people buy a senior citizen health plan for their parents and claim Section 80D deduction of up to Rs.50,000 for premiums paid for parents above 60. Parents do not need to be on your floater — a separate plan for them is often better given their age and health conditions.</div></div></div>
+    </section>
+    <section class="product-cta-section insurance-cta">
+        <div class="product-cta-inner"><h2 class="product-cta-title">Get Comprehensive Coverage for Your Entire Family</h2><p class="product-cta-sub">Free family health insurance advisory. We compare all plans and recommend the best fit for your family.</p>
+            <div class="product-cta-btns"><a href="index.html#get-started" class="btn-cta-white">Get Started</a><a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a></div>
+        </div>
+    </section>
+    <section class="related-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;"><h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2></div></div>
+        <div class="related-grid-pg">            <a href="health-insurance.html" class="related-card-pg"><div class="related-card-name">Individual Health Insurance</div><div class="related-card-desc">Separate health plan for complete individual coverage</div></a>
+            <a href="critical-illness.html" class="related-card-pg"><div class="related-card-name">Critical Illness</div><div class="related-card-desc">Lump sum for serious diseases beyond hospitalisation cover</div></a>
+            <a href="senior-citizen-cover.html" class="related-card-pg"><div class="related-card-name">Senior Citizen Cover</div><div class="related-card-desc">Separate plan for parents above 60</div></a>
+            <a href="term-insurance.html" class="related-card-pg"><div class="related-card-name">Term Insurance</div><div class="related-card-desc">Life cover to complement your health plan</div></a></div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@ajfinance.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="product-pages.js"></script>
+</body>
+</html>

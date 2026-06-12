@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Insurance Plan | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link nav-plain">Home</a>
+      <div class="nav-item dropdown" id="servicesDropdown">
+        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="smp-panel" id="smpPanel">
+          <div class="smp-tabs">
+            <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+            <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+            <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+            <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+            <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+          </div>
+          <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><a href="blog.html" class="smp-featured-link">Read guide &#8594;</a></div></div>
+          <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How &#8377;5,000/month SIP grows to &#8377;1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide &#8594;</a></div></div>
+          <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a><a href="retirement-plan.html" class="smp-link active-link">Retirement Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide &#8594;</a></div></div>
+          <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">SIP Calculator</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="advisory.html" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="advisory.html" class="smp-featured-link">Learn more &#8594;</a></div></div>
+          <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan &#8212; 100% free</div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+          <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call &#8594;</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor &#8594;</a></div>
+        </div>
+      </div>
+      <a href="blog.html" class="nav-link nav-plain">Blog</a>
+      <a href="about.html" class="nav-link nav-plain">About</a>
+      <a href="contact.html" class="nav-link nav-plain">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+      <button id="darkToggle" class="dark-toggle" aria-label="Toggle theme"><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="advisory.html" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="retirement-plan.html">Retirement Plan</a>
+  <div class="mm-group-title">More</div><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="advisory.html" class="btn-signup">Talk to an Advisor</a>
+</div>
+<div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+<section class="product-hero insurance-hero">
+  <div class="product-hero-inner">
+    <div class="product-hero-content">
+      <div class="product-hero-badge">RETIREMENT INSURANCE PLAN</div>
+      <h1 class="product-hero-title">Secure Your Retirement with a Guaranteed Income for Life</h1>
+      <p class="product-hero-subtitle">Retirement insurance plans combine life cover with guaranteed annuity payouts. Invest today, receive a monthly pension after retirement — for life.</p>
+      <div class="product-hero-stats">
+        <div class="phs-item"><div class="phs-val">&#8377;20K+/mo</div><div class="phs-label">Min Pension Payout</div></div>
+        <div class="phs-item"><div class="phs-val">60+</div><div class="phs-label">Plans Compared</div></div>
+        <div class="phs-item"><div class="phs-val">100%</div><div class="phs-label">Return of Premium Option</div></div>
+      </div>
+      <div class="product-hero-cta"><a href="advisory.html" class="btn-primary">Get Retirement Plan</a><a href="contact.html" class="btn-outline">Talk to Advisor</a></div>
+    </div>
+    <div class="product-hero-visual">
+      <div class="pvcard-title">Retirement Corpus Illustration</div>
+      <div class="pvcard-rows">
+        <div class="pvcard-row"><span class="pvcard-key">Age at Entry</span><span class="pvcard-val">35 Years</span></div>
+        <div class="pvcard-row"><span class="pvcard-key">Monthly Premium</span><span class="pvcard-val">&#8377;10,000</span></div>
+        <div class="pvcard-row"><span class="pvcard-key">Policy Term</span><span class="pvcard-val">25 Years</span></div>
+        <div class="pvcard-row"><span class="pvcard-key">Retirement Age</span><span class="pvcard-val">60 Years</span></div>
+        <div class="pvcard-row"><span class="pvcard-key">Monthly Pension</span><span class="pvcard-val positive">&#8377;35,000/mo</span></div>
+        <div class="pvcard-row"><span class="pvcard-key">Life Cover</span><span class="pvcard-val positive">&#8377;50 Lakhs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section-pg">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="section-eyebrow">KEY BENEFITS</div>
+      <h2 class="section-title">Why Choose a Retirement Insurance Plan?</h2>
+      <p class="section-subtitle">A dual-benefit product that gives you life cover today and guaranteed income after retirement.</p>
+    </div>
+  </div>
+  <div class="features-grid-pg">
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div><div class="fc-title-pg">Guaranteed Lifelong Pension</div><p class="fc-desc-pg">Receive a fixed monthly income for life starting from your chosen retirement age — regardless of market conditions.</p></div>
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="fc-title-pg">Life Cover During Accumulation</div><p class="fc-desc-pg">Your family is protected during the premium-paying years. In case of death, nominees receive the full sum assured.</p></div>
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1V23M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Return of Premium Option</div><p class="fc-desc-pg">Plans with ROP feature return the total premium paid at the end of the policy term — zero loss on your investment.</p></div>
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 13h8M8 17h5"/></svg></div><div class="fc-title-pg">Tax Benefits Under 80C &amp; 10(10D)</div><p class="fc-desc-pg">Premiums qualify for deduction under Section 80C. Maturity benefits are tax-free under Section 10(10D).</p></div>
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="fc-title-pg">Joint Life Option</div><p class="fc-desc-pg">Include your spouse in the plan. In case of the primary holder's death, pension continues for the surviving spouse.</p></div>
+    <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div><div class="fc-title-pg">Flexible Payout Modes</div><p class="fc-desc-pg">Choose monthly, quarterly, half-yearly, or annual pension payouts based on your lifestyle needs after retirement.</p></div>
+  </div>
+</section>
+
+<section class="eligibility-section-pg">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;margin-bottom:36px;text-align:center;">
+    <div class="section-eyebrow">WHO CAN APPLY</div>
+    <h2 class="section-title">Eligibility &amp; Documents</h2>
+  </div>
+  <div class="eligibility-inner-pg">
+    <div>
+      <h3 style="font-size:17px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Eligibility Criteria</h3>
+      <ul class="elig-list">
+        <li><span class="elig-check">&#10003;</span>Age 25 to 60 years at entry</li>
+        <li><span class="elig-check">&#10003;</span>Indian resident or NRI (specific plans)</li>
+        <li><span class="elig-check">&#10003;</span>Minimum premium &#8377;5,000/month or &#8377;50,000/year</li>
+        <li><span class="elig-check">&#10003;</span>Retirement age: 55 to 70 years (plan-specific)</li>
+        <li><span class="elig-check">&#10003;</span>Medical underwriting may apply for high sum assured</li>
+        <li><span class="elig-check">&#10003;</span>Joint life option available with spouse</li>
+      </ul>
+    </div>
+    <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);">
+      <h3 style="font-size:17px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h3>
+      <ul class="elig-list">
+        <li><span class="elig-check">&#10003;</span>PAN Card (mandatory)</li>
+        <li><span class="elig-check">&#10003;</span>Aadhaar / Passport / Voter ID</li>
+        <li><span class="elig-check">&#10003;</span>Age proof (birth certificate / 10th marksheet)</li>
+        <li><span class="elig-check">&#10003;</span>Income proof (last 3 months salary slips / ITR)</li>
+        <li><span class="elig-check">&#10003;</span>Bank account and cancelled cheque</li>
+        <li><span class="elig-check">&#10003;</span>Nominee details and relationship proof</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section-pg">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;margin-bottom:36px;text-align:center;">
+    <div class="section-eyebrow">THE PROCESS</div>
+    <h2 class="section-title">How to Get Your Retirement Plan</h2>
+  </div>
+  <div class="steps-grid-pg">
+    <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Share Your Goals</div><p class="step-desc-pg">Tell us your retirement age, desired monthly income, and current savings capacity.</p></div>
+    <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Compare Plans</div><p class="step-desc-pg">We compare 60+ retirement plans from LIC, HDFC Life, ICICI Pru, SBI Life, and more.</p></div>
+    <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Choose &amp; Apply</div><p class="step-desc-pg">Select the plan that fits your budget and retirement income needs. Apply with our advisor's help.</p></div>
+    <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Policy Issued</div><p class="step-desc-pg">Policy document issued within 3-5 days. Start building your retirement corpus immediately.</p></div>
+  </div>
+</section>
+
+<section class="faq-section-pg">
+  <div style="max-width:800px;margin:0 auto;padding:0 24px;margin-bottom:36px;text-align:center;">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-list-pg">
+    <div class="faq-item-pg"><div class="faq-q-pg">What is the difference between a retirement plan and a pension plan?</div><div class="faq-a-pg">They are often used interchangeably. A retirement insurance plan has a life cover component during the accumulation phase, while a pension plan (annuity) purely focuses on guaranteed income after retirement. Both can be combined for complete retirement security.</div></div>
+    <div class="faq-item-pg"><div class="faq-q-pg">Can I withdraw money before retirement age?</div><div class="faq-a-pg">Most retirement plans have a lock-in period. Premature surrender is allowed but attracts surrender charges and tax implications. Partial withdrawals may be available after 3-5 years in some plans.</div></div>
+    <div class="faq-item-pg"><div class="faq-q-pg">How much pension will I get?</div><div class="faq-a-pg">The pension amount depends on the premium paid, policy term, chosen retirement age, and the insurer's annuity rates at the time of vesting. Use our advisor consultation to get a customized pension projection.</div></div>
+    <div class="faq-item-pg"><div class="faq-q-pg">Is the pension amount taxable?</div><div class="faq-a-pg">One-third of the commuted pension amount is tax-free. The remaining annuity income is added to your taxable income. However, premiums paid qualify for 80C deduction up to Rs.1.5 Lakhs annually.</div></div>
+    <div class="faq-item-pg"><div class="faq-q-pg">What happens if I die before retirement?</div><div class="faq-a-pg">Your nominee receives the sum assured (life cover) plus the accumulated fund value, depending on the plan type. Some plans also provide a return of total premiums paid to the nominee.</div></div>
+  </div>
+</section>
+
+<section class="product-cta-section insurance-cta">
+  <div class="product-cta-inner">
+    <h2 class="product-cta-title">Plan Your Retirement with Expert Guidance</h2>
+    <p class="product-cta-sub">Our advisors compare 60+ retirement plans to find the one that gives you the highest guaranteed pension for your premium.</p>
+    <div class="product-cta-btns"><a href="advisory.html" class="btn-cta-white">Book Free Consultation</a><a href="contact.html" class="btn-cta-outline">Call Us Now</a></div>
+  </div>
+</section>
+
+<section class="related-section-pg">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;margin-bottom:28px;text-align:center;">
+    <h2 class="section-title">Related Products</h2>
+  </div>
+  <div class="related-grid-pg">
+    <a href="term-insurance.html" class="related-card-pg"><div class="related-card-name">Term Insurance</div><div class="related-card-desc">Pure life cover at lowest premium</div></a>
+    <a href="ulip.html" class="related-card-pg"><div class="related-card-name">ULIP</div><div class="related-card-desc">Insurance + market-linked returns</div></a>
+    <a href="nps.html" class="related-card-pg"><div class="related-card-name">NPS</div><div class="related-card-desc">National Pension System for retirement</div></a>
+    <a href="retirement-planning.html" class="related-card-pg"><div class="related-card-name">Retirement Planning</div><div class="related-card-desc">Wealth-based retirement corpus building</div></a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-logo">AJ Finance</div><p class="footer-tagline">Trusted financial assistance partner for loans, wealth, and insurance.</p></div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="retirement-plan.html">Retirement Plan</a><a href="child-plan.html">Child Plan</a><a href="critical-illness.html">Critical Illness</a></div>
+        <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="advisory.html">How It Works</a><a href="contact.html">Contact Us</a><a href="blog.html">Blog</a></div>
+        <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies.</p></div><div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div></div>
+  </div>
+</footer>
+<script src="product-pages.js"></script>
+</body>
+</html>

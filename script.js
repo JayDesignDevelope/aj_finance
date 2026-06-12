@@ -505,6 +505,23 @@ function initGSAPScrollAnimations() {
 }
 
 // ============================================================
+// ===== Generic .gsap-fade catch-all (covers all new sections) =====
+// ============================================================
+(function () {
+    gsap.utils.toArray('.gsap-fade').forEach(function (el, i) {
+        if (window.getComputedStyle(el).opacity !== '0') return; // already animated
+        ScrollTrigger.create({
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+            onEnter: function () {
+                gsap.to(el, { opacity: 1, y: 0, duration: 0.6, delay: (i % 6) * 0.07, ease: 'power2.out' });
+            }
+        });
+    });
+})();
+
+// ============================================================
 // ===== Parallax floating cards (GSAP-powered) =====
 // ============================================================
 document.addEventListener('mousemove', (e) => {
@@ -1584,14 +1601,73 @@ function buildIsoCity() {
     );
   });
 
-  // Badges continuous float (in animateHero they do entrance; here add the looping bob)
+  // Badges continuous float
   gsap.to('.hiso-badge', {
     y: '-=9', duration: 2.1,
     ease: 'sine.inOut', yoyo: true, repeat: -1,
     stagger: { each: 0.55, from: 'start' },
     delay: 1.8
   });
+
 }
+
+// ===================================================================
+// ===== LANGUAGE MARQUEE SECTION =====================================
+// ===================================================================
+(function initILSScroll() {
+  const track = document.getElementById('ilsTrack');
+  const stage = document.getElementById('ilsStage');
+  if (!track || !stage) return;
+
+  // Duplicate cards for seamless infinite loop
+  track.innerHTML += track.innerHTML;
+
+  // Continuous scroll animation
+  const scrollAnim = gsap.to(track, {
+    x: () => -(track.scrollWidth / 2),
+    duration: 55,
+    ease: 'none',
+    repeat: -1
+  });
+
+  // Pause on hover, resume on leave
+  stage.addEventListener('mouseenter', () => scrollAnim.pause());
+  stage.addEventListener('mouseleave', () => scrollAnim.resume());
+
+  // 3D tilt on individual card hover
+  track.querySelectorAll('.ils-card').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top)  / r.height;
+      gsap.to(card, {
+        rotationY: (px - 0.5) * 14,
+        rotationX: -(py - 0.5) * 14,
+        scale: 1.04,
+        duration: 0.35,
+        ease: 'power2.out',
+        transformPerspective: 900,
+        overwrite: 'auto'
+      });
+    });
+    card.addEventListener('mouseleave', function() {
+      gsap.to(card, {
+        rotationY: 0, rotationX: 0, scale: 1,
+        duration: 0.55, ease: 'power3.out',
+        overwrite: 'auto'
+      });
+    });
+  });
+
+  // Section entrance animation
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.from('.ils-title, .ils-subtitle', {
+      scrollTrigger: { trigger: '.ils-section', start: 'top 82%' },
+      y: 28, opacity: 0, duration: 0.75,
+      stagger: 0.15, ease: 'power2.out'
+    });
+  }
+})();
 
 // ===================================================================
 // ===== LOAN RATE COMPARISON — TAB SWITCHING =========================
@@ -1921,3 +1997,144 @@ window.addEventListener('load', initTypoAnimations, { once: true });
     }
   });
 })();
+
+/* ================================================================
+   DARK MODE TOGGLE
+   ================================================================ */
+(function () {
+    var toggle = document.getElementById('darkToggle');
+    if (!toggle) return;
+    var stored = localStorage.getItem('aj-dark-mode');
+    if (stored === 'dark') document.body.classList.add('dark-mode');
+
+    toggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        var isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('aj-dark-mode', isDark ? 'dark' : 'light');
+    });
+})();
+
+/* ================================================================
+   FINAL MULTI-STEP CTA FORM
+   ================================================================ */
+var fctSelectedService = '';
+
+function selectFCTService(btn, service) {
+    fctSelectedService = service;
+    document.querySelectorAll('.fct-service-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    var dynamicField = document.getElementById('fctDynamic');
+    var labels = { loans: 'Loan Type', wealth: 'Investment Goal', insurance: 'Insurance Type', advisory: 'Topic' };
+    var options = {
+        loans: ['Home Loan','Personal Loan','Business Loan','Loan Against Property','Other'],
+        wealth: ['Mutual Funds / SIP','Portfolio Management','Retirement Planning','Other'],
+        insurance: ['Life Insurance','Health Insurance','General Insurance','Other'],
+        advisory: ['Financial Planning','Debt Management','Investment Review','Other']
+    };
+    if (dynamicField && options[service]) {
+        var opts = options[service].map(function (o) { return '<option value="' + o + '">' + o + '</option>'; }).join('');
+        dynamicField.innerHTML = '<label>' + (labels[service] || 'Category') + '</label><select style="padding:10px 14px;border-radius:8px;border:1.5px solid var(--border-color,#e5e7eb);background:var(--bg-secondary,#f7f9fc);color:var(--text-primary,#1a1a2e);font-size:13.5px;outline:none;width:100%"><option value="">Select…</option>' + opts + '</select>';
+    }
+
+    setTimeout(function () {
+        var step1 = document.getElementById('fctStep1');
+        var step2 = document.getElementById('fctStep2');
+        var dot1  = document.getElementById('fctDot1');
+        var dot2  = document.getElementById('fctDot2');
+        if (step1) step1.style.display = 'none';
+        if (step2) step2.style.display = 'block';
+        if (dot1)  dot1.classList.remove('fct-dot-active');
+        if (dot2)  dot2.classList.add('fct-dot-active');
+    }, 220);
+}
+
+function fctGoBack() {
+    var step1 = document.getElementById('fctStep1');
+    var step2 = document.getElementById('fctStep2');
+    var dot1  = document.getElementById('fctDot1');
+    var dot2  = document.getElementById('fctDot2');
+    if (step2) step2.style.display = 'none';
+    if (step1) step1.style.display = 'block';
+    if (dot2)  dot2.classList.remove('fct-dot-active');
+    if (dot1)  dot1.classList.add('fct-dot-active');
+}
+
+function submitFCTForm() {
+    var name  = (document.getElementById('fctName')  || {}).value || '';
+    var phone = (document.getElementById('fctPhone') || {}).value || '';
+
+    if (!name.trim()) { alert('Please enter your name.'); return; }
+    if (!/^\d{10}$/.test(phone.trim())) { alert('Please enter a valid 10-digit mobile number.'); return; }
+
+    var step2 = document.getElementById('fctStep2');
+    var step3 = document.getElementById('fctStep3');
+    var dot2  = document.getElementById('fctDot2');
+    var dot3  = document.getElementById('fctDot3');
+    if (step2) step2.style.display = 'none';
+    if (step3) step3.style.display = 'block';
+    if (dot2)  dot2.classList.remove('fct-dot-active');
+    if (dot3)  dot3.classList.add('fct-dot-active');
+}
+
+/* ================================================================
+   TESTIMONIALS CAROUSEL — PAUSE ON HOVER (backup if CSS not enough)
+   ================================================================ */
+(function () {
+    var carousel = document.querySelector('.testimonials-carousel');
+    if (!carousel) return;
+    carousel.addEventListener('mouseenter', function () { carousel.style.animationPlayState = 'paused'; });
+    carousel.addEventListener('mouseleave', function () { carousel.style.animationPlayState = 'running'; });
+})();
+
+/* ================================================================
+   LENDERS CAROUSEL — PAUSE ON HOVER (backup)
+   ================================================================ */
+(function () {
+    var track = document.querySelector('.lenders-track');
+    if (!track) return;
+    track.addEventListener('mouseenter', function () { track.style.animationPlayState = 'paused'; });
+    track.addEventListener('mouseleave', function () { track.style.animationPlayState = 'running'; });
+})();
+
+/* ================================================================
+   SERVICES MEGA PANEL — Tab switcher + open/close
+   ================================================================ */
+function toggleServicesMenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var panel = document.getElementById('smpPanel');
+    var overlay = document.getElementById('smpOverlay');
+    var isOpen = panel.classList.contains('open');
+    if (isOpen) {
+        closeSMP();
+    } else {
+        panel.classList.add('open');
+        overlay.classList.add('open');
+        document.getElementById('servicesToggle').classList.add('active');
+    }
+}
+
+function closeSMP() {
+    var panel = document.getElementById('smpPanel');
+    var overlay = document.getElementById('smpOverlay');
+    if (panel) panel.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    var toggle = document.getElementById('servicesToggle');
+    if (toggle) toggle.classList.remove('active');
+}
+
+function switchSMPTab(btn, tabId) {
+    // Deactivate all tabs and panels
+    document.querySelectorAll('.smp-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.smp-content').forEach(function(p){ p.classList.remove('active'); });
+    // Activate selected
+    btn.classList.add('active');
+    var panel = document.getElementById('smp-' + tabId);
+    if (panel) panel.classList.add('active');
+}
+
+// Close SMP when pressing Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeSMP();
+});

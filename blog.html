@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Financial Guides | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,\'loans\')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,\'wealth\')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,\'insurance\')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,\'tools\')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,\'advisory\')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY AJ FINANCE</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section style="padding:calc(var(--nav-height,64px) + 60px) 0 48px;background:var(--bg-secondary,#f7f9fc);">
+        <div style="max-width:1200px;margin:0 auto;padding:0 24px;text-align:center;">
+            <div class="section-eyebrow">FINANCIAL KNOWLEDGE BASE</div>
+            <h1 style="font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--text-primary,#1a1a2e);margin-bottom:14px;">Expert Guides on Loans, Wealth and Insurance</h1>
+            <p style="font-size:16px;color:var(--text-secondary,#555577);max-width:560px;margin:0 auto 36px;">Practical, jargon-free financial guidance written by advisors who work with Indian clients every day.</p>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                <button onclick="filterPosts('all',this)" class="blog-filter active-filter" style="padding:8px 18px;border-radius:100px;border:1.5px solid #00d09c;background:#00d09c;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">All</button>
+                <button onclick="filterPosts('loans',this)" class="blog-filter" style="padding:8px 18px;border-radius:100px;border:1.5px solid var(--border-color,#e5e7eb);background:transparent;color:var(--text-primary,#1a1a2e);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Loans</button>
+                <button onclick="filterPosts('wealth',this)" class="blog-filter" style="padding:8px 18px;border-radius:100px;border:1.5px solid var(--border-color,#e5e7eb);background:transparent;color:var(--text-primary,#1a1a2e);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Wealth</button>
+                <button onclick="filterPosts('insurance',this)" class="blog-filter" style="padding:8px 18px;border-radius:100px;border:1.5px solid var(--border-color,#e5e7eb);background:transparent;color:var(--text-primary,#1a1a2e);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Insurance</button>
+                <button onclick="filterPosts('credit',this)" class="blog-filter" style="padding:8px 18px;border-radius:100px;border:1.5px solid var(--border-color,#e5e7eb);background:transparent;color:var(--text-primary,#1a1a2e);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Credit</button>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding:60px 0;background:var(--bg-primary,#fff);">
+        <div id="postsGrid" style="max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#00d09c20;color:#00d09c;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">HOME LOANS</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">8 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Jun 5</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">How to Get the Lowest Home Loan Interest Rate in 2025</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Most borrowers accept the first rate their bank offers. This guide explains how comparison, CIBIL improvement, and negotiation can save you Rs.2-5 lakhs.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#5367ff20;color:#5367ff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">CREDIT SCORE</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">6 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Jun 1</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">CIBIL Score: What It Is, How It Is Calculated, and How to Fix It</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Your CIBIL score determines whether you get a loan and at what rate. Here is a complete breakdown of how the score works and the fastest ways to improve it.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#00b38620;color:#00b386;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">WEALTH</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">5 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 28</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">SIP vs Lump Sum: Which Is Better for Long-Term Wealth Creation?</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Both SIP and lump sum have their place. The right answer depends on your cash flow, market conditions, and risk tolerance. We break down the evidence.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#eb5b3c20;color:#eb5b3c;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">INSURANCE</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">7 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 22</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">7 Health Insurance Mistakes Indian Families Make — And How to Avoid Them</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">From under-insuring to buying ULIP instead of term, these common errors cost families lakhs when they need coverage the most.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#f59e0b20;color:#f59e0b;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">BUSINESS</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">6 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 18</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">MSME Loans in 2025: Which Scheme Is Right for Your Business?</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">CGTMSE, Mudra, Emergency Credit Line — a clear breakdown of all government MSME schemes, eligibility, and application process.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#0ea5e920;color:#0ea5e9;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">HYDERABAD</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">9 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 12</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">Hyderabad Property Market: Home Loan Trends and Best Localities to Buy in 2025</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Which Hyderabad localities offer best value for home loan buyers? Gachibowli, Kondapur, Kompally, and Kokapet compared on price appreciation and loan accessibility.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#eb5b3c20;color:#eb5b3c;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">INSURANCE</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">5 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 8</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">How Much Term Insurance Do You Actually Need? The Rs.1 Crore Myth</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Rs.1 Crore cover sounds like a lot but may be drastically insufficient for your family depending on income, liabilities, and dependents. Here is the correct formula.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#00d09c20;color:#00d09c;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">HOME LOANS</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">6 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">May 3</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">Balance Transfer: When to Move Your Home Loan to a Different Bank</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Balance transfer saves money only when done right. Processing fees, legal charges, and EMI saving must all be calculated before you switch. Full guide inside.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#8b5cf620;color:#8b5cf6;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">TAX PLANNING</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">7 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Apr 28</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">NPS vs PPF vs ELSS: Which Is the Best 80C Investment in 2025?</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Three popular tax-saving products, three very different profiles. We compare returns, liquidity, lock-in, and tax treatment to help you choose the right one.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#00d09c20;color:#00d09c;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">LOANS</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">5 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Apr 22</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">What Is Loan Against Property and When Should You Use It?</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">LAP offers the largest loan amounts at the lowest rates — but using your property as collateral has risks. A complete guide to when LAP makes sense.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#00b38620;color:#00b386;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">WEALTH</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">6 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Apr 17</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">How to Build a Rs.1 Crore Retirement Corpus in 20 Years</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">Step-by-step calculation of how much you need to save each month to retire with Rs.1 Crore in 20 years — with inflation, tax, and different return scenarios.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+            <article style="background:var(--bg-card,#fff);border-radius:16px;padding:24px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#f59e0b20;color:#f59e0b;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;">BUSINESS</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">5 min read</span>
+                    <span style="font-size:12px;color:var(--text-muted,#888);">Apr 10</span>
+                </div>
+                <h3 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);line-height:1.4;margin:0;">Business Loan Without ITR: Options for New Businesses in 2025</h3>
+                <p style="font-size:13px;color:var(--text-secondary,#555577);line-height:1.55;margin:0;">No ITR for 2 years? You still have options. GST-based loans, NBFC products, and MUDRA are available for businesses as young as 12 months with the right approach.</p>
+                <a href="blog.html" style="font-size:13px;font-weight:600;color:#00d09c;text-decoration:none;margin-top:auto;">Read Article</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="product-cta-section">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Have a Financial Question?</h2>
+            <p class="product-cta-sub">Our advisors answer queries from Rs.500 SIP to Rs.5 Crore home loans. Book a free call.</p>
+            <div class="product-cta-btns"><a href="advisory.html" class="btn-cta-white">Book Free Advisory</a><a href="tel:+919876543210" class="btn-cta-outline">Call: +91 98765 43210</a></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@ajfinance.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="product-pages.js"></script>
+    <style>
+        @media(max-width:1024px){#postsGrid{grid-template-columns:repeat(2,1fr)!important;}}
+        @media(max-width:600px){#postsGrid{grid-template-columns:1fr!important;}}
+    </style>
+    <script>
+    function filterPosts(cat, btn) {
+        document.querySelectorAll('.blog-filter').forEach(b=>{b.style.background='transparent';b.style.color='var(--text-primary,#1a1a2e)';b.style.borderColor='var(--border-color,#e5e7eb)';});
+        btn.style.background='#00d09c'; btn.style.color='#fff'; btn.style.borderColor='#00d09c';
+    }
+    </script>
+</body>
+</html>

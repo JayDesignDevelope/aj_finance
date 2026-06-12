@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Capital Loan | AJ Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY AJ FINANCE</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">WORKING CAPITAL</div>
+                <h1 class="product-hero-title">Never Let Cash Flow Stop Your Business Growth</h1>
+                <p class="product-hero-subtitle">Working capital loans up to Rs.2 Crores for inventory, payroll, vendor payments, and operational expenses. Revolving credit available for ongoing needs.</p>
+                <div class="product-hero-stats"><div><div class="phs-val">From 11%</div><div class="phs-label">p.a. Interest</div></div><div><div class="phs-val">Rs.2 Cr</div><div class="phs-label">Max Limit</div></div><div><div class="phs-val">Revolving</div><div class="phs-label">Credit Available</div></div></div>
+                <div class="product-hero-cta">
+                    <a href="index.html#get-started" class="btn-primary">Apply Now</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">Working Capital Snapshot</div>
+                <div class="pvcard-rows"><div class="pvcard-row"><span class="pvcard-key">Loan Limit</span><span class="pvcard-val positive">Rs.50 Lakhs</span></div><div class="pvcard-row"><span class="pvcard-key">Interest Rate</span><span class="pvcard-val positive">11.5% p.a.</span></div><div class="pvcard-row"><span class="pvcard-key">Utilisation</span><span class="pvcard-val">Draw as needed</span></div><div class="pvcard-row"><span class="pvcard-key">Repayment</span><span class="pvcard-val">Monthly interest only</span></div><div class="pvcard-row"><span class="pvcard-key">Renewal</span><span class="pvcard-val">Annual renewal</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">KEY FEATURES</div>
+                <h2 class="section-title">Why Choose AJ Finance for Working Capital?</h2>
+            </div>
+        </div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div class="fc-title-pg">Revolving Credit Facility</div><p class="fc-desc-pg">Withdraw and repay multiple times within your sanctioned limit. You only pay interest on what you use, making it cost-efficient for fluctuating needs.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Cash Credit & Overdraft</div><p class="fc-desc-pg">Choose between cash credit (for inventory funding) or overdraft (for general operational expenses) depending on your business model and banking relationship.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="fc-title-pg">Flexible Repayment</div><p class="fc-desc-pg">Pay only the monthly interest during peak operational months. Principal repayment aligned with your cash flow cycle — not a fixed rigid schedule.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="fc-title-pg">Digital Disbursement</div><p class="fc-desc-pg">Once sanctioned, withdraw funds digitally within hours. No queue at the bank. Works seamlessly with your existing current account.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 21h18M3 7v1a3 3 0 006 0V7m6 1a3 3 0 006 0V7M3 7l9-4 9 4M5 21V7m14 14V7"/></svg></div><div class="fc-title-pg">25+ Lender Network</div><p class="fc-desc-pg">Access working capital from PSU banks, private banks, and NBFCs. We find the right match based on your business vintage, turnover, and industry type.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="fc-title-pg">Minimal Documentation</div><p class="fc-desc-pg">Primary documents: GST returns, bank statements, and ITR. No collateral required for limits up to Rs.50 lakhs for qualifying businesses.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Working Capital Eligibility</h2>
+                <p class="section-subtitle">Available for proprietorships, partnerships, private limited companies, and public limited companies with active business operations.</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">&#10003;</span>Business vintage of at least 2 years (3+ years preferred)</li>
+                    <li><span class="elig-check">&#10003;</span>Annual turnover of Rs.50 lakhs or above</li>
+                    <li><span class="elig-check">&#10003;</span>GST-registered business with regular filing compliance</li>
+                    <li><span class="elig-check">&#10003;</span>Satisfactory banking conduct in primary operating account</li>
+                    <li><span class="elig-check">&#10003;</span>CIBIL / CMIE commercial score above acceptable threshold</li>
+                    <li><span class="elig-check">&#10003;</span>No existing NPA or write-off in the last 3 years</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">&#10003;</span>GST registration and last 12 months returns</li>
+                        <li><span class="elig-check">&#10003;</span>Bank statements — 12 months, all operating accounts</li>
+                        <li><span class="elig-check">&#10003;</span>ITR with computation for last 2 years</li>
+                        <li><span class="elig-check">&#10003;</span>Audited balance sheet and P&L for last 2 years</li>
+                        <li><span class="elig-check">&#10003;</span>Business KYC — PAN, Aadhaar, incorporation documents</li>
+                        <li><span class="elig-check">&#10003;</span>Existing loan statements if any</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">THE PROCESS</div>
+                <h2 class="section-title">How It Works</h2>
+            </div>
+        </div>
+        <div class="steps-grid-pg">
+            <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Share Business Details</div><p class="step-desc-pg">Provide your turnover, banking history, and working capital requirement. Our advisor analyses your operating cycle to suggest the right credit structure.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Get Lender Shortlist</div><p class="step-desc-pg">We match your profile with the most suitable banks and NBFCs from our network, presenting you options with rates, limits, and processing timelines.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Document Submission</div><p class="step-desc-pg">Upload GST returns, bank statements, and business KYC through our secure portal. We manage lender communication from here.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Limit Sanctioned and Activated</div><p class="step-desc-pg">Post approval, your credit limit is activated. Start drawing funds as needed directly from your bank account, same day.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the difference between cash credit and overdraft?</div><div class="faq-a-pg">Cash credit is primarily for inventory financing — funds are drawn based on stock statements and debtors. Overdraft is a general-purpose limit secured against a fixed deposit or property. Both are revolving facilities, but cash credit is more commonly used by traders and manufacturers while overdraft suits service businesses.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Is collateral mandatory for a working capital loan?</div><div class="faq-a-pg">For limits up to Rs.50 lakhs, many lenders offer collateral-free working capital under CGTMSE guarantee cover. For higher limits, collateral in the form of property, fixed deposits, or debtors book pledge is typically required. We guide you to the right product based on your comfort level.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">How is the interest calculated on a revolving credit?</div><div class="faq-a-pg">Interest is charged only on the outstanding balance, not the full sanctioned limit. For example, if your limit is Rs.50L but you have drawn only Rs.20L, interest is charged on Rs.20L for the actual days used. This makes it significantly cheaper than a term loan for businesses with cyclical needs.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">How often must working capital limits be renewed?</div><div class="faq-a-pg">Most banks review and renew working capital limits annually. At renewal, your latest financial statements, bank statements, and credit score are reassessed. Timely renewal with clean conduct generally results in limit enhancements each year.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can a new business get a working capital loan?</div><div class="faq-a-pg">Businesses under 2 years find it difficult to get traditional working capital loans. However, invoice discounting, supply chain financing, and certain NBFC products are available for businesses as young as 6 months with strong buyer credentials. We identify the right option for your stage.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Keep Your Business Running Without Cash Flow Gaps</h2>
+            <p class="product-cta-sub">Get a working capital facility tailored to your business cycle. Free advisory, 25+ lender options.</p>
+            <div class="product-cta-btns">
+                <a href="index.html#get-started" class="btn-cta-white">Apply Now</a>
+                <a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;">
+                <h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2>
+            </div>
+        </div>
+        <div class="related-grid-pg">
+<a href="business-loan.html" class="related-card-pg"><div class="related-card-name">Business Loan</div><div class="related-card-desc">Term funding up to Rs.5 Crores for business growth and expansion</div></a>
+<a href="msme-loan.html" class="related-card-pg"><div class="related-card-name">MSME Loan</div><div class="related-card-desc">Government-backed MSME funding with CGTMSE cover</div></a>
+<a href="unsecured-business-loan.html" class="related-card-pg"><div class="related-card-name">Unsecured Business Loan</div><div class="related-card-desc">No collateral business funding based on bank statements</div></a>
+<a href="lap.html" class="related-card-pg"><div class="related-card-name">Loan Against Property</div><div class="related-card-desc">Unlock property value for large working capital needs</div></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="60" fill="#00d09c">AJ Finance</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@ajfinance.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>AJ Finance is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 AJ Finance. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="product-pages.js"></script>
+</body>
+</html>
