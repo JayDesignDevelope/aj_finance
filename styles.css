@@ -747,10 +747,8 @@ img { max-width: 100%; }
 
 /* ===== Ticker Section ===== */
 .ticker-section {
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 0;
+    background: transparent;
+    padding: 16px 24px 0;
     overflow: hidden;
     margin-top: var(--nav-height);
 }
@@ -758,6 +756,12 @@ img { max-width: 100%; }
 .ticker-wrap {
     overflow: hidden;
     position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 0;
 }
 
 .ticker-wrap::before,
@@ -4072,7 +4076,8 @@ body.dark-mode .nav-wrapper { background: rgba(15,17,23,0.97); border-bottom-col
 body.dark-mode .dropdown-menu { background: var(--bg-card); border-color: var(--border-color); }
 body.dark-mode .hero,
 body.dark-mode .hero-section { background: linear-gradient(135deg, #0f1117 0%, #181c26 100%) !important; }
-body.dark-mode .ticker-section { background: #181c26 !important; }
+body.dark-mode .ticker-section { background: transparent !important; }
+body.dark-mode .ticker-wrap { background: #181c26 !important; border-color: var(--border-color) !important; }
 /* Ticker fade edges — use dark background colour instead of hardcoded white */
 body.dark-mode .ticker-wrap::before { background: linear-gradient(to right, #181c26, transparent) !important; }
 body.dark-mode .ticker-wrap::after  { background: linear-gradient(to left,  #181c26, transparent) !important; }
@@ -5395,15 +5400,15 @@ body.dark-mode .testimonial-name { color: var(--text-primary) !important; }
 .hero-iso-wrap {
     position: relative;
     width: 100%;
-    min-height: 548px;
+    min-height: 620px;
     isolation: isolate;
     transform-style: preserve-3d;
 }
 #heroIsoSvg {
     position: absolute;
-    inset: 38px 0 30px;
-    width: 100%;
-    height: calc(100% - 68px);
+    inset: -14px -7%;
+    width: 114%;
+    height: calc(100% + 28px);
     max-height: none;
     overflow: visible;
     filter: drop-shadow(0 30px 35px rgba(20,55,75,0.12));

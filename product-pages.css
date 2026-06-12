@@ -134,3 +134,50 @@ body.dark-mode .product-hero.insurance-hero { background: linear-gradient(180deg
     .steps-grid-pg { grid-template-columns: 1fr; }
     .related-grid-pg { grid-template-columns: 1fr; }
 }
+
+/* ── Product hero isometric scene ─────────────────────────────── */
+.piso-wrap {
+    margin: -16px -16px 14px;
+    pointer-events: none;
+}
+.piso-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+.piso-rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: pisoRise 0.7s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+}
+@keyframes pisoRise {
+    to { opacity: 1; transform: none; }
+}
+.piso-blink { animation: pisoBlink 1.3s ease-in-out infinite; }
+@keyframes pisoBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+.piso-sway { animation: pisoSway 2.8s ease-in-out infinite alternate; }
+@keyframes pisoSway {
+    to { transform: translateY(-3px); }
+}
+.piso-draw {
+    stroke-dasharray: 260;
+    stroke-dashoffset: 260;
+    animation: pisoDraw 1.5s 0.9s ease-out forwards;
+}
+@keyframes pisoDraw {
+    to { stroke-dashoffset: 0; }
+}
+.piso-dashes { animation: pisoDashes 0.9s ease-in-out infinite alternate; }
+@keyframes pisoDashes {
+    from { opacity: 0.25; }
+    to { opacity: 0.9; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .piso-rise { animation-duration: 0.01s; }
+    .piso-blink, .piso-sway, .piso-draw, .piso-dashes { animation: none; }
+    .piso-draw { stroke-dashoffset: 0; }
+}

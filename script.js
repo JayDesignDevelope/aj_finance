@@ -117,11 +117,6 @@ function animateHero() {
             { opacity: 0, x: 60, scale: 0.95 },
             { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out' },
             '-=0.8'
-        )
-        .fromTo('.hiso-badge',
-            { opacity: 0, scale: 0.7, y: 10 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.18, ease: 'back.out(1.7)' },
-            '-=0.4'
         );
 }
 
@@ -1402,82 +1397,106 @@ function buildIsoCity() {
   if (!svgEl || svgEl.dataset.built) return;
   svgEl.dataset.built = '1';
 
-  // ── Coordinate system ──────────────────────────────────────────
-  const s = 30, sx = s * Math.cos(Math.PI / 6), sy = s * 0.5;
-  const ox = 300, oy = 265; // isometric origin (front of ground plane)
+  // ── Isometric coordinate system ────────────────────────────────
+  const s = 26, sx = s * Math.cos(Math.PI / 6), sy = s * 0.5;
+  const ox = 386, oy = 298;
 
   function iso(x, y, z) {
-    return { x: ox + x * sx - y * sx, y: oy + x * sy + y * sy - z * s };
+    return { x: ox + (x - y) * sx, y: oy + (x + y) * sy - z * s };
   }
   function pt(p) { return p.x.toFixed(1) + ',' + p.y.toFixed(1); }
 
   function pathFace(pts, fill, stroke, sw) {
     const d = 'M ' + pts.map(pt).join(' L ') + ' Z';
-    const s_attr = stroke ? ` stroke="${stroke}" stroke-width="${sw || 0.5}"` : '';
-    return `<path d="${d}" fill="${fill}"${s_attr}/>`;
+    const sa = stroke ? ` stroke="${stroke}" stroke-width="${sw || 0.5}"` : '';
+    return `<path d="${d}" fill="${fill}"${sa}/>`;
   }
 
-  function lerp2(A, B, t) {
-    return { x: A.x + (B.x - A.x) * t, y: A.y + (B.y - A.y) * t };
-  }
-
-  // Bilinear interpolation on a quad face
+  function lerp2(A, B, t) { return { x: A.x + (B.x - A.x) * t, y: A.y + (B.y - A.y) * t }; }
   function bl(A, B, C, D, u, v) {
     const ab = lerp2(A, B, u), dc = lerp2(D, C, u);
     return lerp2(ab, dc, v);
   }
 
-  // Window grid on a parallelogram face
-  function makeWindows(A, B, C, D, rows, cols, fill) {
+  // Window grid on a quad face; a few windows glow warm (seed-based)
+  function makeWindows(A, B, C, D, rows, cols, fill, seed) {
     let out = '';
-    const pu = 0.12, pv = 0.08;
-    const cu = (1 - 2 * pu) / cols, cv = (1 - 2 * pv) / rows;
+    const pu = 0.12, pv = 0.08, cu = (1 - 2 * pu) / cols, cv = (1 - 2 * pv) / rows;
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        const u1 = pu + c * cu + cu * 0.15, u2 = pu + (c + 1) * cu - cu * 0.15;
-        const v1 = pv + r * cv + cv * 0.12, v2 = pv + (r + 1) * cv - cv * 0.12;
-        const wa = bl(A, B, C, D, u1, v1), wb = bl(A, B, C, D, u2, v1);
-        const wc = bl(A, B, C, D, u2, v2), wd = bl(A, B, C, D, u1, v2);
-        out += pathFace([wa, wb, wc, wd], fill, 'none');
+        const u1 = pu + c * cu + cu * 0.18, u2 = pu + (c + 1) * cu - cu * 0.18;
+        const v1 = pv + r * cv + cv * 0.14, v2 = pv + (r + 1) * cv - cv * 0.14;
+        const lit = seed != null && ((r * 5 + c * 7 + seed) % 11) < 2;
+        out += pathFace(
+          [bl(A,B,C,D,u1,v1), bl(A,B,C,D,u2,v1), bl(A,B,C,D,u2,v2), bl(A,B,C,D,u1,v2)],
+          lit ? '#ffd166dd' : fill, 'none'
+        );
       }
     }
     return out;
   }
 
-  // Draw one isometric building box
-  function building(gx, gy, w, d, h, col, id) {
-    const tfl = iso(gx, gy, h),     tfr = iso(gx + w, gy, h);
+  // One isometric building. Visible faces: x=gx+w (right) and y=gy+d (left)
+  function building(gx, gy, w, d, h, col, id, seed) {
+    const tfl = iso(gx, gy, h),       tfr = iso(gx + w, gy, h);
     const tbr = iso(gx + w, gy + d, h), tbl = iso(gx, gy + d, h);
-    const bfl = iso(gx, gy, 0),     bfr = iso(gx + w, gy, 0);
+    const bfr = iso(gx + w, gy, 0);
     const bbr = iso(gx + w, gy + d, 0), bbl = iso(gx, gy + d, 0);
-    const { top, left, right, wl, wr } = col;
-    const winR = Math.max(1, Math.round(h * 1.6));
-    const winC = Math.max(1, Math.round(w));
     let g = `<g class="iso-bld" data-id="${id}">`;
-    g += pathFace([tfl, tbl, bbl, bfl], left, '#00000018', 0.5);
-    g += pathFace([tfr, tbr, bbr, bfr], right, '#00000018', 0.5);
-    g += pathFace([tfl, tfr, tbr, tbl], top, '#ffffff28', 0.5);
-    if (h >= 2) {
-      g += makeWindows(tfr, tbr, bbr, bfr, winR, winC, wr);
-      g += makeWindows(tfl, tbl, bbl, bfl, winR, Math.max(1, Math.round(d)), wl);
+    // left visible face (y = gy+d plane)
+    g += pathFace([tbl, tbr, bbr, bbl], col.left, '#00000022', 0.5);
+    // right visible face (x = gx+w plane)
+    g += pathFace([tfr, tbr, bbr, bfr], col.right, '#00000022', 0.5);
+    // roof
+    g += pathFace([tfl, tfr, tbr, tbl], col.top, '#ffffff30', 0.5);
+    if (h >= 1.5) {
+      const rows = Math.max(2, Math.round(h * 1.5));
+      g += makeWindows(tbl, tbr, bbr, bbl, rows, Math.max(2, Math.round(w * 2.2)), col.wl, seed);
+      g += makeWindows(tfr, tbr, bbr, bfr, rows, Math.max(2, Math.round(d * 2.2)), col.wr, seed == null ? null : seed + 3);
     }
     g += '</g>';
     return g;
   }
 
-  // Simple tree at grid coords
-  function tree(gx, gy) {
-    const b = iso(gx, gy, 0), m = iso(gx, gy, 1.4);
-    const cx = b.x, trunkY = b.y;
+  function tree(gx, gy, sc) {
+    sc = sc || 1;
+    const b = iso(gx, gy, 0), m = iso(gx, gy, 1.3 * sc);
+    const cx = b.x;
     return `<g class="iso-tree">
-      <rect x="${(cx-2.5).toFixed(1)}" y="${(m.y).toFixed(1)}" width="5" height="${(trunkY - m.y).toFixed(1)}" fill="#92400e" rx="1"/>
-      <polygon points="${cx},${(m.y-14).toFixed(1)} ${(cx-11).toFixed(1)},${(m.y+2).toFixed(1)} ${(cx+11).toFixed(1)},${(m.y+2).toFixed(1)}" fill="#059669"/>
-      <polygon points="${cx},${(m.y-8).toFixed(1)} ${(cx-8).toFixed(1)},${(m.y+5).toFixed(1)} ${(cx+8).toFixed(1)},${(m.y+5).toFixed(1)}" fill="#10b981"/>
+      <rect x="${(cx-2).toFixed(1)}" y="${m.y.toFixed(1)}" width="4" height="${(b.y - m.y).toFixed(1)}" fill="#92400e" rx="1"/>
+      <polygon points="${cx},${(m.y-12*sc).toFixed(1)} ${(cx-9*sc).toFixed(1)},${(m.y+2).toFixed(1)} ${(cx+9*sc).toFixed(1)},${(m.y+2).toFixed(1)}" fill="#059669"/>
+      <polygon points="${cx},${(m.y-6*sc).toFixed(1)} ${(cx-7*sc).toFixed(1)},${(m.y+5).toFixed(1)} ${(cx+7*sc).toFixed(1)},${(m.y+5).toFixed(1)}" fill="#10b981"/>
     </g>`;
   }
 
-  // ── Scene elements ──────────────────────────────────────────────
-  // Color palettes: {top, left, right, wl(window-left), wr(window-right)}
+  function streetlight(gx, gy, armDir) {
+    const b = iso(gx, gy, 0), t = iso(gx, gy, 1.5);
+    const a = iso(gx, gy + 0.28 * armDir, 1.5);
+    return `<g class="iso-lamp">
+      <line x1="${b.x.toFixed(1)}" y1="${b.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="#64748b" stroke-width="1.6"/>
+      <line x1="${t.x.toFixed(1)}" y1="${t.y.toFixed(1)}" x2="${a.x.toFixed(1)}" y2="${a.y.toFixed(1)}" stroke="#64748b" stroke-width="1.4"/>
+      <circle cx="${a.x.toFixed(1)}" cy="${a.y.toFixed(1)}" r="4.2" fill="#fbbf2440" class="iso-glow"/>
+      <circle cx="${a.x.toFixed(1)}" cy="${a.y.toFixed(1)}" r="1.7" fill="#fbbf24"/>
+    </g>`;
+  }
+
+  // Plane-mount helpers: text/graphics flush on a building face.
+  // Outer wrapper carries no transform so GSAP can animate it without
+  // clobbering the face-plane matrix.
+  function leftPlane(gx, yPlane, zTop, inner, cls) {
+    const p = iso(gx, yPlane, zTop);
+    return `<g class="${cls || 'iso-mnt'}"><g transform="matrix(0.866,0.5,0,1,${p.x.toFixed(1)},${p.y.toFixed(1)})">${inner}</g></g>`;
+  }
+  function rightPlane(xPlane, yFront, zTop, inner, cls) {
+    const p = iso(xPlane, yFront, zTop);
+    return `<g class="${cls || 'iso-mnt'}"><g transform="matrix(0.866,-0.5,0,1,${p.x.toFixed(1)},${p.y.toFixed(1)})">${inner}</g></g>`;
+  }
+  function topPlane(gx, gy, z, inner, cls) {
+    const p = iso(gx, gy, z);
+    return `<g class="${cls || 'iso-mnt'}"><g transform="matrix(0.866,0.5,-0.866,0.5,${p.x.toFixed(1)},${p.y.toFixed(1)})">${inner}</g></g>`;
+  }
+
+  // ── Palettes ────────────────────────────────────────────────────
   const C = {
     teal:   { top:'#00d09c', left:'#005f43', right:'#00845f', wl:'#6ee7b7aa', wr:'#a7f3d0aa' },
     blue:   { top:'#818cf8', left:'#1e3a8a', right:'#2563eb', wl:'#bfdbfeaa', wr:'#dbeafeaa' },
@@ -1487,128 +1506,294 @@ function buildIsoCity() {
     green:  { top:'#6ee7b7', left:'#047857', right:'#059669', wl:'#a7f3d0aa', wr:'#d1fae5aa' },
   };
 
-  // Painter's order: back to front (highest gy first, then higher gx first)
-  const buildings = [
-    [-3, 5, 1.5, 1.5, 2.5, C.purple, 'edu'],
-    [ 1, 5, 1.5, 1.5, 2.8, C.gold,   'lap'],
-    [-1, 4, 1,   1,   1.8, C.green,  'sm1'],
-    [-4, 2, 1.5, 1.5, 3.8, C.blue,   'per'],
-    [ 2, 2, 1.5, 1.5, 3.2, C.red,    'biz'],
-    [-1, 0, 2,   2,   6,   C.teal,   'home'],
-  ];
-
-  // Ground tiles
+  // ── Ground + roads ──────────────────────────────────────────────
   let groundHTML = '';
-  for (let x = -5; x < 5; x++) {
-    for (let y = 0; y < 8; y++) {
-      const a = iso(x,y,0), b = iso(x+1,y,0), c = iso(x+1,y+1,0), d = iso(x,y+1,0);
+  for (let x = -6; x < 6; x++) {
+    for (let y = -1; y < 7; y++) {
+      const a = iso(x,y,0), b2 = iso(x+1,y,0), c = iso(x+1,y+1,0), d2 = iso(x,y+1,0);
       const shade = (x + y) % 2 === 0 ? '#e8f9f4' : '#f0fdf8';
-      groundHTML += pathFace([a,b,c,d], shade, '#c8e8da', 0.4);
+      groundHTML += pathFace([a,b2,c,d2], shade, '#c8e8da', 0.4);
     }
   }
 
-  // Road strip between buildings
-  const ra = iso(-1, 0, 0.02), rb = iso(2, 0, 0.02);
-  const rc = iso(2, 4, 0.02),  rd = iso(-1, 4, 0.02);
-  const roadHTML = pathFace([ra,rb,rc,rd], '#d4ede6', 'none');
+  // Road A: east-west avenue. Road B: north-south street.
+  let roadHTML = '';
+  roadHTML += pathFace([iso(-6,2.95,0.01), iso(6,2.95,0.01), iso(6,3.65,0.01), iso(-6,3.65,0.01)], '#cfdfd9', 'none');
+  roadHTML += pathFace([iso(0,-1,0.01), iso(0.9,-1,0.01), iso(0.9,7,0.01), iso(0,7,0.01)], '#cfdfd9', 'none');
+  // center dashes on road A (skip the intersection)
+  for (let x = -5.7; x < 5.7; x += 0.85) {
+    if (x > -0.45 && x < 1.15) continue;
+    roadHTML += pathFace([iso(x,3.26,0.02), iso(x+0.42,3.26,0.02), iso(x+0.42,3.34,0.02), iso(x,3.34,0.02)], '#ffffffcc', 'none');
+  }
+  // center dashes on road B
+  for (let y = -0.8; y < 6.7; y += 0.85) {
+    if (y > 2.55 && y < 3.95) continue;
+    roadHTML += pathFace([iso(0.41,y,0.02), iso(0.49,y,0.02), iso(0.49,y+0.42,0.02), iso(0.41,y+0.42,0.02)], '#ffffffcc', 'none');
+  }
+  // crosswalks flanking the intersection
+  for (let i = 0; i < 5; i++) {
+    const yy = 3.0 + i * 0.13;
+    roadHTML += pathFace([iso(1.12,yy,0.02), iso(1.5,yy,0.02), iso(1.5,yy+0.07,0.02), iso(1.12,yy+0.07,0.02)], '#f8fafcdd', 'none');
+    roadHTML += pathFace([iso(-1.52,yy,0.02), iso(-1.14,yy,0.02), iso(-1.14,yy+0.07,0.02), iso(-1.52,yy+0.07,0.02)], '#f8fafcdd', 'none');
+  }
 
-  // Buildings
-  let bHTML = '';
-  buildings.forEach(([gx,gy,w,d,h,col,id]) => { bHTML += building(gx,gy,w,d,h,col,id); });
-
-  // Trees
-  const treesHTML = [
-    tree(-3, 1), tree(3, 1), tree(-3, 3), tree(3, 3), tree(0, 3.5)
-  ].join('');
-
-  // Floating dot particles (animated via GSAP)
-  const pData = [
-    { id:'isoP1', cx:425, cy:85,  r:5.5, fill:'#f5a623' },
-    { id:'isoP2', cx:465, cy:130, r:3.5, fill:'#00d09c' },
-    { id:'isoP3', cx:100, cy:100, r:4.5, fill:'#5367ff' },
-    { id:'isoP4', cx:395, cy:195, r:3,   fill:'#eb5b3c' },
-    { id:'isoP5', cx:85,  cy:175, r:4,   fill:'#8b5cf6' },
-    { id:'isoP6', cx:480, cy:60,  r:3,   fill:'#f5a623' },
-    { id:'isoP7', cx:120, cy:230, r:3,   fill:'#00d09c' },
+  // ── Buildings ───────────────────────────────────────────────────
+  const backRow = [
+    ['f1',    -5.4, 0.3,  1.0,  0.8,  1.8, C.purple, 4],
+    ['f2',     4.7, 0.3,  1.0,  0.9,  2.4, C.blue,   7],
+    ['green1',-5.2, 1.8,  1.2,  1.0,  2.7, C.green,  2],
+    ['clock', -3.5, 0.9,  0.95, 0.95, 5.0, C.gold,   5],
+    ['blue1', -1.95,0.75, 1.45, 1.45, 6.0, C.blue,   1],
+    ['exch',   1.2, 0.5,  2.0,  1.9,  7.4, C.teal,   3],
+    ['purp1',  3.95,1.1,  1.25, 1.25, 4.2, C.purple, 6],
+    ['red0',   4.9, 2.05, 0.9,  0.8,  1.6, C.red,    8],
   ];
-  const particlesHTML = pData.map(p =>
-    `<circle id="${p.id}" cx="${p.x||p.cx}" cy="${p.y||p.cy}" r="${p.r}" fill="${p.fill}" opacity="0.65" class="iso-particle"/>`
-  ).join('');
+  const frontRow = [
+    ['red1',  -3.9, 4.15, 1.45, 1.2,  3.1, C.red,    9],
+    ['green2',-1.95,4.35, 1.15, 1.0,  2.0, C.green, 10],
+    ['bank',   1.5, 4.05, 1.6,  1.3,  2.6, C.gold,  11],
+    ['purp2',  3.65,4.35, 1.05, 0.95, 1.75,C.purple,12],
+    ['teal2',  5.1, 4.65, 0.85, 0.75, 1.35,C.teal,  13],
+  ];
+  const depth = b => b[1] + b[3] / 2 + b[2] + b[4] / 2;
+  backRow.sort((a, b) => (a[1]+a[2]/2 + a[3]/2) - (b[1]+b[2]/2 + b[3]/2));
+  frontRow.sort((a, b) => (a[1]+a[2]/2 + a[3]/2) - (b[1]+b[2]/2 + b[3]/2));
 
-  // Decorative dashed connector lines (from main building top to badges)
-  const mainTopR = iso(1, 0, 6); // top-front-right of main
-  const connHTML = `
-    <line x1="${mainTopR.x.toFixed(1)}" y1="${mainTopR.y.toFixed(1)}" x2="430" y2="88" stroke="#00d09c" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.35" class="iso-conn"/>
-    <line x1="${mainTopR.x.toFixed(1)}" y1="${mainTopR.y.toFixed(1)}" x2="418" y2="192" stroke="#eb5b3c" stroke-width="1" stroke-dasharray="4,4" opacity="0.3" class="iso-conn"/>
-  `;
+  // ── Facade mounts (everything attached to buildings) ────────────
+  const TK = 'NIFTY 50 +1.24% · SENSEX +0.96% · BANK NIFTY +1.41% · HOME 8.35% · GOLD +0.6% · USD/INR 83.2 · ';
+  const mounts = {};
 
-  // SVG defs (gradients + shadow filter)
+  // — Exchange tower: LED market board on the left face
+  mounts.exch =
+    leftPlane(1.2, 2.4, 7.0, `
+      <rect x="1.5" y="1.5" width="49" height="71" rx="2" fill="#0b1626" stroke="#00d09c40" stroke-width="0.7"/>
+      <circle cx="6" cy="8" r="1.5" fill="#00d09c" class="iso-led-dot"/>
+      <text x="9.5" y="9.8" font-size="4.2" fill="#7ee7c9" letter-spacing="0.8" font-family="'Plus Jakarta Sans',sans-serif" font-weight="700">MARKET PULSE</text>
+      <text x="48.5" y="9.8" font-size="3.6" fill="#64748b" text-anchor="end" font-family="'Plus Jakarta Sans',sans-serif">NSE · LIVE</text>
+      <text id="ledVal" x="4.5" y="23.5" font-size="12.5" font-weight="800" fill="#f1f5f9" font-family="'Plus Jakarta Sans',sans-serif">84,286</text>
+      <text id="ledPct" x="4.5" y="31" font-size="5.4" font-weight="700" fill="#00d09c" font-family="'Plus Jakarta Sans',sans-serif">+1.82%</text>
+      <polygon points="4,60 10,56 16,58 22,50 28,53 34,44 40,47 46,38 46,66 4,66" fill="#00d09c1f"/>
+      <polyline id="ledChart" points="4,60 10,56 16,58 22,50 28,53 34,44 40,47 46,38" fill="none" stroke="#00d09c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle id="ledChartDot" cx="46" cy="38" r="1.8" fill="#00d09c"/>
+      <text x="25.5" y="70.5" font-size="3.4" fill="#475569" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" letter-spacing="1">BSE · NSE · MCX</text>
+    `) +
+    // scrolling LED ticker band wrapped around both faces
+    leftPlane(1.2, 2.4, 3.9, `
+      <rect x="0" y="0" width="52" height="11.7" fill="#0d1a2b" stroke="#00d09c33" stroke-width="0.6"/>
+      <clipPath id="clipTkL"><rect x="1" y="1" width="50" height="9.7"/></clipPath>
+      <g clip-path="url(#clipTkL)"><text id="tkL" x="2" y="8.4" font-size="5.4" fill="#00d09c" font-family="'Courier New',monospace" font-weight="700">${TK}${TK}</text></g>
+    `) +
+    rightPlane(3.2, 2.4, 3.9, `
+      <rect x="0" y="0" width="49.4" height="11.7" fill="#0d1a2b" stroke="#ffd16633" stroke-width="0.6"/>
+      <clipPath id="clipTkR"><rect x="1" y="1" width="47.4" height="9.7"/></clipPath>
+      <g clip-path="url(#clipTkR)"><text id="tkR" x="2" y="8.4" font-size="5.4" fill="#ffd166" font-family="'Courier New',monospace" font-weight="700">${TK}${TK}</text></g>
+    `) +
+    // rooftop brand sign on legs
+    rightPlane(3.2, 2.4, 8.05, `
+      <rect x="8" y="13" width="1.8" height="4.4" fill="#0f3d33"/>
+      <rect x="39.6" y="13" width="1.8" height="4.4" fill="#0f3d33"/>
+      <rect x="0" y="0" width="49.4" height="13" rx="1.5" fill="#0b1626" stroke="#00d09c55" stroke-width="0.7"/>
+      <text x="24.7" y="9" font-size="6.2" font-weight="800" fill="#00d09c" text-anchor="middle" letter-spacing="1.1" font-family="'Plus Jakarta Sans',sans-serif">AJ FINANCE</text>
+    `) +
+    // antennas with warning beacons
+    (() => {
+      const a1b = iso(1.55, 0.85, 7.4), a1t = iso(1.55, 0.85, 9.0);
+      const a2b = iso(2.85, 0.7, 7.4),  a2t = iso(2.85, 0.7, 8.2);
+      return `<g class="iso-mnt">
+        <line x1="${a1b.x.toFixed(1)}" y1="${a1b.y.toFixed(1)}" x2="${a1t.x.toFixed(1)}" y2="${a1t.y.toFixed(1)}" stroke="#475569" stroke-width="1.6"/>
+        <circle id="blinkA" cx="${a1t.x.toFixed(1)}" cy="${a1t.y.toFixed(1)}" r="2" fill="#ef4444"/>
+        <line x1="${a2b.x.toFixed(1)}" y1="${a2b.y.toFixed(1)}" x2="${a2t.x.toFixed(1)}" y2="${a2t.y.toFixed(1)}" stroke="#475569" stroke-width="1.2"/>
+        <circle id="blinkB" cx="${a2t.x.toFixed(1)}" cy="${a2t.y.toFixed(1)}" r="1.4" fill="#f59e0b"/>
+      </g>`;
+    })();
+
+  // — Clock tower: pyramid roof + working analog clock
+  mounts.clock = (() => {
+    const r1 = iso(-2.55, 0.9, 5), r2 = iso(-2.55, 1.85, 5), r3 = iso(-3.5, 1.85, 5);
+    const apex = iso(-3.025, 1.375, 5.7);
+    let g = `<g class="iso-mnt">`;
+    g += `<polygon points="${pt(r1)} ${pt(r2)} ${pt(apex)}" fill="#d97706" stroke="#00000022" stroke-width="0.5"/>`;
+    g += `<polygon points="${pt(r2)} ${pt(r3)} ${pt(apex)}" fill="#92400e" stroke="#00000022" stroke-width="0.5"/>`;
+    g += `</g>`;
+    g += rightPlane(-2.55, 1.85, 4.6, `
+      <circle cx="12.35" cy="11" r="9" fill="#fffbeb" stroke="#92400e" stroke-width="1.1"/>
+      <line x1="12.35" y1="3.4" x2="12.35" y2="5.2" stroke="#92400e" stroke-width="0.9"/>
+      <line x1="12.35" y1="16.8" x2="12.35" y2="18.6" stroke="#92400e" stroke-width="0.9"/>
+      <line x1="4.75" y1="11" x2="6.55" y2="11" stroke="#92400e" stroke-width="0.9"/>
+      <line x1="18.15" y1="11" x2="19.95" y2="11" stroke="#92400e" stroke-width="0.9"/>
+      <line id="clkH" x1="12.35" y1="11" x2="12.35" y2="6.6" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/>
+      <line id="clkM" x1="12.35" y1="11" x2="12.35" y2="4.7" stroke="#1f2937" stroke-width="1" stroke-linecap="round"/>
+      <line id="clkS" x1="12.35" y1="12.6" x2="12.35" y2="4" stroke="#eb5b3c" stroke-width="0.6" stroke-linecap="round"/>
+      <circle cx="12.35" cy="11" r="0.9" fill="#92400e"/>
+    `);
+    return g;
+  })();
+
+  // — Blue tower helipad painted flat on the roof
+  mounts.blue1 = topPlane(-1.95, 0.75, 6.005, `
+    <circle cx="18.85" cy="18.85" r="12.5" fill="#0f2c4e" stroke="#7fb3ff" stroke-width="1"/>
+    <circle cx="18.85" cy="18.85" r="8.6" fill="none" stroke="#7fb3ff" stroke-width="0.8"/>
+    <text x="18.85" y="22.4" font-size="10" font-weight="800" fill="#9cc3ff" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif">H</text>
+  `);
+
+  // — Red building: rooftop loan-rate billboard on legs
+  mounts.red1 = leftPlane(-3.9, 5.35, 4.6, `
+    <rect x="5" y="25" width="1.7" height="14" fill="#7f1d1d"/>
+    <rect x="31" y="25" width="1.7" height="14" fill="#7f1d1d"/>
+    <rect x="0" y="0" width="37.7" height="25" rx="1.5" fill="#0b1626" stroke="#ffffff26" stroke-width="0.6"/>
+    <text x="18.85" y="6.5" font-size="4.2" fill="#9fb3c8" text-anchor="middle" letter-spacing="1" font-family="'Plus Jakarta Sans',sans-serif" font-weight="700">HOME LOAN</text>
+    <text x="18.85" y="17" font-size="10.5" font-weight="800" fill="#00d09c" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif">8.35%</text>
+    <text x="18.85" y="22.5" font-size="3.5" fill="#64748b" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif">Best rate · 25+ banks</text>
+  `);
+
+  // — Bank: classical facade with pediment, columns and brand band
+  mounts.bank = leftPlane(1.5, 5.35, 2.6, `
+    <polygon points="2,12 39.6,12 20.8,3" fill="#fde68a" stroke="#b45309" stroke-width="0.8"/>
+    <text x="20.8" y="10.6" font-size="5.4" font-weight="800" fill="#92400e" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif">₹</text>
+    <rect x="2" y="12.8" width="37.6" height="6.5" fill="#0b1626"/>
+    <text x="20.8" y="17.6" font-size="3.9" fill="#ffd166" text-anchor="middle" letter-spacing="1" font-family="'Plus Jakarta Sans',sans-serif" font-weight="700">AJ FINANCE</text>
+    <rect x="5" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
+    <rect x="14.5" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
+    <rect x="24" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
+    <rect x="33.5" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
+    <rect x="17.3" y="52" width="7" height="10.5" rx="1" fill="#78350f"/>
+    <rect x="15" y="62.5" width="11.6" height="2.2" fill="#eab308" opacity="0.85"/>
+    <rect x="12.8" y="64.7" width="16" height="2.2" fill="#eab308" opacity="0.7"/>
+  `);
+
+  // ── Cars (drive on the roads) ───────────────────────────────────
+  function car(idTag, bx, by, alongY, body, cab) {
+    const w = alongY ? 0.32 : 0.58, d = alongY ? 0.58 : 0.32;
+    const sh = iso(bx + w / 2, by + d / 2, 0.02);
+    return `<g class="iso-car" data-car="${idTag}" opacity="0">
+      <ellipse cx="${sh.x.toFixed(1)}" cy="${sh.y.toFixed(1)}" rx="9" ry="3.5" fill="#00000022"/>
+      ${building(bx, by, w, d, 0.18, body, 'car-' + idTag)}
+      ${building(bx + (alongY ? 0.03 : 0.14), by + (alongY ? 0.14 : 0.03), alongY ? 0.26 : 0.3, alongY ? 0.3 : 0.26, 0.3, cab, 'cab-' + idTag)}
+    </g>`;
+  }
+  const carCol = {
+    tealB: { top:'#34d399', left:'#065f46', right:'#059669' },
+    tealC: { top:'#a7f3d0', left:'#047857', right:'#10b981' },
+    redB:  { top:'#f87171', left:'#7f1d1d', right:'#b91c1c' },
+    redC:  { top:'#fecaca', left:'#991b1b', right:'#dc2626' },
+    goldB: { top:'#fbbf24', left:'#92400e', right:'#d97706' },
+    goldC: { top:'#fde68a', left:'#b45309', right:'#f59e0b' },
+  };
+  const carsA = car('c1', -6.4, 3.02, false, carCol.tealB, carCol.tealC)
+              + car('c2',  6.0, 3.38, false, carCol.redB,  carCol.redC);
+  const carB  = car('c3',  0.18, 5.5, true,  carCol.goldB, carCol.goldC);
+
+  // ── Decor ───────────────────────────────────────────────────────
+  const backDecor  = streetlight(-4.6, 2.85, 1) + streetlight(2.5, 2.85, 1)
+                   + tree(5.65, 2.5, 0.9) + tree(-5.75, 2.6, 0.85);
+  const frontLights = streetlight(-1.3, 3.78, -1) + streetlight(4.1, 3.78, -1);
+  const frontDecor = tree(-4.75, 5.95, 1.05) + tree(-0.45, 6.2, 0.95)
+                   + tree(2.75, 6.35, 1) + tree(4.55, 6.05, 0.9) + tree(-2.6, 5.95, 0.8);
+
   const defs = `<defs>
     <filter id="isoDrop" x="-10%" y="-10%" width="120%" height="130%">
       <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#00000020"/>
     </filter>
-    <radialGradient id="grdGround" cx="50%" cy="40%" r="55%">
-      <stop offset="0%" stop-color="#e8faf4"/>
-      <stop offset="100%" stop-color="#f4f7fe"/>
-    </radialGradient>
   </defs>`;
 
-  svgEl.innerHTML = defs + groundHTML + roadHTML + treesHTML + bHTML + particlesHTML + connHTML;
+  let html = defs + groundHTML + roadHTML + backDecor;
+  backRow.forEach(([id,gx,gy,w,d,h,col,seed]) => {
+    html += building(gx,gy,w,d,h,col,id,seed);
+    if (mounts[id]) html += mounts[id];
+  });
+  html += carsA + frontLights;
+  frontRow.forEach(([id,gx,gy,w,d,h,col,seed]) => {
+    html += building(gx,gy,w,d,h,col,id,seed);
+    if (mounts[id]) html += mounts[id];
+  });
+  html += frontDecor + carB;
+  svgEl.innerHTML = html;
 
-  // ── GSAP Animations ─────────────────────────────────────────────
+  // ── Live behaviours ─────────────────────────────────────────────
+  // Working analog clock on the clock tower
+  function tickClock() {
+    const now = new Date();
+    const sd = now.getSeconds() * 6;
+    const md = now.getMinutes() * 6 + now.getSeconds() * 0.1;
+    const hd = (now.getHours() % 12) * 30 + now.getMinutes() * 0.5;
+    const set = (id, deg) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('transform', `rotate(${deg} 12.35 11)`);
+    };
+    set('clkH', hd); set('clkM', md); set('clkS', sd);
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  // Flickering index value on the LED board
+  let mv = 84286;
+  setInterval(() => {
+    const v = document.getElementById('ledVal'), p = document.getElementById('ledPct');
+    if (!v || !p) return;
+    mv = Math.max(82000, Math.min(86500, mv + Math.round((Math.random() - 0.42) * 160)));
+    v.textContent = mv.toLocaleString('en-IN');
+    p.textContent = '+' + (0.4 + Math.random() * 1.8).toFixed(2) + '%';
+    if (typeof gsap !== 'undefined') gsap.fromTo([v, p], { opacity: 0.35 }, { opacity: 1, duration: 0.3 });
+  }, 3200);
+
   if (typeof gsap === 'undefined') return;
 
-  // Buildings rise-up entrance (staggered)
+  // Buildings rise from the ground
   const blds = svgEl.querySelectorAll('.iso-bld');
   gsap.set(blds, { opacity: 0, y: 24 });
-  gsap.to(blds, {
-    opacity: 1, y: 0,
-    duration: 0.72, stagger: 0.1,
-    ease: 'back.out(1.3)', delay: 0.55
+  gsap.to(blds, { opacity: 1, y: 0, duration: 0.7, stagger: 0.07, ease: 'back.out(1.3)', delay: 0.5 });
+
+  // Facade mounts fade in after their buildings
+  const mnts = svgEl.querySelectorAll('.iso-mnt');
+  gsap.set(mnts, { opacity: 0, y: 10 });
+  gsap.to(mnts, { opacity: 1, y: 0, duration: 0.55, stagger: 0.09, delay: 1.3, ease: 'power2.out' });
+
+  // Scrolling LED ticker bands
+  requestAnimationFrame(() => {
+    ['tkL', 'tkR'].forEach((id, i) => {
+      const t = document.getElementById(id);
+      if (!t) return;
+      let half = 200;
+      try { half = t.getComputedTextLength() / 2; } catch (e) {}
+      gsap.fromTo(t, { x: 0 }, { x: -half, duration: 16 + i * 4, ease: 'none', repeat: -1 });
+    });
   });
 
-  // Trees gentle sway
+  // Chart draw-on + pulsing end dot
+  const chart = document.getElementById('ledChart');
+  if (chart) {
+    const L = chart.getTotalLength();
+    gsap.fromTo(chart, { strokeDasharray: L, strokeDashoffset: L },
+      { strokeDashoffset: 0, duration: 1.6, delay: 1.5, ease: 'power2.out' });
+  }
+  gsap.to('#ledChartDot', { opacity: 0.3, duration: 0.9, yoyo: true, repeat: -1, delay: 2.6 });
+  gsap.to('.iso-led-dot', { opacity: 0.25, duration: 0.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+  // Antenna beacons blink
+  gsap.to('#blinkA', { opacity: 0.15, duration: 0.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('#blinkB', { opacity: 0.2, duration: 1.1, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 0.4 });
+
+  // Streetlight glow pulse
+  gsap.to(svgEl.querySelectorAll('.iso-glow'), { opacity: 0.35, duration: 1.6, yoyo: true, repeat: -1, stagger: 0.4 });
+
+  // Trees sway
   svgEl.querySelectorAll('.iso-tree').forEach((t, i) => {
-    gsap.to(t, {
-      y: -4, duration: 2.2 + i * 0.3,
-      ease: 'sine.inOut', yoyo: true, repeat: -1,
-      delay: i * 0.25
-    });
+    gsap.to(t, { y: -3, duration: 2.2 + i * 0.3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.25 });
   });
 
-  // Particles float upward and reset
-  pData.forEach((p, i) => {
-    const el = svgEl.getElementById ? svgEl.getElementById(p.id) : document.getElementById(p.id);
+  // Cars drive along the roads, fading at the edges
+  function driveCar(tag, dx, dy, dur, delay) {
+    const el = svgEl.querySelector(`[data-car="${tag}"]`);
     if (!el) return;
-    gsap.to(el, {
-      attr: { cy: (p.cy - 18) },
-      opacity: 0,
-      duration: 2.4 + i * 0.35,
-      ease: 'power1.inOut',
-      repeat: -1,
-      delay: i * 0.55,
-      repeatDelay: 0.3,
-      onRepeat() { gsap.set(el, { attr: { cy: p.cy }, opacity: 0.65 }); }
-    });
-  });
-
-  // Connector line draw-on
-  svgEl.querySelectorAll('.iso-conn').forEach(l => {
-    const len = l.getTotalLength ? l.getTotalLength() : 120;
-    gsap.fromTo(l,
-      { strokeDasharray: len, strokeDashoffset: len },
-      { strokeDashoffset: 0, duration: 1.4, ease: 'power2.out', delay: 1.0 }
-    );
-  });
-
-  // Badges continuous float
-  gsap.to('.hiso-badge', {
-    y: '-=9', duration: 2.1,
-    ease: 'sine.inOut', yoyo: true, repeat: -1,
-    stagger: { each: 0.55, from: 'start' },
-    delay: 1.8
-  });
-
+    const tl = gsap.timeline({ repeat: -1, delay: delay });
+    tl.set(el, { x: 0, y: 0, opacity: 0 })
+      .to(el, { opacity: 1, duration: 0.5 }, 0)
+      .to(el, { x: dx, y: dy, duration: dur, ease: 'none' }, 0)
+      .to(el, { opacity: 0, duration: 0.5 }, dur - 0.5);
+  }
+  driveCar('c1',  12.8 * sx,  12.8 * sy, 11, 1.6);
+  driveCar('c2', -12.6 * sx, -12.6 * sy, 13, 2.8);
+  driveCar('c3', -1.55 * sx,  1.55 * sy, 7,  2.2);
 }
 
 // ===================================================================
