@@ -9,7 +9,9 @@ import { useAuth } from '../../context/AuthContext';
 import { analytics } from '../../api/db';
 import { PIPELINE, LABELS, labelOf, DAILY_TARGET } from '../../data/constants';
 import { StatCard, money } from '../../components/ui';
-import { IcLeads, IcCheck, IcChart, IcTarget, LabelIcon } from '../../components/icons';
+import { IcLeads, IcCheck, IcChart, IcTarget, LabelIcon, IcDownload } from '../../components/icons';
+import { exportLeadsXlsx, printReport } from '../../utils/exporters';
+import { allLeadsRaw } from '../../api/db';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
@@ -25,7 +27,11 @@ export default function AdminDashboard() {
 
   return (
     <Layout title="Dashboard" subtitle="Live overview of leads, pipeline & agent performance"
-      actions={<button className="btn btn-green" onClick={() => nav('/admin/assign')}>Assign Leads</button>}>
+      actions={<>
+        <button className="btn btn-ghost" onClick={() => exportLeadsXlsx(allLeadsRaw(user), 'dsa-report')}><IcDownload width={16} height={16} /> Excel</button>
+        <button className="btn btn-ghost" onClick={printReport}>Print / PDF</button>
+        <button className="btn btn-green" onClick={() => nav('/admin/assign')}>Assign Leads</button>
+      </>}>
 
       <div className="grid cols-4">
         <StatCard icon={<IcLeads />} value={a.total} label="Total Leads" accent="#1b3a6b"

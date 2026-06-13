@@ -183,3 +183,12 @@ table.dt { width: 100%; border-collapse: collapse; font-size: 13px; }
   .main { margin-left: 0; }
   .content { padding: 18px; }
 }
+
+/* Print → PDF: drop chrome, keep report content (spec §3.1 PDF export) */
+@media print {
+  .sidebar, .topbar, .toast { display: none !important; }
+  .main { margin-left: 0 !important; }
+  .content { padding: 0 !important; max-width: none !important; }
+  .card { box-shadow: none !important; break-inside: avoid; }
+  body { background: #fff; }
+}

@@ -5,7 +5,8 @@ import LeadsTable from '../../components/LeadsTable';
 import { useAuth } from '../../context/AuthContext';
 import { listLeads, getAgents } from '../../api/db';
 import { PIPELINE, LABELS } from '../../data/constants';
-import { IcSearch } from '../../components/icons';
+import { IcSearch, IcDownload } from '../../components/icons';
+import { exportLeadsXlsx } from '../../utils/exporters';
 
 export default function AllLeads() {
   const { user } = useAuth();
@@ -27,7 +28,8 @@ export default function AllLeads() {
   }, [user, q, stage, label, assignedTo]);
 
   return (
-    <Layout title="All Leads" subtitle={`${leads.length} leads in view — full database access`}>
+    <Layout title="All Leads" subtitle={`${leads.length} leads in view — full database access`}
+      actions={<button className="btn btn-ghost" onClick={() => exportLeadsXlsx(leads, 'dsa-leads')}><IcDownload width={16} height={16} /> Export Excel</button>}>
       <div className="card">
         <div className="card-pad">
           <div className="wrap-gap">

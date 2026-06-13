@@ -1,0 +1,12 @@
+{
+  "name": "DSA Finance CRM",
+  "short_name": "DSA CRM",
+  "description": "Loan & wealth lead management for DSA telecalling teams",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f2347",
+  "theme_color": "#1b3a6b",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

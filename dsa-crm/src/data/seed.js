@@ -4,7 +4,7 @@
 // rules in api/db.js mirror the server-side RBAC that production needs
 // ("enforced server-side, not just hidden in the UI" — spec §3.2).
 
-const KEY = 'dsa_crm_db_v1';
+const KEY = 'dsa_crm_db_v2';
 
 const FIRST = ['Rahul', 'Priya', 'Amit', 'Sneha', 'Vikram', 'Anjali', 'Karan', 'Pooja', 'Rohit', 'Neha',
   'Arjun', 'Divya', 'Suresh', 'Meera', 'Rajesh', 'Kavya', 'Manish', 'Ritu', 'Sanjay', 'Deepa',
@@ -72,6 +72,9 @@ function seedLeads() {
         'Low CIBIL / credit score', 'Insufficient income', 'Incomplete documents', 'Policy decline']) : null,
       lastOutcome: null,
       notes: '',
+      cibil: rint(620, 820),
+      dnd: Math.random() < 0.08,
+      docs: [],
       createdAt: created,
       activity,
     });
@@ -79,8 +82,23 @@ function seedLeads() {
   return leads;
 }
 
+const DEFAULT_SETTINGS = {
+  autoRotate: false,            // auto round-robin website leads to telecallers
+  providers: {                  // provider config stubs (real keys wired to backend)
+    whatsapp: { name: 'WhatsApp Business Cloud', connected: false, key: '' },
+    email: { name: 'SendGrid', connected: false, key: '' },
+    sms: { name: 'MSG91 (DLT)', connected: false, key: '' },
+    telephony: { name: 'Exotel', connected: false, key: '' },
+  },
+};
+
 export function freshDb() {
-  return { users: seedUsers(), leads: seedLeads(), seededAt: new Date().toISOString() };
+  return {
+    users: seedUsers(),
+    leads: seedLeads(),
+    settings: DEFAULT_SETTINGS,
+    seededAt: new Date().toISOString(),
+  };
 }
 
 export function loadDb() {

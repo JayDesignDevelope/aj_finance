@@ -64,6 +64,38 @@ export const LEAD_SOURCES = ['Website', 'Excel Import', 'Referral', 'Ads', 'Manu
 // Daily minimum target per telecaller (Section 7)
 export const DAILY_TARGET = 10;
 
+// ── Phase 2: message templates (spec §6) ──────────────────────────
+// {{name}}, {{product}}, {{amount}} tokens are filled at send time.
+export const TEMPLATES = [
+  { id: 'welcome',   channel: 'all',      title: 'Welcome',
+    body: 'Hi {{name}}, thank you for your interest in our {{product}} with DSA Finance. Our advisor will assist you shortly.' },
+  { id: 'docs',      channel: 'all',      title: 'Document Checklist',
+    body: 'Hi {{name}}, to process your {{product}} please keep ready: PAN, Aadhaar, last 3 months bank statement, salary slips / ITR, and address proof.' },
+  { id: 'followup',  channel: 'all',      title: 'Follow-up Reminder',
+    body: 'Hi {{name}}, following up on your {{product}} enquiry. Are you available for a quick call today to take this forward?' },
+  { id: 'approval',  channel: 'all',      title: 'Approval Update',
+    body: 'Good news {{name}}! Your {{product}} application has progressed. Our team will share the next steps shortly.' },
+];
+export const fillTemplate = (body, lead) => body
+  .replace(/\{\{name\}\}/g, lead.name.split(' ')[0])
+  .replace(/\{\{product\}\}/g, lead.product)
+  .replace(/\{\{amount\}\}/g, '₹' + (lead.amount || 0).toLocaleString('en-IN'));
+
+// ── Phase 3: Bank / NBFC product catalog (spec §9) ────────────────
+// Each lender lists eligibility criteria used to match leads.
+export const BANKS = [
+  { id: 'sbi',   name: 'SBI',            products: ['Home Loan', 'Personal Loan', 'Education Loan'], minIncome: 25000, minCibil: 700, maxAmount: 50000000, roi: '8.40%' },
+  { id: 'hdfc',  name: 'HDFC Bank',      products: ['Home Loan', 'Personal Loan', 'Auto Loan'],     minIncome: 30000, minCibil: 720, maxAmount: 40000000, roi: '8.60%' },
+  { id: 'icici', name: 'ICICI Bank',     products: ['Home Loan', 'Personal Loan', 'Business Loan'], minIncome: 30000, minCibil: 725, maxAmount: 35000000, roi: '8.75%' },
+  { id: 'axis',  name: 'Axis Bank',      products: ['Personal Loan', 'Loan Against Property'],      minIncome: 35000, minCibil: 730, maxAmount: 30000000, roi: '10.49%' },
+  { id: 'bajaj', name: 'Bajaj Finserv',  products: ['Personal Loan', 'Business Loan'],              minIncome: 25000, minCibil: 685, maxAmount: 4500000,  roi: '11.00%' },
+  { id: 'lichfl',name: 'LIC Housing',    products: ['Home Loan', 'Loan Against Property'],          minIncome: 25000, minCibil: 700, maxAmount: 50000000, roi: '8.50%' },
+  { id: 'tata',  name: 'Tata Capital',   products: ['Business Loan', 'Personal Loan', 'Auto Loan'], minIncome: 25000, minCibil: 700, maxAmount: 7500000,  roi: '10.99%' },
+];
+
+// Documents an agent can upload against a lead (spec §9)
+export const DOC_TYPES = ['PAN Card', 'Aadhaar', 'Bank Statement', 'Salary Slip', 'ITR', 'Address Proof', 'Photo', 'Other'];
+
 // Activity types for the per-lead communication/audit timeline (Section 6.4)
 export const ACTIVITY = {
   CREATED: 'created',
@@ -76,4 +108,7 @@ export const ACTIVITY = {
   EMAIL: 'email',
   SMS: 'sms',
   CALLBACK: 'callback',
+  CALL: 'call',       // click-to-call with logged duration (Phase 3)
+  DOC: 'doc',         // document uploaded (Phase 3)
+  DND: 'dnd',         // DND flag toggled (Phase 3)
 };

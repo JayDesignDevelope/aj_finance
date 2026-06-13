@@ -242,3 +242,131 @@ export function callerProgress(actor) {
 }
 
 export function hardReset() { db = resetDb(); return db; }
+
+// ═══════════════════════════════════════════════════════════════════
+// PHASE 2 + PHASE 3
+// ═══════════════════════════════════════════════════════════════════
+
+// ---- Settings / provider config (admin) ----------------------------
+export function getSettings() {
+  if (!db.settings) { db.settings = { autoRotate: false, providers: {} }; persist(); }
+  return db.settings;
+}
+export function updateSettings(patch) { db.settings = { ...getSettings(), ...patch }; persist(); return db.settings; }
+export function setProvider(key, patch) {
+  const s = getSettings();
+  s.providers[key] = { ...s.providers[key], ...patch };
+  persist(); return s;
+}
+
+// ---- Phase 2: website capture (public, no auth) --------------------
+// Returns { ok, duplicate, lead }. De-dups on phone (spec §5.1).
+export function captureLead(data) {
+  const phone = (data.phone || '').toString().trim();
+  if (!data.name || normPhone(phone).length < 10) return { ok: false, error: 'Name and valid mobile required' };
+  if (findByPhone(phone)) return { ok: false, duplicate: true };
+  const lead = {
+    id: uid('L_'), name: data.name.trim(), phone: '+91 ' + normPhone(phone),
+    email: (data.email || '').trim(), city: (data.city || '').trim(),
+    product: data.product || 'Other', amount: Number(data.amount) || 0,
+    income: Number(data.income) || 0, employment: data.employment || '',
+    source: 'Website', stage: 'captured', label: 'hot', assignedTo: null,
+    callback: null, rejectionReason: null, lastOutcome: null, notes: data.notes || '',
+    cibil: 0, dnd: false, docs: [], createdAt: now(), activity: [],
+  };
+  addActivity(lead, ACTIVITY.CREATED, 'system', 'Captured from website form');
+  db.leads.unshift(lead); persist();
+  if (getSettings().autoRotate) autoRotate({ role: 'admin', id: 'u_admin' });
+  return { ok: true, lead };
+}
+// Admin real-time website inbox
+export function websiteLeads(actor) {
+  if (!actor || actor.role !== 'admin') return [];
+  return db.leads.filter((l) => l.source === 'Website')
+    .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+}
+
+// ---- Phase 3: auto lead-rotation (round-robin) ---------------------
+export function autoRotate(actor) {
+  if (actor.role !== 'admin') return 0;
+  const callers = db.users.filter((u) => u.role === 'caller' && u.active);
+  if (!callers.length) return 0;
+  const pool = db.leads.filter((l) => !l.assignedTo && !['disbursed', 'rejected', 'dropped'].includes(l.stage));
+  // balance by current load
+  const load = {}; callers.forEach((c) => { load[c.id] = db.leads.filter((l) => l.assignedTo === c.id).length; });
+  pool.forEach((lead) => {
+    const target = callers.reduce((a, b) => (load[a.id] <= load[b.id] ? a : b));
+    lead.assignedTo = target.id; load[target.id]++;
+    if (lead.stage === 'captured') lead.stage = 'in_progress';
+    addActivity(lead, ACTIVITY.ASSIGNED, actor.id, `Auto-rotated to ${target.name}`);
+  });
+  persist();
+  return pool.length;
+}
+
+// ---- Phase 3: click-to-call with logged duration -------------------
+export function logCall(actor, id, seconds, outcome) {
+  const lead = getLead(actor, id); if (!lead) return null;
+  const mm = Math.floor(seconds / 60), ss = seconds % 60;
+  lead.lastOutcome = outcome || lead.lastOutcome;
+  addActivity(lead, ACTIVITY.CALL, actor.id,
+    `Call logged — ${mm}m ${ss}s${outcome ? ' · ' + outcome : ''}`);
+  persist(); return lead;
+}
+
+// ---- Phase 3: document upload --------------------------------------
+export function addDoc(actor, id, doc) {
+  const lead = getLead(actor, id); if (!lead) return null;
+  lead.docs = lead.docs || [];
+  lead.docs.push({ id: uid('d_'), name: doc.name, type: doc.type, size: doc.size, dataUrl: doc.dataUrl, at: now() });
+  addActivity(lead, ACTIVITY.DOC, actor.id, `Uploaded document: ${doc.type} (${doc.name})`);
+  persist(); return lead;
+}
+export function removeDoc(actor, id, docId) {
+  const lead = getLead(actor, id); if (!lead) return null;
+  lead.docs = (lead.docs || []).filter((d) => d.id !== docId);
+  persist(); return lead;
+}
+
+// ---- Phase 3: DND flag ---------------------------------------------
+export function toggleDnd(actor, id) {
+  const lead = getLead(actor, id); if (!lead) return null;
+  lead.dnd = !lead.dnd;
+  addActivity(lead, ACTIVITY.DND, actor.id, lead.dnd ? 'Flagged Do-Not-Disturb' : 'Removed DND flag');
+  persist(); return lead;
+}
+
+// ---- Phase 3: bank / NBFC matching ---------------------------------
+export function matchLenders(lead, banks) {
+  return banks.filter((b) =>
+    b.products.includes(lead.product) &&
+    (lead.income || 0) >= b.minIncome &&
+    (lead.cibil ? lead.cibil >= b.minCibil : true) &&
+    (lead.amount || 0) <= b.maxAmount
+  );
+}
+
+// ---- Phase 3: follow-up reminders (due callbacks) ------------------
+export function dueCallbacks(actor) {
+  const rows = scope(actor, db.leads).filter((l) => l.callback);
+  const nowMs = Date.now();
+  return rows
+    .map((l) => ({ id: l.id, name: l.name, phone: l.phone, product: l.product, callback: l.callback, due: new Date(l.callback).getTime() <= nowMs }))
+    .sort((a, b) => new Date(a.callback) - new Date(b.callback));
+}
+
+// ---- Phase 3: role-based audit log (admin) -------------------------
+export function auditLog(actor, limit = 200) {
+  if (actor.role !== 'admin') return [];
+  const rows = [];
+  db.leads.forEach((l) => (l.activity || []).forEach((a) =>
+    rows.push({ ...a, leadId: l.id, leadName: l.name, who: a.by === 'system' ? 'System' : (getUser(a.by)?.name || a.by) })));
+  return rows.sort((a, b) => (b.at || '').localeCompare(a.at || '')).slice(0, limit);
+}
+
+// ---- Export helpers ------------------------------------------------
+export function allLeadsRaw(actor) { return scope(actor, db.leads); }
+export function exportBackup() { return JSON.stringify(db, null, 2); }
+export function restoreBackup(json) {
+  try { db = JSON.parse(json); persist(); return true; } catch { return false; }
+}

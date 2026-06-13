@@ -55,15 +55,42 @@ Clear that key to reseed.
 | §7 | Daily batch assignment + target counter | `pages/admin/AssignLeads.jsx`, sidebar widget |
 | §8 | Analytics: stage funnel, conversion, rejection/source pies, capture trend, per-agent | `pages/admin/AdminDashboard.jsx` |
 
-## Production path (Phase 2/3 — see spec §10)
+## Phase 2 — Capture & Communication (built)
 
-This MVP uses a localStorage store so it runs and demos standalone. The data layer
-(`src/api/db.js`) is the single gateway to all lead data and is structured so it can be
-swapped for a real backend with identical semantics:
+| Feature | Where |
+|---|---|
+| Public embeddable website capture form (honeypot spam guard, de-dup, auto-ack) | `pages/Capture.jsx` → route `/capture` |
+| Real-time website-lead inbox + iframe embed snippet | `pages/admin/WebsiteInbox.jsx` |
+| Message templates (welcome / doc checklist / follow-up / approval) with token fill | `data/constants.js` `TEMPLATES`, used in `LeadDetail` |
+| WhatsApp / Email / SMS send (deep-links) + auto-logged | `LeadDetail.jsx` |
+| Provider connect screen (WhatsApp/SendGrid/MSG91/Exotel keys) | `pages/admin/Settings.jsx` |
+| Admin analytics graphs | `pages/admin/AdminDashboard.jsx` |
+| Report export — Excel + Print/PDF | `utils/exporters.js` |
 
-- Replace `src/api/db.js` calls with REST/GraphQL calls to **Node + Express / PostgreSQL**.
-- Move RBAC scoping (`scope()`, `getLead()` guards) server-side — the UI already assumes it.
-- Wire real messaging providers for §6: WhatsApp Cloud API / WATI, SendGrid / SES, MSG91 (DLT).
-- Add the public capture endpoint `POST /api/leads/capture` + embeddable form (§5.1).
-- Phase 3 add-ons: cloud telephony click-to-call, auto round-robin rotation, document upload,
-  callback reminders, eligibility calculator.
+## Phase 3 — Automation & Add-ons (built)
+
+| Feature | Where |
+|---|---|
+| Click-to-call with live timer + logged duration | `components/CallMode.jsx` |
+| Auto lead-rotation (round-robin, load-balanced) | `api/db.js` `autoRotate`, Settings + Assign screens |
+| Document upload & storage (per lead) | `components/LeadExtras.jsx` `DocsPanel` |
+| EMI / eligibility calculator (FOIR) | `components/LeadExtras.jsx` `EligibilityCalc` |
+| Follow-up reminders (due-callback bell) | `components/Layout.jsx` `RemindersBell` |
+| Bank / NBFC catalog + per-lead lender matching | `pages/admin/Catalog.jsx`, `LeadExtras` `MatchingLenders` |
+| Duplicate & DND check | `LeadDetail.jsx`, `api/db.js` `toggleDnd` |
+| Role-based audit log | `pages/admin/AuditLog.jsx` |
+| PWA — installable, offline service worker | `public/manifest.webmanifest`, `public/sw.js` |
+| Data backup / restore (JSON) | `pages/admin/Settings.jsx` |
+
+## Going live (needs your accounts)
+
+The app runs fully on a localStorage store. The data layer (`src/api/db.js`) is the single
+gateway to all data, structured to swap to a real backend with identical semantics:
+
+- Replace `api/db.js` calls with REST/GraphQL to **Node + Express / PostgreSQL**; move the
+  RBAC scoping (`scope()`, `getLead()` guards) server-side — the UI already assumes it.
+- The capture form posts client-side today; point it at `POST /api/leads/capture` in production.
+- Messaging/telephony currently use device deep-links (wa.me / mailto / sms / tel) and log every
+  interaction. To send/dial **through providers**, add credentials in Settings and wire the
+  backend to WhatsApp Cloud API / WATI, SendGrid / SES, MSG91 (DLT), and Exotel / Twilio.
+  These require paid accounts + (for SMS) DLT registration.

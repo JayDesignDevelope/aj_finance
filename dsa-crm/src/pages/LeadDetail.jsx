@@ -3,13 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import {
-  getLead, updateStage, setLabel, setOutcome, setCallback, addNote, logComm, getUser, unassignLead,
+  getLead, updateStage, setLabel, setOutcome, setCallback, addNote, logComm, getUser, unassignLead, toggleDnd, findByPhone,
 } from '../api/db';
 import {
-  PIPELINE, LABELS, CALL_OUTCOMES, REJECTION_REASONS, ACTIVITY, stageOf, labelOf,
+  PIPELINE, LABELS, CALL_OUTCOMES, REJECTION_REASONS, ACTIVITY, TEMPLATES, fillTemplate, stageOf, labelOf,
 } from '../data/constants';
 import { StageBadge, money, initials, Toast } from '../components/ui';
-import { IcBack, IcWhats, IcMail, IcSms, IcClock, IcPhone, LabelIcon, ActivityIcon } from '../components/icons';
+import { IcBack, IcWhats, IcMail, IcSms, IcClock, IcPhone, IcBan, LabelIcon, ActivityIcon } from '../components/icons';
+import CallMode from '../components/CallMode';
+import { DocsPanel, MatchingLenders, EligibilityCalc } from '../components/LeadExtras';
 
 export default function LeadDetail() {
   const { id } = useParams();
@@ -23,6 +25,7 @@ export default function LeadDetail() {
   const [note, setNote] = useState('');
   const [msg, setMsg] = useState('');
   const [rejReason, setRejReason] = useState(REJECTION_REASONS[0]);
+  const [callOpen, setCallOpen] = useState(false);
 
   const flash = (m) => { setToast(m); setTimeout(() => setToast(''), 2200); };
 
@@ -54,6 +57,9 @@ export default function LeadDetail() {
     refresh(); flash('Stage updated');
   };
 
+  const dupOf = findByPhone(lead.phone);
+  const isDuplicate = dupOf && dupOf.id !== lead.id;
+
   return (
     <Layout title={lead.name} subtitle={`${lead.product} · ${lead.city}`}
       actions={<button className="btn btn-ghost" onClick={() => nav(-1)}><IcBack width={16} height={16} /> Back</button>}>
@@ -73,6 +79,8 @@ export default function LeadDetail() {
                   <div className="wrap-gap" style={{ marginTop: 10 }}>
                     <StageBadge stage={lead.stage} />
                     {lead.label && <span className="chip"><LabelIcon label={lead.label} /> {labelOf(lead.label)?.label}</span>}
+                    {lead.dnd && <span className="badge" style={{ background: 'rgba(239,68,68,.13)', color: 'var(--danger)' }}><IcBan width={12} height={12} /> DND</span>}
+                    {isDuplicate && <span className="badge" style={{ background: 'rgba(245,158,11,.15)', color: 'var(--warn)' }}>Possible duplicate</span>}
                   </div>
                 </div>
               </div>
@@ -93,15 +101,26 @@ export default function LeadDetail() {
           {/* Contact client */}
           <div className="card mt-16">
             <div className="card-head"><span className="card-title">Contact Client</span>
-              <span className="muted">WhatsApp · Email · SMS — auto-logged</span></div>
+              <span className="muted" style={{ marginLeft: 'auto' }}>WhatsApp · Email · SMS · Call — auto-logged</span></div>
             <div className="card-pad">
-              <textarea className="textarea" placeholder="Custom message (leave blank to use a template)…"
+              {lead.dnd && <div style={{ background: 'rgba(239,68,68,.1)', color: 'var(--danger)', fontSize: 12, fontWeight: 700, padding: '8px 12px', borderRadius: 8, marginBottom: 12 }}>
+                This number is on the Do-Not-Disturb registry. Contact only with consent.</div>}
+              <div className="wrap-gap" style={{ marginBottom: 10 }}>
+                {TEMPLATES.map((t) => (
+                  <button key={t.id} className="chip" style={{ cursor: 'pointer' }}
+                    onClick={() => setMsg(fillTemplate(t.body, lead))}>{t.title}</button>
+                ))}
+              </div>
+              <textarea className="textarea" placeholder="Pick a template above or write a custom message…"
                 value={msg} onChange={(e) => setMsg(e.target.value)} />
               <div className="wrap-gap mt-16">
                 <button className="btn btn-wa" onClick={() => contact(ACTIVITY.WHATSAPP, waLink, 'WhatsApp')}><IcWhats width={16} height={16} /> WhatsApp</button>
                 <button className="btn btn-email" onClick={() => contact(ACTIVITY.EMAIL, mailLink, 'Email')} disabled={!lead.email}><IcMail width={16} height={16} /> Email</button>
                 <button className="btn btn-sms" onClick={() => contact(ACTIVITY.SMS, smsLink, 'SMS')}><IcSms width={16} height={16} /> SMS</button>
-                <a className="btn btn-ghost" href={`tel:${phoneDigits}`}><IcPhone width={16} height={16} /> Call</a>
+                <button className="btn btn-ghost" onClick={() => setCallOpen(true)}><IcPhone width={16} height={16} /> Call</button>
+                <button className="btn btn-ghost" style={lead.dnd ? { color: 'var(--danger)', borderColor: 'var(--danger)' } : {}}
+                  onClick={() => { toggleDnd(user, lead.id); refresh(); flash(lead.dnd ? 'DND removed' : 'Flagged DND'); }}>
+                  <IcBan width={16} height={16} /> {lead.dnd ? 'Clear DND' : 'Mark DND'}</button>
               </div>
             </div>
           </div>
@@ -125,6 +144,9 @@ export default function LeadDetail() {
               })}
             </div>
           </div>
+
+          <EligibilityCalc lead={lead} />
+          <MatchingLenders lead={lead} />
         </div>
 
         {/* RIGHT column — actions */}
@@ -203,12 +225,16 @@ export default function LeadDetail() {
               onClick={() => { if (note.trim()) { addNote(user, lead.id, note); setNote(''); refresh(); flash('Note added'); } }}>Save note</button>
           </div>
 
+          <DocsPanel user={user} lead={lead} refresh={refresh} flash={flash} />
+
           {user.role === 'admin' && lead.assignedTo && (
             <button className="btn btn-ghost mt-16" style={{ width: '100%' }}
               onClick={() => { unassignLead(user, lead.id); refresh(); flash('Pulled back to pool'); }}>Pull back to pool</button>
           )}
         </div>
       </div>
+
+      {callOpen && <CallMode user={user} lead={lead} onClose={() => setCallOpen(false)} onLogged={() => { refresh(); flash('Call logged'); }} />}
     </Layout>
   );
 }

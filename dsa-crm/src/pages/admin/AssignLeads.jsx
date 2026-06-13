@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { useAuth } from '../../context/AuthContext';
-import { unassignedPool, getAgents, assignLeads } from '../../api/db';
+import { unassignedPool, getAgents, assignLeads, autoRotate } from '../../api/db';
 import { money, Toast, StageBadge } from '../../components/ui';
-import { IcAssign, IcInbox } from '../../components/icons';
+import { IcAssign, IcInbox, IcRefresh } from '../../components/icons';
 
 export default function AssignLeads() {
   const { user } = useAuth();
@@ -33,7 +33,11 @@ export default function AssignLeads() {
   };
 
   return (
-    <Layout title="Assign Leads" subtitle="Distribute a controlled daily batch (10–20 numbers) to each telecaller">
+    <Layout title="Assign Leads" subtitle="Distribute a controlled daily batch (10–20 numbers) to each telecaller"
+      actions={<button className="btn btn-ghost" onClick={() => {
+        const n = autoRotate(user); setVersion((v) => v + 1);
+        setToast(n ? `Auto-distributed ${n} leads round-robin` : 'Pool is empty'); setTimeout(() => setToast(''), 2600);
+      }}><IcRefresh width={16} height={16} /> Auto-distribute pool</button>}>
       <Toast msg={toast} />
 
       <div className="card" style={{ position: 'sticky', top: 70, zIndex: 10 }}>
