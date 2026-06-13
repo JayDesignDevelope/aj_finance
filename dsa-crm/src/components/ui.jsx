@@ -1,4 +1,5 @@
 import { stageOf, labelOf } from '../data/constants';
+import { LabelIcon } from './icons';
 
 const hexA = (hex, a) => {
   const n = parseInt(hex.slice(1), 16);
@@ -17,7 +18,7 @@ export function LabelChip({ label }) {
   const l = labelOf(label);
   if (!l) return null;
   return <span className="label-chip" style={{ background: hexA(l.color, 0.13), color: l.color }}>
-    {l.icon} {l.label}
+    <LabelIcon label={label} /> {l.label}
   </span>;
 }
 

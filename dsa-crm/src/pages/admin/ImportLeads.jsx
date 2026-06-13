@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 import { useAuth } from '../../context/AuthContext';
 import { importLeads } from '../../api/db';
 import { Toast } from '../../components/ui';
-import { IcImport, IcCheck } from '../../components/icons';
+import { IcImport, IcCheck, IcFile } from '../../components/icons';
 
 // maps a variety of spreadsheet header names → CRM fields (spec §5.2)
 const FIELD_ALIASES = {
@@ -84,7 +84,7 @@ export default function ImportLeads() {
             <input type="file" accept=".xlsx,.xls,.csv" hidden onChange={onFile} />
           </label>
           <button className="btn btn-ghost" style={{ marginLeft: 10 }} onClick={loadSample}>Load sample data</button>
-          {fileName && <div style={{ marginTop: 12, fontSize: 13, fontWeight: 600 }}>📄 {fileName}</div>}
+          {fileName && <div className="flex" style={{ marginTop: 12, fontSize: 13, fontWeight: 600, gap: 7 }}><IcFile width={15} height={15} style={{ stroke: 'var(--navy)' }} /> {fileName}</div>}
         </div>
 
         <div className="card card-pad">
@@ -102,7 +102,7 @@ export default function ImportLeads() {
           )}
           {result && (
             <div style={{ marginTop: 4 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 10, color: 'var(--green-600)' }}>✓ Import complete</div>
+              <div className="flex" style={{ fontSize: 14, fontWeight: 700, marginBottom: 10, color: 'var(--green-600)', gap: 6 }}><IcCheck width={16} height={16} /> Import complete</div>
               <div className="demo-row"><span>Imported (clean)</span><strong>{result.imported}</strong></div>
               <div className="demo-row"><span>Duplicates skipped</span><strong>{result.duplicates}</strong></div>
               <div className="demo-row"><span>Errors quarantined</span><strong>{result.errors}</strong></div>

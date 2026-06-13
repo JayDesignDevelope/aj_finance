@@ -28,7 +28,7 @@ export default function MyCalls() {
       <div className="grid cols-4">
         <StatCard icon={<IcPhone />} value={leads.length} label="Assigned to me" accent="#1b3a6b" />
         <StatCard icon={<IcCheck />} value={prog.done} label="Called today" accent="#00d09c"
-          foot={prog.done >= DAILY_TARGET ? '✓ Target met' : `${DAILY_TARGET - prog.done} to target`}
+          foot={prog.done >= DAILY_TARGET ? 'Target met' : `${DAILY_TARGET - prog.done} to target`}
           footColor={prog.done >= DAILY_TARGET ? 'var(--green-600)' : 'var(--warn)'} />
         <StatCard icon={<IcClock />} value={pending.length} label="Still to call" accent="#f59e0b" />
         <StatCard icon={<IcClock />} value={callbacks.length} label="Callbacks set" accent="#8b5cf6" />
@@ -52,7 +52,7 @@ export default function MyCalls() {
                 {view.map((l) => (
                   <tr key={l.id} onClick={() => nav('/leads/' + l.id)}>
                     <td>
-                      <div className="cell-name">{calledToday(l) && <span style={{ color: 'var(--green)' }}>✓ </span>}{l.name}</div>
+                      <div className="cell-name flex" style={{ gap: 5 }}>{calledToday(l) && <IcCheck width={14} height={14} style={{ stroke: 'var(--green)' }} />}{l.name}</div>
                       <div className="cell-sub">{l.phone} · {l.city}</div>
                     </td>
                     <td>{l.product}</td>

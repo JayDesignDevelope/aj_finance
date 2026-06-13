@@ -28,12 +28,13 @@ export const CALL_OUTCOMES = [
 ];
 
 // 4.3 Lead labels (tags)
+// Icon component for each label lives in components/icons.jsx (LABEL_ICON map).
 export const LABELS = [
-  { key: 'hot',      label: 'Hot Lead',  icon: '🔥', color: '#ef4444' },
-  { key: 'warm',     label: 'Warm Lead', icon: '🌤', color: '#f59e0b' },
-  { key: 'cold',     label: 'Cold Lead', icon: '❄',  color: '#3b82f6' },
-  { key: 'priority', label: 'Priority',  icon: '⭐', color: '#8b5cf6' },
-  { key: 'reengage', label: 'Re-engage', icon: '🔄', color: '#0ea5e9' },
+  { key: 'hot',      label: 'Hot Lead',  color: '#ef4444' },
+  { key: 'warm',     label: 'Warm Lead', color: '#f59e0b' },
+  { key: 'cold',     label: 'Cold Lead', color: '#3b82f6' },
+  { key: 'priority', label: 'Priority',  color: '#8b5cf6' },
+  { key: 'reengage', label: 'Re-engage', color: '#0ea5e9' },
 ];
 export const labelOf = (key) => LABELS.find((l) => l.key === key);
 

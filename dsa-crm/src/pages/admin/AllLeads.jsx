@@ -42,7 +42,7 @@ export default function AllLeads() {
             </select>
             <select className="select" style={{ flex: 1, minWidth: 130 }} value={label} onChange={(e) => setLabel(e.target.value)}>
               <option value="">All labels</option>
-              {LABELS.map((l) => <option key={l.key} value={l.key}>{l.icon} {l.label}</option>)}
+              {LABELS.map((l) => <option key={l.key} value={l.key}>{l.label}</option>)}
             </select>
             <select className="select" style={{ flex: 1, minWidth: 150 }} value={assignedTo}
               onChange={(e) => { setAssignedTo(e.target.value); setSp(e.target.value ? { assignedTo: e.target.value } : {}); }}>

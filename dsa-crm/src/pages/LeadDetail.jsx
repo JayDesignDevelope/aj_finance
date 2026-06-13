@@ -9,12 +9,7 @@ import {
   PIPELINE, LABELS, CALL_OUTCOMES, REJECTION_REASONS, ACTIVITY, stageOf, labelOf,
 } from '../data/constants';
 import { StageBadge, money, initials, Toast } from '../components/ui';
-import { IcBack, IcWhats, IcMail, IcSms, IcClock, IcPhone } from '../components/icons';
-
-const ACT_ICON = {
-  created: '✨', assigned: '👤', stage: '📊', outcome: '📞', label: '🏷',
-  note: '📝', whatsapp: '💬', email: '✉', sms: '📱', callback: '⏰',
-};
+import { IcBack, IcWhats, IcMail, IcSms, IcClock, IcPhone, LabelIcon, ActivityIcon } from '../components/icons';
 
 export default function LeadDetail() {
   const { id } = useParams();
@@ -77,7 +72,7 @@ export default function LeadDetail() {
                   <div className="muted" style={{ fontSize: 13, marginTop: 2 }}>{lead.phone}{lead.email ? ' · ' + lead.email : ''}</div>
                   <div className="wrap-gap" style={{ marginTop: 10 }}>
                     <StageBadge stage={lead.stage} />
-                    {lead.label && <span className="chip">{labelOf(lead.label)?.icon} {labelOf(lead.label)?.label}</span>}
+                    {lead.label && <span className="chip"><LabelIcon label={lead.label} /> {labelOf(lead.label)?.label}</span>}
                   </div>
                 </div>
               </div>
@@ -120,7 +115,7 @@ export default function LeadDetail() {
                 const who = act.by === 'system' ? 'System' : (getUser(act.by)?.name || 'User');
                 return (
                   <div className="tl-item" key={act.id}>
-                    <div className="tl-dot" style={{ background: 'var(--bg)' }}>{ACT_ICON[act.type] || '•'}</div>
+                    <div className="tl-dot" style={{ background: 'var(--bg)', color: 'var(--navy)' }}><ActivityIcon type={act.type} /></div>
                     <div style={{ flex: 1 }}>
                       <div className="tl-text">{act.text}</div>
                       <div className="tl-meta">{who} · {new Date(act.at).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</div>
@@ -184,7 +179,7 @@ export default function LeadDetail() {
                     background: lead.label === l.key ? l.color : '#fff',
                     color: lead.label === l.key ? '#fff' : 'var(--text)',
                     border: '1px solid ' + (lead.label === l.key ? l.color : 'var(--line)'),
-                  }}>{l.icon} {l.label}</button>
+                  }}><LabelIcon label={l.key} /> {l.label}</button>
               ))}
             </div>
           </div>

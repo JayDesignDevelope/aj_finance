@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { initials } from './ui';
 import { callerProgress, unassignedPool } from '../api/db';
 import {
-  IcGrid, IcLeads, IcAssign, IcAgents, IcImport, IcPhone, IcTarget,
+  IcGrid, IcLeads, IcAssign, IcAgents, IcImport, IcPhone, IcTarget, IcCheck, IcMenu,
 } from './icons';
 
 const ADMIN_NAV = [
@@ -68,8 +68,8 @@ export default function Layout({ children, title, subtitle, actions }) {
             <div className="progress-track" style={{ marginTop: 8, background: 'rgba(255,255,255,.12)' }}>
               <div className="progress-fill" style={{ width: Math.min(100, (prog.done / prog.target) * 100) + '%' }} />
             </div>
-            <div style={{ fontSize: 10.5, color: prog.done >= prog.target ? 'var(--green)' : '#8294b8', marginTop: 7, fontWeight: 700 }}>
-              {prog.done >= prog.target ? '✓ Target met!' : `${prog.target - prog.done} calls to go`}
+            <div className="flex" style={{ fontSize: 10.5, color: prog.done >= prog.target ? 'var(--green)' : '#8294b8', marginTop: 7, fontWeight: 700, gap: 5 }}>
+              {prog.done >= prog.target ? <><IcCheck width={12} height={12} /> Target met!</> : `${prog.target - prog.done} calls to go`}
             </div>
           </div>
         )}
@@ -88,7 +88,7 @@ export default function Layout({ children, title, subtitle, actions }) {
 
       <div className="main">
         <div className="topbar">
-          <button className="btn btn-ghost btn-sm" style={{ display: 'none' }} onClick={() => setOpen((o) => !o)}>☰</button>
+          <button className="btn btn-ghost btn-sm" style={{ display: 'none' }} onClick={() => setOpen((o) => !o)}><IcMenu width={16} height={16} /></button>
           <div>
             <h1>{title}</h1>
             {subtitle && <div className="sub">{subtitle}</div>}

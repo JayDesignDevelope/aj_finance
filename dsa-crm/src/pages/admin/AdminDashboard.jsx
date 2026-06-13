@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import { analytics } from '../../api/db';
 import { PIPELINE, LABELS, labelOf, DAILY_TARGET } from '../../data/constants';
 import { StatCard, money } from '../../components/ui';
-import { IcLeads, IcCheck, IcChart, IcTarget } from '../../components/icons';
+import { IcLeads, IcCheck, IcChart, IcTarget, LabelIcon } from '../../components/icons';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
@@ -113,7 +113,8 @@ export default function AdminDashboard() {
               return (
                 <div key={l.name} style={{ marginBottom: 13 }}>
                   <div className="between" style={{ marginBottom: 5 }}>
-                    <span style={{ fontSize: 12.5, fontWeight: 700 }}>{lo?.icon} {l.name}</span>
+                    <span className="flex" style={{ gap: 6, fontSize: 12.5, fontWeight: 700, color: l.color }}>
+                      <LabelIcon label={lo?.key} /> <span style={{ color: 'var(--text)' }}>{l.name}</span></span>
                     <span style={{ fontSize: 12, color: 'var(--text-2)', fontWeight: 700 }}>{l.value}</span>
                   </div>
                   <div className="progress-track"><div className="progress-fill" style={{ width: pct + '%', background: l.color }} /></div>
