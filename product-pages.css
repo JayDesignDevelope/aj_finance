@@ -181,3 +181,38 @@ body.dark-mode .product-hero.insurance-hero { background: linear-gradient(180deg
     .piso-blink, .piso-sway, .piso-draw, .piso-dashes { animation: none; }
     .piso-draw { stroke-dashoffset: 0; }
 }
+
+/* ── Legacy hero-card variant ──────────────────────────────────────
+   Pages: ulip, child-plan, critical-illness, group-insurance,
+   home-insurance, senior-citizen-cover (use .hero-card not .pvcard) */
+.product-hero .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.product-hero .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; margin: 24px 0 28px; }
+.product-hero .hero-stat { display: flex; flex-direction: column; }
+.hero-stat-value { font-size: 22px; font-weight: 800; color: var(--text-primary,#1a1a2e); }
+.hero-stat-label { font-size: 11px; color: var(--text-muted,#888); margin-top: 2px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-card { background: var(--bg-card,#fff); border-radius: 20px; padding: 28px; box-shadow: 0 16px 48px rgba(0,0,0,0.1); border: 1.5px solid var(--border-color,#e5e7eb); }
+.hero-card-header { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color,#e5e7eb); }
+.hero-card-badge { font-size: 13px; font-weight: 600; color: var(--text-secondary,#555577); }
+.hero-card-body { display: flex; flex-direction: column; gap: 8px; }
+.hero-card-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 8px 12px; background: var(--bg-secondary,#f7f9fc); border-radius: 8px; }
+.hero-card-row span { color: var(--text-secondary,#555577); }
+.hero-card-row strong { font-weight: 700; color: var(--text-primary,#1a1a2e); text-align: right; }
+.hero-card-row.highlight { background: rgba(0,208,156,0.1); }
+.hero-card-row.highlight strong { color: #00d09c; }
+
+/* Legacy CTA variant (.product-cta + .cta-content + .cta-actions) */
+.product-cta { padding: 80px 0; background: linear-gradient(135deg,#00d09c 0%,#00b386 100%); }
+.product-cta .cta-content { max-width: 700px; margin: 0 auto; padding: 0 24px; text-align: center; }
+.product-cta .cta-content h2 { font-size: clamp(22px,3vw,34px); font-weight: 900; color: #fff; margin-bottom: 12px; }
+.product-cta .cta-content p { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: 28px; }
+.product-cta .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.product-cta .btn-primary { background: #fff; color: #00b386; }
+.product-cta .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
+
+/* Legacy related-products icon */
+.related-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,208,156,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+
+@media (max-width: 900px) {
+    .product-hero .hero-container { grid-template-columns: 1fr; gap: 36px; }
+}
