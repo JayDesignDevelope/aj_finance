@@ -758,9 +758,7 @@ img { max-width: 100%; }
     position: relative;
     max-width: 1080px;
     margin: 0 auto;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    background: transparent;
     padding: 12px 0;
 }
 
@@ -777,12 +775,12 @@ img { max-width: 100%; }
 
 .ticker-wrap::before {
     left: 0;
-    background: linear-gradient(to right, white, transparent);
+    background: linear-gradient(to right, var(--bg-primary), transparent);
 }
 
 .ticker-wrap::after {
     right: 0;
-    background: linear-gradient(to left, white, transparent);
+    background: linear-gradient(to left, var(--bg-primary), transparent);
 }
 
 .ticker {
@@ -3347,82 +3345,16 @@ img { max-width: 100%; }
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08));
 }
 
-/* Floating info badges */
-.hiso-badge {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    border-radius: 14px;
-    padding: 10px 14px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-    border: 1px solid rgba(0,0,0,0.05);
-    white-space: nowrap;
-    z-index: 2;
-    cursor: default;
-    transition: box-shadow 0.2s;
-}
-.hiso-badge:hover {
-    box-shadow: 0 10px 32px rgba(0,0,0,0.14);
-}
-.hiso-badge-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-.hiso-badge-label {
-    font-size: 11px;
-    color: var(--dark-secondary);
-    font-weight: 500;
-    line-height: 1;
-    margin-bottom: 3px;
-}
-.hiso-badge-val {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--dark);
-    line-height: 1;
-}
-
-/* Badge positions */
-.badge-approved {
-    top: 12%;
-    right: 4%;
-}
-.badge-rate {
-    top: 38%;
-    left: 2%;
-}
-.badge-cibil {
-    bottom: 18%;
-    right: 6%;
-}
-
 /* Particles */
 .iso-particle { pointer-events: none; }
 
 /* Mobile / iPad */
 @media (max-width: 1024px) {
     .hero-iso-wrap { min-height: 380px; }
-    .badge-approved { top: 8%; right: 2%; }
-    .badge-rate { top: 40%; left: 0%; }
-    .badge-cibil { bottom: 10%; right: 2%; }
 }
 
 @media (max-width: 768px) {
     .hero-iso-wrap { min-height: 300px; }
-    .hiso-badge { padding: 8px 11px; gap: 7px; border-radius: 11px; }
-    .hiso-badge-icon { width: 26px; height: 26px; border-radius: 6px; }
-    .hiso-badge-label { font-size: 10px; }
-    .hiso-badge-val { font-size: 12px; }
-    .badge-approved { top: 5%; right: 2%; }
-    .badge-rate { top: 44%; left: 2%; }
-    .badge-cibil { bottom: 5%; right: 2%; }
 }
 
 /* ===================================================
@@ -4077,10 +4009,6 @@ body.dark-mode .dropdown-menu { background: var(--bg-card); border-color: var(--
 body.dark-mode .hero,
 body.dark-mode .hero-section { background: linear-gradient(135deg, #0f1117 0%, #181c26 100%) !important; }
 body.dark-mode .ticker-section { background: transparent !important; }
-body.dark-mode .ticker-wrap { background: #181c26 !important; border-color: var(--border-color) !important; }
-/* Ticker fade edges — use dark background colour instead of hardcoded white */
-body.dark-mode .ticker-wrap::before { background: linear-gradient(to right, #181c26, transparent) !important; }
-body.dark-mode .ticker-wrap::after  { background: linear-gradient(to left,  #181c26, transparent) !important; }
 /* Hero elements white in dark mode */
 body.dark-mode .hero-badge {
     background: rgba(255,255,255,0.06) !important;
@@ -4093,13 +4021,6 @@ body.dark-mode .floating-card {
 }
 body.dark-mode .floating-card .fc-title { color: var(--text-secondary) !important; }
 body.dark-mode .floating-card .fc-value { color: var(--text-primary) !important; }
-body.dark-mode .hiso-badge {
-    background: var(--bg-card) !important;
-    border-color: var(--border-color) !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35) !important;
-}
-body.dark-mode .hiso-badge-label { color: var(--text-secondary) !important; }
-body.dark-mode .hiso-badge-val { color: var(--text-primary) !important; }
 body.dark-mode .green-bg { background: rgba(0,208,156,0.15) !important; }
 body.dark-mode .blue-bg  { background: rgba(83,103,255,0.15) !important; }
 body.dark-mode .gold-bg  { background: rgba(255,180,0,0.12) !important; }
@@ -5414,300 +5335,6 @@ body.dark-mode .testimonial-name { color: var(--text-primary) !important; }
     filter: drop-shadow(0 30px 35px rgba(20,55,75,0.12));
     transform: translateZ(0);
 }
-.hero-orbit {
-    position: absolute;
-    z-index: -1;
-    border-radius: 50%;
-    border: 1px solid rgba(0,208,156,0.18);
-    pointer-events: none;
-}
-.hero-orbit::before {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    top: 50%;
-    left: -4px;
-    border-radius: 50%;
-    background: #00d09c;
-    box-shadow: 0 0 0 7px rgba(0,208,156,0.10);
-}
-.hero-orbit-one {
-    width: 390px;
-    height: 390px;
-    left: 88px;
-    top: 72px;
-}
-.hero-orbit-two {
-    width: 520px;
-    height: 520px;
-    left: 22px;
-    top: 8px;
-    border-color: rgba(83,103,255,0.11);
-}
-
-.market-board,
-.market-clock-card,
-.market-rate-card,
-.hero-market-ticker,
-.hiso-badge {
-    color: var(--hero-scene-ink);
-    background: var(--hero-scene-bg);
-    border: 1px solid var(--hero-scene-border);
-    box-shadow: 0 16px 44px rgba(25,54,75,0.13);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-.market-board-main {
-    position: absolute;
-    z-index: 8;
-    width: 244px;
-    top: 3%;
-    right: 0;
-    padding: 14px 15px 13px;
-    border-radius: 18px;
-    transform: rotateY(-5deg) rotateX(2deg);
-    transform-origin: right center;
-}
-.market-board-head,
-.market-board-value {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.market-board-head {
-    margin-bottom: 6px;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 0.9px;
-    text-transform: uppercase;
-}
-.market-board-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.market-board-kicker i {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #00d09c;
-    box-shadow: 0 0 0 4px rgba(0,208,156,0.12);
-}
-.market-board-time { color: var(--hero-scene-muted); }
-.market-board-value { align-items: baseline; }
-.market-board-value strong {
-    font-size: 23px;
-    line-height: 1;
-    letter-spacing: -0.8px;
-}
-.market-board-value span {
-    color: #00a97d;
-    font-size: 10px;
-    font-weight: 800;
-}
-.market-board-chart {
-    display: block;
-    width: 100%;
-    height: 80px;
-    overflow: visible;
-}
-.market-chart-grid path {
-    stroke: rgba(18,59,74,0.08);
-    stroke-width: 1;
-}
-.market-chart-line {
-    fill: none;
-    stroke: #00c997;
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-.market-chart-dot {
-    fill: #00d09c;
-    stroke: var(--hero-scene-bg);
-    stroke-width: 2;
-}
-.market-board-bars {
-    height: 18px;
-    display: flex;
-    align-items: flex-end;
-    gap: 5px;
-}
-.market-board-bars span {
-    display: block;
-    width: 100%;
-    height: var(--bar);
-    min-height: 3px;
-    border-radius: 4px 4px 1px 1px;
-    transform-origin: center bottom;
-    background: linear-gradient(180deg, #5367ff, rgba(83,103,255,0.24));
-}
-
-.market-clock-card {
-    position: absolute;
-    z-index: 7;
-    left: 0;
-    top: 24%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px 10px 10px;
-    border-radius: 15px;
-}
-.market-clock-face {
-    position: relative;
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
-    border: 2px solid rgba(18,59,74,0.18);
-    border-radius: 50%;
-    background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(225,246,240,0.74));
-}
-.clock-mark {
-    position: absolute;
-    width: 2px;
-    height: 5px;
-    left: calc(50% - 1px);
-    top: 3px;
-    border-radius: 2px;
-    background: #123b4a;
-    transform-origin: 1px 18px;
-}
-.mark-3 { transform: rotate(90deg); }
-.mark-6 { transform: rotate(180deg); }
-.mark-9 { transform: rotate(270deg); }
-.clock-hand {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-    width: 2px;
-    border-radius: 4px;
-    background: #123b4a;
-    transform-origin: 50% 100%;
-}
-.clock-hour { height: 11px; transform: translateX(-50%) rotate(278deg); }
-.clock-minute { height: 15px; transform: translateX(-50%) rotate(90deg); }
-.clock-second { width: 1px; height: 17px; background: #eb5b3c; transform: translateX(-50%) rotate(0deg); }
-.clock-pin {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    left: 50%;
-    top: 50%;
-    border-radius: 50%;
-    background: #00d09c;
-    transform: translate(-50%, -50%);
-}
-.market-clock-card > div:last-child {
-    display: flex;
-    flex-direction: column;
-}
-.market-clock-label {
-    font-size: 9px;
-    color: var(--hero-scene-muted);
-    white-space: nowrap;
-}
-.market-clock-card strong {
-    font-size: 15px;
-    letter-spacing: -0.3px;
-}
-
-.market-rate-stack {
-    position: absolute;
-    z-index: 8;
-    width: 152px;
-    height: 72px;
-    right: 1%;
-    bottom: 21%;
-}
-.market-rate-card {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 2px 8px;
-    padding: 11px 13px;
-    border-radius: 15px;
-    opacity: 0;
-    transform: translateY(14px) scale(0.96);
-}
-.market-rate-card.is-active {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-.market-rate-card span {
-    grid-column: 1 / -1;
-    color: var(--hero-scene-muted);
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-}
-.market-rate-card strong {
-    font-size: 20px;
-    letter-spacing: -0.6px;
-}
-.market-rate-card em {
-    color: #00a97d;
-    font-size: 9px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.hero-market-ticker {
-    position: absolute;
-    z-index: 7;
-    left: 9%;
-    right: 9%;
-    bottom: 9%;
-    height: 30px;
-    overflow: hidden;
-    border-radius: 10px;
-    background: rgba(15,50,63,0.92);
-    border-color: rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.78);
-    transform: rotate(-0.7deg);
-}
-.hero-market-ticker-track {
-    width: max-content;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    padding: 0 13px;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    white-space: nowrap;
-}
-.hero-market-ticker-track span {
-    display: inline-flex;
-    gap: 7px;
-}
-.hero-market-ticker-track b {
-    color: #70e0c1;
-}
-
-.hiso-badge {
-    padding: 9px 12px;
-    border-radius: 14px;
-}
-.hiso-badge-icon {
-    color: #00b386;
-    background: rgba(0,208,156,0.11);
-}
-.badge-approved {
-    top: 55%;
-    left: 2%;
-    right: auto;
-}
-.badge-cibil {
-    right: 5%;
-    bottom: 5%;
-}
-.badge-rate { display: none; }
-
 .smp-featured-art {
     display: block;
     width: 112px;
@@ -5791,14 +5418,6 @@ body.dark-mode .hero {
 body.dark-mode #heroIsoSvg {
     filter: drop-shadow(0 30px 40px rgba(0,0,0,0.34)) brightness(0.82) saturate(0.92);
 }
-body.dark-mode .market-chart-grid path { stroke: rgba(220,255,245,0.08); }
-body.dark-mode .market-clock-face {
-    border-color: rgba(255,255,255,0.14);
-    background: linear-gradient(145deg, rgba(42,50,69,0.96), rgba(25,43,45,0.9));
-}
-body.dark-mode .clock-mark,
-body.dark-mode .clock-hand { background: #dffaf2; }
-body.dark-mode .clock-second { background: #ff8368; }
 body.dark-mode .wealth-chart-float {
     background: rgba(30,34,48,0.90);
 }
@@ -5813,7 +5432,6 @@ body.dark-mode .wealth-visual-art {
     }
     .hero-title { font-size: clamp(40px, 5vw, 58px); }
     .hero-iso-wrap { min-height: 510px; }
-    .market-board-main { width: 220px; }
 }
 
 @media (max-width: 1024px) {
@@ -5883,14 +5501,6 @@ body.dark-mode .wealth-visual-art {
     .hero-visual { max-width: 610px; }
     .hero-iso-wrap { min-height: 430px; }
     #heroIsoSvg { inset: 30px 0 24px; height: calc(100% - 54px); }
-    .market-board-main { width: 205px; right: 1%; padding: 11px 12px; }
-    .market-board-value strong { font-size: 19px; }
-    .market-board-chart { height: 62px; }
-    .market-clock-card { top: 29%; transform: scale(0.92); transform-origin: left center; }
-    .market-rate-stack { right: 0; bottom: 20%; transform: scale(0.92); transform-origin: right center; }
-    .badge-approved { top: 55%; left: 1%; }
-    .badge-cibil { bottom: 3%; right: 2%; }
-    .hero-market-ticker { left: 7%; right: 7%; bottom: 9%; }
     .wealth-visual-scene { min-height: 380px; }
     .wealth-visual-art { width: min(88%, 390px); }
 }
@@ -5921,39 +5531,6 @@ body.dark-mode .wealth-visual-art {
         width: calc(100% + 32px);
         height: calc(100% - 36px);
     }
-    .hero-orbit-one { width: 280px; height: 280px; left: 34px; top: 48px; }
-    .hero-orbit-two { width: 350px; height: 350px; left: 0; top: 0; }
-    .market-board-main {
-        width: 172px;
-        top: 0;
-        right: -2px;
-        border-radius: 14px;
-    }
-    .market-board-head { font-size: 7px; }
-    .market-board-value strong { font-size: 17px; }
-    .market-board-value span { font-size: 8px; }
-    .market-board-chart { height: 48px; }
-    .market-board-bars { display: none; }
-    .market-clock-card {
-        top: 34%;
-        left: -5px;
-        padding: 8px;
-        transform: scale(0.78);
-    }
-    .market-rate-stack { display: none; }
-    .badge-approved { display: none; }
-    .badge-cibil {
-        padding: 7px 9px;
-        right: 0;
-        bottom: 1%;
-    }
-    .hero-market-ticker {
-        left: 3%;
-        right: 3%;
-        bottom: 7%;
-        height: 25px;
-    }
-    .hero-market-ticker-track { font-size: 7px; gap: 16px; }
     .wealth-visual-scene { min-height: 330px; }
     .wealth-chart-float {
         right: 0;
@@ -5967,14 +5544,6 @@ body.dark-mode .wealth-visual-art {
     .smp-featured-desc,
     .smp-featured-link,
     .smp-featured-btn { max-width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-orbit,
-    .hero-market-ticker-track,
-    .market-chart-dot {
-        animation: none !important;
-    }
 }
 
 /* ── Language Marquee Section ──────────────────────────────────── */

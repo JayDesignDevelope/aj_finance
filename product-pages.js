@@ -103,17 +103,23 @@
   }
 
   ready(function () {
-    var visual = document.querySelector('.product-hero-visual');
+    // Standard pages use .product-hero-visual; legacy pages (ulip,
+    // child-plan, etc.) use a .hero-card inside .hero-visual.
+    var visual = document.querySelector('.product-hero-visual') ||
+                 document.querySelector('.hero-visual .hero-card');
     if (!visual || visual.querySelector('.piso-wrap')) return;
     var page = (location.pathname.split('/').pop() || '').replace('.html', '');
     var type = SCENE_MAP[page];
     if (!type) return;
 
-    // Billboard content from the page itself
-    var badgeEl = document.querySelector('.product-hero-badge');
-    var valEl = document.querySelector('.product-hero-stats .phs-val');
-    var labEl = document.querySelector('.product-hero-stats .phs-label');
-    var badge = badgeEl ? badgeEl.textContent.trim().toUpperCase() : 'AJ FINANCE';
+    // Billboard content from the page itself (both layout variants)
+    var badgeEl = document.querySelector('.product-hero-badge') ||
+                  document.querySelector('.hero-badge');
+    var valEl = document.querySelector('.product-hero-stats .phs-val') ||
+                document.querySelector('.hero-stats .hero-stat-value');
+    var labEl = document.querySelector('.product-hero-stats .phs-label') ||
+                document.querySelector('.hero-stats .hero-stat-label');
+    var badge = badgeEl ? badgeEl.textContent.trim().toUpperCase() : 'AAR ZEN CAPITAL';
     var val = valEl ? valEl.textContent.trim() : '';
     var lab = labEl ? labEl.textContent.trim() : '';
 
@@ -289,7 +295,7 @@
         h += rise(box(-0.4, -1.2, 1.6, 1.5, 3.2, TEAL) + winsL(-0.4, 0.3, 3.2, 1.6, 6, 3) +
           onRight(1.2, 0.3, 3.62,
             '<rect x="0" y="0" width="34" height="9" rx="1.5" fill="#0b1626" stroke="#00d09c66" stroke-width="0.6"/>' +
-            '<text x="17" y="6.3" font-size="4.6" font-weight="800" fill="#00d09c" text-anchor="middle" letter-spacing="0.6" font-family="\'Plus Jakarta Sans\',sans-serif">AJ FINANCE</text>' +
+            '<text x="17" y="6.3" font-size="2.9" font-weight="800" fill="#00d09c" text-anchor="middle" letter-spacing="0.2" font-family="\'Plus Jakarta Sans\',sans-serif">AAR ZEN CAPITAL</text>' +
             '<rect x="5" y="9" width="1.6" height="3" fill="#0f3d33"/><rect x="27" y="9" width="1.6" height="3" fill="#0f3d33"/>'),
           0.3);
         h += rise(box(1.6, -0.5, 1.2, 1.1, 1.6, PURP) + winsL(1.6, 0.6, 1.6, 1.2, 3, 3), 0.45);
@@ -389,7 +395,7 @@
           '<rect x="0" y="0" width="58" height="36" rx="4" fill="#0b1626" stroke="#00d09c55" stroke-width="0.8"/>' +
           '<rect x="5" y="7" width="10" height="7.5" rx="1.5" fill="#fbbf24"/>' +
           '<text x="5" y="24" font-size="5.4" font-weight="700" fill="#cbd5e1" letter-spacing="1" font-family="\'Plus Jakarta Sans\',sans-serif">•••• 4218</text>' +
-          '<text x="5" y="31.5" font-size="4" fill="#00d09c" font-family="\'Plus Jakarta Sans\',sans-serif" font-weight="700">AJ FINANCE</text>' +
+          '<text x="5" y="31.5" font-size="3.4" fill="#00d09c" font-family="\'Plus Jakarta Sans\',sans-serif" font-weight="700">AAR ZEN CAPITAL</text>' +
           '<circle cx="48" cy="27" r="4.5" fill="#eb5b3c88"/><circle cx="53" cy="27" r="4.5" fill="#fbbf2488"/>';
         h += rise(onRight(1.9, 0.9, 1.75, cardInner), 0.6);
         // scattered coins

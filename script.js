@@ -1593,7 +1593,7 @@ function buildIsoCity() {
       <rect x="8" y="13" width="1.8" height="4.4" fill="#0f3d33"/>
       <rect x="39.6" y="13" width="1.8" height="4.4" fill="#0f3d33"/>
       <rect x="0" y="0" width="49.4" height="13" rx="1.5" fill="#0b1626" stroke="#00d09c55" stroke-width="0.7"/>
-      <text x="24.7" y="9" font-size="6.2" font-weight="800" fill="#00d09c" text-anchor="middle" letter-spacing="1.1" font-family="'Plus Jakarta Sans',sans-serif">AJ FINANCE</text>
+      <text x="24.7" y="9" font-size="3.8" font-weight="800" fill="#00d09c" text-anchor="middle" letter-spacing="0.4" font-family="'Plus Jakarta Sans',sans-serif">AAR ZEN CAPITAL</text>
     `) +
     // antennas with warning beacons
     (() => {
@@ -1651,7 +1651,7 @@ function buildIsoCity() {
     <polygon points="2,12 39.6,12 20.8,3" fill="#fde68a" stroke="#b45309" stroke-width="0.8"/>
     <text x="20.8" y="10.6" font-size="5.4" font-weight="800" fill="#92400e" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif">₹</text>
     <rect x="2" y="12.8" width="37.6" height="6.5" fill="#0b1626"/>
-    <text x="20.8" y="17.6" font-size="3.9" fill="#ffd166" text-anchor="middle" letter-spacing="1" font-family="'Plus Jakarta Sans',sans-serif" font-weight="700">AJ FINANCE</text>
+    <text x="20.8" y="17.6" font-size="2.7" fill="#ffd166" text-anchor="middle" letter-spacing="0.3" font-family="'Plus Jakarta Sans',sans-serif" font-weight="700">AAR ZEN CAPITAL</text>
     <rect x="5" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
     <rect x="14.5" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
     <rect x="24" y="20.5" width="3.2" height="41.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.4"/>
