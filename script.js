@@ -1350,8 +1350,17 @@ faqItems.forEach(item => {
 const applyForm = document.getElementById('applyForm');
 const applySuccess = document.getElementById('applySuccess');
 
+// The ONE integration point between this public site and the CRM:
+// the loan application posts straight into the CRM as a Website lead.
+// Set window.CRM_API_URL on the deployed site (e.g. https://api.yourcrm.in/api).
+const CRM_API_URL = (typeof window !== 'undefined' && window.CRM_API_URL) || 'http://localhost:4000/api';
+const LOAN_TYPE_LABEL = {
+    personal: 'Personal Loan', business: 'Business Loan', home: 'Home Loan',
+    lap: 'Loan Against Property', working: 'Working Capital',
+};
+
 if (applyForm) {
-    applyForm.addEventListener('submit', (e) => {
+    applyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const name = document.getElementById('appName').value.trim();
@@ -1359,19 +1368,38 @@ if (applyForm) {
         const loanType = document.getElementById('appLoanType').value;
         const city = document.getElementById('appCity').value.trim();
         const income = parseFloat(document.getElementById('appIncome').value) || 0;
+        const email = (document.getElementById('appEmail') || {}).value?.trim() || '';
+        const message = (document.getElementById('appMessage') || {}).value?.trim() || '';
         const consent = document.getElementById('appConsent').checked;
 
         if (!name || !phone || !loanType || !city || !income || !consent) {
             alert('Please fill in all required fields and provide consent.');
             return;
         }
-
         if (!/^[6-9][0-9]{9}$/.test(phone)) {
             alert('Please enter a valid 10-digit Indian mobile number.');
             return;
         }
 
-        // Simulate submission success
+        const submitBtn = applyForm.querySelector('button[type="submit"]');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+        // Send into the CRM (best-effort: the applicant still sees success
+        // even if the CRM is briefly unreachable; the error is logged).
+        try {
+            await fetch(CRM_API_URL + '/leads/capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name, phone, email, city, income,
+                    product: LOAN_TYPE_LABEL[loanType] || 'Other',
+                    notes: message,
+                }),
+            });
+        } catch (err) {
+            console.error('CRM capture failed:', err);
+        }
+
         applyForm.style.display = 'none';
         applySuccess.style.display = 'block';
         gsap.fromTo(applySuccess,
@@ -1379,12 +1407,8 @@ if (applyForm) {
             { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)' }
         );
 
-        // Smooth scroll to success message
         const offsetPosition = applySuccess.getBoundingClientRect().top + window.pageYOffset - 120;
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     });
 }
 
