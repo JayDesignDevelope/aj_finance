@@ -4274,6 +4274,7 @@ body.dark-mode .lender-badge { background: var(--bg-card); border-color: var(--b
 .vc-stat-label { font-size: 11px; color: var(--text-muted, #888); margin-top: 1px; }
 .vc-product-list {
     padding: 16px 28px; display: flex; flex-wrap: wrap; gap: 8px; flex: 1;
+    align-items: flex-start; align-content: flex-start;
 }
 .vc-product-pill {
     font-size: 12px; padding: 4px 12px; border-radius: 100px;

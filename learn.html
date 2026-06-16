@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Finance — Interactive Glossary | FinGarage</title>
+    <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+    <style>
+        /* ── Learn page ───────────────────────────────────────── */
+        .learn-hero {
+            padding: calc(var(--nav-height,64px) + 56px) 0 52px;
+            background: linear-gradient(160deg, #f0fdf8 0%, #eef0ff 50%, #fff8f0 100%);
+            text-align: center;
+        }
+        body.dark-mode .learn-hero {
+            background: linear-gradient(160deg, #0f1b17 0%, #10121f 50%, #1a120a 100%);
+        }
+        .learn-hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+            color: #00b386; text-transform: uppercase;
+            background: rgba(0,208,156,0.1); border: 1px solid rgba(0,208,156,0.25);
+            padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+        }
+        .learn-hero h1 {
+            font-size: clamp(32px,5vw,56px); font-weight: 900; line-height: 1.1;
+            color: var(--text-primary,#1a1a2e); margin-bottom: 16px;
+        }
+        .learn-hero h1 span { color: #00d09c; }
+        .learn-hero p {
+            font-size: 17px; color: var(--text-secondary,#555577); max-width: 560px;
+            margin: 0 auto 32px; line-height: 1.65;
+        }
+        .learn-hero-stats {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 32px;
+        }
+        .learn-hero-stat { text-align: center; }
+        .learn-hero-stat strong { display: block; font-size: 28px; font-weight: 900; color: var(--text-primary,#1a1a2e); }
+        .learn-hero-stat span { font-size: 12px; color: var(--text-secondary,#555577); font-weight: 600; }
+        .learn-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-quiz {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #00d09c; color: #fff; font-weight: 700; font-size: 15px;
+            padding: 13px 28px; border-radius: 10px; border: none; cursor: pointer;
+            transition: background 0.2s, transform 0.15s; text-decoration: none;
+        }
+        .btn-quiz:hover { background: #00b386; transform: translateY(-1px); }
+        .btn-browse {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; color: var(--text-primary,#1a1a2e); font-weight: 700;
+            font-size: 15px; padding: 13px 28px; border-radius: 10px;
+            border: 1.5px solid var(--border-color,#e5e7eb); cursor: pointer;
+            transition: border-color 0.2s, color 0.2s; text-decoration: none;
+        }
+        .btn-browse:hover { border-color: #00d09c; color: #00d09c; }
+
+        /* ── Controls bar ───────────────────────────────────── */
+        .learn-controls {
+            background: var(--bg-primary,#fff); border-bottom: 1px solid var(--border-color,#e5e7eb);
+            position: sticky; top: var(--nav-height,64px); z-index: 40; padding: 0 24px;
+        }
+        .learn-controls-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px 0;
+        }
+        .learn-filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+        .lf-tab {
+            padding: 7px 16px; border-radius: 100px; border: 1.5px solid var(--border-color,#e5e7eb);
+            background: transparent; font-size: 13px; font-weight: 600;
+            color: var(--text-secondary,#555577); cursor: pointer; transition: all 0.2s;
+        }
+        .lf-tab.active, .lf-tab:hover { background: #00d09c; border-color: #00d09c; color: #fff; }
+        .learn-search {
+            margin-left: auto; position: relative;
+        }
+        .learn-search input {
+            padding: 8px 14px 8px 36px; border-radius: 8px;
+            border: 1.5px solid var(--border-color,#e5e7eb);
+            background: var(--bg-secondary,#f7f9fc); font-size: 13px;
+            color: var(--text-primary,#1a1a2e); font-family: inherit; width: 220px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .learn-search input:focus { border-color: #00d09c; }
+        .learn-search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); opacity: 0.45; }
+        .learn-count {
+            font-size: 13px; color: var(--text-secondary,#555577); font-weight: 500; white-space: nowrap;
+        }
+
+        /* ── Flashcard grid ─────────────────────────────────── */
+        .learn-main { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+        .flip-card { perspective: 900px; height: 180px; cursor: pointer; }
+        .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+        .flip-inner {
+            position: relative; width: 100%; height: 100%;
+            transition: transform 0.42s cubic-bezier(.4,0,.2,1);
+            transform-style: preserve-3d;
+        }
+        .flip-front, .flip-back {
+            position: absolute; inset: 0; border-radius: 16px;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            display: flex; flex-direction: column; padding: 22px 24px;
+            border: 1.5px solid var(--border-color,#e5e7eb);
+        }
+        .flip-front {
+            background: var(--bg-card,#fff);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            justify-content: space-between;
+        }
+        .flip-back {
+            background: linear-gradient(135deg, #00d09c 0%, #009d77 100%);
+            border-color: transparent;
+            transform: rotateY(180deg);
+            color: #fff;
+            justify-content: center;
+        }
+        .fc-cat-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 10px; font-weight: 800; letter-spacing: 0.9px; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 100px; width: fit-content;
+        }
+        .fc-term {
+            font-size: 20px; font-weight: 800; color: var(--text-primary,#1a1a2e); line-height: 1.2;
+        }
+        .fc-hint {
+            font-size: 11px; color: var(--text-secondary,#888); font-weight: 500;
+        }
+        .flip-back .fc-def {
+            font-size: 14px; line-height: 1.6; font-weight: 500;
+        }
+        .flip-back .fc-example {
+            margin-top: 10px; font-size: 12px; opacity: 0.85; line-height: 1.5;
+            border-top: 1px solid rgba(255,255,255,0.25); padding-top: 10px;
+        }
+        .flip-back .flip-tap { font-size: 11px; opacity: 0.7; margin-top: 14px; }
+        body.dark-mode .flip-front { background: var(--bg-card,#1e2030); border-color: var(--border-color,#2a2d3e); }
+        body.dark-mode .fc-term { color: var(--text-primary,#eef0f6); }
+
+        /* Category badge colors */
+        .cat-loans  { background: rgba(0,208,156,0.12); color: #00a97d; }
+        .cat-wealth { background: rgba(83,103,255,0.12); color: #5367ff; }
+        .cat-insurance { background: rgba(235,91,60,0.12); color: #eb5b3c; }
+        .cat-credit { background: rgba(245,166,35,0.12); color: #d48b00; }
+
+        /* ── Empty state ───────────────────────────────────── */
+        .learn-empty {
+            text-align: center; padding: 80px 24px; display: none; grid-column: 1/-1;
+        }
+        .learn-empty svg { opacity: 0.3; margin-bottom: 16px; }
+        .learn-empty p { color: var(--text-secondary,#888); font-size: 15px; }
+
+        /* ── Quiz overlay ──────────────────────────────────── */
+        #quizOverlay {
+            display: none; position: fixed; inset: 0; z-index: 9000;
+            background: rgba(10,14,30,0.78); backdrop-filter: blur(6px);
+            align-items: center; justify-content: center;
+        }
+        #quizOverlay.open { display: flex; }
+        .quiz-card {
+            background: var(--bg-card,#fff); border-radius: 24px; padding: 40px 36px;
+            max-width: 540px; width: 90%; box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+            text-align: center; position: relative;
+        }
+        .quiz-progress-bar {
+            width: 100%; height: 5px; background: var(--bg-secondary,#f0f2f5); border-radius: 100px;
+            margin-bottom: 28px; overflow: hidden;
+        }
+        .quiz-progress-fill {
+            height: 100%; background: #00d09c; border-radius: 100px;
+            transition: width 0.4s ease;
+        }
+        .quiz-cat-badge { margin-bottom: 14px; display: inline-block; }
+        .quiz-question {
+            font-size: 26px; font-weight: 900; color: var(--text-primary,#1a1a2e);
+            margin-bottom: 8px; line-height: 1.2;
+        }
+        .quiz-prompt {
+            font-size: 14px; color: var(--text-secondary,#888); margin-bottom: 28px;
+        }
+        #quizAnswerBox {
+            background: linear-gradient(135deg,#f0fdf8,#eefaf5);
+            border: 1.5px solid rgba(0,208,156,0.3); border-radius: 14px;
+            padding: 20px 24px; text-align: left; margin-bottom: 24px;
+            display: none;
+        }
+        body.dark-mode #quizAnswerBox { background: rgba(0,208,156,0.08); }
+        #quizAnswerText { font-size: 15px; color: var(--text-primary,#1a1a2e); line-height: 1.65; }
+        #quizExampleText { font-size: 13px; color: var(--text-secondary,#666); margin-top: 8px; line-height: 1.55; }
+        .quiz-reveal-btn {
+            width: 100%; padding: 14px; background: #00d09c; color: #fff;
+            font-weight: 700; font-size: 15px; border: none; border-radius: 10px;
+            cursor: pointer; transition: background 0.2s; font-family: inherit;
+        }
+        .quiz-reveal-btn:hover { background: #00b386; }
+        .quiz-action-row { display: flex; gap: 12px; margin-top: 12px; }
+        .quiz-got-it, .quiz-try-again {
+            flex: 1; padding: 13px; border-radius: 10px; font-weight: 700;
+            font-size: 14px; border: none; cursor: pointer; font-family: inherit;
+            transition: background 0.2s;
+        }
+        .quiz-got-it   { background: #00d09c; color: #fff; }
+        .quiz-got-it:hover { background: #00b386; }
+        .quiz-try-again { background: var(--bg-secondary,#f7f9fc); color: var(--text-secondary,#555577); border: 1.5px solid var(--border-color,#e5e7eb); }
+        .quiz-try-again:hover { border-color: #eb5b3c; color: #eb5b3c; }
+        .quiz-count { font-size: 12px; color: var(--text-secondary,#999); margin-top: 16px; }
+        .quiz-close {
+            position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
+            border-radius: 50%; border: none; background: var(--bg-secondary,#f0f2f5);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary,#888); font-size: 18px; line-height: 1;
+        }
+        /* ── Score screen ──────────────────────────────────── */
+        #scoreScreen { display: none; }
+        .score-circle {
+            width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: 900; background: linear-gradient(135deg,#00d09c,#009d77); color: #fff;
+            box-shadow: 0 8px 24px rgba(0,208,156,0.35);
+        }
+        .score-title { font-size: 22px; font-weight: 800; color: var(--text-primary,#1a1a2e); margin-bottom: 8px; }
+        .score-sub   { font-size: 14px; color: var(--text-secondary,#888); margin-bottom: 28px; }
+        .score-replay-btn {
+            display: block; width: 100%; padding: 14px; background: #00d09c; color: #fff;
+            font-weight: 700; font-size: 15px; border: none; border-radius: 10px;
+            cursor: pointer; transition: background 0.2s; font-family: inherit;
+        }
+        .score-replay-btn:hover { background: #00b386; }
+
+        /* ── Progress saved badge ──────────────────────────── */
+        .learn-progress-bar {
+            max-width: 1200px; margin: 28px auto 0; padding: 0 24px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .lp-label { font-size: 13px; color: var(--text-secondary,#888); font-weight: 600; white-space: nowrap; }
+        .lp-track {
+            flex: 1; height: 7px; background: var(--bg-secondary,#f0f2f5);
+            border-radius: 100px; overflow: hidden;
+        }
+        .lp-fill { height: 100%; background: linear-gradient(90deg,#00d09c,#5367ff); border-radius: 100px; transition: width 0.4s ease; }
+        .lp-pct { font-size: 13px; font-weight: 700; color: #00d09c; white-space: nowrap; }
+
+        /* ── Responsive ────────────────────────────────────── */
+        @media (max-width: 600px) {
+            .learn-hero h1 { font-size: 28px; }
+            .learn-hero p { font-size: 15px; }
+            .cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .flip-card { height: 160px; }
+            .fc-term { font-size: 16px; }
+            .quiz-card { padding: 28px 20px; }
+            .quiz-question { font-size: 22px; }
+            .learn-search input { width: 160px; }
+        }
+        @media (max-width: 420px) {
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Learn tab bar ───────────────────────────────── */
+        .learn-tab-bar {
+            background: var(--bg-primary,#fff);
+            border-bottom: 1px solid var(--border-color,#e5e7eb);
+            padding: 0 24px;
+        }
+        .learn-tab-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; gap: 4px; padding: 14px 0 0;
+        }
+        .ltab {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 22px; border-radius: 8px 8px 0 0;
+            border: 1.5px solid transparent; border-bottom: none;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            color: var(--text-secondary,#666); background: transparent;
+            font-family: inherit; transition: all 0.2s; margin-bottom: -1px;
+        }
+        .ltab.active {
+            background: var(--bg-primary,#fff);
+            border-color: var(--border-color,#e5e7eb);
+            color: #00d09c;
+        }
+        .ltab:not(.active):hover { color: var(--text-primary,#1a1a2e); }
+
+        /* ── Games section ──────────────────────────────── */
+        #gamesSection { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+        .games-pick-row {
+            display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 36px;
+        }
+        .game-pick-card {
+            border: 2px solid var(--border-color,#e5e7eb);
+            border-radius: 16px; padding: 18px 14px; cursor: pointer;
+            background: var(--bg-card,#fff); transition: all 0.2s; text-align: center;
+        }
+        .game-pick-card:hover, .game-pick-card.gpactive {
+            border-color: #00d09c; box-shadow: 0 4px 20px rgba(0,208,156,0.15);
+        }
+        .game-pick-card.gpactive { background: linear-gradient(135deg,rgba(0,208,156,0.07),rgba(0,208,156,0.02)); }
+        .game-pick-icon {
+            width: 48px; height: 48px; border-radius: 13px; margin: 0 auto 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .game-pick-title { font-size: 13px; font-weight: 800; color: var(--text-primary,#1a1a2e); margin-bottom: 3px; }
+        .game-pick-sub { font-size: 11px; color: var(--text-secondary,#888); font-weight: 500; }
+        .game-panel { display: none; }
+        .game-panel.gpshow { display: block; }
+        .game-panel-inner {
+            background: var(--bg-card,#fff); border-radius: 20px;
+            border: 1.5px solid var(--border-color,#e5e7eb);
+            padding: 36px 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        body.dark-mode .game-panel-inner { background: var(--bg-card,#1e2030); }
+        .gp-title { font-size: 22px; font-weight: 900; color: var(--text-primary,#1a1a2e); margin-bottom: 6px; }
+        .gp-sub { font-size: 14px; color: var(--text-secondary,#888); margin-bottom: 28px; line-height: 1.55; }
+
+        /* Sliders */
+        .slider-row { margin-bottom: 18px; }
+        .slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+        .slider-label span:first-child { font-size: 14px; font-weight: 600; color: var(--text-primary,#1a1a2e); }
+        .slider-val { font-size: 14px; font-weight: 800; color: #00d09c; }
+        input[type=range].fg-slider {
+            width: 100%; height: 5px; -webkit-appearance: none; appearance: none;
+            border-radius: 100px; background: var(--bg-secondary,#f0f2f5); outline: none; cursor: pointer;
+        }
+        input[type=range].fg-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+            background: #00d09c; cursor: pointer; box-shadow: 0 2px 8px rgba(0,208,156,0.4);
+        }
+        input[type=range].fg-slider::-moz-range-thumb {
+            width: 18px; height: 18px; border-radius: 50%;
+            background: #00d09c; cursor: pointer; border: none;
+        }
+
+        /* Time horizon buttons */
+        .horizon-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+        .hz-btn {
+            padding: 8px 16px; border-radius: 8px; border: 1.5px solid var(--border-color,#e5e7eb);
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            color: var(--text-secondary,#666); background: transparent; font-family: inherit;
+            transition: all 0.2s;
+        }
+        .hz-btn.active { background: #00d09c; border-color: #00d09c; color: #fff; }
+
+        /* Alloc bar */
+        .alloc-total-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 11px 16px; background: var(--bg-secondary,#f7f9fc);
+            border-radius: 10px; margin-bottom: 20px;
+        }
+        .alloc-total-label { font-size: 13px; font-weight: 600; color: var(--text-secondary,#888); }
+        .alloc-warning { font-size: 13px; color: #eb5b3c; font-weight: 600; margin: 6px 0 14px; min-height: 18px; }
+
+        /* Result cards */
+        .g-result-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .g-result-card {
+            flex: 1; min-width: 120px; padding: 14px 16px; border-radius: 12px;
+            background: var(--bg-secondary,#f7f9fc);
+        }
+        .g-result-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-secondary,#888); margin-bottom: 4px; }
+        .g-result-val { font-size: 20px; font-weight: 900; color: var(--text-primary,#1a1a2e); }
+        .g-result-card.highlight .g-result-val { color: #00d09c; }
+
+        /* Budget game */
+        .budget-summary { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+        .budget-remaining {
+            background: linear-gradient(135deg,#00d09c,#009d77); color: #fff;
+            border-radius: 14px; padding: 14px 22px; text-align: center; min-width: 150px;
+            transition: background 0.3s;
+        }
+        .budget-remaining .br-label { font-size: 11px; font-weight: 700; opacity: 0.85; margin-bottom: 2px; }
+        .budget-remaining .br-val { font-size: 24px; font-weight: 900; }
+        .health-score-wrap { flex: 1; min-width: 180px; }
+        .hs-label { font-size: 13px; font-weight: 600; color: var(--text-secondary,#888); margin-bottom: 8px; }
+        .hs-bar { height: 10px; background: var(--bg-secondary,#f0f2f5); border-radius: 100px; overflow: hidden; }
+        .hs-fill { height: 100%; border-radius: 100px; transition: width 0.4s, background 0.4s; }
+        .hs-score { font-size: 20px; font-weight: 900; margin-top: 6px; transition: color 0.3s; }
+        .budget-feedback {
+            background: rgba(0,208,156,0.08); border: 1.5px solid rgba(0,208,156,0.2);
+            border-radius: 12px; padding: 14px 18px; font-size: 13px;
+            color: var(--text-secondary,#555); line-height: 1.55; margin-top: 16px;
+        }
+        .budget-feedback.warn { background: rgba(245,166,35,0.08); border-color: rgba(245,166,35,0.3); }
+        .budget-feedback.bad  { background: rgba(235,91,60,0.08);  border-color: rgba(235,91,60,0.3); }
+
+        /* CIBIL game */
+        .cibil-gauge { text-align: center; margin-bottom: 24px; }
+        .cibil-score-display {
+            font-size: 64px; font-weight: 900; line-height: 1; transition: color 0.4s;
+        }
+        .cibil-score-label { font-size: 13px; font-weight: 600; color: var(--text-secondary,#888); margin-top: 4px; }
+        .cibil-progress-row { display: flex; gap: 6px; margin-bottom: 22px; }
+        .cp-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--bg-secondary,#f0f2f5); transition: background 0.3s; }
+        .cp-dot.done { background: #00d09c; }
+        .cp-dot.current { background: rgba(0,208,156,0.45); }
+        .cibil-scenario-box {
+            background: var(--bg-secondary,#f7f9fc); border-radius: 14px;
+            padding: 18px 20px; margin-bottom: 18px;
+        }
+        .cs-step { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #00d09c; margin-bottom: 6px; }
+        .cs-text { font-size: 16px; font-weight: 700; color: var(--text-primary,#1a1a2e); margin-bottom: 6px; line-height: 1.4; }
+        .cs-context { font-size: 13px; color: var(--text-secondary,#888); line-height: 1.5; }
+        .cibil-choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+        .cibil-choice {
+            padding: 13px 16px; border-radius: 10px; border: 1.5px solid var(--border-color,#e5e7eb);
+            background: var(--bg-card,#fff); font-size: 14px; font-weight: 600;
+            color: var(--text-primary,#1a1a2e); cursor: pointer; text-align: left;
+            font-family: inherit; transition: all 0.2s;
+        }
+        .cibil-choice:hover:not(:disabled) { border-color: #00d09c; color: #00d09c; }
+        .cibil-choice.cgood { background: rgba(0,208,156,0.1); border-color: #00d09c; color: #007a5e; }
+        .cibil-choice.cbad  { background: rgba(235,91,60,0.1);  border-color: #eb5b3c; color: #c0391a; }
+        .cibil-feedback {
+            padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+            margin-bottom: 14px; line-height: 1.5; display: none;
+        }
+        .cibil-feedback.cgood { background: rgba(0,208,156,0.12); color: #007a5e; display: block; }
+        .cibil-feedback.cbad  { background: rgba(235,91,60,0.12);  color: #c0391a; display: block; }
+        .cibil-next-btn {
+            width: 100%; padding: 13px; background: #00d09c; color: #fff; border: none;
+            border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer;
+            font-family: inherit; display: none; transition: background 0.2s; margin-bottom: 12px;
+        }
+        .cibil-next-btn:hover { background: #00b386; }
+        .cibil-milestone {
+            text-align: center; padding: 13px 16px; border-radius: 10px; font-size: 13px;
+            font-weight: 700; display: none; line-height: 1.5;
+            background: linear-gradient(135deg,rgba(0,208,156,0.12),rgba(0,208,156,0.04));
+            border: 1.5px solid rgba(0,208,156,0.3); color: #007a5e; margin-top: 4px;
+        }
+        .game-end-screen { text-align: center; padding: 36px 16px; }
+        .game-end-icon {
+            width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 18px;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg,#00d09c,#009d77);
+            box-shadow: 0 8px 24px rgba(0,208,156,0.35);
+        }
+        .game-end-title { font-size: 24px; font-weight: 900; color: var(--text-primary,#1a1a2e); margin-bottom: 8px; }
+        .game-end-sub { font-size: 15px; color: var(--text-secondary,#888); margin-bottom: 28px; line-height: 1.6; }
+        .game-restart-btn {
+            display: inline-block; padding: 13px 32px; background: #00d09c; color: #fff;
+            border: none; border-radius: 10px; font-weight: 700; font-size: 15px;
+            cursor: pointer; font-family: inherit; transition: background 0.2s;
+        }
+        .game-restart-btn:hover { background: #00b386; }
+
+        /* Budget income input */
+        .budget-income-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 22px; flex-wrap: wrap; gap: 12px;
+        }
+        .budget-income-label { font-size: 14px; font-weight: 700; color: var(--text-primary,#1a1a2e); }
+        .budget-income-wrap {
+            display: flex; align-items: center;
+            border: 2px solid #00d09c; border-radius: 10px; overflow: hidden;
+            background: var(--bg-secondary,#f7f9fc);
+        }
+        .budget-income-prefix {
+            padding: 9px 12px; font-size: 16px; font-weight: 800; color: #00d09c;
+            background: rgba(0,208,156,0.1); border-right: 2px solid rgba(0,208,156,0.25);
+        }
+        .budget-income-input {
+            border: none; outline: none; background: transparent;
+            font-size: 16px; font-weight: 700; color: var(--text-primary,#1a1a2e);
+            font-family: inherit; padding: 9px 14px; width: 150px;
+        }
+        /* SIP legend */
+        .sip-legend { display: flex; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+        .sip-leg-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary,#666); }
+        .sip-leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+        @media (max-width: 768px) {
+            .games-pick-row { grid-template-columns: 1fr 1fr; }
+            .game-panel-inner { padding: 22px 16px; }
+            .cibil-score-display { font-size: 48px; }
+        }
+        @media (max-width: 480px) {
+            .games-pick-row { grid-template-columns: 1fr 1fr; }
+            .g-result-card { min-width: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY FinGarage</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain" style="color:#00d09c;font-weight:700;">Learn</a>
+                    <a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <!-- Hero -->
+    <section class="learn-hero">
+        <div class="learn-hero-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#00b386" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            FinGarage Learn
+        </div>
+        <h1>Master Finance.<br><span>One Term at a Time.</span></h1>
+        <p>60+ financial concepts across Loans, Wealth, Insurance &amp; Credit — explained simply and tested interactively.</p>
+        <div class="learn-hero-stats">
+            <div class="learn-hero-stat"><strong>64</strong><span>Terms covered</span></div>
+            <div class="learn-hero-stat"><strong>4</strong><span>Categories</span></div>
+            <div class="learn-hero-stat"><strong>Quiz</strong><span>Interactive mode</span></div>
+        </div>
+        <div class="learn-hero-btns">
+            <button class="btn-quiz" onclick="startQuiz()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><polygon points="5 3 19 12 5 21 5 3" fill="#fff"/></svg>
+                Start Quiz
+            </button>
+            <a href="#cards" class="btn-browse">
+                Browse Flashcards
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Learn Tab Bar -->
+    <div class="learn-tab-bar">
+        <div class="learn-tab-inner">
+            <button class="ltab gpshow" id="tabPlay" onclick="switchLearnTab('play')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+                Play &amp; Learn
+            </button>
+            <button class="ltab" id="tabCards" onclick="switchLearnTab('flashcards')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 5v14" stroke="currentColor" stroke-width="2"/></svg>
+                Flashcards
+            </button>
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <div id="gamesSection">
+        <div style="max-width:1200px;margin:0 auto;padding:32px 24px 80px;">
+
+            <!-- Game picker -->
+            <div class="games-pick-row">
+                <div class="game-pick-card gpactive" onclick="openGame('invest')" id="gpick-invest">
+                    <div class="game-pick-icon" style="background:linear-gradient(135deg,rgba(0,208,156,0.15),rgba(0,208,156,0.04));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polyline points="3 17 9 11 13 15 21 7" stroke="#00d09c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15 7 21 7 21 13" stroke="#00d09c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="game-pick-title">₹1L Challenge</div>
+                    <div class="game-pick-sub">Investment Simulator</div>
+                </div>
+                <div class="game-pick-card" onclick="openGame('budget')" id="gpick-budget">
+                    <div class="game-pick-icon" style="background:linear-gradient(135deg,rgba(83,103,255,0.15),rgba(83,103,255,0.04));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#5367ff" stroke-width="2.5"/><path d="M12 6v6l4 2" stroke="#5367ff" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="game-pick-title">Budget Boss</div>
+                    <div class="game-pick-sub">Monthly Budget Game</div>
+                </div>
+                <div class="game-pick-card" onclick="openGame('cibil')" id="gpick-cibil">
+                    <div class="game-pick-icon" style="background:linear-gradient(135deg,rgba(245,166,35,0.15),rgba(245,166,35,0.04));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#d48b00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#d48b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="game-pick-title">CIBIL Builder</div>
+                    <div class="game-pick-sub">Credit Score Game</div>
+                </div>
+                <div class="game-pick-card" onclick="openGame('sip')" id="gpick-sip">
+                    <div class="game-pick-icon" style="background:linear-gradient(135deg,rgba(235,91,60,0.15),rgba(235,91,60,0.04));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><line x1="12" y1="2" x2="12" y2="22" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="#eb5b3c" stroke-width="2.5" stroke-linecap="round"/><path d="M6 6l12 12M18 6L6 18" stroke="#eb5b3c" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/></svg>
+                    </div>
+                    <div class="game-pick-title">SIP Magic</div>
+                    <div class="game-pick-sub">Compound Interest Wizard</div>
+                </div>
+            </div>
+
+            <!-- Game 1: Investment Simulator -->
+            <div class="game-panel gpshow" id="game-invest">
+                <div class="game-panel-inner">
+                    <div class="gp-title">₹1 Lakh Challenge</div>
+                    <div class="gp-sub">You have ₹1,00,000 virtual money. Allocate it across asset classes and pick a time horizon — see which strategy builds the most wealth!</div>
+                    <div class="alloc-total-row">
+                        <span class="alloc-total-label">Total allocated</span>
+                        <span style="font-size:15px;font-weight:800;color:#00d09c;" id="investAllocTotal">100%</span>
+                    </div>
+                    <div id="investSliders"></div>
+                    <div class="alloc-warning" id="investWarning"></div>
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:12px;font-weight:700;color:var(--text-secondary,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.8px;">Time Horizon</div>
+                        <div class="horizon-row" id="horizonBtns"></div>
+                    </div>
+                    <div id="investChart" style="display:flex;align-items:flex-end;gap:10px;height:180px;margin-bottom:8px;"></div>
+                    <div class="g-result-row" id="investResults"></div>
+                </div>
+            </div>
+
+            <!-- Game 2: Budget Boss -->
+            <div class="game-panel" id="game-budget">
+                <div class="game-panel-inner">
+                    <div class="gp-title">Budget Boss</div>
+                    <div class="gp-sub">Enter your monthly income and distribute it wisely. Can you crack the 50/30/20 rule and score 100/100?</div>
+                    <div class="budget-income-row">
+                        <span class="budget-income-label">Your Monthly Income</span>
+                        <div class="budget-income-wrap">
+                            <span class="budget-income-prefix">₹</span>
+                            <input type="number" id="budgetIncome" class="budget-income-input" value="50000" min="10000" max="10000000" step="1000" oninput="setBudgetSalary(this.value)">
+                        </div>
+                    </div>
+                    <div class="budget-summary">
+                        <div class="budget-remaining">
+                            <div class="br-label">Unallocated</div>
+                            <div class="br-val" id="budgetRemaining">₹8,000</div>
+                        </div>
+                        <div class="health-score-wrap">
+                            <div class="hs-label">Financial Health Score</div>
+                            <div class="hs-bar"><div class="hs-fill" id="hsFill" style="width:0%;background:#e5e7eb;"></div></div>
+                            <div class="hs-score" id="hsScore" style="color:#888;">—</div>
+                        </div>
+                    </div>
+                    <div id="budgetSliders"></div>
+                    <div class="budget-feedback" id="budgetFeedback" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Game 3: CIBIL Builder -->
+            <div class="game-panel" id="game-cibil">
+                <div class="game-panel-inner">
+                    <div class="gp-title">CIBIL Builder</div>
+                    <div class="gp-sub">Start at score 640. Make smart credit decisions across 8 real-life scenarios to unlock better loan rates. Wrong moves cost points!</div>
+                    <div class="cibil-gauge">
+                        <div class="cibil-score-display" id="cibilScoreNum" style="color:#d48b00;">640</div>
+                        <div class="cibil-score-label" id="cibilScoreLabel">Fair — keep improving</div>
+                    </div>
+                    <div class="cibil-progress-row" id="cibilDots"></div>
+                    <div class="cibil-scenario-box" id="cibilScenarioBox"></div>
+                    <div class="cibil-choices" id="cibilChoices"></div>
+                    <div class="cibil-feedback" id="cibilFeedback"></div>
+                    <button class="cibil-next-btn" id="cibilNextBtn" onclick="cibilNext()">Next Scenario &rarr;</button>
+                    <div class="cibil-milestone" id="cibilMilestone"></div>
+                    <div class="game-end-screen" id="cibilEndScreen" style="display:none;">
+                        <div class="game-end-icon">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#fff"/></svg>
+                        </div>
+                        <div class="game-end-title" id="cibilEndTitle"></div>
+                        <div class="game-end-sub" id="cibilEndSub"></div>
+                        <button class="game-restart-btn" onclick="initCibilGame()">Play Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 4: SIP Magic -->
+            <div class="game-panel" id="game-sip">
+                <div class="game-panel-inner">
+                    <div class="gp-title">SIP Magic</div>
+                    <div class="gp-sub">Discover the power of compounding! Adjust monthly amount, step-up %, duration, and expected return to see your wealth multiply.</div>
+                    <div id="sipSliders"></div>
+                    <div class="sip-legend">
+                        <div class="sip-leg-item"><div class="sip-leg-dot" style="background:rgba(83,103,255,0.55);"></div>Amount Invested</div>
+                        <div class="sip-leg-item"><div class="sip-leg-dot" style="background:#00d09c;"></div>Wealth Gained</div>
+                        <div class="sip-leg-item"><div class="sip-leg-dot" style="background:linear-gradient(135deg,rgba(83,103,255,0.55),#00d09c);"></div>Total Corpus</div>
+                    </div>
+                    <div id="sipChart" style="display:flex;gap:28px;align-items:flex-end;height:180px;padding:0 8px;margin-bottom:8px;"></div>
+                    <div class="g-result-row" id="sipResults"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="learn-progress-bar" id="learnProgressBar" style="display:none;">
+        <span class="lp-label">Your progress</span>
+        <div class="lp-track"><div class="lp-fill" id="lpFill" style="width:0%"></div></div>
+        <span class="lp-pct" id="lpPct">0%</span>
+    </div>
+
+    <!-- Filter + Search -->
+    <div class="learn-controls" id="cards">
+        <div class="learn-controls-inner">
+            <div class="learn-filter-tabs">
+                <button class="lf-tab active" onclick="filterCards('all',this)">All <span id="count-all"></span></button>
+                <button class="lf-tab" onclick="filterCards('loans',this)">Loans</button>
+                <button class="lf-tab" onclick="filterCards('wealth',this)">Wealth</button>
+                <button class="lf-tab" onclick="filterCards('insurance',this)">Insurance</button>
+                <button class="lf-tab" onclick="filterCards('credit',this)">Credit</button>
+            </div>
+            <div class="learn-search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" id="searchInput" placeholder="Search a term…" oninput="searchCards(this.value)">
+            </div>
+            <span class="learn-count" id="visibleCount"></span>
+        </div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="learn-main">
+        <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+
+    <!-- Quiz overlay -->
+    <div id="quizOverlay">
+        <div class="quiz-card">
+            <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">&times;</button>
+            <div id="quizMain">
+                <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qProgressFill" style="width:0%"></div></div>
+                <div class="quiz-cat-badge" id="qCatBadge"></div>
+                <div class="quiz-question" id="qTerm"></div>
+                <div class="quiz-prompt">What does this mean?</div>
+                <div id="quizAnswerBox">
+                    <div id="quizAnswerText"></div>
+                    <div id="quizExampleText"></div>
+                </div>
+                <button class="quiz-reveal-btn" id="qRevealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="quiz-action-row" id="qActionRow" style="display:none">
+                    <button class="quiz-try-again" onclick="nextQuiz(false)">Try Again</button>
+                    <button class="quiz-got-it" onclick="nextQuiz(true)">Got It!</button>
+                </div>
+                <div class="quiz-count" id="qCount"></div>
+            </div>
+            <div id="scoreScreen">
+                <div class="score-circle" id="scoreCircle"></div>
+                <div class="score-title" id="scoreTitle"></div>
+                <div class="score-sub" id="scoreSub"></div>
+                <button class="score-replay-btn" onclick="startQuiz()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="product-pages.js"></script>
+    <script>
+    // ── Term data ────────────────────────────────────────────────────────────
+    const TERMS = [
+        // LOANS
+        { term:"EMI", cat:"loans", def:"Equated Monthly Instalment — the fixed amount you pay every month to repay a loan, combining both principal and interest.", ex:"Example: A ₹10L loan at 10.5% for 5 years has an EMI of approx. ₹21,494/month." },
+        { term:"Principal", cat:"loans", def:"The original loan amount borrowed, before any interest is added. Your EMI gradually reduces the principal over the loan tenure.", ex:"Example: If you borrow ₹50L, that ₹50L is the principal." },
+        { term:"Interest Rate", cat:"loans", def:"The annual percentage charged by a lender on the borrowed principal. Can be fixed or floating.", ex:"Example: A home loan at 8.5% p.a. means you pay 8.5% of the outstanding amount per year as interest." },
+        { term:"FOIR", cat:"loans", def:"Fixed Obligation to Income Ratio — the % of your monthly income already committed to loan EMIs. Banks typically allow a max of 40–50%.", ex:"Example: If you earn ₹1L and pay ₹40K in EMIs, your FOIR is 40%, within the safe limit." },
+        { term:"LTV", cat:"loans", def:"Loan-to-Value ratio — the % of the property's value a bank will lend you. For home loans, banks typically lend up to 75–90% LTV.", ex:"Example: Property valued at ₹1Cr; LTV of 80% = bank lends ₹80L, you pay ₹20L as down payment." },
+        { term:"Tenure", cat:"loans", def:"The duration of the loan — how long you have to repay it. Longer tenure = lower EMI but higher total interest paid.", ex:"Example: A 20-year home loan tenure vs a 10-year one: the 20-year loan has a lower EMI but you pay more total interest." },
+        { term:"Prepayment", cat:"loans", def:"Paying off part or all of your loan before the scheduled tenure ends. This reduces your principal and saves interest.", ex:"Example: Paying an extra ₹2L into your home loan in year 3 reduces both your outstanding principal and future interest." },
+        { term:"Moratorium", cat:"loans", def:"A temporary pause on loan repayments granted by the lender. Interest may still accrue during this period.", ex:"Example: COVID moratorium (2020) allowed borrowers to pause EMIs for 3–6 months, though interest continued." },
+        { term:"Processing Fee", cat:"loans", def:"A one-time fee charged by the lender to process your loan application. Typically 0.5–2% of the loan amount.", ex:"Example: A 1% processing fee on a ₹30L loan = ₹30,000 charged upfront." },
+        { term:"Sanction Letter", cat:"loans", def:"A formal document from the lender confirming loan approval, stating the amount, rate, tenure, and conditions. It does not mean money is disbursed yet.", ex:"Example: You receive a sanction letter for ₹45L at 8.75% for 20 years before the property purchase is completed." },
+        { term:"NACH", cat:"loans", def:"National Automated Clearing House — the system that automatically debits your EMI from your bank account every month on the due date.", ex:"Example: You sign a NACH mandate once; EMIs are auto-deducted every 5th of the month without manual payment." },
+        { term:"Collateral", cat:"loans", def:"An asset pledged as security for a loan. If you default, the lender can seize and sell the collateral to recover dues.", ex:"Example: In a Loan Against Property, your house or commercial property is the collateral." },
+        { term:"Co-applicant", cat:"loans", def:"A person who applies for a loan jointly with the primary borrower. Both are equally responsible for repayment, and both incomes are considered.", ex:"Example: Applying for a home loan with your spouse as co-applicant increases loan eligibility." },
+        { term:"Balance Transfer", cat:"loans", def:"Moving your existing loan to another lender that offers a lower interest rate, reducing your EMI or tenure.", ex:"Example: Shifting a ₹30L home loan from 9.2% to 8.5% saves approx. ₹1,500/month." },
+        { term:"LAP", cat:"loans", def:"Loan Against Property — a secured loan where you mortgage your property to borrow money for any purpose at lower rates than personal loans.", ex:"Example: Borrowing ₹50L against your ₹1Cr commercial property for business expansion." },
+        { term:"NBFC", cat:"loans", def:"Non-Banking Financial Company — a financial institution that offers banking services like loans but is not a licensed bank. Often more flexible than banks for approvals.", ex:"Example: Bajaj Finance, Tata Capital, and HDFC Ltd (housing arm) are NBFCs." },
+        { term:"LAS", cat:"loans", def:"Loan Against Securities — a loan taken by pledging your investments (mutual funds, shares, bonds) as collateral.", ex:"Example: Pledging ₹10L in mutual funds to get a ₹7L overdraft facility at 10.5% p.a." },
+        { term:"MOD", cat:"loans", def:"Memorandum of Deposit — a document creating a legal charge on your property in favour of the lender when you take a home loan.", ex:"Example: You sign a MOD at the bank as part of the home loan documentation process." },
+
+        // WEALTH
+        { term:"SIP", cat:"wealth", def:"Systematic Investment Plan — investing a fixed amount regularly (monthly/quarterly) into mutual funds, regardless of market conditions.", ex:"Example: Investing ₹5,000/month in an equity SIP for 20 years at 12% CAGR grows to approx. ₹50L." },
+        { term:"SWP", cat:"wealth", def:"Systematic Withdrawal Plan — withdrawing a fixed amount from your mutual fund investment at regular intervals. Ideal for retirees.", ex:"Example: Withdrawing ₹20,000/month from a corpus of ₹50L to fund retirement expenses." },
+        { term:"STP", cat:"wealth", def:"Systematic Transfer Plan — automatically transferring money from one mutual fund (usually liquid/debt) to another (usually equity) at regular intervals.", ex:"Example: Parking ₹6L in a liquid fund and STPin ₹50K/month into an equity fund to reduce timing risk." },
+        { term:"NAV", cat:"wealth", def:"Net Asset Value — the per-unit price of a mutual fund. Calculated as (Total Assets – Liabilities) ÷ Number of units outstanding.", ex:"Example: If a fund has ₹100Cr in assets, no liabilities, and 1Cr units, NAV = ₹100/unit." },
+        { term:"AUM", cat:"wealth", def:"Assets Under Management — the total market value of all investments managed by a mutual fund or portfolio manager.", ex:"Example: A fund with an AUM of ₹10,000 Cr manages that much investors' money." },
+        { term:"ELSS", cat:"wealth", def:"Equity Linked Savings Scheme — a tax-saving mutual fund with a 3-year lock-in that qualifies for deduction under Section 80C (up to ₹1.5L).", ex:"Example: Investing ₹1.5L/year in an ELSS fund saves ₹46,800 in tax (at 31.2% bracket)." },
+        { term:"NPS", cat:"wealth", def:"National Pension System — a government-backed retirement savings scheme with market-linked returns and additional tax benefit under Section 80CCD(1B) (₹50,000 extra).", ex:"Example: Investing ₹50,000/year in NPS saves additional ₹15,600 in tax over 80C limit." },
+        { term:"Mutual Fund", cat:"wealth", def:"A professionally managed investment vehicle that pools money from many investors to buy a diversified portfolio of stocks, bonds, or other securities.", ex:"Example: When you buy a mutual fund, your ₹10,000 is invested alongside thousands of others in multiple assets." },
+        { term:"Equity Fund", cat:"wealth", def:"A mutual fund that primarily invests in company stocks. Higher risk but potentially higher returns over the long term.", ex:"Example: Nifty 50 index funds, large-cap funds, and small-cap funds are equity funds." },
+        { term:"Debt Fund", cat:"wealth", def:"A mutual fund that invests in fixed-income instruments like government bonds, corporate bonds, and money market instruments. Lower risk than equity funds.", ex:"Example: Liquid funds, short-duration funds, and gilt funds are debt funds." },
+        { term:"XIRR", cat:"wealth", def:"Extended Internal Rate of Return — the annualised return on investments with irregular cash flows, like SIPs. More accurate than simple returns.", ex:"Example: Your SIP generated 13.4% XIRR over 5 years, meaning an annualised 13.4% return on each instalment." },
+        { term:"PMS", cat:"wealth", def:"Portfolio Management Service — a personalised investment service where a professional manager invests directly in your name in stocks/bonds. Min. investment ₹50L (SEBI mandated).", ex:"Example: A PMS manager allocates ₹50L across 15–25 carefully selected stocks based on your risk profile." },
+        { term:"AIF", cat:"wealth", def:"Alternative Investment Fund — a privately pooled investment vehicle for sophisticated investors (min. ₹1Cr). Includes hedge funds, PE funds, and venture capital.", ex:"Example: A Category II AIF might invest in unlisted real estate projects or structured credit instruments." },
+        { term:"Compounding", cat:"wealth", def:"Earning returns not just on your original investment, but also on the returns already earned. Einstein called it the 8th wonder of the world.", ex:"Example: ₹1L at 12% p.a. compounded annually becomes ₹3.1L in 10 years without adding anything." },
+        { term:"REITs", cat:"wealth", def:"Real Estate Investment Trusts — listed instruments that let you invest in income-generating real estate (offices, malls) without buying property directly.", ex:"Example: Embassy Office Parks REIT lets you invest in premium office spaces and earn rental income distributions." },
+        { term:"Bond", cat:"wealth", def:"A fixed-income debt instrument where you lend money to a company or government, which pays you periodic interest (coupon) and returns principal at maturity.", ex:"Example: A 7% GOI bond means the government pays you 7% p.a. on the face value until maturity." },
+        { term:"Diversification", cat:"wealth", def:"Spreading investments across different asset classes, sectors, and geographies to reduce risk. If one falls, others may hold up.", ex:"Example: Holding 60% equity, 30% debt, and 10% gold is a diversified portfolio." },
+        { term:"CAGR", cat:"wealth", def:"Compound Annual Growth Rate — the mean annual growth rate of an investment over a period, assuming reinvestment of profits.", ex:"Example: A mutual fund that grew from ₹1L to ₹2L in 6 years has a CAGR of ~12.2%." },
+        { term:"Rebalancing", cat:"wealth", def:"Adjusting your portfolio back to its target allocation after market movements have shifted the weightings.", ex:"Example: If equity rises to 75% of your target 60% portfolio, you sell some equity and buy debt to rebalance." },
+
+        // INSURANCE
+        { term:"Premium", cat:"insurance", def:"The regular amount you pay (monthly/quarterly/annually) to keep your insurance policy active and maintain coverage.", ex:"Example: Paying ₹12,000/year to keep your ₹1Cr term insurance policy active." },
+        { term:"Sum Assured", cat:"insurance", def:"The guaranteed amount the insurer pays to the nominee (life insurance) or the insured (health insurance) upon a valid claim.", ex:"Example: A ₹1Cr term insurance means your family receives ₹1Cr if you pass away during the policy period." },
+        { term:"IDV", cat:"insurance", def:"Insured Declared Value — the current market value of your vehicle, which is the maximum amount the insurer pays if the vehicle is stolen or totalled.", ex:"Example: A 3-year-old car with IDV of ₹6L means you receive ₹6L on a total loss claim." },
+        { term:"Waiting Period", cat:"insurance", def:"The time after policy purchase during which certain claims are not covered. Common in health insurance for pre-existing diseases.", ex:"Example: A 2-year waiting period means pre-existing diabetes won't be covered in the first 2 years of the policy." },
+        { term:"Sub-limit", cat:"insurance", def:"A cap on the maximum amount payable for specific treatments or room rents within the overall sum insured.", ex:"Example: A ₹5L health policy with a ₹3,000/day room rent sub-limit means you can only claim up to ₹3,000/day for accommodation." },
+        { term:"Cashless Claim", cat:"insurance", def:"A facility where the insurer directly settles the hospital bill, so you don't need to pay upfront. Available at network hospitals.", ex:"Example: Getting knee surgery at a network hospital; the insurer pays the hospital directly for eligible expenses." },
+        { term:"Deductible", cat:"insurance", def:"The portion of a claim you must pay from your own pocket before the insurance coverage kicks in.", ex:"Example: A ₹5,000 deductible means you pay the first ₹5,000 of any claim and insurance covers the rest." },
+        { term:"Rider", cat:"insurance", def:"An optional add-on benefit you can attach to your base insurance policy for extra coverage, usually at an additional premium.", ex:"Example: A critical illness rider on your term plan pays a lump sum if you're diagnosed with cancer or heart disease." },
+        { term:"IRDAI", cat:"insurance", def:"Insurance Regulatory and Development Authority of India — the government body that regulates and supervises all insurance companies in India.", ex:"Example: IRDAI mandates that health insurers cannot deny renewal due to claims and sets Claim Settlement Ratios." },
+        { term:"ULIP", cat:"insurance", def:"Unit Linked Insurance Plan — a product that combines life insurance with market-linked investments. Part of your premium goes to coverage, part to funds.", ex:"Example: Paying ₹50,000/year ULIP premium: ~₹2,000 for insurance cover, ₹48,000 invested in equity/debt funds." },
+        { term:"Claim Settlement Ratio", cat:"insurance", def:"The % of death/health claims an insurer paid out vs total claims received in a year. Higher is better. Look for 98%+ for term insurance.", ex:"Example: An insurer with a 99.1% CSR paid out 99.1 of every 100 valid claims received." },
+        { term:"No Claim Bonus", cat:"insurance", def:"A reward for not making any claim during a policy year — usually a discount on the next year's premium or an increase in sum insured.", ex:"Example: No claim in Year 1 gives a 5% NCB, reducing your motor insurance premium next year." },
+        { term:"Co-payment", cat:"insurance", def:"A clause requiring the insured to pay a fixed % of the claim amount; insurer pays the rest. Common in senior citizen health policies.", ex:"Example: A 20% co-payment clause means on a ₹1L hospital bill, you pay ₹20,000 and insurance covers ₹80,000." },
+        { term:"Network Hospital", cat:"insurance", def:"A hospital that has a tie-up with your insurer, allowing cashless treatment without upfront payment.", ex:"Example: If Apollo Hospitals is in your insurer's network, you can get admitted there cashlessly." },
+        { term:"Term Insurance", cat:"insurance", def:"Pure life cover that pays a large sum assured to your family if you die during the policy period. No maturity benefit — cheapest form of life cover.", ex:"Example: ₹1Cr cover for 30 years for a 30-year-old non-smoker costs approx. ₹800–1,200/month." },
+        { term:"Family Floater", cat:"insurance", def:"A single health insurance policy that covers the entire family under one sum insured. Any member can use the full sum insured.", ex:"Example: A ₹10L floater covers husband, wife, and two kids — any one of them can claim up to ₹10L in a year." },
+
+        // CREDIT
+        { term:"CIBIL Score", cat:"credit", def:"A 3-digit credit score (300–900) assigned by CIBIL (TransUnion) based on your credit history. 750+ is considered good by most banks.", ex:"Example: A CIBIL score of 800 typically qualifies you for the best interest rates and higher loan amounts." },
+        { term:"Credit Report", cat:"credit", def:"A detailed record of your entire credit history — all loans, credit cards, payment history, and enquiries. Maintained by credit bureaus (CIBIL, Experian, CRIF).", ex:"Example: Your credit report shows you have 2 credit cards, 1 home loan, and made all payments on time for 4 years." },
+        { term:"Credit Utilization", cat:"credit", def:"The % of your available credit limit that you're currently using. Keeping it below 30% is recommended for a healthy credit score.", ex:"Example: Spending ₹30,000 on a ₹1L credit card limit = 30% utilization, which is fine. ₹70,000 = 70%, which hurts your score." },
+        { term:"Hard Enquiry", cat:"credit", def:"When a lender pulls your credit report to evaluate a loan/card application. Each hard enquiry slightly reduces your score for ~6 months.", ex:"Example: Applying for 4 credit cards in one month causes 4 hard enquiries, which may drop your score by 15–30 points." },
+        { term:"Soft Enquiry", cat:"credit", def:"A credit check that does NOT affect your credit score. Includes self-checks and pre-approved offers.", ex:"Example: Checking your own CIBIL score on their website or via Paytm is a soft enquiry — no score impact." },
+        { term:"Debt-to-Income Ratio", cat:"credit", def:"The % of your gross monthly income that goes toward debt payments. Lenders assess this to gauge repayment capacity.", ex:"Example: Monthly income ₹80K, EMI payments ₹28K: DTI = 35%, generally considered acceptable." },
+        { term:"Credit Mix", cat:"credit", def:"Having a healthy variety of credit types — secured (home loan, car loan) and unsecured (credit card, personal loan) — boosts your credit score.", ex:"Example: Having only credit cards is a poor mix. Adding a home loan or car loan improves your credit mix score." },
+        { term:"Payment History", cat:"credit", def:"The record of whether you've made your EMI and credit card payments on time. The single biggest factor in your credit score (35% weightage).", ex:"Example: Missing even one EMI by 30+ days can drop your score by 50–80 points." },
+        { term:"Credit Age", cat:"credit", def:"The length of your credit history — how long your oldest account has been open, and the average age of all accounts. Older is better.", ex:"Example: A credit card opened in 2015 and never closed contributes to a healthy credit age of 10 years." },
+        { term:"Default", cat:"credit", def:"Failure to repay a loan or credit card bill as per agreed terms. A default is reported to credit bureaus and remains on your credit report for 7 years.", ex:"Example: Missing 3+ consecutive EMIs is typically reported as a default, severely damaging your credit score." },
+    ];
+
+    // ── State ───────────────────────────────────────────────────────────────
+    let currentFilter = 'all';
+    let masteredSet = new Set(JSON.parse(localStorage.getItem('fg_mastered') || '[]'));
+    let quizQueue = [], quizIdx = 0, quizScore = 0;
+
+    // ── Render cards ────────────────────────────────────────────────────────
+    const catMeta = {
+        loans:     { label:'Loans',     cls:'cat-loans' },
+        wealth:    { label:'Wealth',    cls:'cat-wealth' },
+        insurance: { label:'Insurance', cls:'cat-insurance' },
+        credit:    { label:'Credit',    cls:'cat-credit' },
+    };
+
+    function renderCards(terms) {
+        const grid = document.getElementById('cardsGrid');
+        grid.innerHTML = '';
+        if (!terms.length) {
+            grid.innerHTML = '<div class="learn-empty" style="display:block;text-align:center;padding:80px 24px;grid-column:1/-1;"><p style="color:var(--text-secondary,#888);font-size:15px;">No terms found. Try a different search.</p></div>';
+            return;
+        }
+        terms.forEach((t, i) => {
+            const m = catMeta[t.cat];
+            const mastered = masteredSet.has(t.term);
+            const card = document.createElement('div');
+            card.className = 'flip-card' + (mastered ? ' flipped' : '');
+            card.dataset.cat = t.cat;
+            card.dataset.term = t.term.toLowerCase();
+            card.onclick = () => card.classList.toggle('flipped');
+            card.innerHTML = `
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="fc-cat-badge ${m.cls}">${m.label}</div>
+                        <div class="fc-term">${t.term}</div>
+                        <div class="fc-hint">Tap to reveal definition</div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="fc-def">${t.def}</div>
+                        ${t.ex ? `<div class="fc-example">${t.ex}</div>` : ''}
+                    </div>
+                </div>`;
+            grid.appendChild(card);
+        });
+        document.getElementById('visibleCount').textContent = `${terms.length} terms`;
+    }
+
+    function getFiltered(filter, search) {
+        return TERMS.filter(t =>
+            (filter === 'all' || t.cat === filter) &&
+            (!search || t.term.toLowerCase().includes(search) || t.def.toLowerCase().includes(search))
+        );
+    }
+
+    function filterCards(cat, btn) {
+        currentFilter = cat;
+        document.querySelectorAll('.lf-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards(getFiltered(cat, document.getElementById('searchInput').value.toLowerCase()));
+        updateProgress();
+    }
+
+    function searchCards(val) {
+        renderCards(getFiltered(currentFilter, val.toLowerCase().trim()));
+    }
+
+    // ── Progress ─────────────────────────────────────────────────────────────
+    function updateProgress() {
+        const pct = Math.round((masteredSet.size / TERMS.length) * 100);
+        const bar = document.getElementById('learnProgressBar');
+        if (masteredSet.size > 0) {
+            bar.style.display = 'flex';
+            document.getElementById('lpFill').style.width = pct + '%';
+            document.getElementById('lpPct').textContent = pct + '%';
+        }
+        localStorage.setItem('fg_mastered', JSON.stringify([...masteredSet]));
+    }
+
+    // ── Quiz ─────────────────────────────────────────────────────────────────
+    function startQuiz() {
+        const pool = currentFilter === 'all' ? [...TERMS] : TERMS.filter(t => t.cat === currentFilter);
+        quizQueue = shuffle([...pool]);
+        quizIdx = 0; quizScore = 0;
+        document.getElementById('quizOverlay').classList.add('open');
+        document.getElementById('quizMain').style.display = 'block';
+        document.getElementById('scoreScreen').style.display = 'none';
+        showQuizCard();
+    }
+
+    function showQuizCard() {
+        if (quizIdx >= quizQueue.length) { showScore(); return; }
+        const t = quizQueue[quizIdx];
+        const m = catMeta[t.cat];
+        document.getElementById('qProgressFill').style.width = ((quizIdx / quizQueue.length) * 100) + '%';
+        document.getElementById('qCatBadge').innerHTML = `<span class="fc-cat-badge ${m.cls}">${m.label}</span>`;
+        document.getElementById('qTerm').textContent = t.term;
+        document.getElementById('quizAnswerText').textContent = t.def;
+        document.getElementById('quizExampleText').textContent = t.ex || '';
+        document.getElementById('quizAnswerBox').style.display = 'none';
+        document.getElementById('qRevealBtn').style.display = 'block';
+        document.getElementById('qActionRow').style.display = 'none';
+        document.getElementById('qCount').textContent = `${quizIdx + 1} of ${quizQueue.length}`;
+    }
+
+    function revealAnswer() {
+        document.getElementById('quizAnswerBox').style.display = 'block';
+        document.getElementById('qRevealBtn').style.display = 'none';
+        document.getElementById('qActionRow').style.display = 'flex';
+    }
+
+    function nextQuiz(gotIt) {
+        if (gotIt) { quizScore++; masteredSet.add(quizQueue[quizIdx].term); }
+        else { masteredSet.delete(quizQueue[quizIdx].term); }
+        updateProgress();
+        quizIdx++;
+        showQuizCard();
+    }
+
+    function showScore() {
+        document.getElementById('quizMain').style.display = 'none';
+        document.getElementById('scoreScreen').style.display = 'block';
+        document.getElementById('qProgressFill').style.width = '100%';
+        const pct = Math.round((quizScore / quizQueue.length) * 100);
+        document.getElementById('scoreCircle').textContent = pct + '%';
+        const titles = ['Keep Practising!', 'Good Start!', 'Well Done!', 'Excellent!', 'Finance Expert!'];
+        const idx = Math.min(Math.floor(pct / 20), 4);
+        document.getElementById('scoreTitle').textContent = titles[idx];
+        document.getElementById('scoreSub').textContent =
+            `You got ${quizScore} of ${quizQueue.length} right. ${pct >= 80 ? 'Outstanding! Explore our services to put this knowledge to work.' : 'Keep reviewing the flashcards and try again!'}`;
+    }
+
+    function closeQuiz() { document.getElementById('quizOverlay').classList.remove('open'); }
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ── Init ─────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('count-all').textContent = `(${TERMS.length})`;
+        renderCards(TERMS);
+        updateProgress();
+    });
+
+    // Close quiz on overlay click
+    document.getElementById('quizOverlay').addEventListener('click', e => {
+        if (e.target === document.getElementById('quizOverlay')) closeQuiz();
+    });
+
+    // ── Tab switching ─────────────────────────────────────────────────────────
+    function switchLearnTab(tab) {
+        const isPlay = tab === 'play';
+        document.getElementById('tabPlay').classList.toggle('gpshow', isPlay);
+        document.getElementById('tabCards').classList.toggle('gpshow', !isPlay);
+        document.getElementById('gamesSection').style.display = isPlay ? 'block' : 'none';
+        document.querySelector('.learn-controls').style.display = isPlay ? 'none' : '';
+        document.querySelector('.learn-main').style.display = isPlay ? 'none' : '';
+        const pb = document.getElementById('learnProgressBar');
+        if (!isPlay && masteredSet.size > 0) pb.style.display = 'flex';
+        else pb.style.display = 'none';
+    }
+
+    // ── Game picker ───────────────────────────────────────────────────────────
+    function openGame(id) {
+        document.querySelectorAll('.game-pick-card').forEach(c => c.classList.remove('gpactive'));
+        document.getElementById('gpick-' + id).classList.add('gpactive');
+        document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('gpshow'));
+        document.getElementById('game-' + id).classList.add('gpshow');
+    }
+
+    // ── Helper: format number ─────────────────────────────────────────────────
+    function fmtN(n) {
+        if (n >= 10000000) return (n / 10000000).toFixed(1) + ' Cr';
+        if (n >= 100000)   return (n / 100000).toFixed(1) + ' L';
+        if (n >= 1000)     return (n / 1000).toFixed(1) + 'K';
+        return Math.round(n).toLocaleString('en-IN');
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GAME 1 — Investment Simulator
+    // ─────────────────────────────────────────────────────────────────────────
+    const ASSETS = [
+        { key:'equity', label:'Equity Mutual Funds', short:'Equity',  color:'#00d09c', rate:0.12 },
+        { key:'fd',     label:'Fixed Deposit (FD)', short:'FD',      color:'#5367ff', rate:0.065 },
+        { key:'gold',   label:'Gold',               short:'Gold',    color:'#d48b00', rate:0.08 },
+        { key:'ppf',    label:'PPF / Debt MF',      short:'PPF',     color:'#eb5b3c', rate:0.071 },
+        { key:'cash',   label:'Cash / Savings A/c', short:'Cash',    color:'#888',    rate:0.035 },
+    ];
+    let iAlloc  = { equity:40, fd:20, gold:20, ppf:10, cash:10 };
+    let iYears  = 10;
+
+    function initInvestGame() {
+        const wrap = document.getElementById('investSliders');
+        wrap.innerHTML = '';
+        ASSETS.forEach(a => {
+            wrap.insertAdjacentHTML('beforeend', `
+                <div class="slider-row">
+                    <div class="slider-label">
+                        <span>${a.label}</span>
+                        <span class="slider-val" id="iv-v-${a.key}" style="color:${a.color};">${iAlloc[a.key]}%</span>
+                    </div>
+                    <input type="range" class="fg-slider" min="0" max="100" value="${iAlloc[a.key]}"
+                        id="iv-${a.key}" style="accent-color:${a.color};"
+                        oninput="investSlide('${a.key}',this.value)">
+                </div>`);
+        });
+        const hw = document.getElementById('horizonBtns');
+        hw.innerHTML = '';
+        [1,3,5,10,20].forEach(y => {
+            const b = document.createElement('button');
+            b.className = 'hz-btn' + (y === iYears ? ' active' : '');
+            b.textContent = y + (y===1?' yr':' yrs');
+            b.onclick = () => { iYears = y; document.querySelectorAll('.hz-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); buildInvestChart(); };
+            hw.appendChild(b);
+        });
+        buildInvestChart();
+    }
+
+    function investSlide(key, val) {
+        iAlloc[key] = parseInt(val);
+        document.getElementById('iv-v-' + key).textContent = val + '%';
+        const tot = Object.values(iAlloc).reduce((a,b)=>a+b,0);
+        const totEl = document.getElementById('investAllocTotal');
+        const warnEl = document.getElementById('investWarning');
+        totEl.textContent = tot + '%';
+        if (tot > 100)      { totEl.style.color='#eb5b3c'; warnEl.textContent='Reduce allocation — total exceeds 100%'; }
+        else if (tot < 100) { totEl.style.color='#d48b00'; warnEl.textContent=(100-tot)+'% still unallocated'; }
+        else                { totEl.style.color='#00d09c'; warnEl.textContent=''; }
+        buildInvestChart();
+    }
+
+    function buildInvestChart() {
+        const principal = 100000;
+        const tot = Object.values(iAlloc).reduce((a,b)=>a+b,0);
+        const chart = document.getElementById('investChart');
+        const resEl  = document.getElementById('investResults');
+        if (tot !== 100) {
+            chart.innerHTML = '<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--text-secondary,#888);font-size:14px;font-weight:600;">Allocate exactly 100% to see projections</div>';
+            resEl.innerHTML = '';
+            return;
+        }
+        const results = ASSETS.map(a => {
+            const amt    = principal * (iAlloc[a.key] / 100);
+            const corpus = amt * Math.pow(1 + a.rate, iYears);
+            return { ...a, amt, corpus };
+        });
+        const totalCorpus = results.reduce((s,r)=>s+r.corpus, 0);
+        const gain        = totalCorpus - principal;
+        const maxCorpus   = Math.max(...results.map(r=>r.corpus));
+        const chartH      = 130;
+        chart.innerHTML   = '';
+        results.forEach(r => {
+            const barH = maxCorpus > 0 ? Math.max(4, (r.corpus/maxCorpus)*chartH) : 4;
+            chart.insertAdjacentHTML('beforeend', `
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                    <span style="font-size:11px;font-weight:800;color:var(--text-primary,#1a1a2e);text-align:center;line-height:1.3;">₹${fmtN(r.corpus)}</span>
+                    <div style="flex:1;width:100%;display:flex;align-items:flex-end;">
+                        <div style="width:100%;height:${barH}px;background:${r.color};border-radius:6px 6px 0 0;transition:height 0.5s cubic-bezier(.4,0,.2,1);"></div>
+                    </div>
+                    <span style="font-size:11px;font-weight:600;color:var(--text-secondary,#888);text-align:center;">${r.short}</span>
+                </div>`);
+        });
+        const blendedCAGR = ((Math.pow(totalCorpus/principal, 1/iYears)-1)*100).toFixed(1);
+        resEl.innerHTML = `
+            <div class="g-result-card"><div class="g-result-label">Invested</div><div class="g-result-val">₹1,00,000</div></div>
+            <div class="g-result-card highlight"><div class="g-result-label">Total Corpus</div><div class="g-result-val">₹${fmtN(totalCorpus)}</div></div>
+            <div class="g-result-card"><div class="g-result-label">Total Gain</div><div class="g-result-val" style="color:${gain>=0?'#00d09c':'#eb5b3c'};">₹${fmtN(gain)}</div></div>
+            <div class="g-result-card"><div class="g-result-label">Blended CAGR</div><div class="g-result-val">${blendedCAGR}%</div></div>`;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GAME 2 — Budget Boss
+    // ─────────────────────────────────────────────────────────────────────────
+    let bSalary = 50000;
+    const BCAT = [
+        { key:'housing',   label:'Housing / Rent',           color:'#5367ff', maxPct:0.6 },
+        { key:'food',      label:'Food &amp; Groceries',     color:'#00d09c', maxPct:0.5 },
+        { key:'transport', label:'Transport',                 color:'#d48b00', maxPct:0.4 },
+        { key:'emi',       label:'Loan EMIs',                 color:'#eb5b3c', maxPct:0.6 },
+        { key:'fun',       label:'Entertainment',             color:'#a855f7', maxPct:0.4 },
+        { key:'invest',    label:'Savings &amp; Investment',  color:'#0ea5e9', maxPct:0.7 },
+    ];
+    let bAlloc = { housing:15000, food:8000, transport:4000, emi:5000, fun:5000, invest:5000 };
+
+    function setBudgetSalary(val) {
+        const newSal = Math.max(10000, parseInt(val) || bSalary);
+        if (newSal === bSalary) return;
+        const ratio = newSal / bSalary;
+        bSalary = newSal;
+        Object.keys(bAlloc).forEach(k => {
+            bAlloc[k] = Math.round(bAlloc[k] * ratio / 500) * 500;
+        });
+        initBudgetGame();
+    }
+
+    function initBudgetGame() {
+        const wrap = document.getElementById('budgetSliders');
+        wrap.innerHTML = '';
+        BCAT.forEach(c => {
+            const maxVal = Math.round(bSalary * c.maxPct / 500) * 500;
+            const curVal = Math.min(bAlloc[c.key], maxVal);
+            bAlloc[c.key] = curVal;
+            wrap.insertAdjacentHTML('beforeend', `
+                <div class="slider-row">
+                    <div class="slider-label">
+                        <span style="color:${c.color};">${c.label}</span>
+                        <span class="slider-val" id="bg-v-${c.key}" style="color:${c.color};">₹${curVal.toLocaleString('en-IN')}</span>
+                    </div>
+                    <input type="range" class="fg-slider" min="0" max="${maxVal}" step="500" value="${curVal}"
+                        style="accent-color:${c.color};"
+                        oninput="budgetSlide('${c.key}',this.value)">
+                </div>`);
+        });
+        updateBudget();
+    }
+
+    function budgetSlide(key, val) {
+        bAlloc[key] = parseInt(val);
+        document.getElementById('bg-v-' + key).textContent = '₹' + parseInt(val).toLocaleString('en-IN');
+        updateBudget();
+    }
+
+    function updateBudget() {
+        const total     = Object.values(bAlloc).reduce((a,b)=>a+b,0);
+        const remaining = bSalary - total;
+        const remEl     = document.getElementById('budgetRemaining');
+        remEl.textContent = (remaining < 0 ? '-₹' : '₹') + Math.abs(remaining).toLocaleString('en-IN');
+        remEl.closest('.budget-remaining').style.background = remaining < 0
+            ? 'linear-gradient(135deg,#eb5b3c,#c0391a)'
+            : 'linear-gradient(135deg,#00d09c,#009d77)';
+
+        const needs   = bAlloc.housing + bAlloc.food + bAlloc.transport + bAlloc.emi;
+        const wants   = bAlloc.fun;
+        const savings = bAlloc.invest;
+        const nP = (needs   / bSalary) * 100;
+        const wP = (wants   / bSalary) * 100;
+        const sP = (savings / bSalary) * 100;
+
+        let score = 0;
+        const tips = [];
+        if (nP <= 50) score += 34; else tips.push(`Needs are ${nP.toFixed(0)}% of income — aim for ≤50%.`);
+        if (wP <= 30) score += 33; else tips.push(`Entertainment is ${wP.toFixed(0)}% — keep it ≤30%.`);
+        if (sP >= 20) score += 33; else tips.push(`Investing ${sP.toFixed(0)}% — aim for ≥20% for financial freedom.`);
+        if (remaining < 0) { score = Math.max(0, score - 30); tips.push('You\'re spending more than you earn!'); }
+
+        const fill = document.getElementById('hsFill');
+        const sEl  = document.getElementById('hsScore');
+        fill.style.width      = score + '%';
+        fill.style.background = score >= 80 ? '#00d09c' : score >= 50 ? '#d48b00' : '#eb5b3c';
+        sEl.textContent = score + ' / 100';
+        sEl.style.color = score >= 80 ? '#00d09c' : score >= 50 ? '#d48b00' : '#eb5b3c';
+
+        const fb = document.getElementById('budgetFeedback');
+        fb.style.display = 'block';
+        if (tips.length === 0) {
+            fb.className   = 'budget-feedback';
+            fb.textContent = 'Perfect score! You\'re nailing the 50/30/20 rule. Investing 20%+ puts you on the path to financial freedom.';
+        } else {
+            fb.className   = 'budget-feedback ' + (score < 40 ? 'bad' : 'warn');
+            fb.textContent = tips.join(' ');
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GAME 3 — CIBIL Builder
+    // ─────────────────────────────────────────────────────────────────────────
+    const SCENARIOS = [
+        { text:"You have ₹30,000 credit limit and spent ₹26,000 this month.", ctx:"Your credit utilization is 87%. What do you do?",
+          choices:[
+            { t:"Pay down the card immediately to bring utilization below 30%", good:true,  d:+35, fb:"Smart! Low utilization is one of the biggest score boosters. You gained +35 points." },
+            { t:"Pay only the minimum due and carry the balance",               good:false, d:-25, fb:"87% utilization signals credit dependency. Score dropped -25 points." },
+          ]},
+        { text:"You get offers for 3 new credit cards with great rewards.", ctx:"Applying for all 3 will cause 3 hard enquiries on your credit report.",
+          choices:[
+            { t:"Evaluate carefully and apply for only 1 that suits your needs", good:true,  d:+20, fb:"Controlled credit applications show discipline. Score up +20 points." },
+            { t:"Apply for all 3 — more available credit is better",             good:false, d:-30, fb:"Multiple hard enquiries in a short period hurts your score. -30 points." },
+          ]},
+        { text:"Your home loan EMI is due on the 5th but funds are a bit tight.", ctx:"You have enough money but it would leave your account with little buffer.",
+          choices:[
+            { t:"Pay the EMI on time — even a tight month is manageable",    good:true,  d:+40, fb:"Payment history is 35% of your score. Never miss an EMI! +40 points." },
+            { t:"Skip this month and pay double next month",                   good:false, d:-50, fb:"Even 1 missed EMI stays on record for 7 years. -50 points!" },
+          ]},
+        { text:"You've had a credit card for 8 years that you rarely use.", ctx:"The bank suggests closing it to simplify your finances.",
+          choices:[
+            { t:"Keep the card open — it builds credit age",                   good:true,  d:+25, fb:"Older accounts boost average credit age significantly. +25 points." },
+            { t:"Close it — you don't need an account you don't use",          good:false, d:-20, fb:"Closing old cards reduces credit age and available limit. -20 points." },
+          ]},
+        { text:"You have a personal loan and a credit card.", ctx:"A friend suggests avoiding loans and only using credit cards.",
+          choices:[
+            { t:"Keep the loan — a healthy credit mix helps your score",        good:true,  d:+20, fb:"Secured + unsecured credit mix boosts your profile. +20 points." },
+            { t:"Prepay the loan to save interest and stay debt-free",          good:false, d:-10, fb:"Losing credit diversity can slightly reduce your score. -10 points." },
+          ]},
+        { text:"You spot an error on your credit report — an account you never opened.", ctx:"It shows a 60-day late payment that never happened.",
+          choices:[
+            { t:"File a dispute with the credit bureau immediately",            good:true,  d:+30, fb:"Errors removed via disputes can significantly raise your score. +30 points." },
+            { t:"Ignore it — disputes are complicated and take too long",       good:false, d:-15, fb:"Ignoring errors lets them drag your score down for years. -15 points." },
+          ]},
+        { text:"You need a home loan and want to compare offers from 6 banks.", ctx:"Each direct application triggers a hard enquiry on your credit report.",
+          choices:[
+            { t:"Use a loan aggregator to compare without multiple hard pulls",  good:true,  d:+20, fb:"Smart! Aggregators often use soft pulls. Your score is safe. +20 points." },
+            { t:"Apply to all 6 banks directly to get the best deal",           good:false, d:-35, fb:"6 simultaneous hard enquiries signal desperation. -35 points." },
+          ]},
+        { text:"Your credit card bill is ₹12,000 but you can only pay ₹3,000 this month.", ctx:"The minimum due is ₹1,200 — you can pay more than minimum but not the full amount.",
+          choices:[
+            { t:"Pay as much as possible (₹3,000) to reduce interest burden",   good:true,  d:+15, fb:"Paying above minimum reduces utilization and interest. +15 points." },
+            { t:"Pay only the minimum due (₹1,200) and save the rest",          good:false, d:-20, fb:"Carrying a high balance long-term hurts both score and wallet. -20 points." },
+          ]},
+    ];
+
+    let cScore = 640, cIdx = 0, cChosen = false;
+
+    function initCibilGame() {
+        cScore = 640; cIdx = 0; cChosen = false;
+        document.getElementById('cibilEndScreen').style.display  = 'none';
+        document.getElementById('cibilScenarioBox').style.display = 'block';
+        document.getElementById('cibilChoices').innerHTML = '';
+        document.getElementById('cibilFeedback').className = 'cibil-feedback';
+        document.getElementById('cibilNextBtn').style.display = 'none';
+        document.getElementById('cibilMilestone').style.display = 'none';
+        setCibilScore(640, false);
+        renderCibilDots();
+        renderCibilScene();
+    }
+
+    function setCibilScore(s, animate) {
+        cScore = Math.max(300, Math.min(900, s));
+        const el    = document.getElementById('cibilScoreNum');
+        const label = document.getElementById('cibilScoreLabel');
+        if (animate) {
+            let cur = parseInt(el.textContent) || cScore;
+            const end  = cScore;
+            const step = end > cur ? 1 : -1;
+            const iv = setInterval(() => {
+                cur += step * Math.max(1, Math.round(Math.abs(end - cur) / 12));
+                if ((step>0&&cur>=end)||(step<0&&cur<=end)) { cur=end; clearInterval(iv); }
+                el.textContent = Math.round(cur);
+            }, 22);
+        } else { el.textContent = cScore; }
+        const color = cScore>=800?'#00d09c':cScore>=750?'#00b386':cScore>=700?'#d48b00':cScore>=650?'#eb8c00':'#eb5b3c';
+        el.style.color = color;
+        label.textContent = cScore>=800?'Excellent — best rates unlocked!':cScore>=750?'Good — most lenders approve':cScore>=700?'Fair — improving well':cScore>=650?'Below average — keep working':'Poor — needs urgent attention';
+    }
+
+    function renderCibilDots() {
+        const wrap = document.getElementById('cibilDots');
+        wrap.innerHTML = '';
+        SCENARIOS.forEach((_,i) => {
+            const d = document.createElement('div');
+            d.className = 'cp-dot' + (i<cIdx?' done':i===cIdx?' current':'');
+            wrap.appendChild(d);
+        });
+    }
+
+    function renderCibilScene() {
+        if (cIdx >= SCENARIOS.length) { showCibilEnd(); return; }
+        cChosen = false;
+        const s = SCENARIOS[cIdx];
+        document.getElementById('cibilScenarioBox').innerHTML = `
+            <div class="cs-step">Scenario ${cIdx+1} of ${SCENARIOS.length}</div>
+            <div class="cs-text">${s.text}</div>
+            <div class="cs-context">${s.ctx}</div>`;
+        const cw = document.getElementById('cibilChoices');
+        cw.innerHTML = '';
+        s.choices.forEach((c,ci) => {
+            const btn = document.createElement('button');
+            btn.className = 'cibil-choice';
+            btn.textContent = c.t;
+            btn.onclick = () => cibilChoose(ci);
+            cw.appendChild(btn);
+        });
+        document.getElementById('cibilFeedback').className = 'cibil-feedback';
+        document.getElementById('cibilNextBtn').style.display = 'none';
+        document.getElementById('cibilMilestone').style.display = 'none';
+    }
+
+    function cibilChoose(ci) {
+        if (cChosen) return;
+        cChosen = true;
+        const s = SCENARIOS[cIdx];
+        const c = s.choices[ci];
+        document.querySelectorAll('.cibil-choice').forEach((b,i) => {
+            b.disabled = true;
+            if (i===ci) b.classList.add(c.good?'cgood':'cbad');
+            else if (s.choices[i].good) b.classList.add('cgood');
+        });
+        const fb = document.getElementById('cibilFeedback');
+        fb.textContent = c.fb;
+        fb.className   = 'cibil-feedback ' + (c.good?'cgood':'cbad');
+        const oldScore = cScore;
+        setCibilScore(cScore + c.d, true);
+        const ms = document.getElementById('cibilMilestone');
+        if (oldScore < 750 && cScore >= 750) { ms.textContent = 'Milestone unlocked: 750+ Score — Home loans at competitive rates!'; ms.style.display='block'; }
+        else if (oldScore < 800 && cScore >= 800) { ms.textContent = 'Milestone unlocked: 800+ Score — Best rates from all premium lenders!'; ms.style.display='block'; }
+        document.getElementById('cibilNextBtn').style.display = 'block';
+    }
+
+    function cibilNext() {
+        cIdx++;
+        renderCibilDots();
+        renderCibilScene();
+    }
+
+    function showCibilEnd() {
+        document.getElementById('cibilScenarioBox').style.display = 'none';
+        document.getElementById('cibilChoices').innerHTML = '';
+        document.getElementById('cibilFeedback').className = 'cibil-feedback';
+        document.getElementById('cibilNextBtn').style.display = 'none';
+        document.getElementById('cibilMilestone').style.display = 'none';
+        document.getElementById('cibilEndScreen').style.display = 'block';
+        const t = cScore>=800?'Outstanding Credit Expert!':cScore>=750?'Great Job, Credit Star!':cScore>=700?'Good Progress!':'Keep Improving!';
+        const sub = `You finished with a CIBIL score of ${cScore}. ${cScore>=750?'You now qualify for the best loan rates in the market!':'Keep making smart credit choices to unlock better loan rates.'}`;
+        document.getElementById('cibilEndTitle').textContent = t;
+        document.getElementById('cibilEndSub').textContent   = sub;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GAME 4 — SIP Magic
+    // ─────────────────────────────────────────────────────────────────────────
+    const SIP_CFG = [
+        { key:'amount', label:'Monthly SIP Amount',       min:500,  max:50000, step:500,  val:5000,  disp: v => '₹' + Number(v).toLocaleString('en-IN') },
+        { key:'stepup', label:'Annual Step-Up %',         min:0,    max:20,    step:1,    val:10,    disp: v => v + '%' },
+        { key:'years',  label:'Investment Duration',      min:1,    max:30,    step:1,    val:15,    disp: v => v + ' yrs' },
+        { key:'rate',   label:'Expected Annual Return',   min:6,    max:20,    step:0.5,  val:12,    disp: v => parseFloat(v).toFixed(1) + '%' },
+    ];
+    let sVals = { amount:5000, stepup:10, years:15, rate:12 };
+
+    function initSipGame() {
+        const wrap = document.getElementById('sipSliders');
+        wrap.innerHTML = '';
+        SIP_CFG.forEach(c => {
+            wrap.insertAdjacentHTML('beforeend', `
+                <div class="slider-row">
+                    <div class="slider-label">
+                        <span>${c.label}</span>
+                        <span class="slider-val" id="sp-v-${c.key}">${c.disp(c.val)}</span>
+                    </div>
+                    <input type="range" class="fg-slider" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.val}"
+                        oninput="sipSlide('${c.key}',this.value)">
+                </div>`);
+        });
+        buildSip();
+    }
+
+    function sipSlide(key, val) {
+        sVals[key] = parseFloat(val);
+        const cfg = SIP_CFG.find(c => c.key === key);
+        document.getElementById('sp-v-' + key).textContent = cfg.disp(val);
+        buildSip();
+    }
+
+    function buildSip() {
+        const { amount, stepup, years, rate } = sVals;
+        const r = rate / 100 / 12;
+        let invested = 0, corpus = 0, monthly = amount;
+        for (let y = 0; y < years; y++) {
+            for (let m = 0; m < 12; m++) {
+                invested += monthly;
+                corpus = (corpus + monthly) * (1 + r);
+            }
+            monthly *= (1 + stepup / 100);
+        }
+        const gains = corpus - invested;
+        const maxVal = corpus || 1;
+        const H = 150;
+        const iH = Math.max(4, (invested / maxVal) * H);
+        const gH = Math.max(4, (gains   / maxVal) * H);
+        const chart = document.getElementById('sipChart');
+        chart.innerHTML = `
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <span style="font-size:11px;font-weight:800;color:var(--text-primary,#1a1a2e);">₹${fmtN(invested)}</span>
+                <div style="flex:1;width:100%;display:flex;align-items:flex-end;">
+                    <div style="width:100%;height:${iH}px;background:rgba(83,103,255,0.55);border-radius:7px 7px 0 0;transition:height 0.5s;"></div>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:var(--text-secondary,#888);">Invested</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <span style="font-size:11px;font-weight:800;color:#00d09c;">₹${fmtN(gains)}</span>
+                <div style="flex:1;width:100%;display:flex;align-items:flex-end;">
+                    <div style="width:100%;height:${gH}px;background:#00d09c;border-radius:7px 7px 0 0;transition:height 0.5s;"></div>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:var(--text-secondary,#888);">Gains</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <span style="font-size:11px;font-weight:800;color:var(--text-primary,#1a1a2e);">₹${fmtN(corpus)}</span>
+                <div style="flex:1;width:100%;display:flex;align-items:flex-end;">
+                    <div style="width:100%;height:${H}px;background:linear-gradient(180deg,#00d09c,rgba(83,103,255,0.55));border-radius:7px 7px 0 0;transition:height 0.5s;"></div>
+                </div>
+                <span style="font-size:11px;font-weight:600;color:var(--text-secondary,#888);">Corpus</span>
+            </div>`;
+        document.getElementById('sipResults').innerHTML = `
+            <div class="g-result-card"><div class="g-result-label">Total Invested</div><div class="g-result-val">₹${fmtN(invested)}</div></div>
+            <div class="g-result-card highlight"><div class="g-result-label">Wealth Gained</div><div class="g-result-val">₹${fmtN(gains)}</div></div>
+            <div class="g-result-card highlight"><div class="g-result-label">Total Corpus</div><div class="g-result-val">₹${fmtN(corpus)}</div></div>
+            <div class="g-result-card"><div class="g-result-label">Return Multiple</div><div class="g-result-val">${(corpus/invested).toFixed(1)}x</div></div>`;
+    }
+
+    // ── Init games on load ────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        switchLearnTab('play');
+        initInvestGame();
+        initBudgetGame();
+        initCibilGame();
+        initSipGame();
+    });
+    </script>
+</body>
+</html>
