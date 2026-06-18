@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternative Investment Fund (AIF) | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,\'loans\')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,\'wealth\')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,\'insurance\')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,\'tools\')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,\'advisory\')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY FinGarage</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero wealth-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">ALTERNATIVE INVESTMENT FUND</div>
+                <h1 class="product-hero-title">Alternative Investments for Sophisticated Investors — Category I, II and III</h1>
+                <p class="product-hero-subtitle">AIFs provide access to private equity, venture capital, real estate funds, and hedge fund strategies. Designed for HNIs and family offices seeking alpha beyond traditional markets.</p>
+                <div class="product-hero-stats"><div><div class="phs-val">Min Rs.1 Crore</div><div class="phs-label">Investment Ticket</div></div><div><div class="phs-val">Cat I / II / III</div><div class="phs-label">Fund Categories</div></div><div><div class="phs-val">Higher Alpha</div><div class="phs-label">Potential</div></div></div>
+                <div class="product-hero-cta">
+                    <a href="../index.html#get-started" class="btn-primary">Get Started</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">AIF Portfolio Overview</div>
+                <div class="pvcard-rows"><div class="pvcard-row"><span class="pvcard-key">Fund Category</span><span class="pvcard-val">Category II</span></div><div class="pvcard-row"><span class="pvcard-key">Strategy</span><span class="pvcard-val">Long-short equity</span></div><div class="pvcard-row"><span class="pvcard-key">Min Investment</span><span class="pvcard-val positive">Rs.1 Crore</span></div><div class="pvcard-row"><span class="pvcard-key">Lock-in</span><span class="pvcard-val">3 Years</span></div><div class="pvcard-row"><span class="pvcard-key">Expected Return</span><span class="pvcard-val positive">18–25% CAGR</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">KEY FEATURES</div>
+                <h2 class="section-title">Why Consider AIF for Your Portfolio?</h2>
+            </div>
+        </div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><div class="fc-title-pg">Access to Private Markets</div><p class="fc-desc-pg">AIFs allow investment in unlisted companies, private credit deals, and real estate development projects that are not accessible through public markets.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Higher Return Potential</div><p class="fc-desc-pg">Top-performing Cat II and Cat III AIFs have generated 18–25% returns — significantly above public market benchmarks — though with higher risk and illiquidity.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="fc-title-pg">SEBI Regulated Structure</div><p class="fc-desc-pg">All AIFs are registered with SEBI under the AIF Regulations 2012. Quarterly investor reporting, independent custodian, and audited accounts are mandatory.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="fc-title-pg">Dedicated Fund Manager</div><p class="fc-desc-pg">Unlike mutual funds, AIF fund managers run concentrated strategies with fewer holdings and higher conviction. You invest alongside institutional investors.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="fc-title-pg">Diversification Across Categories</div><p class="fc-desc-pg">Category I includes VCFs and infrastructure funds. Category II covers PE and debt funds. Category III includes hedge funds and complex strategies. Each serves a different purpose in a portfolio.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><div class="fc-title-pg">Tax-Efficient for Category II</div><p class="fc-desc-pg">Category II AIF income is taxed at the investor level — pass-through taxation. This can be more efficient than corporate-level taxation in certain portfolio structures.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Who Should Invest in AIFs?</h2>
+                <p class="section-subtitle">AIFs are suitable for sophisticated investors with significant investable surplus and a long investment horizon.</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">&#10003;</span>Net worth above Rs.5 Crores (investable assets)</li>
+                    <li><span class="elig-check">&#10003;</span>Investment horizon of 3–7 years minimum</li>
+                    <li><span class="elig-check">&#10003;</span>Tolerance for illiquidity — early exit is restricted or penalised</li>
+                    <li><span class="elig-check">&#10003;</span>Understanding of alternative asset class risks</li>
+                    <li><span class="elig-check">&#10003;</span>Prior experience with equity or debt markets recommended</li>
+                    <li><span class="elig-check">&#10003;</span>High-income professionals, business owners, and family offices</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">&#10003;</span>PAN Card</li>
+                        <li><span class="elig-check">&#10003;</span>Aadhaar Card</li>
+                        <li><span class="elig-check">&#10003;</span>Net worth certificate from CA (some funds)</li>
+                        <li><span class="elig-check">&#10003;</span>Bank account proof (cancelled cheque)</li>
+                        <li><span class="elig-check">&#10003;</span>KYC including FATCA / FEMA declarations</li>
+                        <li><span class="elig-check">&#10003;</span>Subscription agreement and placement memorandum sign-off</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">THE PROCESS</div>
+                <h2 class="section-title">How It Works</h2>
+            </div>
+        </div>
+        <div class="steps-grid-pg">
+                        <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Investor Onboarding and KYC</div><p class="step-desc-pg">Complete SEBI-mandated KYC, FATCA declaration, and AML process. This is done once and covers all AIF investments going forward.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Review Fund Documents</div><p class="step-desc-pg">We share the placement memorandum and investment strategy document for your review. Our advisor explains the fund structure, fee model, and risk factors in plain language.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Subscription and Fund Transfer</div><p class="step-desc-pg">Sign the subscription agreement and transfer the minimum investment amount to the fund's designated escrow account. RTGS / NEFT transfer — no cash.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Portfolio Updates and Exits</div><p class="step-desc-pg">Receive quarterly portfolio statements, NAV updates, and capital call notices if applicable. Exit happens at the end of the fund tenure or through secondary market if available.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the minimum investment in an AIF?</div><div class="faq-a-pg">SEBI mandates a minimum investment of Rs.1 Crore per investor per AIF. Some Cat III funds have a higher minimum of Rs.5 Crores. This regulatory floor ensures that only sophisticated investors with adequate financial resources participate.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Are AIFs liquid — can I exit before the fund tenure?</div><div class="faq-a-pg">Most AIFs are illiquid for the lock-in period (typically 3–5 years). Some Cat III funds listed on stock exchanges offer limited liquidity through secondary market trades. Private secondary sales are possible in some cases but at a discount. Plan for a full-tenure holding when investing.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">How are AIFs taxed in India?</div><div class="faq-a-pg">Category I and II AIFs have pass-through taxation — income is deemed to arise in the hands of investors in the same proportion as their holding. The tax nature (capital gains, business income, dividend) depends on the fund's underlying transactions. Category III AIFs pay tax at the fund level. Consult your tax advisor for personals implications.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the difference between a PMS and an AIF?</div><div class="faq-a-pg">PMS manages a portfolio of listed securities for individual clients with a minimum of Rs.50 lakhs. An AIF pools capital from multiple investors with a minimum of Rs.1 Crore per investor and can invest in unlisted securities, real estate, and other alternative assets. AIFs are less liquid but offer access to a broader universe.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can NRIs invest in Indian AIFs?</div><div class="faq-a-pg">NRIs can invest in Category I and Category II AIFs through the NRI route subject to FEMA compliance and the specific fund's investment guidelines. Some funds restrict NRI participation due to FEMA complexity. Category III AIFs with leverage may have additional restrictions. We clarify fund-specific rules before you invest.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section wealth-cta">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Explore Alternative Investments Beyond Public Markets</h2>
+            <p class="product-cta-sub">AIF advisory for HNI and family offices. Access top-tier fund managers through our institutional network.</p>
+            <div class="product-cta-btns">
+                <a href="../index.html#get-started" class="btn-cta-white">Get Started</a>
+                <a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;">
+                <h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2>
+            </div>
+        </div>
+        <div class="related-grid-pg">
+            <a href="pms.html" class="related-card-pg"><div class="related-card-name">PMS</div><div class="related-card-desc">Customised portfolio management for HNIs — from Rs.50 lakhs</div></a>
+            <a href="reits.html" class="related-card-pg"><div class="related-card-name">REITs</div><div class="related-card-desc">Real estate returns with stock market liquidity</div></a>
+            <a href="bonds.html" class="related-card-pg"><div class="related-card-name">Bonds and Fixed Income</div><div class="related-card-desc">Stable returns from government and corporate bonds</div></a>
+            <a href="portfolio-advisory.html" class="related-card-pg"><div class="related-card-name">Portfolio Advisory</div><div class="related-card-desc">Expert review of your existing investment allocation</div></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@aarzencapital.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../product-pages.js"></script>
+</body>
+</html>

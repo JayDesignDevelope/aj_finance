@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Parents | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .fg-hero-art { background: linear-gradient(150deg, #eef2fb, #f0fdf8); border-radius: 26px; padding: 30px; border: 1px solid var(--fg-line); }
+    .fg-feat-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 24px; margin-bottom: 14px; background: var(--fg-bg-2); }
+    .fg-disc { font-size: 12.5px; color: var(--fg-muted); margin-top: 14px; }
+    .fg-dash-head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .fg-dash-head .fg-ring { flex: none; }
+    .fg-payoff { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+    .fg-note { background: var(--fg-bg-2); border: 1px solid var(--fg-line); border-radius: 14px; padding: 16px 18px; font-size: 13px; color: var(--fg-muted); line-height: 1.55; margin-top: 22px; }
+    .fg-note b { color: var(--fg-ink); }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- HERO -->
+    <header class="fg-hero">
+      <div class="fg-wrap">
+        <div class="fg-hero-grid">
+          <div>
+            <span class="fg-eyebrow" id="heroEyebrow">For Parents</span>
+            <h1 class="fg-h1">Help your child build <span class="fg-grad-text">real wealth habits</span> — early.</h1>
+            <p class="fg-lead">FinGarage turns money lessons into a game your child actually wants to play. You stay in the loop with a clear parent dashboard, quiz reports and monthly progress — and you approve every real-money step.</p>
+            <div class="fg-hero-btns">
+              <a href="parent-dashboard.html" class="fg-btn fg-btn-primary fg-btn-lg">Help Your Child Build Wealth Habits</a>
+              <a href="for-students.html" class="fg-btn fg-btn-ghost fg-btn-lg">See the Student Side</a>
+            </div>
+            <p class="fg-disc">Virtual money for learning — not investment advice.</p>
+          </div>
+          <div class="fg-hero-art">
+            <div class="fg-dash-head">
+              <div class="fg-ring" id="heroRing"></div>
+              <div>
+                <div class="fg-eyebrow" style="margin:0">Your child's Money Score</div>
+                <p class="fg-lead" style="font-size:14px;margin-top:6px" id="heroChild"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- WHY PARENTS LOVE IT -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-center fg-reveal">
+        <span class="fg-eyebrow">Why parents love it</span>
+        <h2 class="fg-h2">Money skills that school skips — with you in the loop</h2>
+        <p class="fg-lead fg-center">Watch your child learn how money works, build a saving habit, and practice investing safely — all visible to you, all at your pace.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-grid fg-grid-3 fg-reveal" id="featGrid"></div>
+      </div>
+    </section>
+
+    <!-- PARENT DASHBOARD PREVIEW -->
+    <section class="fg-section">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow">A peek inside</span>
+          <h2 class="fg-h2">Your parent dashboard, at a glance</h2>
+          <p class="fg-lead fg-center">Live snapshot of where your child stands today — learning, discipline and their virtual investments.</p>
+        </div>
+
+        <div class="fg-grid fg-grid-4 fg-mt-lg fg-reveal" id="statGrid"></div>
+
+        <div class="fg-card fg-mt fg-reveal">
+          <h3 class="fg-h3" id="levelLine"></h3>
+          <div class="fg-progress" style="margin-top:12px"><span id="levelBar"></span></div>
+          <p class="fg-lead" style="font-size:13.5px;margin-top:10px" id="levelSub"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARENT APPROVED PLAN -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow">How it works</span>
+          <h2 class="fg-h2">The Parent Approved Student Wealth Plan</h2>
+          <p class="fg-lead fg-center">Your child earns their way to investing. Nothing real happens without your green light.</p>
+        </div>
+        <div class="fg-card fg-mt-lg fg-reveal">
+          <div class="fg-journey">
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="book" data-sz="22"></span></div><h4>Student learns</h4><p>Climbs the 5 money levels with lessons and quizzes.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="check-circle" data-sz="22"></span></div><h4>Completes modules</h4><p>Builds streaks, XP and a rising Money Score.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="users" data-sz="22"></span></div><h4>Parent approval</h4><p>You review progress and approve the plan.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="wallet" data-sz="22"></span></div><h4>₹1,000/mo SIP starts</h4><p>A guided monthly SIP begins, in your control.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="trending-up" data-sz="22"></span></div><h4>Student tracks</h4><p>They watch it grow and learn discipline for life.</p></div>
+          </div>
+          <p class="fg-note"><b>Compliance note:</b> All learning, scores and portfolios on FinGarage are <b>virtual and educational only — not investment advice.</b> Any real SIP requires <b>parent approval and completed KYC</b> through a regulated provider before a single rupee is invested.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYOFF -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-center fg-reveal">
+        <span class="fg-eyebrow">The payoff</span>
+        <p class="fg-payoff fg-grad-text">"My child is becoming financially smart."</p>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="fg-section">
+      <div class="fg-wrap">
+        <div class="fg-cta-band fg-reveal">
+          <span class="fg-eyebrow">Start together</span>
+          <h2 class="fg-h2">Give your child a head start on money</h2>
+          <p class="fg-lead">Set up your parent dashboard in minutes and watch healthy money habits take root — safely, at your pace.</p>
+          <div class="fg-hero-btns" style="justify-content:center">
+            <a href="parent-dashboard.html" class="fg-btn fg-btn-primary fg-btn-lg">Help Your Child Build Wealth Habits</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('parents');
+
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
+    document.getElementById('heroEyebrow').innerHTML = FG.icon('users', { size: 16 }) + ' For Parents';
+
+    var S = FG.state;
+    var childName = S.user.childName || 'your child';
+
+    // Hero money-score ring (live moneyScore / 1000)
+    (function () {
+      var score = S.learning.moneyScore, max = 1000;
+      var r = 56, c = 2 * Math.PI * r, dash = c * FG.clamp(score / max, 0, 1);
+      document.getElementById('heroRing').innerHTML =
+        '<svg width="132" height="132" viewBox="0 0 132 132">' +
+          '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="#e8eaf1" stroke-width="12"></circle>' +
+          '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="#00d09c" stroke-width="12" stroke-linecap="round" ' +
+            'stroke-dasharray="' + dash + ' ' + c + '"></circle>' +
+        '</svg>' +
+        '<div class="fg-ring-num"><b>' + score + '</b><small>/ ' + max + '</small></div>';
+      document.getElementById('heroChild').textContent =
+        childName + ' is on a ' + S.learning.streak + '-day streak and climbing fast.';
+    })();
+
+    // Features
+    var FEATURES = [
+      { ico: 'bar-chart', name: 'Child Learning Dashboard', desc: 'See exactly which money levels and topics your child has completed.' },
+      { ico: 'target', name: 'Financial Discipline Tracking', desc: 'Track streaks, saving habits and consistency week over week.' },
+      { ico: 'brain', name: 'Quiz Reports', desc: 'View quiz scores and the concepts your child has truly mastered.' },
+      { ico: 'trending-up', name: 'Investment Tracking', desc: 'Follow their virtual portfolio and any parent-approved SIP.' },
+      { ico: 'calendar', name: 'Monthly Progress Reports', desc: 'A clear monthly summary delivered straight to you.' }
+    ];
+    document.getElementById('featGrid').innerHTML = FEATURES.map(function (f) {
+      return '<div class="fg-card fg-card-hover">' +
+        '<div class="fg-feat-ico">' + FG.icon(f.ico, { size: 24 }) + '</div>' +
+        '<h3 class="fg-h3">' + f.name + '</h3>' +
+        '<p class="fg-lead" style="font-size:14.5px">' + f.desc + '</p>' +
+      '</div>';
+    }).join('');
+
+    // Live dashboard stat tiles
+    var lvl = FG.learning.levelObj();
+    var ret = FG.portfolio.returnsPct();
+    var total = FG.portfolio.totalValue();
+    var quizPct = S.learning.quizzes.taken
+      ? Math.round((S.learning.quizzes.correct / S.learning.quizzes.taken) * 100) : 0;
+    var STATS = [
+      { label: FG.icon('star', { size: 16 }) + ' Money Score', value: S.learning.moneyScore, sub: 'out of 1000', cls: '' },
+      { label: FG.icon('flame', { size: 16 }) + ' Streak', value: S.learning.streak + ' days', sub: 'Great discipline!', cls: 'fg-up' },
+      { label: FG.icon('brain', { size: 16 }) + ' Quiz Accuracy', value: quizPct + '%', sub: S.learning.quizzes.taken + ' quizzes taken', cls: '' },
+      { label: FG.icon('trending-up', { size: 16 }) + ' Virtual Portfolio', value: FG.fmtShortINR(total), sub: 'Returns ' + FG.pct(ret), cls: (ret >= 0 ? 'fg-up' : 'fg-down') }
+    ];
+    document.getElementById('statGrid').innerHTML = STATS.map(function (s) {
+      return '<div class="fg-stat">' +
+        '<div class="fg-stat-label">' + s.label + '</div>' +
+        '<div class="fg-stat-value">' + s.value + '</div>' +
+        '<div class="fg-stat-sub ' + s.cls + '">' + s.sub + '</div>' +
+      '</div>';
+    }).join('');
+
+    // Level progress bar (current level)
+    var pct = FG.learning.levelPctFor(lvl.id);
+    document.getElementById('levelLine').textContent =
+      childName + ' is on Level ' + lvl.id + ': ' + lvl.name + ' (' + lvl.grade + ')';
+    document.getElementById('levelBar').style.width = pct + '%';
+    document.getElementById('levelSub').textContent =
+      pct + '% of this level complete — ' + lvl.tagline;
+  </script>
+</body>
+</html>

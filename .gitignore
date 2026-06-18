@@ -25,3 +25,6 @@ npm-debug.log*
 
 # Node (in case npx serve installs anything)
 node_modules/
+
+# Playwright MCP test artifacts
+.playwright-mcp/

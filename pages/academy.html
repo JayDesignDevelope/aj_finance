@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinGarage — Learn Money. Practice Investing. Build Wealth Habits.</title>
+  <meta name="description" content="FinGarage is India's gamified money-learning playground for students, parents and schools. Learn money, practice investing and build wealth habits from school age.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    /* page-specific touches built on the design system */
+    .home-hero-bg {
+      background:
+        radial-gradient(900px 420px at 78% 6%, rgba(0,208,156,.12), transparent 60%),
+        radial-gradient(700px 380px at 8% 30%, rgba(83,103,255,.10), transparent 60%);
+    }
+    .hero-cluster { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hero-cluster .span-2 { grid-column: 1 / -1; }
+    .hero-flame {
+      display: flex; align-items: center; gap: 14px;
+      background: linear-gradient(140deg, #fff, #fff6ef);
+    }
+    .hero-flame-ico {
+      width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
+      font-size: 28px; background: rgba(245,166,35,.14);
+    }
+    .hero-ring-card { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    .compare-col h3 { display: flex; align-items: center; gap: 10px; }
+    .compare-tag {
+      display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 11px;
+      font-size: 18px;
+    }
+    .compare-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+    .compare-list li {
+      display: flex; align-items: center; gap: 10px; font-size: 14.5px; font-weight: 600;
+      background: var(--fg-bg); border: 1px solid var(--fg-line); border-radius: 12px; padding: 11px 14px;
+    }
+    .compare-list.add li { border-color: rgba(0,208,156,.35); background: rgba(0,208,156,.06); }
+    .compare-list .mark { font-size: 15px; }
+    .game-card { display: flex; align-items: center; gap: 14px; }
+    .game-ico {
+      width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center;
+      font-size: 24px; flex: 0 0 auto; color: #fff;
+    }
+    .game-meta { flex: 1; min-width: 0; }
+    .game-name { font-weight: 700; font-size: 15px; }
+    .game-sub { font-size: 12.5px; color: var(--fg-muted); }
+    .game-tag {
+      font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+      padding: 4px 9px; border-radius: 999px; flex: 0 0 auto;
+    }
+    .game-tag.New { color: var(--fg-green-d); background: rgba(0,208,156,.12); }
+    .game-tag.Classic { color: var(--fg-muted); background: var(--fg-bg-2); }
+    .level-head { display: flex; align-items: center; gap: 14px; }
+    .level-head .meta { flex: 1; }
+    .note-soft {
+      font-size: 12.5px; color: var(--fg-muted); display: inline-flex; align-items: center; gap: 7px;
+      background: var(--fg-bg-2); padding: 7px 13px; border-radius: 999px;
+    }
+    .stat-band { background: linear-gradient(135deg, var(--fg-ink-2), #23234a); border-radius: 26px; padding: 46px; }
+    .stat-band .fg-grid { gap: 18px; }
+    .stat-cell { text-align: center; color: #fff; }
+    .stat-cell b { display: block; font-size: clamp(30px, 4vw, 44px); font-weight: 800; letter-spacing: -.02em; }
+    .stat-cell span { font-size: 14px; color: rgba(255,255,255,.7); }
+    .sim-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; }
+    @media (max-width: 860px) { .sim-grid { grid-template-columns: 1fr; } }
+    .sim-assets { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+    .sim-asset { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;
+      background: #fff; border: 1px solid var(--fg-line); border-radius: 999px; padding: 8px 14px; }
+    .sim-dot { width: 11px; height: 11px; border-radius: 50%; }
+  </style>
+  <style>.game-ico{color:#fff} .game-ico .fg-ic{color:#fff}</style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- ===================================================== HERO -->
+    <section class="fg-hero home-hero-bg fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-hero-grid">
+          <div>
+            <span class="fg-eyebrow"><span class="fgi" data-ico="rocket" data-size="16"></span> India's Money-Learning Playground</span>
+            <h1 class="fg-h1">Learn Money. Practice Investing.<br><span class="fg-grad-text">Build Wealth Habits From School Age.</span></h1>
+            <p class="fg-lead">
+              FinGarage is <strong>India's Duolingo for Money</strong> + <strong>LinkedIn for Young Investors</strong>
+              + <strong>Zerodha Varsity for Students</strong> + <strong>Startup School</strong> — a gamified ecosystem
+              that helps students aged 11–21, their parents and schools master saving, investing,
+              entrepreneurship and wealth-building.
+            </p>
+            <div class="fg-hero-btns">
+              <a href="for-students.html" class="fg-btn fg-btn-primary fg-btn-lg"><span class="fgi" data-ico="cap" data-size="18"></span> For Students</a>
+              <a href="for-parents.html" class="fg-btn fg-btn-dark fg-btn-lg"><span class="fgi" data-ico="users" data-size="18"></span> For Parents</a>
+              <a href="for-schools.html" class="fg-btn fg-btn-ghost fg-btn-lg"><span class="fgi" data-ico="building" data-size="18"></span> For Schools</a>
+            </div>
+            <p class="fg-mt"><span class="note-soft"><span class="fgi" data-ico="bulb" data-size="15"></span> Virtual money for learning — not investment advice.</span></p>
+          </div>
+
+          <!-- on-brand illustrative cluster from design-system cards -->
+          <div class="hero-cluster" id="heroCluster" aria-label="Sample learner dashboard">
+            <!-- money-score ring -->
+            <div class="fg-card hero-ring-card">
+              <div class="fg-ring" id="heroRing"></div>
+              <div>
+                <div class="fg-stat-label" style="justify-content:center;"><span class="fgi" data-ico="star" data-size="22"></span> Money Score</div>
+                <div class="fg-stat-sub">Healthy &amp; growing</div>
+              </div>
+            </div>
+            <!-- level card -->
+            <div class="fg-card" id="heroLevel">
+              <div class="fg-stat-label"><span class="fgi" data-ico="medal" data-size="22"></span> Current Level</div>
+              <div class="fg-stat-value" id="heroLevelName" style="font-size:21px;">—</div>
+              <div class="fg-stat-sub" id="heroLevelGrade">—</div>
+              <div class="fg-progress fg-mt" aria-hidden="true"><span id="heroLevelBar" style="width:0%"></span></div>
+            </div>
+            <!-- streak flame -->
+            <div class="fg-card hero-flame span-2">
+              <div class="hero-flame-ico"><span class="fgi" data-ico="flame" data-size="20"></span></div>
+              <div style="flex:1;">
+                <div class="fg-stat-label">Daily Learning Streak</div>
+                <div class="fg-stat-value" id="heroStreak" style="font-size:24px;">—</div>
+              </div>
+              <!-- mini virtual-portfolio stat -->
+              <div style="text-align:right;">
+                <div class="fg-stat-label" style="justify-content:flex-end;"><span class="fgi" data-ico="briefcase" data-size="22"></span> Virtual Portfolio</div>
+                <div class="fg-stat-value" id="heroPortfolio" style="font-size:22px;">—</div>
+                <div class="fg-stat-sub" id="heroReturns">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== THE GAP WE CLOSE -->
+    <section class="fg-section fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow"><span class="fgi" data-ico="puzzle" data-size="22"></span> The Gap We Close</span>
+          <h2 class="fg-h2">School teaches you everything except money</h2>
+          <p class="fg-lead fg-center">
+            Maths, Science, Languages and Coding get years of attention. The skills that decide your
+            financial future barely get a class. FinGarage adds the missing curriculum.
+          </p>
+        </div>
+
+        <div class="fg-grid fg-grid-2 fg-mt-lg">
+          <div class="fg-card compare-col">
+            <h3 class="fg-h3"><span class="compare-tag" style="background:var(--fg-bg-2);"><span class="fgi" data-ico="book" data-size="22"></span></span> Schools teach</h3>
+            <ul class="compare-list">
+              <li><span class="mark"><span class="fgi" data-ico="check" data-size="16"></span></span> Mathematics</li>
+              <li><span class="mark"><span class="fgi" data-ico="check" data-size="16"></span></span> Science</li>
+              <li><span class="mark"><span class="fgi" data-ico="check" data-size="16"></span></span> Languages</li>
+              <li><span class="mark"><span class="fgi" data-ico="check" data-size="16"></span></span> Coding</li>
+            </ul>
+          </div>
+          <div class="fg-card compare-col">
+            <h3 class="fg-h3"><span class="compare-tag" style="background:rgba(0,208,156,.14);"><span class="fgi" data-ico="heart" data-size="22"></span></span> We add</h3>
+            <ul class="compare-list add">
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Saving &amp; Budgeting</li>
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Investing &amp; Compound Interest</li>
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Credit Scores &amp; Loans</li>
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Financial Discipline</li>
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Startup Fundamentals</li>
+              <li><span class="mark"><span class="fgi" data-ico="plus" data-size="16"></span></span> Wealth Creation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== CORE JOURNEY -->
+    <section class="fg-section-sm fg-reveal" style="background:var(--fg-bg-2);">
+      <div class="fg-wrap">
+        <div class="fg-center" style="margin-bottom:34px;">
+          <span class="fg-eyebrow"><span class="fgi" data-ico="route" data-size="22"></span> The Core Journey</span>
+          <h2 class="fg-h2">One simple path from first rupee to founder mindset</h2>
+        </div>
+        <div class="fg-journey">
+          <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fgi" data-ico="book" data-size="22"></span></div><h4>Learn</h4><p>Bite-sized money lessons, level by level.</p></div>
+          <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fgi" data-ico="gamepad" data-size="22"></span></div><h4>Practice</h4><p>Play money games &amp; quizzes that stick.</p></div>
+          <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fgi" data-ico="trending-up" data-size="22"></span></div><h4>Invest</h4><p>Trade with ₹1 lakh virtual money — risk-free.</p></div>
+          <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fgi" data-ico="trophy" data-size="22"></span></div><h4>Compete</h4><p>Climb leaderboards, earn badges &amp; XP.</p></div>
+          <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fgi" data-ico="gem" data-size="22"></span></div><h4>Build Wealth</h4><p>Turn habits into lifelong wealth.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== AUDIENCE CARDS -->
+    <section class="fg-section fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center" style="margin-bottom:34px;">
+          <span class="fg-eyebrow"><span class="fgi" data-ico="handshake" data-size="22"></span> Built For Everyone</span>
+          <h2 class="fg-h2">Students learn. Parents guide. Schools scale.</h2>
+        </div>
+        <div class="fg-grid fg-grid-3">
+          <div class="fg-aud fg-aud-students">
+            <span class="fg-aud-ico"><span class="fgi" data-ico="cap" data-size="22"></span></span>
+            <h3>For Students</h3>
+            <p>Level up from Money Rookie to Founder Mindset. Learn in bite-sized lessons, play 11+ money
+              games, and practice real investing with ₹1,00,000 of virtual money — all gamified with streaks,
+              XP and badges.</p>
+            <a href="for-students.html" class="fg-btn">Start Learning →</a>
+          </div>
+          <div class="fg-aud fg-aud-parents">
+            <span class="fg-aud-ico"><span class="fgi" data-ico="user" data-size="22"></span>‍<span class="fgi" data-ico="user" data-size="22"></span>‍<span class="fgi" data-ico="user" data-size="22"></span></span>
+            <h3>For Parents</h3>
+            <p>See your child's money journey, approve real-investing milestones, and raise a financially
+              confident young adult. Track progress, set goals and learn alongside them — no finance
+              degree required.</p>
+            <a href="for-parents.html" class="fg-btn">Guide Your Child →</a>
+          </div>
+          <div class="fg-aud fg-aud-schools">
+            <span class="fg-aud-ico"><span class="fgi" data-ico="building" data-size="22"></span></span>
+            <h3>For Schools</h3>
+            <p>Bring a ready-made financial-literacy curriculum to your classrooms. Map lessons to grades,
+              run class leaderboards, and give every student a head start on money skills the textbook
+              forgot.</p>
+            <a href="for-schools.html" class="fg-btn">Onboard Your School →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== LEARNING LEVELS -->
+    <section class="fg-section-sm fg-reveal" style="background:var(--fg-bg-2);">
+      <div class="fg-wrap">
+        <div class="fg-center" style="margin-bottom:34px;">
+          <span class="fg-eyebrow"><span class="fgi" data-ico="target" data-size="22"></span> Learning Levels</span>
+          <h2 class="fg-h2">Five levels, school to college</h2>
+          <p class="fg-lead fg-center">Each level unlocks new topics, games and a higher Money Score. Master one, unlock the next.</p>
+        </div>
+        <div class="fg-grid fg-grid-3" id="levelsGrid"></div>
+        <div class="fg-center fg-mt-lg">
+          <a href="academy-learn.html" class="fg-btn fg-btn-primary fg-btn-lg">Explore Learning Levels →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== MONEY GAMES -->
+    <section class="fg-section fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center" style="margin-bottom:34px;">
+          <span class="fg-eyebrow"><span class="fgi" data-ico="gamepad" data-size="22"></span> Money Games</span>
+          <h2 class="fg-h2">Learning that feels like play</h2>
+          <p class="fg-lead fg-center">Budget like a boss, build your CIBIL score, beat inflation, and run your own startup — all by playing.</p>
+        </div>
+        <div class="fg-grid fg-grid-3" id="gamesGrid"></div>
+        <div class="fg-center fg-mt-lg">
+          <a href="money-games.html" class="fg-btn fg-btn-dark fg-btn-lg">See All Money Games →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== PORTFOLIO SIMULATOR -->
+    <section class="fg-section-sm fg-reveal" style="background:var(--fg-bg-2);">
+      <div class="fg-wrap">
+        <div class="fg-card" style="padding:38px;">
+          <div class="sim-grid">
+            <div>
+              <span class="fg-eyebrow"><span class="fgi" data-ico="briefcase" data-size="22"></span> Portfolio Simulator</span>
+              <h2 class="fg-h2" style="margin-top:14px;">Practice investing with ₹1,00,000 virtual money</h2>
+              <p class="fg-lead">
+                Every student gets <strong>₹1,00,000 of virtual money</strong> to practice investing in
+                Nifty 50, Gold, Debt Funds, a Startup Basket and individual stocks. Build a portfolio,
+                watch it move with simulated markets, and learn how risk and return really work — without
+                risking a single real rupee.
+              </p>
+              <div class="sim-assets" id="simAssets"></div>
+              <div class="fg-hero-btns">
+                <a href="student-invest.html" class="fg-btn fg-btn-primary fg-btn-lg">Open the Simulator →</a>
+              </div>
+              <p class="fg-mt"><span class="note-soft"><span class="fgi" data-ico="bulb" data-size="20"></span> Virtual money for learning — not investment advice.</span></p>
+            </div>
+            <div>
+              <div class="fg-stat" style="margin-bottom:14px;">
+                <div class="fg-stat-label"><span class="fgi" data-ico="briefcase" data-size="22"></span> Your Virtual Portfolio</div>
+                <div class="fg-stat-value" id="simTotal">—</div>
+                <div class="fg-stat-sub" id="simReturns">—</div>
+              </div>
+              <div class="fg-stat">
+                <div class="fg-stat-label"><span class="fgi" data-ico="wallet" data-size="22"></span> Cash to Invest</div>
+                <div class="fg-stat-value" id="simCash" style="font-size:24px;">—</div>
+                <div class="fg-stat-sub">Starting balance: ₹1,00,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== STATS BAND -->
+    <section class="fg-section fg-reveal">
+      <div class="fg-wrap">
+        <div class="stat-band">
+          <div class="fg-center" style="margin-bottom:26px;">
+            <h2 class="fg-h2" style="color:#fff;">A movement, not just an app</h2>
+          </div>
+          <div class="fg-grid fg-grid-4">
+            <div class="stat-cell"><b>1,20,000+</b><span>Students learning</span></div>
+            <div class="stat-cell"><b>340+</b><span>Schools onboarded</span></div>
+            <div class="stat-cell"><b>60+</b><span>Learning modules</span></div>
+            <div class="stat-cell"><b>₹820 Cr+</b><span>Virtual money invested</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== FINAL CTA -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-cta-band">
+          <span class="fg-eyebrow" style="background:rgba(0,208,156,.18);color:#00e6ad;"><span class="fgi" data-ico="rocket" data-size="22"></span> Your Garage Awaits</span>
+          <h2 class="fg-h2" style="margin-top:14px;">Start your money journey</h2>
+          <p class="fg-lead fg-center">Join thousands of young Indians learning to save, invest and build wealth — one level at a time.</p>
+          <div class="fg-hero-btns" style="justify-content:center;">
+            <a href="for-students.html" class="fg-btn fg-btn-primary fg-btn-lg"><span class="fgi" data-ico="cap" data-size="22"></span> For Students</a>
+            <a href="login.html" class="fg-btn fg-btn-ghost fg-btn-lg">Login</a>
+          </div>
+          <p class="fg-mt"><span class="note-soft" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);"><span class="fgi" data-ico="bulb" data-size="20"></span> Virtual money for learning — not investment advice.</span></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('home');
+
+    (function () {
+      var L = FG.state.learning;
+      var P = FG.state.portfolio;
+
+      /* ---- hero: money-score ring ---- */
+      var score = L.moneyScore;                     // 0–1000
+      var r = 56, c = 2 * Math.PI * r;
+      var dash = (FG.clamp(score / 1000, 0, 1)) * c;
+      var ringEl = document.getElementById('heroRing');
+      if (ringEl) {
+        ringEl.innerHTML =
+          '<svg width="132" height="132" viewBox="0 0 132 132">' +
+            '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="#e8eaf1" stroke-width="12"></circle>' +
+            '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="#00d09c" stroke-width="12" ' +
+              'stroke-linecap="round" stroke-dasharray="' + dash + ' ' + c + '"></circle>' +
+          '</svg>' +
+          '<div class="fg-ring-num"><b>' + score + '</b><small>/ 1000</small></div>';
+      }
+
+      /* ---- hero: level card ---- */
+      var lvl = FG.learning.levelObj();
+      var lvlPct = FG.learning.levelPctFor(lvl.id);
+      var nm = document.getElementById('heroLevelName');
+      if (nm) nm.textContent = 'Lv ' + lvl.id + ' · ' + lvl.name;
+      var gr = document.getElementById('heroLevelGrade');
+      if (gr) gr.textContent = lvl.grade + ' · ' + lvlPct + '% complete';
+      var bar = document.getElementById('heroLevelBar');
+      if (bar) bar.style.width = lvlPct + '%';
+
+      /* ---- hero: streak ---- */
+      var st = document.getElementById('heroStreak');
+      if (st) st.textContent = L.streak + ' days';
+
+      /* ---- hero + simulator: portfolio ---- */
+      var total = FG.portfolio.totalValue();
+      var ret = FG.portfolio.returnsPct();
+      var retCls = ret >= 0 ? 'fg-up' : 'fg-down';
+      var hp = document.getElementById('heroPortfolio');
+      if (hp) hp.textContent = FG.fmtShortINR(total);
+      var hr = document.getElementById('heroReturns');
+      if (hr) { hr.textContent = FG.pct(ret); hr.className = 'fg-stat-sub ' + retCls; }
+
+      var simTotal = document.getElementById('simTotal');
+      if (simTotal) simTotal.textContent = FG.fmtINR(total);
+      var simReturns = document.getElementById('simReturns');
+      if (simReturns) { simReturns.textContent = FG.pct(ret) + ' total return'; simReturns.className = 'fg-stat-sub ' + retCls; }
+      var simCash = document.getElementById('simCash');
+      if (simCash) simCash.textContent = FG.fmtINR(P.cash);
+
+      /* ---- simulator asset pills ---- */
+      var simAssets = document.getElementById('simAssets');
+      if (simAssets) {
+        simAssets.innerHTML = FG.ASSETS.map(function (a) {
+          return '<span class="sim-asset"><span class="sim-dot" style="background:' + a.color + '"></span>' + a.name + '</span>';
+        }).join('');
+      }
+
+      /* ---- learning levels grid ---- */
+      var levelsGrid = document.getElementById('levelsGrid');
+      if (levelsGrid) {
+        levelsGrid.innerHTML = FG.LEVELS.map(function (lv) {
+          var pct = FG.learning.levelPctFor(lv.id);
+          var chips = lv.topics.slice(0, 4).map(function (t) {
+            return '<span class="fg-chip">' + t + '</span>';
+          }).join('');
+          var extra = lv.topics.length > 4 ? '<span class="fg-chip">+' + (lv.topics.length - 4) + ' more</span>' : '';
+          return '' +
+            '<div class="fg-level" style="--lvl:' + lv.color + '">' +
+              '<div class="level-head">' +
+                '<div class="fg-level-badge">' + lv.id + '</div>' +
+                '<div class="meta">' +
+                  '<div class="fg-level-grade">' + lv.grade + '</div>' +
+                  '<h3 class="fg-h3" style="margin:2px 0 0;">' + lv.name + '</h3>' +
+                '</div>' +
+              '</div>' +
+              '<p class="fg-stat-sub" style="margin-top:10px;font-size:13.5px;">' + lv.tagline + '</p>' +
+              '<div class="fg-chip-list">' + chips + extra + '</div>' +
+              '<div class="fg-progress fg-mt" aria-label="' + pct + '% complete"><span style="width:' + pct + '%"></span></div>' +
+              '<div class="fg-stat-sub" style="margin-top:8px;">' + pct + '% complete</div>' +
+            '</div>';
+        }).join('');
+      }
+
+      /* ---- money games grid (first 6) ---- */
+      var gamesGrid = document.getElementById('gamesGrid');
+      if (gamesGrid) {
+        gamesGrid.innerHTML = FG.GAMES.slice(0, 6).map(function (g) {
+          return '' +
+            '<div class="fg-card fg-card-hover game-card">' +
+              '<div class="game-ico" style="background:' + g.color + '">' + FG.icon(g.icon,{size:26}) + '</div>' +
+              '<div class="game-meta">' +
+                '<div class="game-name">' + g.name + '</div>' +
+                '<div class="game-sub">' + g.sub + '</div>' +
+              '</div>' +
+              '<span class="game-tag ' + g.tag + '">' + g.tag + '</span>' +
+            '</div>';
+        }).join('');
+      }
+    })();
+  </script>
+  <script>document.querySelectorAll(".fgi").forEach(function(el){el.innerHTML=FG.icon(el.dataset.ico||"dot",{size:+(el.dataset.size||20)});});</script>
+</body>
+</html>

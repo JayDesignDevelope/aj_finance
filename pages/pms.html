@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMS - Portfolio Management Services | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Sanction letter review — free in 4 hours</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more →</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY FinGarage</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">₹0</span><span class="smp-why-label">Advisory cost</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help? <a href="advisory.html">Book a 45-minute call →</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a>
+        <div class="mm-group-title">Wealth</div><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div><a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero wealth-hero">
+      <div class="product-hero-inner">
+        <div>
+          <div class="product-hero-badge">PORTFOLIO MANAGEMENT SERVICES</div>
+          <h1 class="product-hero-title">Customised Portfolio Management for High-Net-Worth Investors</h1>
+          <p class="product-hero-subtitle">PMS gives high-net-worth individuals direct ownership of a bespoke portfolio of stocks and bonds, managed by SEBI-registered portfolio managers with a focused, high-conviction approach.</p>
+          <div class="product-hero-stats">
+            <div><div class="phs-val">₹50L</div><div class="phs-label">Minimum investment</div></div>
+            <div><div class="phs-val">Dedicated</div><div class="phs-label">Fund manager</div></div>
+            <div><div class="phs-val">Discretionary</div><div class="phs-label">Portfolio management</div></div>
+          </div>
+          <div class="product-hero-cta">
+            <a href="../index.html#get-started" class="btn-primary">Enquire About PMS</a>
+            <a href="advisory.html" class="btn-outline">Talk to Advisor</a>
+          </div>
+        </div>
+        <div class="product-hero-visual">
+          <div class="pvcard-title">PMS Overview</div>
+          <div class="pvcard-rows">
+            <div class="pvcard-row"><span class="pvcard-key">Minimum Investment</span><span class="pvcard-val positive">₹50,00,000</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Strategy Types</span><span class="pvcard-val">Equity / Multi-asset</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Direct Ownership</span><span class="pvcard-val positive">Yes (demat account)</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Benchmark Target</span><span class="pvcard-val">Nifty / BSE 500</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Reporting</span><span class="pvcard-val">Monthly portfolio reports</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">KEY BENEFITS</div><h2 class="section-title">Why HNIs Choose PMS Over Mutual Funds</h2></div></div>
+      <div class="features-grid-pg">
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="fc-title-pg">Bespoke Portfolio</div><p class="fc-desc-pg">Your portfolio is built specifically for you — not pooled with other investors. The fund manager can tailor holdings to your tax situation, existing investments, and unique financial goals.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div><div class="fc-title-pg">Direct Security Ownership</div><p class="fc-desc-pg">Unlike mutual funds where you own units, in PMS you own the underlying stocks and bonds directly in your demat account — giving full transparency and legal ownership of every holding.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 1.97 1.5 3.5.74.76 1.23 1.52 1.41 2.5"/></svg></div><div class="fc-title-pg">High-Conviction Strategies</div><p class="fc-desc-pg">PMS managers run concentrated portfolios of 15–30 stocks with deep research conviction, aiming to generate alpha significantly above benchmark indices — unlike diversified mutual funds.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 1.97 1.5 3.5.74.76 1.23 1.52 1.41 2.5"/></svg></div><div class="fc-title-pg">Tax-Loss Harvesting</div><p class="fc-desc-pg">The portfolio manager can execute tax-loss harvesting strategies specifically calibrated to your overall income, other capital gains, and tax liability — something impossible in pooled funds.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="fc-title-pg">Full Transparency</div><p class="fc-desc-pg">Every trade is visible in your demat account in real-time. You receive detailed monthly reports, transaction statements, and performance attribution showing exactly what drove your returns.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="fc-title-pg">Dedicated Relationship Manager</div><p class="fc-desc-pg">You have direct access to a dedicated relationship manager and, in some strategies, the portfolio manager themselves — for queries, reviews, and strategy discussions.</p></div>
+      </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+      <div class="eligibility-inner-pg">
+        <div>
+          <div class="section-eyebrow">WHO SHOULD INVEST IN PMS</div>
+          <h2 class="section-title">Is PMS Right for You?</h2>
+          <p style="color:var(--text-secondary,#555577);font-size:15px;margin-bottom:24px;">PMS is suited for investors with significant investable surplus who seek active, high-conviction equity management and full transparency.</p>
+          <ul class="elig-list">
+            <li><span class="elig-check">✓</span>High-net-worth individuals with ₹50 lakh or more to invest in equities</li>
+            <li><span class="elig-check">✓</span>Investors dissatisfied with mutual fund returns wanting more active management</li>
+            <li><span class="elig-check">✓</span>Business owners, professionals, or inheritors of large capital sums</li>
+            <li><span class="elig-check">✓</span>Those wanting bespoke tax management tied to their overall financial picture</li>
+            <li><span class="elig-check">✓</span>Investors comfortable with equity risk over a 5+ year horizon</li>
+            <li><span class="elig-check">✓</span>NRIs with significant Indian investable assets</li>
+          </ul>
+        </div>
+        <div>
+          <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Requirements</h4>
+            <ul class="elig-list">
+              <li><span class="elig-check">✓</span>Minimum ₹50 lakh investable capital (SEBI mandate)</li>
+              <li><span class="elig-check">✓</span>Active demat and trading account</li>
+              <li><span class="elig-check">✓</span>PAN, Aadhaar, and address proof</li>
+              <li><span class="elig-check">✓</span>Bank account for settlement of trades</li>
+              <li><span class="elig-check">✓</span>Signed PMS agreement with the registered portfolio manager</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">THE PROCESS</div><h2 class="section-title">How PMS Works</h2></div></div>
+      <div class="steps-grid-pg">
+        <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Strategy Selection</div><p class="step-desc-pg">Our advisor introduces you to 3–5 SEBI-registered PMS providers with strong track records in your preferred style — value, growth, GARP, or multi-cap — and helps you evaluate their historical performance and risk metrics.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Documentation & Onboarding</div><p class="step-desc-pg">Sign the PMS agreement, complete KYC with the portfolio manager, and open a dedicated demat account in your name. Power of Attorney (PoA) is given to the manager to operate trades on your behalf.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Portfolio Construction</div><p class="step-desc-pg">Transfer funds to the designated bank account. The portfolio manager deploys capital systematically into their strategy — typically over 4–8 weeks to avoid market timing risk.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Ongoing Management & Reports</div><p class="step-desc-pg">Receive monthly portfolio statements, detailed performance reports, and annual tax documents. Quarterly calls with your relationship manager to review strategy and performance.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><h2 class="section-title">Frequently Asked Questions</h2></div></div>
+      <div class="faq-list-pg">
+        <div class="faq-item-pg"><div class="faq-q-pg">How is PMS different from a mutual fund?</div><div class="faq-a-pg">In a mutual fund, thousands of investors pool money and receive units of a single common portfolio. In PMS, each client has a separate, individualised portfolio of securities held in their own demat account. PMS allows true personalisation, direct ownership, and concentrated high-conviction investing that is not possible in pooled fund structures.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">What fees does a PMS manager charge?</div><div class="faq-a-pg">PMS managers typically charge a fixed management fee (1–2% per annum on AUM) or a profit-sharing / performance fee structure (e.g., no fixed fee but 20% of gains above a hurdle rate). Some charge a combination. Our advisors help you evaluate fee structures to ensure alignment of interest between you and the manager.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">Can I withdraw from a PMS anytime?</div><div class="faq-a-pg">Most PMS strategies allow partial or full redemption with a notice period of 10–30 business days. Some strategies have a minimum lock-in of 1–3 years to allow the investment thesis to play out. Early exit may involve exit loads. Review the agreement carefully — our advisors explain the liquidity terms before you commit.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">How is PMS taxed?</div><div class="faq-a-pg">Since you own the underlying securities directly, capital gains tax applies at the individual level — short-term (held under 1 year) at 15% and long-term (held over 1 year) at 10% above ₹1 lakh. Every trade executed by the manager in your account creates a tax event recorded in your ITR. PMS fees paid are deductible as business expenses if the income is business income.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">Is PMS regulated in India?</div><div class="faq-a-pg">Yes. All Portfolio Managers in India must be registered with SEBI under the SEBI (Portfolio Managers) Regulations 2020. The minimum investment threshold is ₹50 lakhs as mandated by SEBI. Portfolio managers are required to file performance disclosures with SEBI quarterly and maintain segregated client accounts at all times.</div></div>
+      </div>
+    </section>
+
+    <section class="product-cta-section wealth-cta">
+      <div class="product-cta-inner">
+        <h2 class="product-cta-title">Ready for Institutional-Grade Portfolio Management?</h2>
+        <p class="product-cta-sub">Speak with an FinGarage wealth advisor to explore top-rated PMS strategies, compare managers, and understand if PMS fits your financial profile.</p>
+        <div class="product-cta-btns">
+          <a href="../index.html#get-started" class="btn-cta-white">Book Consultation</a>
+          <a href="tel:+919876543210" class="btn-cta-outline">Call: +91 98765 43210</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="related-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;"><h2 class="section-title" style="font-size:22px;">Explore Related Services</h2></div></div>
+      <div class="related-grid-pg">
+        <a href="aif.html" class="related-card-pg"><div class="related-card-name">AIF</div><div class="related-card-desc">Alternative investments for sophisticated investors seeking higher alpha.</div></a>
+        <a href="mutual-funds.html" class="related-card-pg"><div class="related-card-name">Mutual Funds</div><div class="related-card-desc">Pooled investment vehicles for investors below the ₹50L PMS threshold.</div></a>
+        <a href="bonds.html" class="related-card-pg"><div class="related-card-name">Bonds & Fixed Income</div><div class="related-card-desc">Complement your PMS equity portfolio with stable fixed-income instruments.</div></a>
+        <a href="portfolio-advisory.html" class="related-card-pg"><div class="related-card-name">Portfolio Advisory</div><div class="related-card-desc">Independent review and rebalancing advice for your existing investments.</div></a>
+      </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance helping customers access loans, wealth management, and insurance through trusted partners.</p>
+                    <div class="footer-contact-details" style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;"><p><strong>Email:</strong> support@aarzencapital.in</p><p><strong>Phone:</strong> +91 98765 43210</p><p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad – 500032</p></div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance company. Not a direct lender. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="../product-pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Planning and ELSS | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,\'loans\')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,\'wealth\')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,\'insurance\')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,\'tools\')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,\'advisory\')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How Rs.5,000/month SIP grows to Rs.1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a><a href="#" class="smp-link" onclick="closeSMP()">Loan Comparison</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a><a href="#" class="smp-link" onclick="closeSMP()">Talk to an Advisor</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Credit Score Improvement</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your financial goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with an advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan — 100% free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY FinGarage</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">Rs.0</span><span class="smp-why-label">Advisory cost</span></div><div class="smp-why-item"><span class="smp-why-val">2 hrs</span><span class="smp-why-label">Callback time</span></div><div class="smp-why-item"><span class="smp-why-val">50K+</span><span class="smp-why-label">Clients served</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div>
+        <a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div>
+        <a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div>
+        <a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div>
+        <a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero wealth-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">TAX PLANNING</div>
+                <h1 class="product-hero-title">Save Up to Rs.46,800 in Tax This Year with Smart Investments</h1>
+                <p class="product-hero-subtitle">Legal tax saving through 80C (ELSS, PPF, NPS), 80D (health insurance), and 80CCD(1B) (NPS top-up). We build a tax-saving investment plan that also serves your long-term goals.</p>
+                <div class="product-hero-stats"><div><div class="phs-val">Up to Rs.46,800</div><div class="phs-label">Tax Saved</div></div><div><div class="phs-val">80C Limit Rs.1.5L</div><div class="phs-label">ELSS, PPF, NPS</div></div><div><div class="phs-val">3-Year Lock-in</div><div class="phs-label">ELSS (Lowest in 80C)</div></div></div>
+                <div class="product-hero-cta">
+                    <a href="../index.html#get-started" class="btn-primary">Book Free Session</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">Tax Saving Snapshot</div>
+                <div class="pvcard-rows"><div class="pvcard-row"><span class="pvcard-key">Annual Income</span><span class="pvcard-val">Rs.18 Lakhs</span></div><div class="pvcard-row"><span class="pvcard-key">Tax Without Planning</span><span class="pvcard-val">Rs.4,61,800</span></div><div class="pvcard-row"><span class="pvcard-key">80C Deduction</span><span class="pvcard-val positive">Rs.1,50,000</span></div><div class="pvcard-row"><span class="pvcard-key">80D (Health Ins)</span><span class="pvcard-val positive">Rs.25,000</span></div><div class="pvcard-row"><span class="pvcard-key">80CCD(1B)</span><span class="pvcard-val positive">Rs.50,000</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">KEY FEATURES</div>
+                <h2 class="section-title">Maximise Your Tax Savings Without Compromising Returns</h2>
+            </div>
+        </div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><div class="fc-title-pg">ELSS: Market-Linked 80C Returns</div><p class="fc-desc-pg">ELSS (Equity Linked Savings Scheme) offers Section 80C deduction up to Rs.1.5 lakhs with only a 3-year lock-in. Returns are market-linked and have historically outperformed PPF over 5+ year periods.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="fc-title-pg">Section 80D: Health Insurance Deduction</div><p class="fc-desc-pg">Health insurance premium for self (Rs.25,000), parents under 60 (Rs.25,000), and parents above 60 (Rs.50,000) are deductible under 80D. This is in addition to 80C — a separate deduction you must not miss.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="fc-title-pg">NPS 80CCD(1B): Extra Rs.50,000 Deduction</div><p class="fc-desc-pg">NPS contributions up to Rs.50,000 under Section 80CCD(1B) are deductible over and above the Rs.1.5L 80C limit. This means up to Rs.2L in total NPS-related deductions are possible.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Avoid Last-Minute Tax Saving Mistakes</div><p class="fc-desc-pg">Investing in tax-saving products in March as a panic move leads to wrong product choices. We plan your tax saving from April, aligning 80C investments with your actual financial goals.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="fc-title-pg">HRA, LTA, and Other Exemptions</div><p class="fc-desc-pg">We also review your salary structure for HRA, LTA, food allowance, and other components that can be claimed. Proper salary restructuring can save Rs.1–3 lakhs per year without changing your CTC.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="fc-title-pg">Optimise Old Regime vs New Regime</div><p class="fc-desc-pg">We calculate your tax liability under both regimes and recommend the one that saves more. For most individuals with home loan + investments + HRA, old regime saves more. For those with few deductions, new regime may be better.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Who Should Review Their Tax Planning?</h2>
+                <p class="section-subtitle">Anyone paying income tax in India — especially salaried individuals in the 20–30% tax bracket with room to utilise all available deductions.</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">&#10003;</span>Income tax filer with taxable income above Rs.5 lakhs</li>
+                    <li><span class="elig-check">&#10003;</span>Salaried professionals not utilising full 80C limit</li>
+                    <li><span class="elig-check">&#10003;</span>Individuals who have not enrolled in health insurance (missing 80D)</li>
+                    <li><span class="elig-check">&#10003;</span>Those not contributing to NPS (missing 80CCD(1B) benefit)</li>
+                    <li><span class="elig-check">&#10003;</span>Business owners and self-employed with complex deduction landscape</li>
+                    <li><span class="elig-check">&#10003;</span>First-time tax filers who want to understand the system</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:var(--shadow-card);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">&#10003;</span>PAN Card</li>
+                        <li><span class="elig-check">&#10003;</span>Aadhaar Card</li>
+                        <li><span class="elig-check">&#10003;</span>Last year's ITR and Form 16 (for review)</li>
+                        <li><span class="elig-check">&#10003;</span>Investment statements (to see current 80C utilisation)</li>
+                        <li><span class="elig-check">&#10003;</span>Health insurance premium receipts</li>
+                        <li><span class="elig-check">&#10003;</span>Salary slip (for HRA and allowance review)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <div class="section-eyebrow">THE PROCESS</div>
+                <h2 class="section-title">How It Works</h2>
+            </div>
+        </div>
+        <div class="steps-grid-pg">
+                        <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Tax Situation Assessment</div><p class="step-desc-pg">Share your income, existing investments, and tax paid last year. We identify gaps and opportunities within 30 minutes.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Tax Saving Plan</div><p class="step-desc-pg">Receive a written plan: exact 80C product mix (ELSS + PPF + NPS), health insurance recommendation for 80D, NPS top-up for 80CCD(1B), and salary structure optimisation tips.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Set Up Tax-Saving Investments</div><p class="step-desc-pg">We help you start ELSS SIPs, top up NPS, and set up health insurance — all in one session. Ideal to do in April so you invest throughout the year rather than rushing in March.</p></div>
+                        <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">March Review and Filing Readiness</div><p class="step-desc-pg">Final review in February-March to ensure all deductions are maximised. We compile your investment proofs and send the summary your tax CA needs for ITR filing.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">Which is better for 80C: ELSS or PPF?</div><div class="faq-a-pg">ELSS offers market-linked returns (historically 12–16% over 5+ years) with only a 3-year lock-in. PPF offers guaranteed 7.1% with a 15-year lock-in. ELSS is better for investors with 5+ year horizon and tolerance for short-term volatility. PPF suits extremely conservative investors who prioritise capital safety over returns.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I invest more than Rs.1.5 lakhs in ELSS?</div><div class="faq-a-pg">Yes, you can invest any amount in ELSS. The Rs.1.5 lakh cap is only the 80C tax deduction limit. Investments above Rs.1.5 lakhs do not provide additional 80C benefit but still earn market-linked returns. For amounts above Rs.1.5 lakhs, a regular equity diversified fund without lock-in may be more flexible.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What documents are needed to claim HRA exemption?</div><div class="faq-a-pg">To claim HRA, you need: (1) Rent receipts or rental agreement, (2) Landlord's PAN if annual rent exceeds Rs.1 lakh, (3) Your HRA component amount from salary slip. HRA exemption is the least of: actual HRA received, 50% of basic (metro) / 40% (non-metro), or actual rent paid minus 10% of basic salary.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Should I choose old tax regime or new tax regime?</div><div class="faq-a-pg">The new regime offers lower slab rates but no deductions. The old regime has higher slab rates but allows 80C, 80D, HRA, home loan interest, and standard deduction. Generally, if your deductions total more than Rs.3.75 lakhs (at Rs.15L income level), the old regime is better. We run the exact calculation for your income and deductions.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I change my tax regime every year?</div><div class="faq-a-pg">Salaried individuals can switch between old and new regime every year at the time of ITR filing. Business owners and self-employed can switch only once in a lifetime from new to old regime. We advise which regime to choose each year based on your actual deductions.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section wealth-cta">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Save Lakhs in Tax This Year</h2>
+            <p class="product-cta-sub">Free tax planning session. We find every deduction you are eligible for and set up the right investments.</p>
+            <div class="product-cta-btns">
+                <a href="../index.html#get-started" class="btn-cta-white">Book Free Session</a>
+                <a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container">
+            <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;">
+                <h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2>
+            </div>
+        </div>
+        <div class="related-grid-pg">
+            <a href="mutual-funds.html" class="related-card-pg"><div class="related-card-name">Mutual Funds</div><div class="related-card-desc">Broad mutual fund investing beyond ELSS</div></a>
+            <a href="nps.html" class="related-card-pg"><div class="related-card-name">NPS</div><div class="related-card-desc">National Pension System for retirement and extra 80CCD deduction</div></a>
+            <a href="sip.html" class="related-card-pg"><div class="related-card-name">SIP</div><div class="related-card-desc">Systematic investing for long-term wealth creation</div></a>
+            <a href="goal-planning.html" class="related-card-pg"><div class="related-card-name">Goal Planning</div><div class="related-card-desc">Align your tax saving investments with life goals</div></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;">
+                        <p><strong>Email:</strong> support@aarzencapital.in</p>
+                        <p><strong>Phone:</strong> +91 98765 43210</p>
+                        <p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana 500032</p>
+                    </div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../product-pages.js"></script>
+</body>
+</html>

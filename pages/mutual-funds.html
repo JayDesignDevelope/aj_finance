@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Funds | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs">
+                                <button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button>
+                                <button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button>
+                                <button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button>
+                                <button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button>
+                                <button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button>
+                            </div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="swp.html" class="smp-link">SWP</a><a href="stp.html" class="smp-link">STP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">MANAGED &amp; ALTERNATIVE</div><a href="pms.html" class="smp-link">PMS</a><a href="aif.html" class="smp-link">AIF</a><a href="bonds.html" class="smp-link">Bonds &amp; Fixed Income</a><a href="reits.html" class="smp-link">REITs</a></div><div class="smp-col"><div class="smp-col-title">LIFE PLANNING</div><a href="goal-planning.html" class="smp-link">Goal Planning</a><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning (ELSS)</a><a href="wealth-management.html" class="smp-link">Wealth Management</a><a href="portfolio-advisory.html" class="smp-link">Portfolio Advisory</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Balance Transfer Calc</a></div><div class="smp-col"><div class="smp-col-title">CHECK &amp; PLAN</div><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-col"><div class="smp-col-title">ADVISORY TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">Sanction Letter Review</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Sanction letter review — free in 4 hours</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more →</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-col"><div class="smp-col-title">HOW IT WORKS</div><div class="smp-steps"><div class="smp-step"><span class="smp-step-n">1</span>Tell us your goal</div><div class="smp-step"><span class="smp-step-n">2</span>Get matched with advisor</div><div class="smp-step"><span class="smp-step-n">3</span>Advisor calls within 2 hrs</div><div class="smp-step"><span class="smp-step-n">4</span>Get your plan free</div></div></div><div class="smp-col"><div class="smp-col-title">WHY FinGarage</div><div class="smp-why-list"><div class="smp-why-item"><span class="smp-why-val">25+</span><span class="smp-why-label">Lender partners</span></div><div class="smp-why-item"><span class="smp-why-val">₹0</span><span class="smp-why-label">Advisory cost</span></div></div></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help? <a href="advisory.html">Book a 45-minute call →</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a>
+        <div class="mm-group-title">Wealth</div><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div><a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero wealth-hero">
+      <div class="product-hero-inner">
+        <div>
+          <div class="product-hero-badge">AMFI REGISTERED</div>
+          <h1 class="product-hero-title">Grow Wealth with Expert-Curated Mutual Fund Portfolios</h1>
+          <p class="product-hero-subtitle">Access 1,000+ mutual funds across equity, debt, and hybrid categories — guided by AMFI-registered advisors who align every choice to your financial goals.</p>
+          <div class="product-hero-stats">
+            <div><div class="phs-val">AMFI</div><div class="phs-label">Registered advisors</div></div>
+            <div><div class="phs-val">200+</div><div class="phs-label">Investors guided</div></div>
+            <div><div class="phs-val">₹500</div><div class="phs-label">Minimum SIP</div></div>
+          </div>
+          <div class="product-hero-cta">
+            <a href="../index.html#get-started" class="btn-primary">Get Started</a>
+            <a href="advisory.html" class="btn-outline">Talk to Advisor</a>
+          </div>
+        </div>
+        <div class="product-hero-visual">
+          <div class="pvcard-title">Indicative Fund Performance</div>
+          <div class="pvcard-rows">
+            <div class="pvcard-row"><span class="pvcard-key">Expected CAGR</span><span class="pvcard-val positive">12% p.a.</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Risk Level</span><span class="pvcard-val">Moderate</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Recommended Horizon</span><span class="pvcard-val">3–5 years</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Tax (LTCG)</span><span class="pvcard-val">After 1 year</span></div>
+            <div class="pvcard-row"><span class="pvcard-key">Minimum Investment</span><span class="pvcard-val positive">₹500 SIP</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">KEY BENEFITS</div><h2 class="section-title">Why Invest Through FinGarage</h2></div></div>
+      <div class="features-grid-pg">
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 7v1a3 3 0 006 0V7m6 1a3 3 0 006 0V7M3 7l9-4 9 4M5 21V7m14 14V7"/></svg></div><div class="fc-title-pg">AMFI-Registered Advisors</div><p class="fc-desc-pg">Every recommendation comes from AMFI-registered mutual fund distributors who are legally qualified and accountable for the advice they give.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="fc-title-pg">Goal-Based Fund Selection</div><p class="fc-desc-pg">We start by understanding your goals — child education, home purchase, or retirement — and build a portfolio that maps each rupee to a specific outcome.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="fc-title-pg">Direct Plan Investments</div><p class="fc-desc-pg">We invest in direct plans wherever suitable, saving you up to 1% per annum in expense ratios — that compounds to lakhs over a 10-year horizon.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div class="fc-title-pg">Regular Performance Review</div><p class="fc-desc-pg">Quarterly portfolio reviews ensure your funds are performing against benchmarks and peers. We switch funds proactively when performance lags for 3 quarters.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Tax Harvesting</div><p class="fc-desc-pg">Our advisors identify opportunities to book losses and gains strategically, reducing your annual tax liability without disrupting your long-term investment plan.</p></div>
+        <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="fc-title-pg">Online Portfolio Tracking</div><p class="fc-desc-pg">View all your investments — across fund houses — in a single consolidated dashboard. Track returns, asset allocation, and upcoming SIP dates at a glance.</p></div>
+      </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+      <div class="eligibility-inner-pg">
+        <div>
+          <div class="section-eyebrow">WHO SHOULD INVEST</div>
+          <h2 class="section-title">Is This Right for You?</h2>
+          <p style="color:var(--text-secondary,#555577);font-size:15px;margin-bottom:24px;">Mutual funds suit a wide range of investors — from beginners to sophisticated wealth builders. Here's who benefits most.</p>
+          <ul class="elig-list">
+            <li><span class="elig-check">✓</span>First-time investors looking for professionally managed portfolios</li>
+            <li><span class="elig-check">✓</span>Salaried professionals seeking market-linked returns above FD rates</li>
+            <li><span class="elig-check">✓</span>Tax savers wanting 80C benefits through ELSS funds</li>
+            <li><span class="elig-check">✓</span>Investors with a 3+ year horizon and moderate risk appetite</li>
+            <li><span class="elig-check">✓</span>NRIs with Indian income looking for regulated investment options</li>
+            <li><span class="elig-check">✓</span>Retirees seeking a mix of growth and stable income funds</li>
+          </ul>
+        </div>
+        <div>
+          <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+            <ul class="elig-list">
+              <li><span class="elig-check">✓</span>PAN card (mandatory for all investments)</li>
+              <li><span class="elig-check">✓</span>Aadhaar card for KYC verification</li>
+              <li><span class="elig-check">✓</span>Active bank account for auto-debit setup</li>
+              <li><span class="elig-check">✓</span>KYC completion (one-time, takes 10 minutes online)</li>
+              <li><span class="elig-check">✓</span>Cancelled cheque or bank statement for ECS mandate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">THE PROCESS</div><h2 class="section-title">How It Works</h2></div></div>
+      <div class="steps-grid-pg">
+        <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Complete KYC</div><p class="step-desc-pg">Submit your PAN and Aadhaar details online. KYC verification is instant for most investors and a one-time process across all fund houses in India.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Set Your Goal</div><p class="step-desc-pg">Tell our advisor what you're investing for — child education, retirement, home purchase, or wealth creation — and your timeline and monthly budget.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Choose Funds</div><p class="step-desc-pg">Our AMFI-registered advisor recommends a curated shortlist of funds across categories, balanced for your risk profile. You approve before any money moves.</p></div>
+        <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Start Investing</div><p class="step-desc-pg">Set up auto-debit for your SIPs and invest lump-sum amounts with a single click. Track all investments in one place from day one.</p></div>
+      </div>
+    </section>
+
+    <section class="faq-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><h2 class="section-title">Frequently Asked Questions</h2></div></div>
+      <div class="faq-list-pg">
+        <div class="faq-item-pg"><div class="faq-q-pg">Can I start a mutual fund SIP with just ₹500?</div><div class="faq-a-pg">Yes. Many top-performing equity funds, including large-cap and ELSS funds, accept SIPs starting at ₹500 per month. You can start small and increase your investment as your income grows — a feature called SIP top-up.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">How are mutual fund returns taxed?</div><div class="faq-a-pg">For equity funds, gains from redemptions held over 1 year are taxed at 10% as Long Term Capital Gains (LTCG) above ₹1 lakh per year. Short-term gains (under 1 year) are taxed at 15%. Debt fund gains are taxed at your income tax slab rate regardless of holding period.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">What is the difference between regular and direct mutual funds?</div><div class="faq-a-pg">Direct plans have lower expense ratios because there's no distributor commission. Over 10–15 years, the difference in returns can be significant — often 0.5–1% per annum. Our advisors recommend direct plans where they deliver better long-term value after accounting for advisory costs.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">Can I withdraw my mutual fund investment anytime?</div><div class="faq-a-pg">Most open-ended mutual funds allow redemption anytime, with proceeds credited to your bank account within 1–3 business days. ELSS funds have a mandatory 3-year lock-in. Some funds charge an exit load (typically 1%) if you redeem within 1 year of investment.</div></div>
+        <div class="faq-item-pg"><div class="faq-q-pg">Are mutual funds safe? Can I lose all my money?</div><div class="faq-a-pg">Mutual funds are market-linked and carry varying degrees of risk. Equity funds can see short-term losses but historically deliver inflation-beating returns over 5+ years. Debt funds carry lower risk. Diversified portfolios and long investment horizons significantly reduce the risk of permanent capital loss.</div></div>
+      </div>
+    </section>
+
+    <section class="product-cta-section wealth-cta">
+      <div class="product-cta-inner">
+        <h2 class="product-cta-title">Start Your Mutual Fund Journey Today</h2>
+        <p class="product-cta-sub">Speak with an AMFI-registered advisor, get a personalised portfolio recommendation, and begin investing in under 10 minutes.</p>
+        <div class="product-cta-btns">
+          <a href="../index.html#get-started" class="btn-cta-white">Get Started Free</a>
+          <a href="tel:+919876543210" class="btn-cta-outline">Call: +91 98765 43210</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="related-section-pg">
+      <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;"><h2 class="section-title" style="font-size:22px;">Explore Related Services</h2></div></div>
+      <div class="related-grid-pg">
+        <a href="sip.html" class="related-card-pg"><div class="related-card-name">SIP</div><div class="related-card-desc">Invest small amounts monthly to build wealth systematically over time.</div></a>
+        <a href="tax-planning.html" class="related-card-pg"><div class="related-card-name">Tax Planning (ELSS)</div><div class="related-card-desc">Save ₹46,800 in taxes while earning equity-linked market returns.</div></a>
+        <a href="nps.html" class="related-card-pg"><div class="related-card-name">NPS</div><div class="related-card-desc">Build a retirement corpus with additional ₹50,000 tax deduction.</div></a>
+        <a href="goal-planning.html" class="related-card-pg"><div class="related-card-name">Goal Planning</div><div class="related-card-desc">Map every investment to a specific life goal with a personalised plan.</div></a>
+      </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance helping customers access loans, wealth management, and insurance through trusted partners.</p>
+                    <div class="footer-contact-details" style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;"><p><strong>Email:</strong> support@aarzencapital.in</p><p><strong>Phone:</strong> +91 98765 43210</p><p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad – 500032</p></div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance company. Not a direct lender. All investments are subject to market risk.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="../product-pages.js"></script>
+</body>
+</html>
