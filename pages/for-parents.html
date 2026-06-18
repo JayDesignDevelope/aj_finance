@@ -29,7 +29,7 @@
       <div class="fg-wrap">
         <div class="fg-hero-grid">
           <div>
-            <span class="fg-eyebrow">👨‍👩‍👧 For Parents</span>
+            <span class="fg-eyebrow" id="heroEyebrow">For Parents</span>
             <h1 class="fg-h1">Help your child build <span class="fg-grad-text">real wealth habits</span> — early.</h1>
             <p class="fg-lead">FinGarage turns money lessons into a game your child actually wants to play. You stay in the loop with a clear parent dashboard, quiz reports and monthly progress — and you approve every real-money step.</p>
             <div class="fg-hero-btns">
@@ -96,11 +96,11 @@
         </div>
         <div class="fg-card fg-mt-lg fg-reveal">
           <div class="fg-journey">
-            <div class="fg-journey-step"><div class="fg-journey-ico">📚</div><h4>Student learns</h4><p>Climbs the 5 money levels with lessons and quizzes.</p></div>
-            <div class="fg-journey-step"><div class="fg-journey-ico">✅</div><h4>Completes modules</h4><p>Builds streaks, XP and a rising Money Score.</p></div>
-            <div class="fg-journey-step"><div class="fg-journey-ico">👨‍👩‍👧</div><h4>Parent approval</h4><p>You review progress and approve the plan.</p></div>
-            <div class="fg-journey-step"><div class="fg-journey-ico">💸</div><h4>₹1,000/mo SIP starts</h4><p>A guided monthly SIP begins, in your control.</p></div>
-            <div class="fg-journey-step"><div class="fg-journey-ico">📈</div><h4>Student tracks</h4><p>They watch it grow and learn discipline for life.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="book" data-sz="22"></span></div><h4>Student learns</h4><p>Climbs the 5 money levels with lessons and quizzes.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="check-circle" data-sz="22"></span></div><h4>Completes modules</h4><p>Builds streaks, XP and a rising Money Score.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="users" data-sz="22"></span></div><h4>Parent approval</h4><p>You review progress and approve the plan.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="wallet" data-sz="22"></span></div><h4>₹1,000/mo SIP starts</h4><p>A guided monthly SIP begins, in your control.</p></div>
+            <div class="fg-journey-step"><div class="fg-journey-ico"><span class="fg-ic" data-ic="trending-up" data-sz="22"></span></div><h4>Student tracks</h4><p>They watch it grow and learn discipline for life.</p></div>
           </div>
           <p class="fg-note"><b>Compliance note:</b> All learning, scores and portfolios on FinGarage are <b>virtual and educational only — not investment advice.</b> Any real SIP requires <b>parent approval and completed KYC</b> through a regulated provider before a single rupee is invested.</p>
         </div>
@@ -134,6 +134,12 @@
   <script>
     FG.mountChrome('parents');
 
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
+    document.getElementById('heroEyebrow').innerHTML = FG.icon('users', { size: 16 }) + ' For Parents';
+
     var S = FG.state;
     var childName = S.user.childName || 'your child';
 
@@ -154,15 +160,15 @@
 
     // Features
     var FEATURES = [
-      { ico: '📊', name: 'Child Learning Dashboard', desc: 'See exactly which money levels and topics your child has completed.' },
-      { ico: '🎯', name: 'Financial Discipline Tracking', desc: 'Track streaks, saving habits and consistency week over week.' },
-      { ico: '🧠', name: 'Quiz Reports', desc: 'View quiz scores and the concepts your child has truly mastered.' },
-      { ico: '💹', name: 'Investment Tracking', desc: 'Follow their virtual portfolio and any parent-approved SIP.' },
-      { ico: '🗓️', name: 'Monthly Progress Reports', desc: 'A clear monthly summary delivered straight to you.' }
+      { ico: 'bar-chart', name: 'Child Learning Dashboard', desc: 'See exactly which money levels and topics your child has completed.' },
+      { ico: 'target', name: 'Financial Discipline Tracking', desc: 'Track streaks, saving habits and consistency week over week.' },
+      { ico: 'brain', name: 'Quiz Reports', desc: 'View quiz scores and the concepts your child has truly mastered.' },
+      { ico: 'trending-up', name: 'Investment Tracking', desc: 'Follow their virtual portfolio and any parent-approved SIP.' },
+      { ico: 'calendar', name: 'Monthly Progress Reports', desc: 'A clear monthly summary delivered straight to you.' }
     ];
     document.getElementById('featGrid').innerHTML = FEATURES.map(function (f) {
       return '<div class="fg-card fg-card-hover">' +
-        '<div class="fg-feat-ico">' + f.ico + '</div>' +
+        '<div class="fg-feat-ico">' + FG.icon(f.ico, { size: 24 }) + '</div>' +
         '<h3 class="fg-h3">' + f.name + '</h3>' +
         '<p class="fg-lead" style="font-size:14.5px">' + f.desc + '</p>' +
       '</div>';
@@ -175,10 +181,10 @@
     var quizPct = S.learning.quizzes.taken
       ? Math.round((S.learning.quizzes.correct / S.learning.quizzes.taken) * 100) : 0;
     var STATS = [
-      { label: '⭐ Money Score', value: S.learning.moneyScore, sub: 'out of 1000', cls: '' },
-      { label: '🔥 Streak', value: S.learning.streak + ' days', sub: 'Great discipline!', cls: 'fg-up' },
-      { label: '🧠 Quiz Accuracy', value: quizPct + '%', sub: S.learning.quizzes.taken + ' quizzes taken', cls: '' },
-      { label: '📈 Virtual Portfolio', value: FG.fmtShortINR(total), sub: 'Returns ' + FG.pct(ret), cls: (ret >= 0 ? 'fg-up' : 'fg-down') }
+      { label: FG.icon('star', { size: 16 }) + ' Money Score', value: S.learning.moneyScore, sub: 'out of 1000', cls: '' },
+      { label: FG.icon('flame', { size: 16 }) + ' Streak', value: S.learning.streak + ' days', sub: 'Great discipline!', cls: 'fg-up' },
+      { label: FG.icon('brain', { size: 16 }) + ' Quiz Accuracy', value: quizPct + '%', sub: S.learning.quizzes.taken + ' quizzes taken', cls: '' },
+      { label: FG.icon('trending-up', { size: 16 }) + ' Virtual Portfolio', value: FG.fmtShortINR(total), sub: 'Returns ' + FG.pct(ret), cls: (ret >= 0 ? 'fg-up' : 'fg-down') }
     ];
     document.getElementById('statGrid').innerHTML = STATS.map(function (s) {
       return '<div class="fg-stat">' +

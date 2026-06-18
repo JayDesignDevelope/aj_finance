@@ -68,7 +68,7 @@
     <section class="fg-section-sm">
       <div class="fg-wrap">
         <div class="fg-center">
-          <span class="fg-eyebrow">🗺️ Market Explorer</span>
+          <span class="fg-eyebrow" style="display:inline-flex;align-items:center;gap:6px"><span class="h3ic" data-ic="map" data-sz="16"></span>Market Explorer</span>
           <h1 class="fg-h1">The markets, <span class="fg-grad-text">in plain English</span></h1>
           <p class="fg-lead fg-center">A friendly, simulated window into Indian markets — Nifty, Sensex, gold and more. Learn what the numbers mean before you ever risk a real rupee.</p>
         </div>
@@ -99,11 +99,11 @@
         </div>
         <div class="mk-movers fg-mt-lg">
           <div class="fg-card mk-mover-card">
-            <h3>📈 Top gainers</h3>
+            <h3><span class="h3ic" data-ic="trending-up"></span>Top gainers</h3>
             <div id="gainers"></div>
           </div>
           <div class="fg-card mk-mover-card">
-            <h3>📉 Top losers</h3>
+            <h3><span class="h3ic" data-ic="trending-down"></span>Top losers</h3>
             <div id="losers"></div>
           </div>
         </div>
@@ -120,22 +120,22 @@
         </div>
         <div class="fg-grid fg-grid-2 fg-mt-lg">
           <div class="fg-card fg-card-hover mk-edu">
-            <div class="ic">📊</div>
+            <div class="ic" data-ic="bar-chart"></div>
             <h3>What is an index?</h3>
             <p>An index like the <b>Nifty 50</b> or <b>Sensex</b> is just a basket of big companies tracked together. When you hear "Nifty is up 1%", it means those companies rose about 1% on average — a quick health-check for the whole market.</p>
           </div>
           <div class="fg-card fg-card-hover mk-edu">
-            <div class="ic">⚖️</div>
+            <div class="ic" data-ic="scale"></div>
             <h3>What moves prices?</h3>
             <p>Prices move on <b>supply and demand</b> — more buyers than sellers pushes a price up, and vice versa. Company results, news, interest rates and even global mood all nudge how people feel about buying or selling.</p>
           </div>
           <div class="fg-card fg-card-hover mk-edu">
-            <div class="ic">🎢</div>
+            <div class="ic" data-ic="activity"></div>
             <h3>Risk vs return</h3>
             <p>Generally, the higher the possible <b>return</b>, the higher the <b>risk</b>. Gold and debt funds move gently; a startup basket can soar or tumble. Spreading money across different assets (diversifying) softens the bumps.</p>
           </div>
           <div class="fg-card fg-card-hover mk-edu">
-            <div class="ic">⏳</div>
+            <div class="ic" data-ic="hourglass"></div>
             <h3>Long-term vs timing</h3>
             <p>Trying to guess the perfect day to buy or sell ("timing the market") is incredibly hard. Staying invested for the <b>long term</b> lets compounding work and rides out the daily ups and downs.</p>
           </div>
@@ -151,7 +151,7 @@
           <p class="fg-lead fg-center">Take your ₹1,00,000 of virtual money for a spin, or keep building the fundamentals first.</p>
           <div class="fg-hero-btns" style="justify-content:center;">
             <a class="fg-btn fg-btn-primary fg-btn-lg" href="student-invest.html">Practice investing →</a>
-            <a class="fg-btn fg-btn-ghost fg-btn-lg" href="learn.html">Keep learning</a>
+            <a class="fg-btn fg-btn-ghost fg-btn-lg" href="academy-learn.html">Keep learning</a>
           </div>
         </div>
         <p class="vm-note"><b>Virtual money for learning — not investment advice.</b> All values on this page are simulated for education.</p>
@@ -163,6 +163,19 @@
   <script src="../fg-app.js"></script>
   <script>
     FG.mountChrome('markets');
+
+    // Fill static icon placeholders
+    Array.prototype.forEach.call(document.querySelectorAll('.h3ic'), function (sp) {
+      sp.style.display = 'inline-flex';
+      sp.style.alignItems = 'center';
+      sp.innerHTML = FG.icon(sp.getAttribute('data-ic'), { size: +(sp.getAttribute('data-sz') || 20) });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.mk-edu .ic[data-ic]'), function (el) {
+      el.style.display = 'inline-flex';
+      el.style.alignItems = 'center';
+      el.style.color = 'var(--fg-green-d)';
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: 30 });
+    });
 
     /* ───────────── synthesize index values from the same wave model ─────────────
        We reuse FG.priceOf for real ASSETS, and synthesize Nifty/Sensex/Gold-index

@@ -12,7 +12,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
   <style>
     .sc-hero { background: linear-gradient(140deg, #2a1a4a, #4a2a7a); border-radius: 26px; color: #fff; padding: 56px 48px; position: relative; overflow: hidden; }
-    .sc-hero::after { content: '🚀'; position: absolute; right: 40px; top: 30px; font-size: 120px; opacity: .14; }
+    .sc-hero-deco { position: absolute; right: 40px; top: 30px; opacity: .14; color: #fff; pointer-events: none; }
     .sc-hero .fg-h1 { color: #fff; }
     .sc-hero .fg-lead { color: rgba(255,255,255,.82); }
     .sc-eyebrow { background: rgba(155,81,224,.22); color: #d7b7f5; }
@@ -36,12 +36,13 @@
     <section class="fg-section-sm">
       <div class="fg-wrap">
         <div class="sc-hero fg-reveal">
+          <span class="sc-hero-deco" id="heroDeco"></span>
           <span class="fg-eyebrow sc-eyebrow">Level 5 · Founder Mindset · College</span>
           <h1 class="fg-h1">Startup Club — think like a founder</h1>
           <p class="fg-lead">The companies you invest in were once just an idea on a napkin. In the Startup Club you learn how businesses actually make money, raise funding and grow — then build your own startup idea and pitch it. Tied to FinGarage's highest learning level.</p>
           <div class="fg-hero-btns">
-            <a href="#canvas" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Build your startup ✨</a>
-            <a href="learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See learning levels</a>
+            <a href="#canvas" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Build your startup <span class="fg-ic" data-ic="sparkles" data-sz="18"></span></a>
+            <a href="academy-learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See learning levels</a>
           </div>
         </div>
       </div>
@@ -110,7 +111,7 @@
                   <input id="revenue" type="text" placeholder="e.g. ₹2 per order" required>
                 </div>
               </div>
-              <button type="submit" class="fg-btn fg-btn-primary fg-btn-block sc-band-btn fg-mt">Generate my pitch 🚀</button>
+              <button type="submit" class="fg-btn fg-btn-primary fg-btn-block sc-band-btn fg-mt">Generate my pitch <span class="fg-ic" data-ic="rocket" data-sz="18"></span></button>
             </form>
             <div class="sc-pitch" id="pitchBox" aria-live="polite">
               <span class="sc-pitch-label">Your starter pitch</span>
@@ -129,7 +130,7 @@
           <h2 class="fg-h2">Run your company in Startup Builder</h2>
           <p class="fg-lead">Take an idea, make decisions, raise rounds and watch your valuation grow — all virtual, all learning.</p>
           <div class="fg-hero-btns" style="justify-content:center">
-            <a href="money-games.html" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Open Startup Builder 🚀</a>
+            <a href="money-games.html" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Open Startup Builder <span class="fg-ic" data-ic="rocket" data-sz="18"></span></a>
           </div>
         </div>
       </div>
@@ -151,6 +152,12 @@
   <script src="../fg-app.js"></script>
   <script>
     FG.mountChrome('startup');
+
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
+    document.getElementById('heroDeco').innerHTML = FG.icon('rocket', { size: 120 });
 
     // --- Founder modules (Level 5 topics) ---
     (function () {
@@ -189,25 +196,25 @@
           ', and makes money through ' + revenue + '.';
         out.textContent = pitch;
         box.classList.add('show');
-        FG.toast('Pitch generated! 🚀');
+        FG.toast('Pitch generated!');
       });
     })();
 
     // --- Young-founders leaderboard ---
     (function () {
       var founders = [
-        { name: 'Ananya Iyer', av: '👩‍💻', val: 1250000 },
-        { name: 'Vivaan Mehta', av: '🧑‍💼', val: 980000 },
-        { name: 'Diya Krishnan', av: '👩‍🔬', val: 760000 },
-        { name: 'Arjun Reddy', av: '🧑‍🎨', val: 540000 },
-        { name: 'Saanvi Nair', av: '👩‍🎓', val: 410000 },
-        { name: 'Kabir Joshi', av: '🧑‍🚀', val: 285000 }
+        { name: 'Ananya Iyer', av: 'code', val: 1250000 },
+        { name: 'Vivaan Mehta', av: 'briefcase', val: 980000 },
+        { name: 'Diya Krishnan', av: 'flask', val: 760000 },
+        { name: 'Arjun Reddy', av: 'palette', val: 540000 },
+        { name: 'Saanvi Nair', av: 'cap', val: 410000 },
+        { name: 'Kabir Joshi', av: 'rocket', val: 285000 }
       ];
       var html = founders.map(function (f, i) {
         var rank = i + 1;
         return '<div class="fg-board-row">' +
           '<div class="fg-board-rank' + (rank <= 3 ? ' top' : '') + '">' + rank + '</div>' +
-          '<div class="fg-board-av">' + f.av + '</div>' +
+          '<div class="fg-board-av">' + FG.icon(f.av, { size: 22 }) + '</div>' +
           '<div class="fg-board-name">' + f.name + '</div>' +
           '<div class="fg-board-score">' + FG.fmtShortINR(f.val) + '</div>' +
         '</div>';

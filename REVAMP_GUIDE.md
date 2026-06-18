@@ -82,4 +82,26 @@ All **new pages live in `/pages/`**. The **homepage is `/index.html` in the repo
 - Charts via `<canvas>` 2D or inline SVG — no chart libraries.
 - Make interactive things genuinely work (buttons, calculators, simulations) using the FG API.
 
-After creating your file(s), open them to confirm the HTML is well-formed and inline `<script>` is valid JS. Return a one-line summary.
+## Icons — use professional SVG icons, NEVER emoji
+`FG.icon(name, opts)` returns an inline `<svg>` string. `opts`: `{size:24, stroke:2, cls:''}`. It uses
+`currentColor`, so the icon takes the text color of its container. Insert via innerHTML / template strings.
+- For data already carrying an icon name, render it: `FG.icon(g.icon, {size:28})` (FG.GAMES[].icon and
+  FG.BADGES[].icon are now icon NAMES, not emoji).
+- Replace every emoji pictograph in markup with `FG.icon('<name>')`. Keep plain typographic arrows `→`
+  in button text as-is; replace `✓`/`✔` bullets with `FG.icon('check',{size:16})`.
+
+Available icon names: `user, users, flame, target, rocket, trending-up, trending-down, bar-chart,
+line-chart, chart-pie, coins, coin, wallet, piggy, receipt, shield, shield-check, scale, puzzle, sprout,
+plant, trophy, medal, star, check, check-circle, book, cap, gamepad, briefcase, bulb, gift, sparkles,
+building, bank, compass, map, brain, calendar, hourglass, pause, play, refresh, x, x-circle, thumbs-up,
+thumbs-down, flag, credit-card, megaphone, mail, heart, gem, zap, pin, hand, code, palette, flask,
+lock-open, activity, arrow-right, route, plus, handshake` (unknown name → falls back to a dot).
+
+Emoji → name quick map: 🌱sprout 🔥flame 🎯target 🐷piggy 📈trending-up 📉trending-down 🧩puzzle 🪴plant
+🚀rocket 💰coins 🪙coin 🧾receipt 📊bar-chart ✨🎉sparkles 🛡️shield ⚖️scale 🎓🧑‍🎓cap 🙂👧👨👩🧑user (groups→users)
+🎮gamepad 🏆trophy 🏅🥇medal ⭐star 💼briefcase 💡bulb 💵💸wallet 📚📖book 🏫building 💎gem 💚❤️heart 🤝handshake
+🛤route ➕plus 🏦bank 🧭compass 🗺map 🧠brain 🧪🔬flask 🗓calendar ⏳hourglass ⏸pause ❌x 👍thumbs-up 👎thumbs-down
+🚩flag 💳credit-card 📣megaphone 📩mail 🦄rocket 💪trophy 💹trending-up 🎢activity 👋hand 📍pin ⚡zap 🎨palette
+💻code 🔓lock-open ↺refresh. When a colored container expects a white icon, the icon inherits the container's color automatically.
+
+After creating/editing your file(s), open them to confirm the HTML is well-formed and inline `<script>` is valid JS, and that no emoji pictographs remain. Return a one-line summary.

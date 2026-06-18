@@ -47,7 +47,7 @@
             <h1 class="fg-h1" style="margin:4px 0 6px" id="hiName">Aarav</h1>
             <p class="fg-lead" style="font-size:15px;margin:0" id="hiSub"></p>
           </div>
-          <span class="fg-demo-chip" title="Showing seeded demo data">🧪 Demo data</span>
+          <span class="fg-demo-chip" title="Showing seeded demo data" id="demoChip">Demo data</span>
         </div>
       </div>
     </section>
@@ -58,7 +58,7 @@
 
           <!-- Money Score -->
           <div class="fg-widget">
-            <h3>⭐ My Money Score</h3>
+            <h3><span class="h3ic" data-ic="star"></span>My Money Score</h3>
             <div class="fg-ring-wrap">
               <div class="fg-ring" id="scoreRing"></div>
               <div class="fg-ring-meta" id="scoreMeta"></div>
@@ -67,7 +67,7 @@
 
           <!-- Learning Level -->
           <div class="fg-widget">
-            <h3>🎓 My Learning Level</h3>
+            <h3><span class="h3ic" data-ic="cap"></span>My Learning Level</h3>
             <div style="display:flex;align-items:center;gap:14px">
               <div class="fg-level-badge" id="lvlBadge">L3</div>
               <div>
@@ -81,9 +81,9 @@
 
           <!-- Quiz Streak -->
           <div class="fg-widget">
-            <h3>🔥 My Quiz Streak</h3>
+            <h3><span class="h3ic" data-ic="flame"></span>My Quiz Streak</h3>
             <div class="fg-streak-row">
-              <span class="fg-flame">🔥</span>
+              <span class="fg-flame" id="streakFlame"></span>
               <div>
                 <div class="fg-streak-big" id="streakBig"></div>
                 <div class="fg-ring-meta">day streak — keep it alive!</div>
@@ -94,7 +94,7 @@
 
           <!-- Virtual Portfolio -->
           <div class="fg-widget">
-            <h3>📈 My Virtual Portfolio</h3>
+            <h3><span class="h3ic" data-ic="trending-up"></span>My Virtual Portfolio</h3>
             <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
               <div class="fg-sip-amt" id="pfValue"></div>
               <div style="font-weight:800;font-size:15px" id="pfReturn"></div>
@@ -105,7 +105,7 @@
 
           <!-- Monthly Investment Habit (SIP) -->
           <div class="fg-widget">
-            <h3>💸 My Monthly Investment Habit</h3>
+            <h3><span class="h3ic" data-ic="wallet"></span>My Monthly Investment Habit</h3>
             <div class="fg-sip-row">
               <span class="fg-sip-amt" id="sipAmt"></span>
               <span class="fg-sip-tag" id="sipTag"></span>
@@ -117,7 +117,7 @@
 
           <!-- Quick stat: quizzes -->
           <div class="fg-widget">
-            <h3>🧠 My Quiz Accuracy</h3>
+            <h3><span class="h3ic" data-ic="brain"></span>My Quiz Accuracy</h3>
             <div class="fg-sip-amt" id="quizPct"></div>
             <p class="fg-ring-meta" id="quizMeta"></p>
             <div class="fg-progress indigo" style="margin-top:12px"><span id="quizBar"></span></div>
@@ -131,7 +131,7 @@
     <section class="fg-section-sm">
       <div class="fg-wrap">
         <div class="fg-widget fg-reveal">
-          <h3>🏅 My Badges</h3>
+          <h3><span class="h3ic" data-ic="medal"></span>My Badges</h3>
           <div class="fg-badge-grid" id="badgeGrid"></div>
         </div>
       </div>
@@ -140,7 +140,7 @@
     <!-- Leaderboard -->
     <section class="fg-section-sm">
       <div class="fg-wrap">
-        <h2 class="fg-h2 fg-reveal" style="margin-bottom:18px">🏆 School Leaderboard</h2>
+        <h2 class="fg-h2 fg-reveal" style="margin-bottom:18px;display:flex;align-items:center;gap:10px"><span class="h3ic" data-ic="trophy" data-sz="26"></span>School Leaderboard</h2>
         <div class="fg-board fg-reveal" id="board"></div>
       </div>
     </section>
@@ -150,9 +150,9 @@
       <div class="fg-wrap fg-reveal">
         <h2 class="fg-h2" style="margin-bottom:18px">Keep going</h2>
         <div class="fg-qa">
-          <a href="learn.html" class="fg-btn fg-btn-primary fg-btn-lg">📚 Continue Learning</a>
-          <a href="money-games.html" class="fg-btn fg-btn-dark fg-btn-lg">🎮 Play a Money Game</a>
-          <a href="student-invest.html" class="fg-btn fg-btn-ghost fg-btn-lg">📈 Practice Investing</a>
+          <a href="academy-learn.html" class="fg-btn fg-btn-primary fg-btn-lg"><span class="h3ic" data-ic="book" data-sz="18"></span>Continue Learning</a>
+          <a href="money-games.html" class="fg-btn fg-btn-dark fg-btn-lg"><span class="h3ic" data-ic="gamepad" data-sz="18"></span>Play a Money Game</a>
+          <a href="student-invest.html" class="fg-btn fg-btn-ghost fg-btn-lg"><span class="h3ic" data-ic="trending-up" data-sz="18"></span>Practice Investing</a>
         </div>
         <p class="fg-ring-meta" style="margin-top:16px">Virtual money for learning — not investment advice.</p>
       </div>
@@ -163,10 +163,23 @@
   <script>
     FG.mountChrome('dashboard');
 
+    // Fill static icon placeholders (data-ic = icon name, data-sz = size)
+    Array.prototype.forEach.call(document.querySelectorAll('.h3ic'), function (sp) {
+      sp.style.display = 'inline-flex';
+      sp.style.alignItems = 'center';
+      sp.innerHTML = FG.icon(sp.getAttribute('data-ic'), { size: +(sp.getAttribute('data-sz') || 20) });
+    });
+    document.getElementById('demoChip').innerHTML =
+      FG.icon('flask', { size: 14 }) + ' Demo data';
+    document.getElementById('streakFlame').innerHTML = FG.icon('flame', { size: 40 });
+    document.getElementById('streakFlame').style.color = 'var(--fg-coral)';
+
     var S = FG.state;
     var L = S.learning;
 
-    document.getElementById('hiName').textContent = (S.user.name || 'Student').split(' ')[0] + ' 👋';
+    document.getElementById('hiName').innerHTML =
+      (S.user.name || 'Student').split(' ')[0] +
+      ' <span style="display:inline-flex;vertical-align:middle;color:var(--fg-amber)">' + FG.icon('hand', { size: 30 }) + '</span>';
     document.getElementById('hiSub').textContent =
       S.user.grade + ' · Level ' + L.level + ' · ' + L.xp.toLocaleString('en-IN') + ' XP earned so far.';
 
@@ -266,9 +279,9 @@
       var tag = document.getElementById('sipTag');
       tag.textContent = sip.active ? 'Active' : 'Paused';
       tag.className = 'fg-sip-tag fg-sip-on';
-      document.getElementById('sipMeta').textContent = sip.approvedByParent
-        ? '✅ Parent approved — your monthly SIP is running.'
-        : '⏳ Waiting for parent approval.';
+      document.getElementById('sipMeta').innerHTML = sip.approvedByParent
+        ? '<span style="display:inline-flex;vertical-align:middle;color:var(--fg-green-d)">' + FG.icon('check-circle', { size: 15 }) + '</span> Parent approved — your monthly SIP is running.'
+        : '<span style="display:inline-flex;vertical-align:middle;color:var(--fg-amber)">' + FG.icon('hourglass', { size: 15 }) + '</span> Waiting for parent approval.';
       var target = 12;
       document.getElementById('sipBar').style.width =
         FG.clamp(Math.round((sip.months / target) * 100), 0, 100) + '%';
@@ -291,7 +304,7 @@
       document.getElementById('badgeGrid').innerHTML = FG.BADGES.map(function (b) {
         var earned = L.badges.indexOf(b.id) !== -1;
         return '<div class="fg-badge' + (earned ? '' : ' locked') + '">' +
-          '<div class="fg-badge-icon">' + b.icon + '</div>' +
+          '<div class="fg-badge-icon">' + FG.icon(b.icon, { size: 30 }) + '</div>' +
           '<div class="fg-badge-name">' + b.name + '</div>' +
           '<div class="fg-badge-desc">' + b.desc + '</div>' +
         '</div>';
@@ -301,19 +314,20 @@
     // ---- School Leaderboard ----
     (function () {
       var me = S.user.name || 'Aarav Sharma';
+      var avatar = FG.icon('user', { size: 18 });
       var rows = [
-        { name: 'Diya Patel',     score: 812, av: '👩‍🎓' },
-        { name: me,               score: L.moneyScore, av: S.user.avatar || '🧑‍🎓', me: true },
-        { name: 'Rohan Mehta',    score: 690, av: '🧑‍🎓' },
-        { name: 'Ananya Iyer',    score: 655, av: '👩‍🎓' },
-        { name: 'Kabir Singh',    score: 612, av: '🧑‍🎓' },
-        { name: 'Sara Khan',      score: 580, av: '👩‍🎓' }
+        { name: 'Diya Patel',     score: 812, av: avatar },
+        { name: me,               score: L.moneyScore, av: avatar, me: true },
+        { name: 'Rohan Mehta',    score: 690, av: avatar },
+        { name: 'Ananya Iyer',    score: 655, av: avatar },
+        { name: 'Kabir Singh',    score: 612, av: avatar },
+        { name: 'Sara Khan',      score: 580, av: avatar }
       ].sort(function (a, b) { return b.score - a.score; });
 
       document.getElementById('board').innerHTML = rows.map(function (r, i) {
         var rank = i + 1;
         return '<div class="fg-board-row' + (r.me ? ' me' : '') + '">' +
-          '<div class="fg-board-rank' + (rank === 1 ? ' top' : '') + '">' + (rank === 1 ? '🥇' : rank) + '</div>' +
+          '<div class="fg-board-rank' + (rank === 1 ? ' top' : '') + '">' + (rank === 1 ? FG.icon('medal', { size: 18 }) : rank) + '</div>' +
           '<div class="fg-board-av">' + r.av + '</div>' +
           '<div class="fg-board-name">' + r.name + (r.me ? ' (You)' : '') + '</div>' +
           '<div class="fg-board-score">' + r.score + '</div>' +

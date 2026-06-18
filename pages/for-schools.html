@@ -38,21 +38,21 @@
       <div class="fg-wrap">
         <div class="fg-hero-grid">
           <div>
-            <span class="fg-eyebrow">🏫 For Schools</span>
+            <span class="fg-eyebrow" id="heroEyebrow">For Schools</span>
             <h1 class="fg-h1">Bring real <span class="fg-grad-text">financial literacy</span> to every classroom.</h1>
             <p class="fg-lead">FinGarage gives your school a ready-made, gamified money curriculum mapped to class levels — with a school dashboard, trainer visits, student reports and inter-class competitions that make money the favourite subject.</p>
             <div class="fg-hero-btns">
               <a href="#invite" class="fg-btn fg-btn-primary fg-btn-lg">Invite FinGarage to Your School</a>
-              <a href="learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See the Curriculum</a>
+              <a href="academy-learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See the Curriculum</a>
             </div>
             <p class="fg-disc">Virtual money for learning — not investment advice.</p>
           </div>
           <div class="fg-hero-art">
             <div class="fg-grid fg-grid-2">
-              <div class="fg-stat"><div class="fg-stat-label">📚 Levels</div><div class="fg-stat-value">5</div><div class="fg-stat-sub">Class 9 → College</div></div>
-              <div class="fg-stat"><div class="fg-stat-label">🎮 Games</div><div class="fg-stat-value">11</div><div class="fg-stat-sub">Play-to-learn</div></div>
-              <div class="fg-stat"><div class="fg-stat-label">🏆 Competitions</div><div class="fg-stat-value">Live</div><div class="fg-stat-sub">Inter-class fun</div></div>
-              <div class="fg-stat"><div class="fg-stat-label">📊 Reports</div><div class="fg-stat-value">Per class</div><div class="fg-stat-sub">For every teacher</div></div>
+              <div class="fg-stat"><div class="fg-stat-label"><span class="fg-ic" data-ic="book" data-sz="16"></span> Levels</div><div class="fg-stat-value">5</div><div class="fg-stat-sub">Class 9 → College</div></div>
+              <div class="fg-stat"><div class="fg-stat-label"><span class="fg-ic" data-ic="gamepad" data-sz="16"></span> Games</div><div class="fg-stat-value">11</div><div class="fg-stat-sub">Play-to-learn</div></div>
+              <div class="fg-stat"><div class="fg-stat-label"><span class="fg-ic" data-ic="trophy" data-sz="16"></span> Competitions</div><div class="fg-stat-value">Live</div><div class="fg-stat-sub">Inter-class fun</div></div>
+              <div class="fg-stat"><div class="fg-stat-label"><span class="fg-ic" data-ic="bar-chart" data-sz="16"></span> Reports</div><div class="fg-stat-value">Per class</div><div class="fg-stat-sub">For every teacher</div></div>
             </div>
           </div>
         </div>
@@ -148,17 +148,23 @@
   <script>
     FG.mountChrome('schools');
 
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
+    document.getElementById('heroEyebrow').innerHTML = FG.icon('building', { size: 16 }) + ' For Schools';
+
     // Features
     var FEATURES = [
-      { ico: '📚', name: 'Financial Literacy Curriculum', desc: '5 structured levels of money lessons, mapped to class age groups.' },
-      { ico: '📊', name: 'School Dashboard', desc: 'See participation, progress and scores across every class.' },
-      { ico: '🧑‍🏫', name: 'Trainer Visits', desc: 'Our trainers run engaging sessions and teacher onboarding on-site.' },
-      { ico: '📝', name: 'Student Reports', desc: 'Per-student and per-class reports your teachers can act on.' },
-      { ico: '🏆', name: 'Competitions', desc: 'Inter-class quizzes and money challenges that drive excitement.' }
+      { ico: 'book', name: 'Financial Literacy Curriculum', desc: '5 structured levels of money lessons, mapped to class age groups.' },
+      { ico: 'bar-chart', name: 'School Dashboard', desc: 'See participation, progress and scores across every class.' },
+      { ico: 'cap', name: 'Trainer Visits', desc: 'Our trainers run engaging sessions and teacher onboarding on-site.' },
+      { ico: 'receipt', name: 'Student Reports', desc: 'Per-student and per-class reports your teachers can act on.' },
+      { ico: 'trophy', name: 'Competitions', desc: 'Inter-class quizzes and money challenges that drive excitement.' }
     ];
     document.getElementById('featGrid').innerHTML = FEATURES.map(function (f) {
       return '<div class="fg-card fg-card-hover">' +
-        '<div class="fg-feat-ico">' + f.ico + '</div>' +
+        '<div class="fg-feat-ico">' + FG.icon(f.ico, { size: 24 }) + '</div>' +
         '<h3 class="fg-h3">' + f.name + '</h3>' +
         '<p class="fg-lead" style="font-size:14.5px">' + f.desc + '</p>' +
       '</div>';

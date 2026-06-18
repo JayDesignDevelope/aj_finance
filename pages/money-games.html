@@ -82,6 +82,24 @@
     .gm-trade { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
     .gm-disc { font-size: 12.5px; color: var(--fg-muted); margin-top: 18px; }
     .gm-mini { font-size: 13px; color: var(--fg-muted); }
+    .gm-mini svg, .gm-qmsg svg, .gm-result svg, .gm-fb svg, .gm-choice svg, .gm-total svg { vertical-align: -.18em; }
+
+    /* ---------------- how-to-play guide ---------------- */
+    .gm-guide { margin-top: 18px; }
+    .gm-guide-toggle { display: inline-flex; align-items: center; gap: 8px; }
+    .gm-guide-toggle svg { transition: transform .2s; }
+    .gm-guide-toggle[aria-expanded="true"] svg.gm-chev { transform: rotate(180deg); }
+    .gm-guide-body { margin-top: 14px; border-top: 4px solid var(--accent, var(--fg-green)); }
+    .gm-guide-body[hidden] { display: none; }
+    .gm-guide-obj { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; font-weight: 600; color: var(--fg-ink); background: color-mix(in srgb, var(--accent, var(--fg-green)) 9%, #fff); border-radius: 12px; padding: 12px 14px; }
+    .gm-guide-obj svg { flex: 0 0 auto; color: var(--accent, var(--fg-green)); margin-top: 1px; }
+    .gm-guide h4 { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 800; letter-spacing: .01em; margin: 16px 0 8px; color: var(--fg-ink); }
+    .gm-guide h4 svg { color: var(--accent, var(--fg-green)); }
+    .gm-guide ol { margin: 0; padding-left: 20px; }
+    .gm-guide ol li { font-size: 13.8px; line-height: 1.55; margin-bottom: 5px; color: var(--fg-ink); }
+    .gm-guide-tips { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .gm-guide-tips li { display: flex; gap: 9px; align-items: flex-start; font-size: 13.5px; line-height: 1.5; color: var(--fg-ink); background: var(--fg-bg-2); border-radius: 11px; padding: 9px 12px; }
+    .gm-guide-tips li svg { flex: 0 0 auto; color: var(--accent, var(--fg-green)); margin-top: 1px; }
   </style>
 </head>
 <body class="fg-page">
@@ -90,7 +108,7 @@
     <!-- HERO -->
     <header class="fg-section-sm" style="padding-top:64px;">
       <div class="fg-wrap fg-center">
-        <span class="fg-eyebrow">🎮 Money Games</span>
+        <span class="fg-eyebrow" id="gm-eyebrow">Money Games</span>
         <h1 class="fg-h1">Play your way to <span class="fg-grad-text">money smarts.</span></h1>
         <p class="fg-lead fg-center">Eleven genuinely playable mini-games — invest, budget, build credit, dodge scams and grow a startup. Earn XP and badges while you learn. All money is virtual.</p>
       </div>
@@ -111,6 +129,7 @@
               <p class="gm-mini" id="gm-panel-sub"></p>
             </div>
           </div>
+          <div class="gm-guide" id="gm-guide"></div>
           <div class="gm-stage" id="gm-stage"></div>
         </div>
 
@@ -135,6 +154,8 @@
   function randint(a, b){ return Math.floor(rand(a, b + 1)); }
   function el(html){ var d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
   function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+  var ic = FG.icon;
+  document.getElementById('gm-eyebrow').innerHTML = ic('gamepad', {size:16}) + ' Money Games';
 
   /* ============================================================
      HUB
@@ -145,7 +166,7 @@
       var card = el(
         '<div class="fg-card fg-card-hover gm-card" tabindex="0" role="button" style="--accent:' + g.color + '">' +
           '<div class="gm-card-top">' +
-            '<div class="gm-ico">' + g.icon + '</div>' +
+            '<div class="gm-ico" style="color:' + g.color + '">' + ic(g.icon, {size:28}) + '</div>' +
             '<span class="gm-tag ' + (g.tag === 'Classic' ? 'classic' : 'new') + '">' + g.tag + '</span>' +
           '</div>' +
           '<div class="gm-name">' + g.name + '</div>' +
@@ -166,20 +187,26 @@
     if(!g) return;
     GRID.classList.add('hidden');
     PANEL.classList.add('active');
-    document.getElementById('gm-panel-ico').textContent = g.icon;
-    document.getElementById('gm-panel-ico').style.setProperty('--accent', g.color);
-    document.getElementById('gm-panel-ico').style.background = 'color-mix(in srgb,' + g.color + ' 16%,#fff)';
+    var panIco = document.getElementById('gm-panel-ico');
+    panIco.innerHTML = ic(g.icon, {size:30});
+    panIco.style.setProperty('--accent', g.color);
+    panIco.style.color = g.color;
+    panIco.style.background = 'color-mix(in srgb,' + g.color + ' 16%,#fff)';
     document.getElementById('gm-panel-name').textContent = g.name;
     document.getElementById('gm-panel-sub').textContent = g.sub;
     STAGE.innerHTML = '';
     STAGE.dataset.accent = g.color;
+    STAGE.dataset.id = id;
+    renderGuide(g);
     (GAME_INIT[id] || function(){ STAGE.textContent = 'Coming soon.'; })(STAGE, g);
+    if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function closeGame(){
     PANEL.classList.remove('active');
     GRID.classList.remove('hidden');
     STAGE.innerHTML = '';
+    history.replaceState(null, '', location.pathname + location.search);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.openGame = openGame;
@@ -190,7 +217,204 @@
       return '<div class="gm-score"><b id="' + s.id + '">' + s.value + '</b><span>' + s.label + '</span></div>';
     }).join('') + '</div>';
   }
-  function instr(t){ return '<div class="gm-instr">💡 ' + t + '</div>'; }
+  function instr(t){ return '<div class="gm-instr">' + ic('bulb', {size:16}) + ' ' + t + '</div>'; }
+
+  /* ============================================================
+     HOW-TO-PLAY GUIDES (one per game)
+     ============================================================ */
+  var GUIDES = {
+    invest: {
+      objective: 'Build a ₹1,00,000 portfolio whose one-year return beats a plain savings account.',
+      steps: [
+        'Drag each asset\'s slider to set its weight — equity, index, gold, bonds, FD and cash.',
+        'Watch the "Total allocated" line: the Simulate button stays locked until your weights add up to exactly 100%.',
+        'Hit "Simulate 1 year" to roll a plausible return for every asset (riskier assets swing wider).',
+        'Read the per-asset breakdown and your final portfolio value, then tweak the mix and play again.'
+      ],
+      scoring: 'You "win" if the portfolio ends up in profit. Beat +14% to earn the Investor badge. Risky assets can post big gains or losses; safe assets barely move.',
+      tips: [
+        'Diversify — splitting across assets cushions a bad year for any single one.',
+        'A little equity raises your expected return, but too much adds wild swings.',
+        'Bonds, FD and cash are stabilisers — they rarely lose, but they rarely soar either.'
+      ]
+    },
+    budget: {
+      objective: 'Split a ₹30,000 monthly salary across Needs, Wants and Savings as close to the 50/30/20 rule as possible.',
+      steps: [
+        'Move the three sliders to allocate rupees to Needs, Wants and Savings.',
+        'Keep an eye on "Unallocated" — you must assign every rupee (exactly ₹30,000).',
+        'Once the total is exact, press "Grade my budget" to score your split.',
+        'Compare your percentages with the ideal 50/30/20 and rebalance for a better grade.'
+      ],
+      scoring: 'Your grade (A+ to D) is based on how far your split strays from 50% Needs / 30% Wants / 20% Savings. Score 90+ to earn the Super Saver badge.',
+      tips: [
+        'Fund Needs first — rent, food and bills are non-negotiable.',
+        'Protect at least 20% for Savings before topping up Wants.',
+        'Trim Wants, not Savings, when money is tight.'
+      ]
+    },
+    cibil: {
+      objective: 'Make smart credit decisions to push your CIBIL score from 650 into the 750+ band lenders love.',
+      steps: [
+        'Read each credit scenario shown in the question card.',
+        'Pick the option you think is the wisest credit move.',
+        'Your score and the progress bar update instantly, and the choice reveals why it helped or hurt.',
+        'Play through all six rounds to reach your final score and band.'
+      ],
+      scoring: 'Every choice adds or subtracts points (clamped 300–900). Finish at 750+ to "win"; reach 800+ to earn the Credit Pro badge.',
+      tips: [
+        'Always pay bills in full and on time — missed payments hurt the most.',
+        'Keep card usage under ~30% of your limit.',
+        'Avoid unnecessary new cards and loans — each hard enquiry dips your score.'
+      ]
+    },
+    sipmagic: {
+      objective: 'See how a small monthly SIP snowballs into a large corpus through the magic of compounding.',
+      steps: [
+        'Drag the "Monthly investment" slider to set how much you invest each month.',
+        'Set the "Duration" slider for how many years you keep investing.',
+        'Adjust the "Expected annual return" to a realistic rate.',
+        'Watch the stat cards and the chart update — blue is what you put in, green is what it grows to.'
+      ],
+      scoring: 'This is a sandbox, not a contest — there is no win or lose. The goal is to feel how Wealth Gained widens as time and rate increase.',
+      tips: [
+        'Time matters most — longer durations make the green curve bend sharply upward.',
+        'Even ₹500–₹1,000 a month adds up over decades.',
+        'Don\'t chase unrealistic returns; 10–12% is a sensible long-term equity assumption.'
+      ]
+    },
+    pocket: {
+      objective: 'Survive six weeks of ₹500 pocket money and finish with the most savings + investments.',
+      steps: [
+        'Each week ₹500 lands in your wallet and a random life event appears.',
+        'Choose what to do with the money: spend it all, save half, save all, or invest all.',
+        'Some events give bonuses or grow your invested money — others tempt you to spend.',
+        'Repeat for all six weeks to see your final net worth.'
+      ],
+      scoring: 'You "win" by keeping at least 40% of your total pocket money as savings + investments. Hold 60%+ to earn the Super Saver badge. Invested money has a final swing — up or down.',
+      tips: [
+        'Saving builds a safe buffer; investing can grow more but carries risk.',
+        'Resist tempting one-off spends — small leaks sink the total.',
+        'A mix of saving and investing usually beats spending everything.'
+      ]
+    },
+    startup: {
+      objective: 'Make six founder decisions that grow a ₹10 lakh seed valuation toward unicorn territory.',
+      steps: [
+        'Read each strategic decision your startup faces.',
+        'Choose the option you believe builds long-term value.',
+        'Each choice multiplies (or shrinks) your valuation, with a little luck applied.',
+        'After six decisions, see your final valuation and verdict.'
+      ],
+      scoring: 'Each smart call grows your valuation; weak calls shrink it. Reach ₹5 crore+ for unicorn-track status and the Founder badge.',
+      tips: [
+        'Validate demand with real users before building everything.',
+        'Protect your ownership — don\'t give away too much equity too early.',
+        'Grow with data-driven experiments rather than burning cash on flashy ads.'
+      ]
+    },
+    stocksim: {
+      objective: 'Start with ₹50,000 and trade a single stock over 15 turns to finish with the highest net worth.',
+      steps: [
+        'Watch the price chart — "FinGarage Ltd" moves each turn.',
+        'Use "Buy 10" to purchase shares when you think the price is low.',
+        'Use "Sell 10" to lock in gains when you think the price is high.',
+        'Click "Next turn" to advance the price; after 15 turns your result is tallied.'
+      ],
+      scoring: 'Net worth = cash + shares × price. End above your ₹50,000 start to "win"; make ₹15,000+ profit to earn the Trader badge.',
+      tips: [
+        'Buy low, sell high — but the price is random, so don\'t bet everything at once.',
+        'Holding cash is a valid move when the price looks too high.',
+        'Take profits; a paper gain isn\'t real until you sell.'
+      ]
+    },
+    inflation: {
+      objective: 'Protect the purchasing power of ₹10,000 across six rounds of rising prices.',
+      steps: [
+        'Each round, inflation pushes up the cost of a fixed basket of goods.',
+        'Decide what to do: spend now, keep as cash, save in an FD, or invest in equity.',
+        'Track "Power preserved" — it shows how many baskets your money can still buy versus the start.',
+        'Repeat for all six rounds to see your final purchasing power.'
+      ],
+      scoring: 'You "win" by preserving 95%+ of your purchasing power. Beat inflation to 105%+ to earn the Inflation Beater badge.',
+      tips: [
+        'Idle cash quietly loses value as prices climb.',
+        'FD savings give small, safe growth; equity aims to beat inflation but varies.',
+        'Spending on goods you genuinely need can dodge future price rises.'
+      ]
+    },
+    goal: {
+      objective: 'Plan a savings strategy that reaches your money goal within your chosen timeline.',
+      steps: [
+        'Set your "Goal amount" and "Timeline" with the sliders.',
+        'Choose how much you can save each month and your expected return.',
+        'The chart plots your growing savings against the dashed goal line.',
+        'Adjust the sliders until the green curve crosses the goal line in time.'
+      ],
+      scoring: 'There is no losing — the planner tells you whether and when you hit your goal, and earns the Goal Getter badge when you reach it. If you fall short, it suggests a monthly amount to fix it.',
+      tips: [
+        'Raising the monthly saving moves the finish line closer fastest.',
+        'A longer timeline lets compounding do more of the work.',
+        'Be realistic with the return rate — higher isn\'t guaranteed.'
+      ]
+    },
+    scam: {
+      objective: 'Judge each message and correctly label it Scam or Safe to protect your money.',
+      steps: [
+        'Read the message shown in the card carefully.',
+        'Tap "Scam" if it looks like fraud, or "Safe" if it seems legitimate.',
+        'See instantly whether you were right, with an explanation of the warning signs.',
+        'Press "Next" to move through all the messages.'
+      ],
+      scoring: 'You "win" by correctly judging at least 75% of messages. A perfect score earns the Scam Buster badge.',
+      tips: [
+        'Never share OTPs or PINs — no genuine bank will ask for them.',
+        '"Guaranteed" high returns and upfront fees are classic scam bait.',
+        'You only approve a UPI request to PAY, never to receive money.'
+      ]
+    },
+    debt: {
+      objective: 'Sort each loan as Good Debt or Bad Debt to learn which borrowing builds wealth.',
+      steps: [
+        'Read the borrowing scenario in the card.',
+        'Tap "Good Debt" if it builds wealth or income, or "Bad Debt" if it funds wants at high cost.',
+        'See whether you were right, with a short reason for each.',
+        'Press "Next" to work through every scenario.'
+      ],
+      scoring: 'You "win" by sorting at least 75% correctly. Sort them all right to earn the Debt-Wise badge.',
+      tips: [
+        'Good debt funds appreciating assets or higher income — education, a home, a business.',
+        'Bad debt funds depreciating wants at high interest — luxury EMIs, payday loans.',
+        'High interest rates are a red flag that debt may be working against you.'
+      ]
+    }
+  };
+
+  function renderGuide(g){
+    var box = document.getElementById('gm-guide');
+    var d = GUIDES[g.id];
+    if(!d){ box.innerHTML = ''; return; }
+    box.style.setProperty('--accent', g.color);
+    box.innerHTML =
+      '<button class="fg-btn fg-btn-ghost gm-guide-toggle" type="button" aria-expanded="false" aria-controls="gm-guide-body">' +
+        ic('book', {size:18}) + ' How to play' + ic('arrow-right', {size:16, cls:'gm-chev'}) +
+      '</button>' +
+      '<div class="fg-card gm-guide-body" id="gm-guide-body" hidden>' +
+        '<div class="gm-guide-obj">' + ic('target', {size:20}) + '<span>' + d.objective + '</span></div>' +
+        '<h4>' + ic('gamepad', {size:16}) + 'How to play</h4>' +
+        '<ol>' + d.steps.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ol>' +
+        '<h4>' + ic('trophy', {size:16}) + 'Scoring &amp; winning</h4>' +
+        '<p style="margin:0;font-size:13.8px;line-height:1.55">' + d.scoring + '</p>' +
+        '<h4>' + ic('bulb', {size:16}) + 'Tips</h4>' +
+        '<ul class="gm-guide-tips">' + d.tips.map(function(x){ return '<li>' + ic('check', {size:16}) + '<span>' + x + '</span></li>'; }).join('') + '</ul>' +
+      '</div>';
+    var btn = box.querySelector('.gm-guide-toggle'), body = box.querySelector('#gm-guide-body');
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      body.hidden = open;
+    });
+  }
 
   /* ============================================================
      1. ₹1 LAKH CHALLENGE  (invest)
@@ -239,7 +463,7 @@
       document.getElementById('inv-left').textContent = (100 - t) + '%';
       var tot = s.querySelector('#inv-total');
       tot.className = 'gm-total ' + (t === 100 ? 'ok' : 'bad');
-      tot.innerHTML = '<span>Total allocated</span><span>' + t + '% ' + (t===100?'✓':'(must equal 100%)') + '</span>';
+      tot.innerHTML = '<span>Total allocated</span><span>' + t + '% ' + (t===100?ic('check',{size:16}):'(must equal 100%)') + '</span>';
       s.querySelector('#inv-go').disabled = (t !== 100);
     }
     s.querySelector('#inv-reset').onclick = function(){ assets.forEach(function(a,i){ a.def = [25,25,15,15,10,10][i]; }); draw(); s.querySelector('#inv-out').innerHTML=''; };
@@ -254,12 +478,12 @@
       });
       var gain = finalV - POT, pc = gain/POT*100;
       var win = gain >= 0;
-      if(pc >= 14){ FG.learning.award('investor'); FG.toast('🏆 Top investor! Badge earned'); }
+      if(pc >= 14){ FG.learning.award('investor'); FG.toast(ic('trophy',{size:16}) + ' Top investor! Badge earned'); }
       else FG.toast(win ? 'Nice — your money grew!' : 'Markets dipped. Try a steadier mix.');
       s.querySelector('#inv-out').innerHTML =
         lines +
         '<div class="gm-result ' + (win?'win':'lose') + '">' +
-          '<h3>' + (win?'📈 Portfolio grew!':'📉 Portfolio dipped') + '</h3>' +
+          '<h3>' + (win?ic('trending-up',{size:20})+' Portfolio grew!':ic('trending-down',{size:20})+' Portfolio dipped') + '</h3>' +
           'Final value: <b>' + rupee(finalV) + '</b><br>' +
           (win?'Gain':'Loss') + ': <b>' + rupee(Math.abs(gain)) + ' (' + FG.pct(pc) + ')</b><br>' +
           '<button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'invest\')">Play again</button>' +
@@ -298,7 +522,7 @@
       document.getElementById('bd-left').textContent = rupee(INCOME - t);
       var tot = s.querySelector('#bd-total');
       tot.className = 'gm-total ' + (t === INCOME ? 'ok' : 'bad');
-      tot.innerHTML = '<span>Total allocated</span><span>' + rupee(t) + (t===INCOME?' ✓':' (use exactly '+rupee(INCOME)+')') + '</span>';
+      tot.innerHTML = '<span>Total allocated</span><span>' + rupee(t) + (t===INCOME?' '+ic('check',{size:16}):' (use exactly '+rupee(INCOME)+')') + '</span>';
       s.querySelector('#bd-go').disabled = (t !== INCOME);
     }
     rows.querySelectorAll('input').forEach(function(inp){
@@ -310,13 +534,13 @@
       var score = Math.max(0, 100 - dev*1.5);
       var grade = score>=90?'A+':score>=80?'A':score>=65?'B':score>=50?'C':'D';
       var win = score>=65;
-      if(score>=90){ FG.learning.award('saver'); FG.toast('🏆 Budgeting boss! Badge earned'); } else FG.toast(win?'Solid budget!':'Rebalance toward 50/30/20.');
+      if(score>=90){ FG.learning.award('saver'); FG.toast(ic('trophy',{size:16}) + ' Budgeting boss! Badge earned'); } else FG.toast(win?'Solid budget!':'Rebalance toward 50/30/20.');
       s.querySelector('#bd-out').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '">' +
           '<h3>Grade: ' + grade + ' &nbsp;(' + Math.round(score) + '/100)</h3>' +
           'Your split — Needs <b>' + pcts[0] + '%</b> · Wants <b>' + pcts[1] + '%</b> · Savings <b>' + pcts[2] + '%</b><br>' +
           'Ideal (50/30/20) — Needs 50% · Wants 30% · Savings 20%.<br>' +
-          (pcts[2] < 20 ? '💡 Try saving a bit more next month.' : '💪 Great savings discipline!') +
+          (pcts[2] < 20 ? ic('bulb',{size:16})+' Try saving a bit more next month.' : ic('thumbs-up',{size:16})+' Great savings discipline!') +
           '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'budget\')">Play again</button>' +
         '</div>';
     };
@@ -374,7 +598,7 @@
           ch.querySelectorAll('button').forEach(function(x){ x.disabled = true; });
           b.querySelector('span').textContent = opt.d;
           b.style.borderColor = opt.v >= 0 ? 'var(--fg-green)' : 'var(--fg-coral)';
-          FG.toast((opt.v>=0?'👍 ':'👎 ') + (opt.v>=0?'+':'') + opt.v + ' points');
+          FG.toast((opt.v>=0?ic('thumbs-up',{size:16})+' ':ic('thumbs-down',{size:16})+' ') + (opt.v>=0?'+':'') + opt.v + ' points');
           setTimeout(function(){ i++; render(); }, 1100);
         };
         ch.appendChild(b);
@@ -383,11 +607,11 @@
     function band(v){ return v>=800?'Excellent':v>=750?'Very Good':v>=700?'Good':v>=650?'Fair':'Needs work'; }
     function finish(){
       var win = score >= 750;
-      if(score>=800){ FG.learning.award('credit-pro'); FG.toast('🏆 Credit pro! Badge earned'); }
+      if(score>=800){ FG.learning.award('credit-pro'); FG.toast(ic('trophy',{size:16}) + ' Credit pro! Badge earned'); }
       s.querySelector('#cb-body').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '">' +
           '<h3>Final score: ' + score + ' — ' + band(score) + '</h3>' +
-          (win ? 'Lenders will offer you the best interest rates. 🎉' : 'Keep paying on time and using under 30% of your limit to climb higher.') +
+          (win ? 'Lenders will offer you the best interest rates. ' + ic('sparkles',{size:16}) : 'Keep paying on time and using under 30% of your limit to climb higher.') +
           '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'cibil\')">Play again</button>' +
         '</div>';
     }
@@ -409,7 +633,7 @@
         '<div class="fg-stat"><div class="fg-stat-label">Future value</div><div class="fg-stat-value" id="sp-fv" style="font-size:22px"></div></div>' +
       '</div>' +
       '<canvas class="gm-canvas" id="sp-cv" width="640" height="280"></canvas>' +
-      '<p class="gm-mini" style="margin-top:8px">🟦 Total invested &nbsp; 🟩 Portfolio value</p>';
+      '<p class="gm-mini" style="margin-top:8px"><span style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#5367ff;vertical-align:-1px"></span> Total invested &nbsp; <span style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#00b386;vertical-align:-1px"></span> Portfolio value</p>';
     var a = s.querySelector('#sp-a'), y = s.querySelector('#sp-y'), r = s.querySelector('#sp-r');
     var cv = s.querySelector('#sp-cv'), ctx = cv.getContext('2d');
     function calc(){
@@ -497,7 +721,7 @@
       upd();
       s.querySelector('#pk-body').innerHTML =
         '<div class="gm-meta">Week ' + week + ' · You have ' + rupee(cash) + ' in your wallet</div>' +
-        '<div class="gm-card-q"><div class="gm-qmsg">📣 ' + ev + '</div></div>' +
+        '<div class="gm-card-q"><div class="gm-qmsg">' + ic('megaphone',{size:18}) + ' ' + ev + '</div></div>' +
         '<p class="gm-mini" style="margin-bottom:8px">What will you do with this week\'s money?</p>' +
         '<div class="gm-choices" id="pk-ch"></div>';
       var ch = s.querySelector('#pk-ch');
@@ -519,13 +743,13 @@
       var net = cash + savings + invested;
       upd();
       var win = (savings + invested) >= ALLOW*WEEKS*0.4;
-      if((savings+invested) >= ALLOW*WEEKS*0.6){ FG.learning.award('saver'); FG.toast('🏆 Money-wise! Badge earned'); }
+      if((savings+invested) >= ALLOW*WEEKS*0.6){ FG.learning.award('saver'); FG.toast(ic('trophy',{size:16}) + ' Money-wise! Badge earned'); }
       s.querySelector('#pk-body').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '">' +
-          '<h3>' + (win?'🎉 Well played!':'Season over') + '</h3>' +
+          '<h3>' + (win?ic('sparkles',{size:20})+' Well played!':'Season over') + '</h3>' +
           'Wallet ' + rupee(cash) + ' · Savings <b>' + rupee(savings) + '</b> · Invested <b>' + rupee(invested) + '</b><br>' +
           'Total net worth: <b>' + rupee(net) + '</b> from ' + rupee(ALLOW*WEEKS) + ' of pocket money.<br>' +
-          (win ? 'You built a healthy saving habit. 💪' : 'Try saving or investing more next time.') +
+          (win ? 'You built a healthy saving habit. ' + ic('thumbs-up',{size:16}) : 'Try saving or investing more next time.') +
           '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'pocket\')">Play again</button>' +
         '</div>';
     }
@@ -574,7 +798,7 @@
           var before = val; val = Math.round(val * o.m * rand(0.92, 1.1));
           ch.querySelectorAll('button').forEach(function(x){x.disabled=true;});
           var up = val >= before;
-          FG.toast((up?'📈 ':'📉 ') + 'Valuation ' + (up?'up to ':'down to ') + FG.fmtShortINR(val));
+          FG.toast((up?ic('trending-up',{size:16})+' ':ic('trending-down',{size:16})+' ') + 'Valuation ' + (up?'up to ':'down to ') + FG.fmtShortINR(val));
           upd();
           setTimeout(function(){ i++; render(); }, 900);
         };
@@ -583,10 +807,10 @@
     }
     function finish(){
       var verdict, cls;
-      if(val >= 50000000){ verdict='🦄 Unicorn track! Investors are lining up.'; cls='win'; FG.learning.award('founder'); FG.toast('🏆 Founder badge earned'); }
-      else if(val >= 10000000){ verdict='🚀 Strong scale-up. Great fundamentals.'; cls='win'; }
-      else if(val >= 2000000){ verdict='🌱 Steady small business. Room to grow.'; cls='info'; }
-      else { verdict='📉 Struggled — wiser calls needed next round.'; cls='lose'; }
+      if(val >= 50000000){ verdict=ic('rocket',{size:18})+' Unicorn track! Investors are lining up.'; cls='win'; FG.learning.award('founder'); FG.toast(ic('trophy',{size:16}) + ' Founder badge earned'); }
+      else if(val >= 10000000){ verdict=ic('rocket',{size:18})+' Strong scale-up. Great fundamentals.'; cls='win'; }
+      else if(val >= 2000000){ verdict=ic('sprout',{size:18})+' Steady small business. Room to grow.'; cls='info'; }
+      else { verdict=ic('trending-down',{size:18})+' Struggled — wiser calls needed next round.'; cls='lose'; }
       s.querySelector('#su-body').innerHTML =
         '<div class="gm-result ' + cls + '"><h3>Final valuation: ' + FG.fmtShortINR(val) + '</h3>' + verdict +
         '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'startup\')">Play again</button></div>';
@@ -650,7 +874,7 @@
       hist.push(price);
       if(turn >= TURNS) return finish();
       upd();
-      FG.toast(drift>=0 ? '📈 Price rose to ' + rupee(price) : '📉 Price fell to ' + rupee(price));
+      FG.toast(drift>=0 ? ic('trending-up',{size:16}) + ' Price rose to ' + rupee(price) : ic('trending-down',{size:16}) + ' Price fell to ' + rupee(price));
     }
     s.querySelector('#st-buy').onclick = function(){ var c=price*10; if(c>cash){FG.toast('Not enough cash');return;} cash-=c; shares+=10; upd(); };
     s.querySelector('#st-sell').onclick = function(){ if(shares<10){FG.toast('No shares to sell');return;} shares-=10; cash+=price*10; upd(); };
@@ -659,9 +883,9 @@
       var profit = nw() - 50000, win = profit > 0;
       upd();
       ['st-buy','st-sell','st-next'].forEach(function(id){ s.querySelector('#'+id).disabled=true; });
-      if(profit >= 15000){ FG.learning.award('trader'); FG.toast('🏆 Sharp trader! Badge earned'); }
+      if(profit >= 15000){ FG.learning.award('trader'); FG.toast(ic('trophy',{size:16}) + ' Sharp trader! Badge earned'); }
       s.querySelector('#st-out').innerHTML =
-        '<div class="gm-result ' + (win?'win':'lose') + '"><h3>' + (win?'💹 You beat the market!':'📉 The market beat you') + '</h3>' +
+        '<div class="gm-result ' + (win?'win':'lose') + '"><h3>' + (win?ic('trending-up',{size:20})+' You beat the market!':ic('trending-down',{size:20})+' The market beat you') + '</h3>' +
         'Final net worth: <b>' + rupee(nw()) + '</b><br>' + (win?'Profit':'Loss') + ': <b>' + rupee(Math.abs(profit)) + '</b><br>' +
         '<button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'stocksim\')">Play again</button></div>';
     }
@@ -721,11 +945,11 @@
     }
     function finish(){
       var p = powerPct(), win = p >= 95;
-      if(p >= 105){ FG.learning.award('inflation-beater'); FG.toast('🏆 You beat inflation! Badge earned'); }
+      if(p >= 105){ FG.learning.award('inflation-beater'); FG.toast(ic('trophy',{size:16}) + ' You beat inflation! Badge earned'); }
       s.querySelector('#if-body').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '"><h3>Purchasing power preserved: ' + p + '%</h3>' +
-        (p>=105 ? 'You actually grew your real wealth ahead of inflation! 🎉'
-                : win ? 'You held your ground against rising prices. 👍'
+        (p>=105 ? 'You actually grew your real wealth ahead of inflation! ' + ic('sparkles',{size:16})
+                : win ? 'You held your ground against rising prices. ' + ic('thumbs-up',{size:16})
                       : 'Inflation ate into your money. Saving/investing beats idle cash.') +
         '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'inflation\')">Play again</button></div>';
     }
@@ -760,7 +984,7 @@
       var out=s.querySelector('#go-out');
       if(met){
         var yy=Math.floor(metMonth/12), mm=metMonth%12;
-        out.innerHTML='<div class="gm-result win"><h3>🎯 Goal reached!</h3>You hit '+rupee(goal)+' in about <b>'+yy+'y '+mm+'m</b> and end with <b>'+rupee(fv)+'</b>.'+(metMonth<n?' That\'s ahead of schedule! 🎉':'')+'</div>';
+        out.innerHTML='<div class="gm-result win"><h3>'+ic('target',{size:20})+' Goal reached!</h3>You hit '+rupee(goal)+' in about <b>'+yy+'y '+mm+'m</b> and end with <b>'+rupee(fv)+'</b>.'+(metMonth<n?' That\'s ahead of schedule! '+ic('sparkles',{size:16}):'')+'</div>';
         FG.learning.award('goal-getter');
       } else {
         var need = goal/((Math.pow(1+mr,n)-1)/ (mr||1) * (1+(mr||0)) || 1);
@@ -813,17 +1037,17 @@
       var it = items[i];
       document.getElementById('sc-i').textContent = (i+1) + ' / ' + items.length;
       s.querySelector('#sc-body').innerHTML =
-        '<div class="gm-card-q"><div class="gm-qmsg">📩 ' + it.msg + '</div></div>' +
+        '<div class="gm-card-q"><div class="gm-qmsg">' + ic('mail',{size:18}) + ' ' + it.msg + '</div></div>' +
         '<div class="gm-choices">' +
-          '<button class="gm-choice" id="sc-scam"><b>🚩 Scam</b><span>This looks like fraud</span></button>' +
-          '<button class="gm-choice" id="sc-safe"><b>✅ Safe</b><span>This is legitimate</span></button>' +
+          '<button class="gm-choice" id="sc-scam"><b>' + ic('flag',{size:16}) + ' Scam</b><span>This looks like fraud</span></button>' +
+          '<button class="gm-choice" id="sc-safe"><b>' + ic('check-circle',{size:16}) + ' Safe</b><span>This is legitimate</span></button>' +
         '</div><div id="sc-fb"></div>';
       function answer(guess){
         var right = (guess === it.scam);
         if(right) score++;
         document.getElementById('sc-score').textContent = score;
         s.querySelector('#sc-scam').disabled = true; s.querySelector('#sc-safe').disabled = true;
-        FG.toast(right ? '✅ Correct!' : '❌ Not quite');
+        FG.toast(right ? ic('check-circle',{size:16}) + ' Correct!' : ic('x-circle',{size:16}) + ' Not quite');
         s.querySelector('#sc-fb').innerHTML = '<div class="gm-fb ' + (right?'good':'bad') + '">' +
           (right?'Correct — ':'Actually this is ') + (it.scam?'this is a SCAM. ':'SAFE. ') + it.why + '</div>' +
           '<button class="fg-btn fg-btn-primary" style="margin-top:12px" id="sc-next">Next →</button>';
@@ -834,10 +1058,10 @@
     }
     function finish(){
       var win = score >= Math.ceil(items.length*0.75);
-      if(score === items.length){ FG.learning.award('scam-buster'); FG.toast('🏆 Perfect! Scam-buster badge'); }
+      if(score === items.length){ FG.learning.award('scam-buster'); FG.toast(ic('trophy',{size:16}) + ' Perfect! Scam-buster badge'); }
       s.querySelector('#sc-body').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '"><h3>You caught ' + score + ' / ' + items.length + '</h3>' +
-        (win ? 'Sharp eyes! You can spot most frauds. 🛡️' : 'Stay alert — re-read the tips and try again.') +
+        (win ? 'Sharp eyes! You can spot most frauds. ' + ic('shield-check',{size:16}) : 'Stay alert — re-read the tips and try again.') +
         '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'scam\')">Play again</button></div>';
     }
     render();
@@ -867,17 +1091,17 @@
       var it = items[i];
       document.getElementById('db-i').textContent = (i+1) + ' / ' + items.length;
       s.querySelector('#db-body').innerHTML =
-        '<div class="gm-card-q"><div class="gm-qmsg">💳 ' + it.msg + '</div></div>' +
+        '<div class="gm-card-q"><div class="gm-qmsg">' + ic('credit-card',{size:18}) + ' ' + it.msg + '</div></div>' +
         '<div class="gm-choices">' +
-          '<button class="gm-choice" id="db-good"><b>👍 Good Debt</b><span>Builds wealth or income</span></button>' +
-          '<button class="gm-choice" id="db-bad"><b>👎 Bad Debt</b><span>Costly funding of wants</span></button>' +
+          '<button class="gm-choice" id="db-good"><b>' + ic('thumbs-up',{size:16}) + ' Good Debt</b><span>Builds wealth or income</span></button>' +
+          '<button class="gm-choice" id="db-bad"><b>' + ic('thumbs-down',{size:16}) + ' Bad Debt</b><span>Costly funding of wants</span></button>' +
         '</div><div id="db-fb"></div>';
       function answer(guess){
         var right = (guess === it.good);
         if(right) score++;
         document.getElementById('db-score').textContent = score;
         s.querySelector('#db-good').disabled = true; s.querySelector('#db-bad').disabled = true;
-        FG.toast(right ? '✅ Correct!' : '❌ Not quite');
+        FG.toast(right ? ic('check-circle',{size:16}) + ' Correct!' : ic('x-circle',{size:16}) + ' Not quite');
         s.querySelector('#db-fb').innerHTML = '<div class="gm-fb ' + (right?'good':'bad') + '">' +
           (right?'Correct — ':'Actually this is ') + (it.good?'GOOD debt. ':'BAD debt. ') + it.why + '</div>' +
           '<button class="fg-btn fg-btn-primary" style="margin-top:12px" id="db-next">Next →</button>';
@@ -888,18 +1112,29 @@
     }
     function finish(){
       var win = score >= Math.ceil(items.length*0.75);
-      if(score === items.length){ FG.learning.award('debt-wise'); FG.toast('🏆 Perfect! Debt-wise badge'); }
+      if(score === items.length){ FG.learning.award('debt-wise'); FG.toast(ic('trophy',{size:16}) + ' Perfect! Debt-wise badge'); }
       s.querySelector('#db-body').innerHTML =
         '<div class="gm-result ' + (win?'win':'info') + '"><h3>You sorted ' + score + ' / ' + items.length + '</h3>' +
-        (win ? 'You know which debt works for you. ⚖️' : 'Review the feedback — good debt grows you, bad debt drains you.') +
+        (win ? 'You know which debt works for you. ' + ic('scale',{size:16}) : 'Review the feedback — good debt grows you, bad debt drains you.') +
         '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'debt\')">Play again</button></div>';
     }
     render();
   };
 
-  /* ---------------- boot ---------------- */
+  /* ---------------- boot + deep-linking ---------------- */
   renderHub();
   if (FG.revealInit) FG.revealInit();
+  function gameFromHash(){
+    var id = (location.hash || '').replace(/^#/, '');
+    return FG.GAMES.some(function(g){ return g.id === id; }) ? id : null;
+  }
+  var deep = gameFromHash();
+  if (deep) openGame(deep);
+  window.addEventListener('hashchange', function(){
+    var id = gameFromHash();
+    if (id) { if (!PANEL.classList.contains('active') || location.hash !== '#' + STAGE.dataset.id) openGame(id); }
+    else if (PANEL.classList.contains('active')) closeGame();
+  });
   </script>
 </body>
 </html>

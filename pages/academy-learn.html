@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    /* ── Learner header strip ─────────────────────────────── */
+    .lh-strip {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center;
+      background: linear-gradient(135deg, #fff 0%, #f4fbf8 100%);
+      border: 1px solid var(--fg-line); border-radius: var(--fg-radius);
+      padding: 26px 30px; box-shadow: var(--fg-shadow-sm);
+    }
+    .lh-meta { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .lh-name { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+    .lh-name b { color: var(--fg-green-d); }
+    .lh-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .lh-pill {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;
+      background: var(--fg-bg-2); border-radius: 999px; padding: 6px 13px; color: #3a3a55;
+    }
+    .lh-pill .ic { font-size: 15px; display: inline-flex; align-items: center; }
+    .lh-name { display: inline-flex; align-items: center; gap: 6px; }
+    .lh-name .lh-wave { color: var(--fg-amber); }
+    .lh-prog { margin-top: 8px; max-width: 420px; }
+    .lh-prog-top { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--fg-muted); margin-bottom: 6px; }
+    .lh-streak { display: flex; flex-direction: column; gap: 9px; align-items: flex-end; }
+    .lh-streak-label { font-size: 12px; font-weight: 700; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+    .lh-dots { display: flex; gap: 7px; }
+    .lh-dot {
+      width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 11px; font-weight: 800; background: var(--fg-bg-2); color: var(--fg-muted);
+      border: 1.5px solid var(--fg-line);
+    }
+    .lh-dot.fill { background: linear-gradient(135deg, var(--fg-amber), #ff8a3c); color: #fff; border-color: transparent; }
+    .lh-dot.today { box-shadow: 0 0 0 3px rgba(245,166,35,.25); }
+
+    /* ── Level ladder ─────────────────────────────────────── */
+    .ladder { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .ladder-node { display: flex; gap: 22px; position: relative; padding: 0 0 30px; }
+    .ladder-node:last-child { padding-bottom: 0; }
+    .ladder-rail { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; width: 52px; }
+    .ladder-line { flex: 1; width: 4px; background: var(--fg-line); border-radius: 4px; margin: 6px 0; min-height: 24px; }
+    .ladder-node:last-child .ladder-line { display: none; }
+    .ladder-node .fg-level { flex: 1; }
+    .ll-head { display: flex; align-items: flex-start; gap: 16px; }
+    .ll-titles { flex: 1; min-width: 0; }
+    .ll-name { font-size: 19px; font-weight: 800; letter-spacing: -.01em; }
+    .ll-tagline { font-size: 13.5px; color: var(--fg-muted); margin-top: 3px; line-height: 1.5; }
+    .ll-here {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .05em; color: #fff;
+      background: var(--lvl, var(--fg-green)); border-radius: 999px; padding: 4px 11px; white-space: nowrap;
+    }
+    .fg-level.current { box-shadow: 0 0 0 2px var(--lvl, var(--fg-green)), var(--fg-shadow); }
+    .ll-prog-row { display: flex; align-items: center; gap: 12px; margin: 16px 0 4px; }
+    .ll-prog-pct { font-size: 13px; font-weight: 800; color: var(--lvl, var(--fg-green-d)); white-space: nowrap; }
+    .topic-chip {
+      font-size: 12.5px; font-weight: 600; color: #3a3a55; background: var(--fg-bg-2);
+      border: 1.5px solid transparent; border-radius: 999px; padding: 6px 13px; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .topic-chip:hover { border-color: var(--lvl, var(--fg-green)); color: var(--lvl, var(--fg-green-d)); }
+    .topic-chip.done { background: rgba(0,208,156,.12); color: var(--fg-green-d); }
+    .topic-chip .tick { font-weight: 800; display: inline-flex; align-items: center; }
+
+    /* ── Lesson / quiz modal ──────────────────────────────── */
+    .fg-overlay {
+      position: fixed; inset: 0; z-index: 9000; display: none;
+      background: rgba(10,14,30,.72); backdrop-filter: blur(5px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .fg-overlay.open { display: flex; }
+    .lesson-modal {
+      background: #fff; border-radius: 22px; width: 100%; max-width: 560px;
+      max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,.28); position: relative;
+    }
+    .lm-top { padding: 28px 30px 0; }
+    .lm-close {
+      position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%;
+      border: none; background: var(--fg-bg-2); cursor: pointer; font-size: 18px; line-height: 1;
+      color: var(--fg-muted); display: grid; place-items: center;
+    }
+    .lm-close:hover { background: #e2e6ee; }
+    .lm-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-green-d); }
+    .lm-title { font-size: 25px; font-weight: 800; letter-spacing: -.01em; margin: 6px 0 14px; }
+    .lm-explainer {
+      font-size: 15px; line-height: 1.65; color: #2a2a44;
+      background: linear-gradient(135deg, #f4fbf8, #eef0ff); border: 1px solid var(--fg-line);
+      border-radius: 14px; padding: 16px 18px;
+    }
+    .lm-explainer.preview { background: #fff8ef; border-color: rgba(245,166,35,.3); }
+    .lm-progress { height: 6px; background: var(--fg-bg-2); border-radius: 999px; overflow: hidden; margin: 20px 0 4px; }
+    .lm-progress > span { display: block; height: 100%; background: linear-gradient(90deg, var(--fg-green), #00e6ad); transition: width .35s; }
+    .lm-quiz { padding: 18px 30px 8px; }
+    .lm-qstep { font-size: 12px; font-weight: 700; color: var(--fg-muted); margin-bottom: 8px; }
+    .lm-question { font-size: 18px; font-weight: 800; line-height: 1.35; margin-bottom: 16px; }
+    .lm-options { display: flex; flex-direction: column; gap: 10px; }
+    .lm-opt {
+      text-align: left; font-family: inherit; font-size: 14.5px; font-weight: 600; color: #2a2a44;
+      background: #fff; border: 1.5px solid var(--fg-line); border-radius: 12px; padding: 13px 16px;
+      cursor: pointer; transition: border-color .15s, background .15s; display: flex; align-items: center; gap: 11px;
+    }
+    .lm-opt:hover:not(:disabled) { border-color: var(--fg-green); }
+    .lm-opt .key {
+      width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0; display: grid; place-items: center;
+      background: var(--fg-bg-2); font-size: 12px; font-weight: 800; color: var(--fg-muted);
+    }
+    .lm-opt.correct { background: rgba(0,208,156,.12); border-color: var(--fg-green); color: #04231c; }
+    .lm-opt.correct .key { background: var(--fg-green); color: #fff; }
+    .lm-opt.wrong { background: rgba(235,91,60,.1); border-color: var(--fg-coral); color: #7a2414; }
+    .lm-opt.wrong .key { background: var(--fg-coral); color: #fff; }
+    .lm-opt:disabled { cursor: default; }
+    .lm-foot { padding: 16px 30px 28px; }
+    .lm-result { text-align: center; padding: 30px 30px 34px; }
+    .lm-result-ring {
+      width: 96px; height: 96px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center;
+      font-size: 30px; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--fg-green), #009d77); box-shadow: 0 8px 24px rgba(0,208,156,.4);
+    }
+    .lm-result-ring.partial { background: linear-gradient(135deg, var(--fg-amber), #e08600); box-shadow: 0 8px 24px rgba(245,166,35,.35); }
+    .lm-result h3 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .lm-result p { color: var(--fg-muted); font-size: 14.5px; line-height: 1.55; margin-bottom: 22px; }
+
+    /* ── Glossary ─────────────────────────────────────────── */
+    .gloss-search { position: relative; max-width: 360px; margin: 0 auto 28px; }
+    .gloss-search input {
+      width: 100%; font-family: inherit; font-size: 14.5px; color: var(--fg-ink);
+      padding: 12px 16px 12px 42px; border-radius: 12px; border: 1.5px solid var(--fg-line);
+      background: #fff; outline: none; transition: border-color .15s;
+    }
+    .gloss-search input:focus { border-color: var(--fg-green); }
+    .gloss-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: .4; }
+    .gloss-item { padding: 18px 20px; }
+    .gloss-term { font-size: 15px; font-weight: 800; margin-bottom: 5px; }
+    .gloss-term .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--fg-green); margin-right: 8px; }
+    .gloss-def { font-size: 13.5px; color: var(--fg-muted); line-height: 1.55; }
+    .gloss-empty { grid-column: 1 / -1; text-align: center; color: var(--fg-muted); padding: 30px; display: none; }
+
+    .vm-note { font-size: 12.5px; color: var(--fg-muted); text-align: center; margin-top: 22px; }
+    .vm-note b { color: #3a3a55; }
+
+    /* ── Tabs (Learn / Play) ──────────────────────────────── */
+    .learn-tabs-wrap { display: flex; justify-content: center; margin-top: 6px; }
+    .tab-panel[hidden] { display: none; }
+    #heroEyebrow, #playEyebrow { display: inline-flex; align-items: center; gap: 7px; }
+    .fg-tab { display: inline-flex; align-items: center; gap: 7px; }
+    .play-group-label svg { color: var(--fg-green-d); }
+
+    /* ── Play tab: games gallery ──────────────────────────── */
+    .play-intro { max-width: 640px; margin: 0 auto; }
+    .play-group-label {
+      display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .06em; color: var(--fg-muted); margin: 0 0 16px;
+    }
+    .play-group-label::after { content: ""; flex: 1; height: 1px; background: var(--fg-line); }
+    .play-group-count {
+      font-size: 11px; font-weight: 800; color: #fff; background: var(--fg-green-d);
+      border-radius: 999px; padding: 2px 9px; letter-spacing: 0;
+    }
+    .game-card {
+      position: relative; display: flex; flex-direction: column; gap: 14px;
+      padding: 22px; text-decoration: none; color: inherit; cursor: pointer;
+      border-top: 4px solid var(--accent, var(--fg-green));
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .game-card:hover { transform: translateY(-5px); box-shadow: var(--fg-shadow); }
+    .game-card:focus-visible { outline: 3px solid var(--accent, var(--fg-green)); outline-offset: 3px; }
+    .game-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .game-ico {
+      width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center;
+      color: var(--accent, var(--fg-green));
+      background: color-mix(in srgb, var(--accent, var(--fg-green)) 14%, #fff);
+    }
+    .game-tag {
+      font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+      border-radius: 999px; padding: 4px 10px; white-space: nowrap;
+    }
+    .game-tag.classic { background: #eef0fb; color: #5367ff; }
+    .game-tag.new { background: #e6fbf4; color: #00b386; }
+    .game-name { font-size: 17px; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
+    .game-sub { font-size: 13px; color: var(--fg-muted); margin-top: 3px; line-height: 1.45; }
+    .game-body { flex: 1; }
+    .game-play {
+      display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
+      font-size: 13.5px; font-weight: 800; color: #fff; border: none; cursor: pointer;
+      background: var(--accent, var(--fg-green)); border-radius: 11px; padding: 9px 16px;
+      transition: filter .15s; font-family: inherit;
+    }
+    .game-card:hover .game-play { filter: brightness(.95); }
+
+    @media (max-width: 760px) {
+      .lh-strip { grid-template-columns: 1fr; text-align: center; }
+      .lh-meta { align-items: center; }
+      .lh-streak { align-items: center; }
+      .lh-prog { margin-left: auto; margin-right: auto; }
+      .lh-strip .fg-ring { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- ════════════ HERO + LEARNER HEADER ════════════ -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow" id="heroEyebrow">FinGarage Learn</span>
+          <h1 class="fg-h1">Your money journey, <span class="fg-grad-text">level by level</span></h1>
+          <p class="fg-lead fg-center">Climb 5 levels from Money Rookie to Founder Mindset. Take bite-sized lessons, ace the quizzes, build your streak and grow your Money Score — all with virtual money, zero risk.</p>
+        </div>
+
+        <!-- Learner header strip -->
+        <div class="lh-strip fg-mt-lg" id="learnerStrip"></div>
+
+        <!-- Tabs: Learn / Play -->
+        <div class="learn-tabs-wrap fg-mt-lg">
+          <div class="fg-tabs" role="tablist" aria-label="Learn or Play">
+            <button class="fg-tab active" role="tab" id="tab-learn" aria-selected="true" aria-controls="panel-learn" onclick="switchTab('learn')"></button>
+            <button class="fg-tab" role="tab" id="tab-play" aria-selected="false" aria-controls="panel-play" onclick="switchTab('play')"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ LEARN PANEL ════════════ -->
+    <div class="tab-panel" id="panel-learn" role="tabpanel" aria-labelledby="tab-learn">
+
+    <!-- ════════════ LEVEL LADDER ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">The path</span>
+          <h2 class="fg-h2">Level ladder</h2>
+          <p class="fg-lead fg-center">Tap any topic to open a quick lesson and a short quiz. Finish all topics in a level to unlock the next one.</p>
+        </div>
+        <div class="ladder fg-mt-lg" id="ladder"></div>
+      </div>
+    </section>
+
+    <!-- ════════════ GLOSSARY ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">Quick reference</span>
+          <h2 class="fg-h2">Money glossary</h2>
+          <p class="fg-lead fg-center">Plain-English definitions for the terms you'll meet along the way.</p>
+        </div>
+        <div class="gloss-search fg-mt-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="glossSearch" placeholder="Search a term — e.g. SIP, CIBIL, inflation…" aria-label="Search glossary">
+        </div>
+        <div class="fg-grid fg-grid-3" id="glossGrid"></div>
+        <p class="vm-note"><b>Virtual money for learning — not investment advice.</b> Everything here is educational.</p>
+      </div>
+    </section>
+
+    </div><!-- /panel-learn -->
+
+    <!-- ════════════ PLAY PANEL ════════════ -->
+    <div class="tab-panel" id="panel-play" role="tabpanel" aria-labelledby="tab-play" hidden>
+      <section class="fg-section-sm">
+        <div class="fg-wrap">
+          <div class="fg-center">
+            <span class="fg-eyebrow" id="playEyebrow">Learn by doing</span>
+            <h2 class="fg-h2">The money arcade</h2>
+            <p class="fg-lead fg-center play-intro">Theory sticks when you play with it. Pick a game, make real(istic) money calls with virtual cash, and watch your choices play out — no risk, all reward. Every game runs in seconds and teaches one big idea.</p>
+          </div>
+
+          <div class="fg-mt-lg" id="playGroupClassic"></div>
+          <div class="fg-mt-lg" id="playGroupNew"></div>
+
+          <p class="vm-note"><b>Virtual money for learning — not investment advice.</b> Games are educational simulations.</p>
+        </div>
+      </section>
+    </div><!-- /panel-play -->
+
+  </main>
+
+  <!-- Lesson / quiz modal -->
+  <div class="fg-overlay" id="lessonOverlay" role="dialog" aria-modal="true" aria-labelledby="lmTitle">
+    <div class="lesson-modal" id="lessonModal"></div>
+  </div>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('learn');
+
+    /* ───────────────────────── lesson + quiz content ─────────────────────────
+       Keyed by exact topic string from FG.LEVELS[i].topics.
+       Full lessons: all 7 Level-1 topics + first 2 of Levels 2–5.
+       Remaining topics fall back to a short, still-completable preview. */
+    var LESSONS = {
+      /* ---------- LEVEL 1 — Money Rookie ---------- */
+      'What is Money': {
+        explainer: "Money is anything people widely agree to accept in exchange for goods and services. In India that's the rupee (₹), issued by the Reserve Bank of India. Money does three jobs: it's a medium of exchange (you swap it for a samosa), a unit of account (you can compare prices), and a store of value (you can save it for later).",
+        quiz: [
+          { q: "Who issues the Indian rupee?", o: ["Reserve Bank of India", "Any private bank", "The Bombay Stock Exchange", "Your local ATM"], a: 0 },
+          { q: "Which of these is NOT one of money's three main jobs?", o: ["Medium of exchange", "Unit of account", "Store of value", "Source of free wealth"], a: 3 },
+          { q: "Money has value mainly because…", o: ["It is printed on special paper", "People widely agree to accept it", "It is shiny", "Shops are forced to take only cash"], a: 1 }
+        ]
+      },
+      'Needs vs Wants': {
+        explainer: "Needs are things you must have to live and function — food, basic clothes, school fees, transport. Wants are nice-to-haves that make life more fun — the latest phone, branded sneakers, eating out. Smart money habits start by covering needs first, then spending what's left on wants. The tricky part: many 'wants' feel like 'needs' in the moment.",
+        quiz: [
+          { q: "Which of these is clearly a NEED?", o: ["A gaming console", "Basic groceries for the week", "Designer shoes", "A second smartphone"], a: 1 },
+          { q: "The smart order for spending is…", o: ["Wants first, then needs", "Needs first, then wants", "Only wants", "Spend everything immediately"], a: 1 },
+          { q: "Why is the needs-vs-wants line tricky?", o: ["Wants are always cheap", "Many wants feel like needs in the moment", "Needs change every day", "Banks decide it for you"], a: 1 }
+        ]
+      },
+      'Pocket Money Management': {
+        explainer: "Pocket money is your first real practice with managing cash. A simple plan is to split it into three jars: Save, Spend, and Share. For example, with ₹500 you might save ₹200, spend ₹250 on things you enjoy, and share ₹50. Tracking where it goes — even in a notebook — teaches you control before bigger incomes arrive.",
+        quiz: [
+          { q: "A popular way to split pocket money is into jars for…", o: ["Save, Spend, Share", "Eat, Sleep, Repeat", "Stocks, Bonds, Gold", "Cash, Card, UPI"], a: 0 },
+          { q: "With ₹500 and a 'save ₹200' plan, how much is left for spending and sharing?", o: ["₹500", "₹200", "₹300", "₹100"], a: 2 },
+          { q: "What is the biggest benefit of tracking your pocket money?", o: ["It makes money grow by itself", "It builds spending control early", "It removes the need to save", "It impresses the shopkeeper"], a: 1 }
+        ]
+      },
+      'Saving Habit': {
+        explainer: "Saving means setting aside money now so you have it later. The strongest trick is 'pay yourself first' — save a fixed slice the moment money arrives, before you spend the rest. Even ₹20 a day adds up to over ₹7,000 a year. A regular saving habit matters far more than the exact amount.",
+        quiz: [
+          { q: "'Pay yourself first' means…", o: ["Spend on yourself before others", "Save a slice before spending the rest", "Take a loan first", "Pay your friends back first"], a: 1 },
+          { q: "Saving ₹20 every day for a year gives you roughly…", o: ["₹730", "₹2,000", "₹7,300", "₹20,000"], a: 2 },
+          { q: "For building a saving habit, what matters most?", o: ["Saving a huge amount once", "Being regular and consistent", "Waiting until you're rich", "Saving only on festivals"], a: 1 }
+        ]
+      },
+      'Banking Basics': {
+        explainer: "A bank keeps your money safe, lets you withdraw it when needed, and pays a little interest. A savings account is the most common type for students. Deposits in Indian banks are insured up to ₹5 lakh per bank by the DICGC, so your money is protected even if the bank fails. Always keep your PIN and passwords private.",
+        quiz: [
+          { q: "Which account type is most common for everyday student saving?", o: ["Current account", "Savings account", "Demat account", "Loan account"], a: 1 },
+          { q: "Bank deposits in India are insured up to…", o: ["₹5 lakh per bank", "₹50,000 only", "Unlimited", "₹1 crore per bank"], a: 0 },
+          { q: "A good banking safety practice is to…", o: ["Share your PIN with friends", "Write your password on the card", "Keep your PIN and passwords private", "Tell everyone your PIN"], a: 2 }
+        ]
+      },
+      'UPI': {
+        explainer: "UPI (Unified Payments Interface) lets you send money instantly between bank accounts using a phone — via apps like Google Pay, PhonePe or BHIM. You pay using a UPI ID or by scanning a QR code, secured with a UPI PIN. It's free for normal personal payments. Golden rule: you never need to enter a PIN to RECEIVE money — only to SEND it.",
+        quiz: [
+          { q: "UPI lets you…", o: ["Borrow money from the RBI", "Send money instantly between bank accounts", "Print your own currency", "Buy shares directly"], a: 1 },
+          { q: "To RECEIVE money on UPI, you should…", o: ["Enter your UPI PIN", "Never need to enter a PIN", "Share your bank password", "Pay a fee each time"], a: 1 },
+          { q: "Which is a common UPI app in India?", o: ["PhonePe", "Netflix", "Notepad", "Spotify"], a: 0 }
+        ]
+      },
+      'Emergency Fund': {
+        explainer: "An emergency fund is money kept aside for surprises — a medical bill, a broken phone, a sudden trip home. Experts suggest saving about 3 to 6 months of essential expenses in an easy-to-access account. It stops you from borrowing at high interest when life throws a curveball. Build it slowly, and use it only for true emergencies.",
+        quiz: [
+          { q: "An emergency fund is for…", o: ["Buying the latest gadget", "Unexpected, urgent expenses", "A planned vacation", "Daily snacks"], a: 1 },
+          { q: "A common target size for an emergency fund is…", o: ["3 to 6 months of essential expenses", "10 years of salary", "One day's pocket money", "Exactly ₹100"], a: 0 },
+          { q: "Why keep an emergency fund easy to access?", o: ["So it earns the highest return", "So you can reach it fast when a real emergency hits", "So friends can borrow it", "So the bank charges you fees"], a: 1 }
+        ]
+      },
+
+      /* ---------- LEVEL 2 — Smart Saver ---------- */
+      'Budgeting': {
+        explainer: "A budget is simply a plan for your money: you list how much comes in (income) and decide where it goes (expenses and savings) before you spend it. Budgeting isn't about saying 'no' to everything — it's about choosing on purpose. When your planned spending is less than your income, you're in control.",
+        quiz: [
+          { q: "A budget is best described as…", o: ["A plan for your money before you spend it", "A type of bank loan", "A government tax", "A stock you can buy"], a: 0 },
+          { q: "You are 'in control' when…", o: ["Spending is more than income", "Planned spending is less than income", "You ignore your income", "You only track wants"], a: 1 },
+          { q: "The goal of budgeting is to…", o: ["Say no to everything fun", "Choose where money goes on purpose", "Spend faster", "Avoid all saving"], a: 1 }
+        ]
+      },
+      '50/30/20 Rule': {
+        explainer: "The 50/30/20 rule is an easy budgeting guide: spend about 50% of your income on needs, 30% on wants, and put 20% into savings or paying off debt. On a ₹10,000 monthly income that's ₹5,000 needs, ₹3,000 wants, ₹2,000 saved. It's a starting point you can adjust — saving more than 20% is even better.",
+        quiz: [
+          { q: "In the 50/30/20 rule, the 20% is for…", o: ["Wants", "Needs", "Savings or paying off debt", "Taxes only"], a: 2 },
+          { q: "On ₹10,000 income, how much goes to needs under this rule?", o: ["₹2,000", "₹3,000", "₹5,000", "₹10,000"], a: 2 },
+          { q: "The 50/30/20 rule is…", o: ["A strict law you must never change", "A flexible starting guide", "Only for rich people", "A type of fixed deposit"], a: 1 }
+        ]
+      },
+      'Inflation': { preview: true, explainer: "Inflation is the gradual rise in prices over time, which means each rupee buys a little less. A samosa costing ₹15 today might cost ₹17 next year — which is why idle cash slowly loses value." },
+      'Fixed Deposits': { preview: true, explainer: "A Fixed Deposit (FD) locks a lump sum with a bank for a set period at a fixed interest rate — safe and predictable, but less flexible than a savings account." },
+      'Recurring Deposits': { preview: true, explainer: "A Recurring Deposit (RD) lets you save a fixed amount every month for a set period, earning steady interest — great for building a saving habit." },
+      'Goal Planning': { preview: true, explainer: "Goal planning means naming what you're saving for, putting a number and a deadline on it, and saving regularly to reach it." },
+      'Compound Interest': { preview: true, explainer: "Compound interest is interest earned on both your original money and the interest it has already earned — money making money over time." },
+
+      /* ---------- LEVEL 3 — Young Investor ---------- */
+      'SIP': {
+        explainer: "A SIP (Systematic Investment Plan) lets you invest a fixed amount into a mutual fund every month — say ₹500 — instead of one big lump sum. It builds discipline and means you buy more units when prices are low and fewer when high, averaging out your cost. For students, any real investing needs parent approval first.",
+        quiz: [
+          { q: "A SIP means investing…", o: ["One huge amount once", "A fixed amount regularly, e.g. monthly", "Only when markets are high", "Only in gold"], a: 1 },
+          { q: "A key benefit of SIP is…", o: ["Guaranteed instant profit", "Averaging your purchase cost over time", "No risk ever", "Free money from the bank"], a: 1 },
+          { q: "For a student, starting a real SIP requires…", o: ["Nothing at all", "Parent approval", "A loan", "A credit card"], a: 1 }
+        ]
+      },
+      'Mutual Funds': {
+        explainer: "A mutual fund pools money from many investors, and a professional fund manager invests it across stocks, bonds or both. You own 'units' representing your share. It lets a small investor own a tiny slice of dozens of companies at once, spreading risk. In India, mutual funds are regulated by SEBI.",
+        quiz: [
+          { q: "A mutual fund…", o: ["Pools money from many investors", "Is a type of bank locker", "Only holds cash", "Is illegal in India"], a: 0 },
+          { q: "Who manages a mutual fund's investments?", o: ["You alone", "A professional fund manager", "The shopkeeper", "Nobody"], a: 1 },
+          { q: "Mutual funds in India are regulated by…", o: ["SEBI", "Your school", "The post office", "A cricket board"], a: 0 }
+        ]
+      },
+      'Index Funds': { preview: true, explainer: "An index fund simply copies a market index like the Nifty 50, holding the same stocks — low cost, no star manager needed, and it matches the market's overall return." },
+      'Risk vs Return': { preview: true, explainer: "Generally, the higher the potential return, the higher the risk. Safe choices grow slowly; riskier ones can grow faster but can also fall." },
+      'Long-Term Investing': { preview: true, explainer: "Long-term investing means staying invested for years, riding out the ups and downs so compounding and growth can work in your favour." },
+      'Power of Compounding': { preview: true, explainer: "Compounding makes early investments grow dramatically because returns earn their own returns — starting young is your biggest advantage." },
+
+      /* ---------- LEVEL 4 — Market Explorer ---------- */
+      'Stocks': {
+        explainer: "A stock (or share) is a small piece of ownership in a company. If you own one share of Reliance, you own a tiny fraction of the business. When the company does well, the share price can rise and it may pay dividends; if it struggles, the price can fall. Stocks can grow your money but carry real risk.",
+        quiz: [
+          { q: "Owning a stock means you own…", o: ["A loan to the company", "A small piece of the company", "The whole company", "A bank account"], a: 1 },
+          { q: "A share of profit a company may pay to shareholders is called a…", o: ["Dividend", "Discount", "Deposit", "Donation"], a: 0 },
+          { q: "Stocks are best described as…", o: ["Risk-free and guaranteed", "Able to grow money but carrying real risk", "Always falling", "The same as a fixed deposit"], a: 1 }
+        ]
+      },
+      'Nifty': {
+        explainer: "The Nifty 50 is a stock market index that tracks 50 of the largest, most-traded companies on India's National Stock Exchange (NSE). When you hear 'the Nifty is up 1%', it means those 50 big companies rose about 1% on average. It's a quick health-check of the Indian stock market.",
+        quiz: [
+          { q: "The Nifty 50 tracks…", o: ["50 large companies on the NSE", "50 banks only", "Every company in India", "Gold prices"], a: 0 },
+          { q: "'The Nifty is up 1%' tells you…", o: ["One company doubled", "The big tracked companies rose ~1% on average", "The rupee was banned", "Banks are closed"], a: 1 },
+          { q: "The Nifty trades on which exchange?", o: ["NSE (National Stock Exchange)", "A grocery store", "The RBI", "Your phone"], a: 0 }
+        ]
+      },
+      'Sensex': { preview: true, explainer: "The Sensex is the BSE's index of 30 large, well-established Indian companies — another popular gauge of how the market is doing." },
+      'Gold': { preview: true, explainer: "Gold is a classic store of value that often holds up when stocks fall, which is why investors keep a little for safety and diversification." },
+      'Bonds': { preview: true, explainer: "A bond is a loan you give to a government or company; they pay you fixed interest and return your money on a set date — generally lower risk than stocks." },
+      'ETFs': { preview: true, explainer: "An ETF (Exchange-Traded Fund) is like an index fund you can buy and sell on the stock exchange during the day, usually with very low fees." },
+      'Portfolio Allocation': { preview: true, explainer: "Portfolio allocation is how you split your money across stocks, gold, bonds and cash to balance growth against risk." },
+
+      /* ---------- LEVEL 5 — Founder Mindset ---------- */
+      'Business Models': {
+        explainer: "A business model is how a company plans to make money — what it sells, to whom, and how. For example, a subscription app charges a monthly fee, while a shop earns by buying low and selling higher. Understanding the business model behind a company helps you judge whether it can keep earning over time.",
+        quiz: [
+          { q: "A business model describes…", o: ["How a company makes money", "Only the company logo", "The CEO's salary", "The office address"], a: 0 },
+          { q: "A subscription app typically earns by…", o: ["Selling the company", "Charging a recurring fee", "Giving everything free forever", "Printing money"], a: 1 },
+          { q: "Why understand a company's business model?", o: ["To judge if it can keep earning", "To memorise its colours", "To get free products", "It doesn't matter"], a: 0 }
+        ]
+      },
+      'Revenue': {
+        explainer: "Revenue is the total money a business takes in from selling its products or services, before any costs are subtracted — often called the 'top line'. If a juice stall sells 200 glasses at ₹20 each, its revenue is ₹4,000. Revenue is not the same as profit, because the business still has expenses to pay.",
+        quiz: [
+          { q: "Revenue is…", o: ["Money left after all costs", "Total money taken in from sales", "A type of tax", "The owner's salary"], a: 1 },
+          { q: "200 glasses sold at ₹20 each makes revenue of…", o: ["₹400", "₹2,000", "₹4,000", "₹20"], a: 2 },
+          { q: "Revenue differs from profit because…", o: ["They are exactly the same", "Profit is revenue minus expenses", "Revenue is always smaller", "Profit ignores sales"], a: 1 }
+        ]
+      },
+      'Profit': { preview: true, explainer: "Profit is what's left after a business subtracts all its costs from its revenue — the real measure of whether it's making money." },
+      'Startup Valuation': { preview: true, explainer: "Valuation is the estimated worth of a company, based on its growth, earnings potential and what investors are willing to pay." },
+      'Funding Rounds': { preview: true, explainer: "Startups raise money in stages — seed, Series A, B and beyond — giving away small ownership slices to investors to fund growth." },
+      'Entrepreneurship': { preview: true, explainer: "Entrepreneurship is spotting a problem, building a solution, and taking the risk to turn it into a real, money-making business." },
+      'Pitching Ideas': { preview: true, explainer: "Pitching is explaining your idea clearly and convincingly — the problem, your solution, and why it can grow — to win support or funding." }
+    };
+
+    /* ───────────────────────── glossary ───────────────────────── */
+    var GLOSSARY = [
+      { t: 'Money',             d: "Anything widely accepted in exchange for goods and services — in India, the rupee." },
+      { t: 'Budget',            d: "A plan for how you'll spend and save your income before the month begins." },
+      { t: 'Inflation',         d: "The gradual rise in prices over time, which makes each rupee buy a little less." },
+      { t: 'SIP',               d: "A Systematic Investment Plan — investing a fixed amount in a fund every month." },
+      { t: 'Mutual Fund',       d: "A pool of many investors' money, managed by a professional across many assets." },
+      { t: 'Index Fund',        d: "A low-cost fund that simply copies a market index like the Nifty 50." },
+      { t: 'Compound Interest', d: "Interest earned on both your money and the interest it has already earned." },
+      { t: 'CIBIL',             d: "A credit score (300–900) showing how reliably you repay loans and bills." },
+      { t: 'FD',                d: "A Fixed Deposit — a lump sum locked with a bank for a fixed rate and term." },
+      { t: 'ETF',               d: "An Exchange-Traded Fund — an index-style fund you can trade like a stock." },
+      { t: 'Equity',            d: "Ownership in a company; shares of stock represent equity." },
+      { t: 'Diversification',   d: "Spreading money across different assets so one loss doesn't sink you." }
+    ];
+
+    /* ───────────────────────── render: learner header ───────────────────────── */
+    function renderHeader() {
+      var L = FG.state.learning;
+      var lvl = FG.learning.levelObj();
+      var curId = lvl.id;
+      var pct = FG.learning.levelPctFor(curId);
+      var nextName = curId < 5 ? FG.LEVELS[curId].name : 'maxed out';
+
+      // money-score ring (SVG arc from moneyScore / 1000)
+      var R = 56, C = 2 * Math.PI * R;
+      var frac = FG.clamp(L.moneyScore / 1000, 0, 1);
+      var off = C * (1 - frac);
+
+      // 7-day streak dot row — last min(streak,7) filled, most-recent = today
+      var filled = FG.clamp(Math.min(L.streak, 7), 0, 7);
+      var dots = '';
+      for (var i = 1; i <= 7; i++) {
+        var isFill = i <= filled;
+        var isToday = (i === filled && filled > 0);
+        dots += '<span class="lh-dot' + (isFill ? ' fill' : '') + (isToday ? ' today' : '') + '">' + i + '</span>';
+      }
+
+      document.getElementById('learnerStrip').innerHTML =
+        '<div class="fg-ring" aria-label="Money Score ' + L.moneyScore + ' out of 1000">' +
+          '<svg width="132" height="132" viewBox="0 0 132 132">' +
+            '<circle cx="66" cy="66" r="' + R + '" fill="none" stroke="#e8eaf1" stroke-width="11"/>' +
+            '<circle cx="66" cy="66" r="' + R + '" fill="none" stroke="#00d09c" stroke-width="11" ' +
+              'stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '"/>' +
+          '</svg>' +
+          '<div class="fg-ring-num"><b>' + L.moneyScore + '</b><small>Money Score</small></div>' +
+        '</div>' +
+        '<div class="lh-meta">' +
+          '<div class="lh-name">Hi <b>' + (FG.state.user.name || 'Learner') + '</b> ' + FG.icon('hand', { size: 20, cls: 'lh-wave' }) + '</div>' +
+          '<div class="lh-tags">' +
+            '<span class="lh-pill"><span class="ic" style="color:' + lvl.color + '">●</span> Level ' + curId + ' · ' + lvl.name + '</span>' +
+            '<span class="lh-pill"><span class="ic" style="color:var(--fg-amber)">' + FG.icon('flame', { size: 15 }) + '</span> ' + L.streak + '-day streak</span>' +
+            '<span class="lh-pill"><span class="ic" style="color:var(--fg-indigo)">' + FG.icon('zap', { size: 15 }) + '</span> ' + L.xp.toLocaleString('en-IN') + ' XP</span>' +
+            '<span class="lh-pill"><span class="ic" style="color:var(--fg-coral)">' + FG.icon('target', { size: 15 }) + '</span> ' + L.quizzes.correct + '/' + L.quizzes.taken + ' quiz answers</span>' +
+          '</div>' +
+          '<div class="lh-prog">' +
+            '<div class="lh-prog-top"><span>Level ' + curId + ' progress</span><span>' + pct + '% → ' + nextName + '</span></div>' +
+            '<div class="fg-progress"><span style="width:' + pct + '%"></span></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="lh-streak">' +
+          '<span class="lh-streak-label">Daily streak</span>' +
+          '<div class="lh-dots">' + dots + '</div>' +
+        '</div>';
+    }
+
+    /* ───────────────────────── render: level ladder ───────────────────────── */
+    function renderLadder() {
+      var here = FG.learning.level();
+      var html = FG.LEVELS.map(function (lvl) {
+        var pct = FG.learning.levelPctFor(lvl.id);
+        var done = (FG.state.learning.levelProgress[lvl.id] || 0);
+        var isCurrent = lvl.id === here;
+
+        var chips = lvl.topics.map(function (t, idx) {
+          var isDone = idx < done;
+          return '<button class="topic-chip' + (isDone ? ' done' : '') + '" ' +
+                 'onclick="openLesson(' + lvl.id + ',' + idx + ')" ' +
+                 'aria-label="Open lesson: ' + t.replace(/"/g, '') + (isDone ? ' (completed)' : '') + '">' +
+                 (isDone ? '<span class="tick">' + FG.icon('check', { size: 16 }) + '</span>' : '') + t + '</button>';
+        }).join('');
+
+        return '<div class="ladder-node">' +
+          '<div class="ladder-rail">' +
+            '<div class="fg-level-badge" style="--lvl:' + lvl.color + '">L' + lvl.id + '</div>' +
+            '<div class="ladder-line"></div>' +
+          '</div>' +
+          '<div class="fg-level' + (isCurrent ? ' current' : '') + '" style="--lvl:' + lvl.color + '">' +
+            '<div class="ll-head">' +
+              '<div class="ll-titles">' +
+                '<div class="fg-level-grade">' + lvl.grade + '</div>' +
+                '<div class="ll-name">' + lvl.name + '</div>' +
+                '<div class="ll-tagline">' + lvl.tagline + '</div>' +
+              '</div>' +
+              (isCurrent ? '<span class="ll-here">' + FG.icon('pin', { size: 13 }) + ' You are here</span>' : '') +
+            '</div>' +
+            '<div class="ll-prog-row">' +
+              '<div class="fg-progress" style="flex:1"><span style="width:' + pct + '%;background:' + lvl.color + '"></span></div>' +
+              '<span class="ll-prog-pct">' + done + '/' + lvl.topics.length + '</span>' +
+            '</div>' +
+            '<div class="fg-chip-list">' + chips + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      document.getElementById('ladder').innerHTML = html;
+    }
+
+    /* ───────────────────────── lesson + quiz flow ───────────────────────── */
+    var quizState = null;
+    var overlay = document.getElementById('lessonOverlay');
+    var modalEl = document.getElementById('lessonModal');
+
+    function openLesson(levelId, topicIdx) {
+      var topic = FG.LEVELS[levelId - 1].topics[topicIdx];
+      var lesson = LESSONS[topic] || { preview: true, explainer: "A quick lesson on " + topic + " is on the way." };
+      var isPreview = !!lesson.preview;
+      var quiz = lesson.quiz || [
+        { q: "Mark this topic as learned and add it to your progress?", o: ["Yes, log it as complete", "Not right now"], a: 0 }
+      ];
+      quizState = { levelId: levelId, topic: topic, lesson: lesson, quiz: quiz, idx: 0, correct: 0, answered: false, isPreview: isPreview };
+      renderLessonIntro();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLesson() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      quizState = null;
+    }
+
+    function renderLessonIntro() {
+      var s = quizState;
+      modalEl.innerHTML =
+        '<button class="lm-close" onclick="closeLesson()" aria-label="Close lesson">×</button>' +
+        '<div class="lm-top">' +
+          '<div class="lm-eyebrow">' + FG.LEVELS[s.levelId - 1].name + (s.isPreview ? ' · Preview' : ' · Lesson') + '</div>' +
+          '<h2 class="lm-title" id="lmTitle">' + s.topic + '</h2>' +
+          '<div class="lm-explainer' + (s.isPreview ? ' preview' : '') + '">' +
+            (s.isPreview ? '<b>Preview — full lesson coming soon.</b><br>' : '') + s.lesson.explainer +
+          '</div>' +
+        '</div>' +
+        '<div class="lm-foot">' +
+          '<button class="fg-btn fg-btn-primary fg-btn-block" onclick="startQuizFlow()">' +
+            (s.isPreview ? 'Take the quick check →' : 'Start the ' + s.quiz.length + '-question quiz →') +
+          '</button>' +
+        '</div>';
+    }
+
+    function startQuizFlow() {
+      quizState.idx = 0; quizState.correct = 0; quizState.answered = false;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      var s = quizState;
+      var item = s.quiz[s.idx];
+      var pct = Math.round((s.idx / s.quiz.length) * 100);
+      var opts = item.o.map(function (opt, i) {
+        var key = String.fromCharCode(65 + i);
+        return '<button class="lm-opt" data-i="' + i + '" onclick="answer(' + i + ')">' +
+               '<span class="key">' + key + '</span>' + opt + '</button>';
+      }).join('');
+
+      modalEl.innerHTML =
+        '<button class="lm-close" onclick="closeLesson()" aria-label="Close lesson">×</button>' +
+        '<div class="lm-top">' +
+          '<div class="lm-eyebrow">' + s.topic + '</div>' +
+          '<div class="lm-progress"><span style="width:' + pct + '%"></span></div>' +
+        '</div>' +
+        '<div class="lm-quiz">' +
+          '<div class="lm-qstep">Question ' + (s.idx + 1) + ' of ' + s.quiz.length + '</div>' +
+          '<div class="lm-question">' + item.q + '</div>' +
+          '<div class="lm-options" id="lmOptions">' + opts + '</div>' +
+        '</div>' +
+        '<div class="lm-foot"><button class="fg-btn fg-btn-primary fg-btn-block" id="lmNext" style="display:none" onclick="nextQuestion()"></button></div>';
+    }
+
+    function answer(i) {
+      var s = quizState;
+      if (s.answered) return;
+      s.answered = true;
+      var item = s.quiz[s.idx];
+      var btns = modalEl.querySelectorAll('.lm-opt');
+      btns.forEach(function (b) {
+        b.disabled = true;
+        var bi = parseInt(b.getAttribute('data-i'), 10);
+        if (bi === item.a) b.classList.add('correct');
+        else if (bi === i) b.classList.add('wrong');
+      });
+      if (i === item.a) s.correct++;
+      var next = document.getElementById('lmNext');
+      next.style.display = '';
+      next.textContent = (s.idx + 1 < s.quiz.length) ? 'Next question →' : 'See results →';
+    }
+
+    function nextQuestion() {
+      var s = quizState;
+      s.idx++;
+      s.answered = false;
+      if (s.idx < s.quiz.length) renderQuestion();
+      else finishQuiz();
+    }
+
+    function finishQuiz() {
+      var s = quizState;
+      var total = s.quiz.length;
+      var perfect = s.correct === total;
+      var firstEver = FG.state.learning.quizzes.taken === 0;
+
+      // record progress (XP + Money Score + level advance handled in completeTopic)
+      FG.learning.completeTopic(s.levelId);
+      FG.state.learning.quizzes.taken += 1;
+      FG.state.learning.quizzes.correct += s.correct;
+      FG.save();
+
+      // badges
+      var awardedFirst = false, awardedAce = false;
+      if (firstEver) awardedFirst = FG.learning.award('first-step');
+      if (perfect) awardedAce = FG.learning.award('quiz-ace');
+
+      // result screen
+      modalEl.innerHTML =
+        '<button class="lm-close" onclick="closeLesson()" aria-label="Close lesson">×</button>' +
+        '<div class="lm-result">' +
+          '<div class="lm-result-ring' + (perfect ? '' : ' partial') + '">' + (perfect ? FG.icon('target', { size: 38 }) : s.correct + '/' + total) + '</div>' +
+          '<h3>' + (perfect ? 'Perfect score!' : 'Lesson complete!') + '</h3>' +
+          '<p>You got <b>' + s.correct + ' of ' + total + '</b> right on <b>' + s.topic + '</b>. ' +
+            '+50 XP and +8 Money Score added.' +
+            (awardedAce ? ' Quiz Ace badge unlocked!' : '') +
+            (awardedFirst ? ' First Step badge unlocked!' : '') + '</p>' +
+          '<button class="fg-btn fg-btn-primary fg-btn-block" onclick="closeLesson()">Back to my journey</button>' +
+        '</div>';
+
+      // toast + live re-render of header & ladder
+      var msg = perfect ? 'Perfect! +50 XP' : s.topic + ' done · +50 XP';
+      if (awardedAce) msg = 'Quiz Ace badge unlocked!';
+      else if (awardedFirst) msg = 'First Step badge unlocked!';
+      FG.toast(msg);
+      renderHeader();
+      renderLadder();
+    }
+
+    // ESC + backdrop close
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLesson(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeLesson();
+    });
+
+    /* ───────────────────────── glossary ───────────────────────── */
+    function renderGlossary(filter) {
+      filter = (filter || '').trim().toLowerCase();
+      var grid = document.getElementById('glossGrid');
+      var shown = 0;
+      var cards = GLOSSARY.map(function (g) {
+        var match = !filter || g.t.toLowerCase().indexOf(filter) !== -1 || g.d.toLowerCase().indexOf(filter) !== -1;
+        if (match) shown++;
+        return '<div class="fg-card gloss-item" style="display:' + (match ? 'block' : 'none') + '">' +
+          '<div class="gloss-term"><span class="dot"></span>' + g.t + '</div>' +
+          '<div class="gloss-def">' + g.d + '</div>' +
+        '</div>';
+      }).join('');
+      grid.innerHTML = cards +
+        '<div class="gloss-empty" style="display:' + (shown ? 'none' : 'block') + '">No terms match your search.</div>';
+    }
+    document.getElementById('glossSearch').addEventListener('input', function (e) { renderGlossary(e.target.value); });
+
+    /* ───────────────────────── play tab: games gallery ───────────────────────── */
+    function gameCard(g) {
+      var tagCls = g.tag === 'Classic' ? 'classic' : 'new';
+      return '<a class="fg-card fg-card-hover game-card" href="money-games.html#' + g.id + '" ' +
+        'style="--accent:' + g.color + '" aria-label="Play ' + g.name + ' — ' + g.sub + '">' +
+        '<div class="game-top">' +
+          '<span class="game-ico">' + FG.icon(g.icon, { size: 30 }) + '</span>' +
+          '<span class="game-tag ' + tagCls + '">' + g.tag + '</span>' +
+        '</div>' +
+        '<div class="game-body">' +
+          '<div class="game-name">' + g.name + '</div>' +
+          '<div class="game-sub">' + g.sub + '</div>' +
+        '</div>' +
+        '<span class="game-play">' + FG.icon('play', { size: 15 }) + ' Play</span>' +
+      '</a>';
+    }
+
+    function renderPlay() {
+      var classic = FG.GAMES.filter(function (g) { return g.tag === 'Classic'; });
+      var fresh = FG.GAMES.filter(function (g) { return g.tag !== 'Classic'; });
+
+      document.getElementById('playGroupClassic').innerHTML =
+        '<div class="play-group-label">' + FG.icon('trophy', { size: 16 }) + ' Classic favourites ' +
+          '<span class="play-group-count">' + classic.length + '</span></div>' +
+        '<div class="fg-grid fg-grid-3">' + classic.map(gameCard).join('') + '</div>';
+
+      document.getElementById('playGroupNew').innerHTML =
+        '<div class="play-group-label">' + FG.icon('sparkles', { size: 16 }) + ' Fresh drops ' +
+          '<span class="play-group-count">' + fresh.length + '</span></div>' +
+        '<div class="fg-grid fg-grid-3">' + fresh.map(gameCard).join('') + '</div>';
+    }
+
+    /* ───────────────────────── tab switching ───────────────────────── */
+    function switchTab(which) {
+      var isLearn = which === 'learn';
+      document.getElementById('panel-learn').hidden = !isLearn;
+      document.getElementById('panel-play').hidden = isLearn;
+      var tl = document.getElementById('tab-learn'), tp = document.getElementById('tab-play');
+      tl.classList.toggle('active', isLearn);
+      tp.classList.toggle('active', !isLearn);
+      tl.setAttribute('aria-selected', isLearn ? 'true' : 'false');
+      tp.setAttribute('aria-selected', isLearn ? 'false' : 'true');
+      if (FG.revealInit) FG.revealInit();
+    }
+    window.switchTab = switchTab;
+
+    /* ───────────────────────── init ───────────────────────── */
+    document.getElementById('heroEyebrow').innerHTML = FG.icon('cap', { size: 15 }) + ' FinGarage Learn';
+    document.getElementById('playEyebrow').innerHTML = FG.icon('gamepad', { size: 15 }) + ' Learn by doing';
+    document.getElementById('tab-learn').innerHTML = FG.icon('book', { size: 16 }) + ' Learn';
+    document.getElementById('tab-play').innerHTML = FG.icon('gamepad', { size: 16 }) + ' Play &amp; Practice';
+    renderHeader();
+    renderLadder();
+    renderGlossary('');
+    renderPlay();
+    if (FG.revealInit) FG.revealInit();
+  </script>
+</body>
+</html>

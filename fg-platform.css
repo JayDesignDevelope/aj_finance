@@ -256,6 +256,15 @@ body.fg-page * { box-sizing: border-box; }
 @media (max-width: 920px) { .fg-grid-4 { grid-template-columns: repeat(2, 1fr); } .fg-grid-3 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .fg-grid-2, .fg-grid-3, .fg-grid-4 { grid-template-columns: 1fr; } .fg-section { padding: 56px 0; } }
 
+/* professional icons (FG.icon) */
+.fg-ic { display: inline-block; vertical-align: middle; flex: none; }
+.fgn-chip-flame { display: inline-flex; align-items: center; gap: 4px; }
+.fgn-avatar { color: var(--fg-ink); display: inline-grid; place-items: center; }
+.fg-badge-icon .fg-ic { color: var(--fg-green-d); }
+.fg-journey-ico .fg-ic, .fg-level-badge .fg-ic { color: inherit; }
+/* when an icon sits inside a colored pill/level badge it inherits white text */
+.fg-level-badge { color: #fff; }
+
 /* small helper for reveal-on-load (no GSAP dependency) */
 .fg-reveal { opacity: 0; transform: translateY(16px); }
 .fg-reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }

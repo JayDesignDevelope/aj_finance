@@ -101,10 +101,10 @@
     <section class="fg-section-sm">
       <div class="fg-wrap">
         <div class="fg-center">
-          <span class="fg-eyebrow">📈 Portfolio Simulator</span>
+          <span class="fg-eyebrow" style="display:inline-flex;align-items:center;gap:6px"><span class="h3ic" data-ic="trending-up" data-sz="16"></span>Portfolio Simulator</span>
           <h1 class="fg-h1">Practice investing, <span class="fg-grad-text">risk-free</span></h1>
           <div class="si-banner fg-mt">
-            <span class="ic">🎁</span>
+            <span class="ic" id="bannerIc" style="display:inline-flex;align-items:center;color:var(--fg-green-d)"></span>
             <p>Every student gets <b>₹1,00,000 virtual money</b> to practice investing.</p>
           </div>
         </div>
@@ -170,7 +170,7 @@
           </table>
         </div>
         <div class="fg-center fg-mt">
-          <button class="fg-btn fg-btn-ghost" onclick="resetPortfolio()">↺ Reset portfolio</button>
+          <button class="fg-btn fg-btn-ghost" id="resetBtn" onclick="resetPortfolio()">Reset portfolio</button>
         </div>
       </div>
     </section>
@@ -228,14 +228,30 @@
   <script>
     FG.mountChrome('invest');
 
+    // Fill static icon placeholders + standalone icons
+    Array.prototype.forEach.call(document.querySelectorAll('.h3ic'), function (sp) {
+      sp.style.display = 'inline-flex';
+      sp.style.alignItems = 'center';
+      sp.innerHTML = FG.icon(sp.getAttribute('data-ic'), { size: +(sp.getAttribute('data-sz') || 20) });
+    });
+    document.getElementById('bannerIc').innerHTML = FG.icon('gift', { size: 26 });
+    (function () {
+      var rb = document.getElementById('resetBtn');
+      rb.style.display = 'inline-flex';
+      rb.style.alignItems = 'center';
+      rb.style.gap = '8px';
+      rb.innerHTML = FG.icon('refresh', { size: 16 }) + ' Reset portfolio';
+    })();
+
     /* ───────────── leaderboard peers (you slot in by virtual returns) ───────────── */
+    var PEER_AV = FG.icon('user', { size: 18 });
     var PEERS = [
-      { name: 'Diya Mehta',    av: '👩‍🎓', ret: 14.8 },
-      { name: 'Kabir Rao',     av: '🧑‍🎓', ret: 11.2 },
-      { name: 'Ananya Iyer',   av: '👩‍🎓', ret: 8.6 },
-      { name: 'Rohan Gupta',   av: '🧑‍🎓', ret: 5.1 },
-      { name: 'Saanvi Nair',   av: '👩‍🎓', ret: 2.4 },
-      { name: 'Vihaan Joshi',  av: '🧑‍🎓', ret: -1.3 }
+      { name: 'Diya Mehta',    av: PEER_AV, ret: 14.8 },
+      { name: 'Kabir Rao',     av: PEER_AV, ret: 11.2 },
+      { name: 'Ananya Iyer',   av: PEER_AV, ret: 8.6 },
+      { name: 'Rohan Gupta',   av: PEER_AV, ret: 5.1 },
+      { name: 'Saanvi Nair',   av: PEER_AV, ret: 2.4 },
+      { name: 'Vihaan Joshi',  av: PEER_AV, ret: -1.3 }
     ];
 
     /* ───────────── stat tiles ───────────── */
@@ -415,13 +431,13 @@
     function doBuy(id) {
       var rupees = readAmt(id);
       var a = FG.assetById(id);
-      if (rupees <= 0) { FG.toast('Enter an amount first 🙂'); return; }
+      if (rupees <= 0) { FG.toast('Enter an amount first'); return; }
       if (rupees > FG.state.portfolio.cash) {
         FG.toast('Not enough cash — you have ' + FG.fmtINR(FG.state.portfolio.cash));
         return;
       }
       if (FG.portfolio.buy(id, rupees)) {
-        FG.toast('Bought ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset') + ' 📈');
+        FG.toast('Bought ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset'));
         setAmt(id, '');
         renderAll();
       }
@@ -431,9 +447,9 @@
       var a = FG.assetById(id);
       var h = FG.state.portfolio.holdings.filter(function (x) { return x.assetId === id; })[0];
       if (!h) { FG.toast("You don't hold " + (a ? a.name : 'this asset') + ' yet'); return; }
-      if (rupees <= 0) { FG.toast('Enter an amount to sell 🙂'); return; }
+      if (rupees <= 0) { FG.toast('Enter an amount to sell'); return; }
       if (FG.portfolio.sell(id, rupees)) {
-        FG.toast('Sold ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset') + ' 💸');
+        FG.toast('Sold ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset'));
         setAmt(id, '');
         renderAll();
       }
@@ -470,7 +486,7 @@
     function renderLeaderboard() {
       var el = document.getElementById('leaderboard');
       if (!el) return;
-      var me = { name: (FG.state.user.name || 'You') + ' (You)', av: FG.state.user.avatar || '🧑‍🎓', ret: FG.portfolio.returnsPct(), me: true };
+      var me = { name: (FG.state.user.name || 'You') + ' (You)', av: PEER_AV, ret: FG.portfolio.returnsPct(), me: true };
       var rows = PEERS.slice();
       rows.push(me);
       rows.sort(function (a, b) { return b.ret - a.ret; });
@@ -492,7 +508,7 @@
       FG.state.portfolio.sip = { active: true, amount: 1000, approvedByParent: false, months: 0 };
       FG.save();
       FG.learning.award('sip-starter');
-      FG.toast('Sent to your parent for approval 📨');
+      FG.toast('Sent to your parent for approval');
       renderSipStatus();
     }
     function renderSipStatus() {
@@ -500,9 +516,9 @@
       if (!el) return;
       var sip = FG.state.portfolio.sip || {};
       if (sip.active && sip.approvedByParent) {
-        el.innerHTML = '<span class="si-sip-status approved">✅ Approved — ₹' + sip.amount + '/month SIP active</span>';
+        el.innerHTML = '<span class="si-sip-status approved">' + FG.icon('check-circle', { size: 15 }) + ' Approved — ₹' + sip.amount + '/month SIP active</span>';
       } else if (sip.active) {
-        el.innerHTML = '<span class="si-sip-status pending">⏳ Pending parent approval</span>';
+        el.innerHTML = '<span class="si-sip-status pending">' + FG.icon('hourglass', { size: 15 }) + ' Pending parent approval</span>';
       } else {
         el.innerHTML = '<span class="si-sip-status none">No SIP requested yet</span>';
       }
@@ -513,7 +529,7 @@
       FG.state.portfolio.cash = FG.state.portfolio.startValue;
       FG.state.portfolio.holdings = [];
       FG.save();
-      FG.toast('Portfolio reset to ₹1,00,000 ✨');
+      FG.toast('Portfolio reset to ₹1,00,000');
       renderAll();
     }
 

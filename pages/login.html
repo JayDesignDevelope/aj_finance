@@ -34,7 +34,7 @@
       <div class="fg-wrap">
         <div class="lg-shell fg-reveal">
           <div class="fg-center">
-            <span class="lg-demo-note">🔓 Demo account — no real authentication</span>
+            <span class="lg-demo-note"><span class="fg-ic" data-ic="lock-open" data-sz="15"></span> Demo account — no real authentication</span>
             <h1 class="fg-h1" id="lgHeading">Welcome to FinGarage</h1>
           </div>
           <div id="lgBody"></div>
@@ -49,6 +49,11 @@
   <script src="../fg-app.js"></script>
   <script>
     FG.mountChrome('');
+
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
 
     var body = document.getElementById('lgBody');
     var heading = document.getElementById('lgHeading');
@@ -80,9 +85,9 @@
       body.innerHTML =
         '<p class="fg-lead fg-center" style="margin:0 auto 24px">Choose how you want to experience FinGarage. You can switch any time.</p>' +
         '<div class="lg-roles">' +
-          roleCard('student', '🧑‍🎓', 'Student', 'Learn, play and invest virtually') +
-          roleCard('parent', '👨‍👩‍👧', 'Parent', 'Track and approve your child') +
-          roleCard('school', '🏫', 'School', 'Run a financial-literacy program') +
+          roleCard('student', 'cap', 'Student', 'Learn, play and invest virtually') +
+          roleCard('parent', 'users', 'Parent', 'Track and approve your child') +
+          roleCard('school', 'building', 'School', 'Run a financial-literacy program') +
         '</div>' +
         '<div class="fg-card" style="margin-top:18px">' +
           '<div class="lg-field"><label for="lgName">Your name (optional)</label>' +
@@ -107,14 +112,14 @@
       document.getElementById('lgContinue').addEventListener('click', function () {
         var nameVal = (document.getElementById('lgName').value || '').trim();
         FG.auth.login(selected, nameVal || null);
-        FG.toast('Welcome to FinGarage! 🎉');
+        FG.toast('Welcome to FinGarage!');
         window.location.href = dashFor(selected);
       });
     }
 
     function roleCard(role, ico, title, desc) {
       return '<div class="fg-card lg-role" data-role="' + role + '" role="button" tabindex="0" aria-label="Select role ' + title + '">' +
-        '<div class="lg-role-ico">' + ico + '</div>' +
+        '<div class="lg-role-ico">' + FG.icon(ico, { size: 34 }) + '</div>' +
         '<h3 class="fg-h3">' + title + '</h3>' +
         '<p>' + desc + '</p>' +
       '</div>';

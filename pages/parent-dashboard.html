@@ -26,7 +26,7 @@
     .fg-plan h2 { color:#fff; margin:0 0 8px; }
     .fg-plan .fg-meta { color:rgba(255,255,255,.7); }
     .fg-plan-status { display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin:18px 0; }
-    .fg-pill { font-size:13px; font-weight:800; padding:8px 16px; border-radius:999px; }
+    .fg-pill { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:800; padding:8px 16px; border-radius:999px; }
     .fg-pill.on { background:rgba(0,208,156,.18); color:#00e6ad; }
     .fg-pill.off { background:rgba(245,166,35,.18); color:#f5a623; }
     .fg-note { background:var(--fg-bg-2); border:1px solid var(--fg-line); border-left:4px solid var(--fg-amber); border-radius:14px; padding:16px 18px; font-size:13px; color:var(--fg-muted); line-height:1.6; }
@@ -45,7 +45,7 @@
             <h1 class="fg-h1" style="margin:4px 0 6px" id="hiTitle"></h1>
             <p class="fg-lead" style="font-size:15px;margin:0" id="hiSub"></p>
           </div>
-          <span class="fg-demo-chip" title="Showing seeded demo data">🧪 Demo data</span>
+          <span class="fg-demo-chip" title="Showing seeded demo data" id="demoChip">Demo data</span>
         </div>
       </div>
     </section>
@@ -56,7 +56,7 @@
 
           <!-- Child Learning Progress -->
           <div class="fg-widget">
-            <h3>🎓 Child Learning Progress</h3>
+            <h3><span class="h3ic" data-ic="cap"></span>Child Learning Progress</h3>
             <div style="display:flex;align-items:center;gap:14px">
               <div class="fg-level-badge" id="lvlBadge">L3</div>
               <div>
@@ -70,7 +70,7 @@
 
           <!-- Financial Discipline Score -->
           <div class="fg-widget">
-            <h3>🎯 Financial Discipline Score</h3>
+            <h3><span class="h3ic" data-ic="target"></span>Financial Discipline Score</h3>
             <div class="fg-ring-wrap">
               <div class="fg-ring" id="discRing"></div>
               <div>
@@ -82,7 +82,7 @@
 
           <!-- Quiz Performance -->
           <div class="fg-widget">
-            <h3>🧠 Quiz Performance</h3>
+            <h3><span class="h3ic" data-ic="brain"></span>Quiz Performance</h3>
             <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
               <div class="fg-big" id="quizPct"></div>
               <div class="fg-meta" id="quizCount"></div>
@@ -93,7 +93,7 @@
 
           <!-- Investment Status & Portfolio -->
           <div class="fg-widget">
-            <h3>💹 Investment Status &amp; Portfolio <span class="fg-ro">Read-only</span></h3>
+            <h3><span class="h3ic" data-ic="trending-up"></span>Investment Status &amp; Portfolio <span class="fg-ro">Read-only</span></h3>
             <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
               <div class="fg-big" id="pfValue"></div>
               <div style="font-weight:800;font-size:15px" id="pfReturn"></div>
@@ -109,7 +109,7 @@
     <!-- Monthly Parent Report -->
     <section class="fg-section-sm">
       <div class="fg-wrap fg-reveal">
-        <h2 class="fg-h2" style="margin-bottom:16px">🗓️ Monthly Parent Report</h2>
+        <h2 class="fg-h2" style="margin-bottom:16px;display:flex;align-items:center;gap:10px"><span class="h3ic" data-ic="calendar" data-sz="26"></span>Monthly Parent Report</h2>
         <div class="fg-report" id="report"></div>
       </div>
     </section>
@@ -134,7 +134,7 @@
     <section class="fg-section-sm">
       <div class="fg-wrap fg-reveal">
         <div class="fg-note">
-          <b>⚠️ KYC &amp; Compliance:</b> All learning, scores and portfolios on FinGarage are
+          <b><span id="kycIcon" style="display:inline-flex;vertical-align:middle;color:var(--fg-amber)"></span> KYC &amp; Compliance:</b> All learning, scores and portfolios on FinGarage are
           <b>virtual and educational only — not investment advice.</b> Any real SIP requires
           <b>parent approval and completed KYC</b> through a SEBI-regulated provider before a single
           rupee is invested. You can pause the plan at any time.
@@ -154,12 +154,22 @@
   <script>
     FG.mountChrome('dashboard');
 
+    // Fill static icon placeholders (data-ic = icon name, data-sz = size)
+    Array.prototype.forEach.call(document.querySelectorAll('.h3ic'), function (sp) {
+      sp.style.display = 'inline-flex';
+      sp.style.alignItems = 'center';
+      sp.innerHTML = FG.icon(sp.getAttribute('data-ic'), { size: +(sp.getAttribute('data-sz') || 20) });
+    });
+    document.getElementById('demoChip').innerHTML = FG.icon('flask', { size: 14 }) + ' Demo data';
+    document.getElementById('kycIcon').innerHTML = FG.icon('shield', { size: 15 });
+
     var S = FG.state;
     var L = S.learning;
     var child = S.user.childName || 'your child';
     var childFirst = child.split(' ')[0];
 
-    document.getElementById('hiTitle').innerHTML = "How " + childFirst + " is doing 👨‍👩‍👧";
+    document.getElementById('hiTitle').innerHTML = "How " + childFirst + " is doing " +
+      '<span style="display:inline-flex;vertical-align:middle;color:var(--fg-indigo)">' + FG.icon('users', { size: 28 }) + '</span>';
     document.getElementById('hiSub').textContent =
       child + ' · ' + S.user.grade + ' · Level ' + L.level + ' · ' + L.streak + '-day streak.';
 
@@ -243,7 +253,9 @@
       var sip = S.portfolio.sip;
       var on = !!sip.approvedByParent;
       var pill = document.getElementById('planPill');
-      pill.textContent = on ? '✅ Approved & Active' : '⏸ Paused — awaiting approval';
+      pill.innerHTML = (on
+        ? FG.icon('check-circle', { size: 15 }) + ' Approved &amp; Active'
+        : FG.icon('pause', { size: 15 }) + ' Paused — awaiting approval');
       pill.className = 'fg-pill ' + (on ? 'on' : 'off');
       document.getElementById('planAmt').textContent =
         FG.fmtINR(sip.amount) + '/month · ' + sip.months + ' months in.';

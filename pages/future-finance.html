@@ -42,7 +42,7 @@
     <section class="fg-section-sm">
       <div class="fg-wrap">
         <div class="fg-card fg-reveal">
-          <h3 class="fg-h3">📚 Learning first, products later</h3>
+          <h3 class="fg-h3"><span class="fg-ic" data-ic="book" data-sz="20"></span> Learning first, products later</h3>
           <p style="color:var(--fg-muted);font-size:15px;line-height:1.6;margin:0 0 12px">
             Start with the gamified levels, games and the virtual portfolio. Once a concept clicks — SIPs, mutual funds, term insurance, home loans — these pages explain the real-world version. Think of them as your reference shelf for when school is behind you.
           </p>
@@ -61,9 +61,14 @@
   <script>
     FG.mountChrome('');
 
+    // Hydrate static icon placeholders
+    document.querySelectorAll('.fg-ic').forEach(function (el) {
+      el.innerHTML = FG.icon(el.getAttribute('data-ic'), { size: +el.getAttribute('data-sz') || 24 });
+    });
+
     var CATS = [
       {
-        title: 'Loans', ico: '🏦', color: '#5367ff',
+        title: 'Loans', ico: 'bank', color: '#5367ff',
         links: [
           ['home-loan.html', 'Home Loan'],
           ['personal-loan.html', 'Personal Loan'],
@@ -81,7 +86,7 @@
         ]
       },
       {
-        title: 'Wealth & Investing', ico: '📈', color: '#00d09c',
+        title: 'Wealth & Investing', ico: 'trending-up', color: '#00d09c',
         links: [
           ['mutual-funds.html', 'Mutual Funds'],
           ['sip.html', 'SIP'],
@@ -96,7 +101,7 @@
         ]
       },
       {
-        title: 'Insurance', ico: '🛡️', color: '#f5a623',
+        title: 'Insurance', ico: 'shield', color: '#f5a623',
         links: [
           ['term-insurance.html', 'Term Insurance'],
           ['health-insurance.html', 'Health Insurance'],
@@ -111,7 +116,7 @@
         ]
       },
       {
-        title: 'Planning & Advisory', ico: '🧭', color: '#9b51e0',
+        title: 'Planning & Advisory', ico: 'compass', color: '#9b51e0',
         links: [
           ['tax-planning.html', 'Tax Planning'],
           ['retirement-planning.html', 'Retirement Planning'],
@@ -122,7 +127,7 @@
         ]
       },
       {
-        title: 'Company', ico: '🏢', color: '#eb5b3c',
+        title: 'Company', ico: 'building', color: '#eb5b3c',
         links: [
           ['about.html', 'About'],
           ['blog.html', 'Blog'],
@@ -137,7 +142,7 @@
       }).join('');
       return '<div class="fg-reveal" style="margin-bottom:44px">' +
         '<div class="ff-cat-head">' +
-          '<div class="ff-cat-ico" style="background:' + cat.color + '">' + cat.ico + '</div>' +
+          '<div class="ff-cat-ico" style="background:' + cat.color + '">' + FG.icon(cat.ico, { size: 22 }) + '</div>' +
           '<h2 class="fg-h2">' + cat.title + '</h2>' +
         '</div>' +
         '<div class="ff-links">' + links + '</div>' +

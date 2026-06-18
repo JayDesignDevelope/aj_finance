@@ -56,14 +56,14 @@
   ];
 
   var BADGES = [
-    { id: 'first-step',   icon: '🌱', name: 'First Step',     desc: 'Completed your first module' },
-    { id: 'streak-7',     icon: '🔥', name: '7-Day Streak',   desc: 'Learned 7 days in a row' },
-    { id: 'quiz-ace',     icon: '🎯', name: 'Quiz Ace',       desc: 'Scored 100% on a quiz' },
-    { id: 'saver',        icon: '🐷', name: 'Super Saver',    desc: 'Finished the Smart Saver level' },
-    { id: 'first-trade',  icon: '📈', name: 'First Trade',    desc: 'Made your first virtual investment' },
-    { id: 'diversified',  icon: '🧩', name: 'Diversified',    desc: 'Held 4+ asset types at once' },
-    { id: 'sip-starter',  icon: '🪴', name: 'SIP Starter',    desc: 'Started a parent-approved SIP' },
-    { id: 'founder',      icon: '🚀', name: 'Founder',        desc: 'Reached the Founder Mindset level' }
+    { id: 'first-step',   icon: 'sprout',       name: 'First Step',     desc: 'Completed your first module' },
+    { id: 'streak-7',     icon: 'flame',        name: '7-Day Streak',   desc: 'Learned 7 days in a row' },
+    { id: 'quiz-ace',     icon: 'target',       name: 'Quiz Ace',       desc: 'Scored 100% on a quiz' },
+    { id: 'saver',        icon: 'piggy',        name: 'Super Saver',    desc: 'Finished the Smart Saver level' },
+    { id: 'first-trade',  icon: 'trending-up',  name: 'First Trade',    desc: 'Made your first virtual investment' },
+    { id: 'diversified',  icon: 'puzzle',       name: 'Diversified',    desc: 'Held 4+ asset types at once' },
+    { id: 'sip-starter',  icon: 'plant',        name: 'SIP Starter',    desc: 'Started a parent-approved SIP' },
+    { id: 'founder',      icon: 'rocket',       name: 'Founder',        desc: 'Reached the Founder Mindset level' }
   ];
 
   // Virtual-investing universe for the Portfolio Simulator.
@@ -78,25 +78,105 @@
 
   // Registry powering the Money Games hub. The 4 originals + 7 new games.
   var GAMES = [
-    { id: 'invest',    name: '₹1 Lakh Challenge',   sub: 'Investment Simulator',    icon: '💰', tag: 'Classic', color: '#00d09c' },
-    { id: 'budget',    name: 'Budget Boss',         sub: 'Monthly Budget Game',     icon: '🧾', tag: 'Classic', color: '#5367ff' },
-    { id: 'cibil',     name: 'CIBIL Builder',       sub: 'Credit Score Game',       icon: '📊', tag: 'Classic', color: '#f5a623' },
-    { id: 'sipmagic',  name: 'SIP Magic',           sub: 'Compound Interest Wizard',icon: '✨', tag: 'Classic', color: '#eb5b3c' },
-    { id: 'pocket',    name: 'Pocket Money Challenge', sub: 'Spend, save or invest?', icon: '🪙', tag: 'New', color: '#00d09c' },
-    { id: 'startup',   name: 'Startup Builder',     sub: 'Grow a company',          icon: '🚀', tag: 'New', color: '#9b51e0' },
-    { id: 'stocksim',  name: 'Stock Market Simulator', sub: 'Trade the ticker',     icon: '📈', tag: 'New', color: '#eb5b3c' },
-    { id: 'inflation', name: 'Inflation Challenge', sub: 'Beat rising prices',      icon: '🎈', tag: 'New', color: '#f5a623' },
-    { id: 'goal',      name: 'Goal Planner',        sub: 'Reach your dream',        icon: '🎯', tag: 'New', color: '#5367ff' },
-    { id: 'scam',      name: 'Scam Detection',      sub: 'Spot the fraud',          icon: '🛡️', tag: 'New', color: '#0ea5e9' },
-    { id: 'debt',      name: 'Good Debt vs Bad Debt', sub: 'Sort the loans',        icon: '⚖️', tag: 'New', color: '#00b386' }
+    { id: 'invest',    name: '₹1 Lakh Challenge',   sub: 'Investment Simulator',    icon: 'coins',        tag: 'Classic', color: '#00d09c' },
+    { id: 'budget',    name: 'Budget Boss',         sub: 'Monthly Budget Game',     icon: 'receipt',      tag: 'Classic', color: '#5367ff' },
+    { id: 'cibil',     name: 'CIBIL Builder',       sub: 'Credit Score Game',       icon: 'bar-chart',    tag: 'Classic', color: '#f5a623' },
+    { id: 'sipmagic',  name: 'SIP Magic',           sub: 'Compound Interest Wizard',icon: 'sparkles',     tag: 'Classic', color: '#eb5b3c' },
+    { id: 'pocket',    name: 'Pocket Money Challenge', sub: 'Spend, save or invest?', icon: 'wallet',     tag: 'New', color: '#00d09c' },
+    { id: 'startup',   name: 'Startup Builder',     sub: 'Grow a company',          icon: 'rocket',       tag: 'New', color: '#9b51e0' },
+    { id: 'stocksim',  name: 'Stock Market Simulator', sub: 'Trade the ticker',     icon: 'line-chart',   tag: 'New', color: '#eb5b3c' },
+    { id: 'inflation', name: 'Inflation Challenge', sub: 'Beat rising prices',      icon: 'trending-up',  tag: 'New', color: '#f5a623' },
+    { id: 'goal',      name: 'Goal Planner',        sub: 'Reach your dream',        icon: 'target',       tag: 'New', color: '#5367ff' },
+    { id: 'scam',      name: 'Scam Detection',      sub: 'Spot the fraud',          icon: 'shield',       tag: 'New', color: '#0ea5e9' },
+    { id: 'debt',      name: 'Good Debt vs Bad Debt', sub: 'Sort the loans',        icon: 'scale',        tag: 'New', color: '#00b386' }
   ];
+
+  /* ----------------------------------------------------------- icon system */
+  // Professional inline-SVG line icons (24x24, stroke=currentColor). Use names —
+  // never emoji — across the platform. FG.icon('flame', {size:20}) -> '<svg…>'.
+  var ICONS = {
+    dot:        '<circle cx="12" cy="12" r="3"/>',
+    user:       '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/>',
+    users:      '<circle cx="9" cy="8" r="3"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5.5"/><path d="M17.5 14c2 .5 3.5 2 3.5 5"/>',
+    flame:      '<path d="M12 3c.5 2.5 3.5 3.5 3.5 7a3.5 3.5 0 0 1-7 0c0-1.2.6-2.2 1.5-3 .2 1 .8 1.7 1.5 2 0-2.2-.5-4-1.5-6z"/><path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-9 .5 5-4 5-4 9a3 3 0 0 0 .2 1"/>',
+    target:     '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+    rocket:     '<path d="M9 15c-1.5.5-3 2-3.5 4 2-.5 3.5-2 4-3.5"/><path d="M9 15l-2.5-2.5C8 7 11.5 4 18 4c0 6.5-3 10-8.5 11.5z"/><circle cx="14.5" cy="9" r="1.5"/>',
+    'trending-up':   '<path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/>',
+    'trending-down': '<path d="M3 7l6 6 4-4 8 8"/><path d="M17 17h4v-4"/>',
+    'bar-chart': '<line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="9"/><line x1="3" y1="20" x2="21" y2="20"/>',
+    'line-chart':'<path d="M4 4v16h16"/><path d="M7 14l4-4 3 3 5-6"/>',
+    'chart-pie': '<path d="M21 12a9 9 0 1 1-9-9v9z"/><path d="M12 3a9 9 0 0 1 9 9h-9z"/>',
+    coins:      '<ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 14v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4c0-1.7-2.7-3-6-3"/>',
+    coin:       '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M9.5 9.5h3.5a1.5 1.5 0 0 1 0 3h-2a1.5 1.5 0 0 0 0 3H14"/>',
+    wallet:     '<path d="M3 7a2 2 0 0 1 2-2h12v3"/><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="16.5" cy="13" r="1.3"/>',
+    piggy:      '<path d="M16 7c2.5 0 5 2 5 5 0 1.4-.6 2.6-1.6 3.5L20 19h-3l-.5-1.5a8 8 0 0 1-4 0L12 19H9l-.6-2.2C6 16 4 14 4 11.5 4 9 6.5 7 10 7z"/><path d="M3 11h2"/><circle cx="16.5" cy="11" r=".8"/><path d="M10 7c0-1.7 1.3-3 3-3"/>',
+    receipt:    '<path d="M5 3h14v18l-2.3-1.3L14.4 21 12 19.6 9.6 21l-2.3-1.3L5 21z"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/>',
+    shield:     '<path d="M12 3l8 3v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"/>',
+    'shield-check':'<path d="M12 3l8 3v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
+    scale:      '<path d="M12 3v18"/><path d="M7 21h10"/><path d="M4.5 7h15"/><path d="M7 3l-3 8a3 3 0 0 0 6 0z"/><path d="M17 3l3 8a3 3 0 0 1-6 0z"/><path d="M9 3h6"/>',
+    puzzle:     '<path d="M10 4.5a1.5 1.5 0 0 1 3 0c0 .8.7 1.5 1.5 1.5H17v2.5c0 .8.7 1.5 1.5 1.5a1.5 1.5 0 0 1 0 3c-.8 0-1.5.7-1.5 1.5V18h-2.5c-.8 0-1.5.7-1.5 1.5a1.5 1.5 0 0 1-3 0c0-.8-.7-1.5-1.5-1.5H6v-2.5c0-.8-.7-1.5-1.5-1.5a1.5 1.5 0 0 1 0-3c.8 0 1.5-.7 1.5-1.5V6h2.5c.8 0 1.5-.7 1.5-1.5z"/>',
+    sprout:     '<path d="M12 21v-9"/><path d="M12 12C12 8 9 6 5 6c0 4 3 6 7 6z"/><path d="M12 13c0-3.5 3-5.5 7-5.5 0 3.5-3 5.5-7 5.5z"/>',
+    plant:      '<path d="M12 22v-9"/><path d="M9 22h6"/><path d="M12 13c-1-4-5-5-8-5 .5 4 3.5 6 8 6z"/><path d="M14.5 8c1.5-.3 3-1.5 3.3-3.5-2 .2-3 1.3-3.3 3.5z"/>',
+    trophy:     '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 5H5a3 3 0 0 0 3 3"/><path d="M16 5h3a3 3 0 0 1-3 3"/><path d="M10 13.5h4l1 4.5H9z"/><path d="M7.5 21h9"/>',
+    medal:      '<circle cx="12" cy="14.5" r="5.5"/><path d="M8.5 3l3.5 5 3.5-5"/><path d="M12 12.5v4M10 14.5h4"/>',
+    star:       '<path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 17.1 6.7 19.6l1-5.8L3.5 9.7l5.9-.9z"/>',
+    check:      '<path d="M5 12.5l4.5 4.5L19 7"/>',
+    'check-circle':'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-5"/>',
+    book:       '<path d="M5 4h12a1 1 0 0 1 1 1v15H7a2 2 0 0 0-2 2z"/><path d="M18 16H7a2 2 0 0 0-2 2"/>',
+    cap:        '<path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4.5c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5V11"/><path d="M21 9v5"/>',
+    gamepad:    '<rect x="2.5" y="7.5" width="19" height="9" rx="4.5"/><path d="M7.5 11v3M6 12.5h3"/><circle cx="16" cy="11.5" r="1"/><circle cx="18" cy="14" r="1"/>',
+    briefcase:  '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12.5h18"/>',
+    bulb:       '<path d="M9.5 18h5"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.8.7 1.3 1.5 1.3 2.4h5c0-.9.5-1.7 1.3-2.4A6 6 0 0 0 12 3z"/>',
+    gift:       '<rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12.5h18"/><path d="M12 8v13"/><path d="M12 8C10.5 8 8 7.5 8 5.5S11 5 12 8c1-3 4-2.5 4-.5S13.5 8 12 8z"/>',
+    sparkles:   '<path d="M12 3l1.4 4.1L18 8.5l-4.6 1.4L12 14l-1.4-4.1L6 8.5l4.6-1.4z"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z"/>',
+    building:   '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/><path d="M10 21v-3h4v3"/>',
+    bank:       '<path d="M3 9l9-5 9 5"/><path d="M4 9.5h16"/><path d="M6 10v7M10 10v7M14 10v7M18 10v7"/><path d="M3 20.5h18"/>',
+    compass:    '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z"/>',
+    map:        '<path d="M9 4L3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/>',
+    brain:      '<path d="M12 5a2.5 2.5 0 0 0-5 .5A2.5 2.5 0 0 0 5 9a2.5 2.5 0 0 0 1 4.5A2.5 2.5 0 0 0 8 18a2.5 2.5 0 0 0 4 .5z"/><path d="M12 5a2.5 2.5 0 0 1 5 .5A2.5 2.5 0 0 1 19 9a2.5 2.5 0 0 1-1 4.5A2.5 2.5 0 0 1 16 18a2.5 2.5 0 0 1-4 .5z"/>',
+    calendar:   '<rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+    hourglass:  '<path d="M6 3h12M6 21h12"/><path d="M6.5 3c0 4 5.5 5.5 5.5 9s-5.5 5-5.5 9"/><path d="M17.5 3c0 4-5.5 5.5-5.5 9s5.5 5 5.5 9"/>',
+    pause:      '<rect x="7" y="5" width="3.2" height="14" rx="1"/><rect x="13.8" y="5" width="3.2" height="14" rx="1"/>',
+    play:       '<path d="M7 5l12 7-12 7z"/>',
+    refresh:    '<path d="M4 11a8 8 0 0 1 14-4.5L20.5 9"/><path d="M20.5 4v5h-5"/><path d="M20 13a8 8 0 0 1-14 4.5L3.5 15"/><path d="M3.5 20v-5h5"/>',
+    x:          '<path d="M6 6l12 12M18 6L6 18"/>',
+    'x-circle': '<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+    'thumbs-up':'<path d="M7 11v8H4v-8z"/><path d="M7 11l4-7c1.5 0 2.5 1 2.3 2.6L13 9h5a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 16.6 19H7"/>',
+    'thumbs-down':'<path d="M17 13V5h3v8z"/><path d="M17 13l-4 7c-1.5 0-2.5-1-2.3-2.6L11 15H6a2 2 0 0 1-2-2.4l1.4-6A2 2 0 0 1 7.4 5H17"/>',
+    flag:       '<path d="M5 21V4"/><path d="M5 4.5h13l-2.2 4 2.2 4H5"/>',
+    'credit-card':'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
+    megaphone:  '<path d="M4 11v2.5l13 5.5V5z"/><path d="M17 8.5a3.5 3.5 0 0 1 0 7"/><path d="M7 14v4.5h3.5"/>',
+    mail:       '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>',
+    heart:      '<path d="M12 21C7 17 4 13.5 4 9.5A4 4 0 0 1 12 8a4 4 0 0 1 8 1.5c0 4-3 7.5-8 11.5z"/>',
+    gem:        '<path d="M6 3h12l3 5-9 13L3 8z"/><path d="M3 8h18M9 3L6 8l6 13 6-13-3-5"/>',
+    zap:        '<path d="M13 3L4 14h7l-1 7 9-11h-7z"/>',
+    pin:        '<path d="M12 21s-6-5.2-6-10A6 6 0 0 1 18 11c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/>',
+    hand:       '<path d="M7 11.5V6a1.5 1.5 0 0 1 3 0v4.5V4a1.5 1.5 0 0 1 3 0v6V5.5a1.5 1.5 0 0 1 3 0V13a6 6 0 0 1-6 6 5 5 0 0 1-5-4l-1-3a1.5 1.5 0 0 1 2.7-1.2z"/>',
+    code:       '<path d="M8.5 8l-4 4 4 4M15.5 8l4 4-4 4M13.5 5l-3 14"/>',
+    palette:    '<path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 2-2s-.5-1.4-.5-2.4S14.6 13 16 13h2a3 3 0 0 0 3-3c0-4-4-7-9-7z"/><circle cx="8" cy="11" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/>',
+    flask:      '<path d="M9 3h6M10 3v6.5l-5 8.5a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-8.5V3"/><path d="M7.5 15h9"/>',
+    'lock-open':'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.8-1.2"/>',
+    activity:   '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+    'arrow-right':'<path d="M5 12h14M13 6l6 6-6 6"/>',
+    route:      '<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a4 4 0 0 0 0-8h-4a4 4 0 0 1 0-8h6"/>',
+    plus:       '<path d="M12 5v14M5 12h14"/>',
+    handshake:  '<path d="M11 6L8 9l-3-1-2 2 4 4 2-2"/><path d="M13 6l3 3 3-1 2 2-4 4-2-2"/><path d="M10 13l2 2 2-2"/>'
+  };
+  function icon(name, opts) {
+    opts = opts || {};
+    var size = opts.size || 24, sw = (opts.stroke != null ? opts.stroke : 2);
+    var inner = ICONS[name] || ICONS.dot;
+    return '<svg class="fg-ic' + (opts.cls ? ' ' + opts.cls : '') + '" width="' + size + '" height="' + size +
+      '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + sw +
+      '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+  }
 
   /* ------------------------------------------------------------- seed state */
 
   function seed() {
     return {
       user: { loggedIn: false, role: 'student', name: 'Aarav Sharma',
-              grade: 'Class 11', avatar: '🧑‍🎓', childName: 'Aarav Sharma' },
+              grade: 'Class 11', avatar: 'user', childName: 'Aarav Sharma' },
       learning: {
         level: 3, xp: 2450, moneyScore: 720, streak: 12,
         lastActive: todayStr(),
@@ -271,15 +351,18 @@
     };
   }
 
+  // The academy is a self-contained sub-site: its Home is the academy landing
+  // (pages/academy.html) and its Learn is the gamified levels (academy-learn.html).
   var NAV = [
-    { id: 'home',     label: 'Home',          to: 'index.html', root: true },
-    { id: 'learn',    label: 'Learn',         to: 'learn.html' },
-    { id: 'games',    label: 'Money Games',   to: 'money-games.html' },
-    { id: 'invest',   label: 'Student Invest',to: 'student-invest.html' },
-    { id: 'parents',  label: 'Parents',       to: 'for-parents.html' },
-    { id: 'schools',  label: 'Schools',       to: 'for-schools.html' },
-    { id: 'startup',  label: 'Startup Club',  to: 'startup-club.html' },
-    { id: 'markets',  label: 'Markets',       to: 'markets.html' }
+    { id: 'home',      label: 'Home',          to: 'academy.html' },
+    { id: 'learn',     label: 'Learn',         to: 'academy-learn.html' },
+    { id: 'games',     label: 'Money Games',   to: 'money-games.html' },
+    { id: 'invest',    label: 'Student Invest',to: 'student-invest.html' },
+    { id: 'parents',   label: 'Parents',       to: 'for-parents.html' },
+    { id: 'schools',   label: 'Schools',       to: 'for-schools.html' },
+    { id: 'startup',   label: 'Startup Club',  to: 'startup-club.html' },
+    { id: 'markets',   label: 'Markets',       to: 'markets.html' },
+    { id: 'dashboard', label: 'Dashboard',     to: 'student-dashboard.html' }
   ];
 
   function href(item, p) { return (item.root ? p.R : p.P) + item.to; }
@@ -299,12 +382,11 @@
     var right;
     if (loggedIn) {
       right =
-        '<a href="' + p.P + dashTo + '" class="fgn-link fgn-dash' + (activeId === 'dashboard' ? ' active' : '') + '">Dashboard</a>' +
-        '<a href="' + p.P + 'learn.html" class="fgn-chip" title="Money Score / Streak">' +
-          '<span class="fgn-chip-flame">🔥 ' + state.learning.streak + '</span>' +
+        '<a href="' + p.P + 'academy-learn.html" class="fgn-chip" title="Money Score / Streak">' +
+          '<span class="fgn-chip-flame">' + icon('flame', { size: 14 }) + state.learning.streak + '</span>' +
           '<span class="fgn-chip-score">' + state.learning.moneyScore + '</span>' +
         '</a>' +
-        '<button class="fgn-avatar" onclick="FG._logout()" title="' + state.user.name + ' — click to log out">' + (state.user.avatar || '🙂') + '</button>';
+        '<button class="fgn-avatar" onclick="FG._logout()" title="' + state.user.name + ' — click to log out">' + icon('user', { size: 18 }) + '</button>';
     } else {
       right =
         '<a href="' + p.P + 'login.html" class="fgn-login">Login</a>' +
@@ -315,7 +397,7 @@
       '<a href="#fg-main" class="fg-skip">Skip to content</a>' +
       '<nav class="fgnav" id="fgnav">' +
         '<div class="fgnav-in">' +
-          '<a href="' + p.R + 'index.html" class="fgn-logo">' +
+          '<a href="' + p.P + 'academy.html" class="fgn-logo">' +
             '<span class="fgn-logo-mark">FG</span><span class="fgn-logo-txt">FinGarage</span>' +
           '</a>' +
           '<div class="fgnav-links" id="fgnavLinks">' + links + '</div>' +
@@ -340,7 +422,7 @@
             '<p class="fgfoot-mission">Learn → Practice → Invest → Compete → Build Wealth</p>' +
           '</div>' +
           '<div class="fgfoot-cols">' +
-            footCol('Learn', [['Learning Levels', p.P + 'learn.html'], ['Money Games', p.P + 'money-games.html'], ['Student Invest', p.P + 'student-invest.html'], ['Markets', p.P + 'markets.html']]) +
+            footCol('Learn', [['Learning Levels', p.P + 'academy-learn.html'], ['Money Games', p.P + 'money-games.html'], ['Student Invest', p.P + 'student-invest.html'], ['Markets', p.P + 'markets.html']]) +
             footCol('For You', [['For Students', p.P + 'for-students.html'], ['For Parents', p.P + 'for-parents.html'], ['For Schools', p.P + 'for-schools.html'], ['Startup Club', p.P + 'startup-club.html']]) +
             footCol('Company', [['About', p.P + 'about.html'], ['Contact', p.P + 'contact.html'], ['Blog', p.P + 'blog.html'], ['Future Finance', p.P + 'future-finance.html']]) +
           '</div>' +
@@ -422,7 +504,7 @@
   window.FG = {
     state: state,
     save: save, reset: reset, load: function () { state = load(); FG.state = state; return state; },
-    LEVELS: LEVELS, BADGES: BADGES, ASSETS: ASSETS, GAMES: GAMES,
+    LEVELS: LEVELS, BADGES: BADGES, ASSETS: ASSETS, GAMES: GAMES, ICONS: ICONS, icon: icon,
     auth: auth, learning: learning, portfolio: portfolio,
     assetById: assetById, priceOf: priceOf,
     fmtINR: fmtINR, fmtShortINR: fmtShortINR, pct: pct, clamp: clamp,
