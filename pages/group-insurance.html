@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Insurance — GMC & GPA for Teams | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs"><button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button><button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button><button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button><button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button><button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button></div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-col"><div class="smp-col-title">PLANNING</div><a href="retirement-planning.html" class="smp-link">Retirement Planning</a><a href="tax-planning.html" class="smp-link">Tax Planning</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">LIFE INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="ulip.html" class="smp-link">ULIP</a><a href="child-plan.html" class="smp-link">Child Plan</a></div><div class="smp-col"><div class="smp-col-title">HEALTH INSURANCE</div><a href="health-insurance.html" class="smp-link">Individual Health</a><a href="family-floater.html" class="smp-link">Family Floater</a><a href="senior-citizen-cover.html" class="smp-link">Senior Citizen Cover</a><a href="critical-illness.html" class="smp-link">Critical Illness</a></div><div class="smp-col"><div class="smp-col-title">GENERAL &amp; GROUP</div><a href="motor-insurance.html" class="smp-link">Motor Insurance</a><a href="home-insurance.html" class="smp-link">Home Insurance</a><a href="group-insurance.html" class="smp-link">Group GMC &amp; GPA</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Sanction letter review free in 4 hours</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more →</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Investment Advisory</a><a href="advisory.html" class="smp-link">Insurance Review</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help? <a href="advisory.html">Book a 45-minute call →</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a>
+        <div class="mm-group-title">Wealth</div><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a>
+        <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div><a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <!-- HERO -->
+    <section class="product-hero insurance-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge insurance-badge">CORPORATE INSURANCE</div>
+                <h1 class="hero-title">Group Medical and Personal Accident<br>Cover for Your Team</h1>
+                <p class="hero-subtitle">Protect your employees with comprehensive Group Mediclaim (GMC) and Group Personal Accident (GPA) insurance. Attract talent, reduce attrition, and fulfil statutory responsibilities — all at group rates 40–60% cheaper than individual policies.</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">₹3L–₹10L</span>
+                        <span class="hero-stat-label">Per employee cover</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">No</span>
+                        <span class="hero-stat-label">Medical check required</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">40–60%</span>
+                        <span class="hero-stat-label">Premium savings vs individual</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="advisory.html" class="btn-primary">Get Group Insurance Quote</a>
+                    <a href="tel:+919876543210" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <span class="hero-card-badge">Sample Group Policy</span>
+                    </div>
+                    <div class="hero-card-body">
+                        <div class="hero-card-row"><span>Team Size</span><strong>50 Employees</strong></div>
+                        <div class="hero-card-row"><span>Sum Insured (GMC)</span><strong>₹5,00,000/employee</strong></div>
+                        <div class="hero-card-row"><span>GPA Cover</span><strong>₹10,00,000/employee</strong></div>
+                        <div class="hero-card-row highlight"><span>Approx. Annual Premium</span><strong>₹8–12 Lakhs</strong></div>
+                        <div class="hero-card-row"><span>Family Cover</span><strong>Available as add-on</strong></div>
+                    </div>
+                    <p style="font-size:11px;color:var(--text-muted,#999);margin-top:8px;">*Premiums vary by industry, age profile, and claims history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GMC vs GPA -->
+    <section style="padding:80px 0;background:var(--bg-secondary,#f7f9fc);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">PRODUCTS</div>
+                <h2 class="section-title">GMC vs GPA — What's the Difference?</h2>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px;">
+                <div style="background:var(--bg-card,#fff);border-radius:20px;padding:32px;border:2px solid var(--primary,#00d09c);">
+                    <div style="font-size:36px;margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div>
+                    <h3 style="font-size:20px;font-weight:800;color:var(--text-primary,#1a1a2e);margin-bottom:8px;">Group Mediclaim (GMC)</h3>
+                    <p style="color:var(--text-secondary,#555577);font-size:14px;margin-bottom:20px;">Health insurance for hospitalisation expenses. Covers employees and optionally their families.</p>
+                    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;">
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Hospitalisation &amp; surgeries</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Pre &amp; post hospitalisation</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Maternity benefit (optional)</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> OPD cover (optional)</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> No medical check-up required</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Cashless at 10,000+ hospitals</li>
+                    </ul>
+                </div>
+                <div style="background:var(--bg-card,#fff);border-radius:20px;padding:32px;border:2px solid var(--border-color,#e5e7eb);">
+                    <div style="font-size:36px;margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                    <h3 style="font-size:20px;font-weight:800;color:var(--text-primary,#1a1a2e);margin-bottom:8px;">Group Personal Accident (GPA)</h3>
+                    <p style="color:var(--text-secondary,#555577);font-size:14px;margin-bottom:20px;">Accidental death and disability cover. Pays lump sum compensation for accidents at work or elsewhere.</p>
+                    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;">
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Accidental death (100% SI)</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Permanent total disability (100%)</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Permanent partial disability</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Temporary total disability</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> Workmen's Compensation compliance</li>
+                        <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-primary,#1a1a2e);"><span style="color:var(--primary,#00d09c);font-weight:700;">✓</span> 24×7 worldwide cover</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section-features" style="padding:80px 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">WHY GROUP INSURANCE</div>
+                <h2 class="section-title">Why Businesses Choose FinGarage for Group Cover</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+                    <h3>40–60% Premium Savings</h3>
+                    <p>Group buying power means significantly lower premiums than individual plans — same or better coverage at a fraction of the cost.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+                    <h3>No Medical Check-Up</h3>
+                    <p>Employees are covered regardless of pre-existing conditions or health status. No individual underwriting — everyone is in.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>‍<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg></div>
+                    <h3>Family Cover Add-On</h3>
+                    <p>Extend GMC cover to employees' spouse, children, and parents — a highly valued employee benefit at marginal cost.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div>
+                    <h3>HR Admin Support</h3>
+                    <p>We handle all policy administration — additions, deletions, endorsements, and claim support throughout the year.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                    <h3>Claims Data & Analytics</h3>
+                    <p>Annual claims reports help HR teams understand utilisation patterns and optimise coverage at renewal time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Statutory Compliance</h3>
+                    <p>GPA helps meet Employees' Compensation Act obligations. We ensure your policy satisfies all relevant labour law requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RELATED -->
+    <section style="padding:60px 0;background:var(--bg-secondary,#f7f9fc);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">EXPLORE MORE</div>
+                <h2 class="section-title">Related Products</h2>
+            </div>
+            <div class="related-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:32px;">
+                <a href="term-insurance.html" class="related-card"><div class="related-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>️</div><h4>Term Insurance</h4><p>Individual life cover</p></a>
+                <a href="health-insurance.html" class="related-card"><div class="related-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></div><h4>Health Insurance</h4><p>Individual health plans</p></a>
+                <a href="critical-illness.html" class="related-card"><div class="related-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>️</div><h4>Critical Illness</h4><p>Lump sum for serious illness</p></a>
+                <a href="motor-insurance.html" class="related-card"><div class="related-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div><h4>Motor Insurance</h4><p>Fleet &amp; vehicle cover</p></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="product-cta insurance-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Get a Group Insurance Quote for Your Team</h2>
+                <p>Tell us your team size and we'll get competitive quotes from top insurers within 24 hours — with full policy analysis included.</p>
+                <div class="cta-actions">
+                    <a href="advisory.html" class="btn-primary btn-large">Request Group Quote</a>
+                    <a href="tel:+919876543210" class="btn-outline btn-large">Call +91 98765 43210</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                    <p class="footer-desc">Professional financial assistance for loans, wealth management, and insurance.</p>
+                    <div class="footer-contact-details" style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;"><p><strong>Email:</strong> support@aarzencapital.in</p><p><strong>Phone:</strong> +91 98765 43210</p><p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad – 500032</p></div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">LAP</a></div>
+                    <div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a></div>
+                    <div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a></div>
+                    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-regulatory"><p>FinGarage is a financial assistance company. Not a direct lender or insurer.</p></div>
+                <div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="../product-pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan | FinGarage</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../product-pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>A</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="logo"><svg width="130" height="24" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link nav-plain">Home</a>
+                    <div class="nav-item dropdown" id="servicesDropdown">
+                        <a href="#" class="nav-link" id="servicesToggle" onclick="toggleServicesMenu(event)">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <div class="smp-panel" id="smpPanel">
+                            <div class="smp-tabs"><button class="smp-tab active" data-tab="loans" onclick="switchSMPTab(this,'loans')">LOANS</button><button class="smp-tab" data-tab="wealth" onclick="switchSMPTab(this,'wealth')">WEALTH</button><button class="smp-tab" data-tab="insurance" onclick="switchSMPTab(this,'insurance')">INSURANCE</button><button class="smp-tab" data-tab="tools" onclick="switchSMPTab(this,'tools')">TOOLS</button><button class="smp-tab" data-tab="advisory" onclick="switchSMPTab(this,'advisory')">ADVISORY</button></div>
+                            <div class="smp-content active" id="smp-loans"><div class="smp-col"><div class="smp-col-title">PERSONAL</div><a href="home-loan.html" class="smp-link">Home Loan</a><a href="personal-loan.html" class="smp-link">Personal Loan</a><a href="top-up-loan.html" class="smp-link">Top-Up Loan</a><a href="auto-loan.html" class="smp-link">Auto Loan</a><a href="education-loan.html" class="smp-link">Education Loan</a></div><div class="smp-col"><div class="smp-col-title">BUSINESS</div><a href="business-loan.html" class="smp-link">Business Loan</a><a href="msme-loan.html" class="smp-link">MSME Loan</a><a href="working-capital.html" class="smp-link">Working Capital</a><a href="lap.html" class="smp-link">Loan Against Property</a><a href="las.html" class="smp-link">Loan Against Securities</a><a href="bridge-financing.html" class="smp-link">Bridge Financing</a><a href="project-funding.html" class="smp-link">Project Funding</a><a href="unsecured-business-loan.html" class="smp-link">Unsecured Business Loan</a></div><div class="smp-col"><div class="smp-col-title">QUICK ACCESS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Check</a><a href="#" class="smp-link" onclick="closeSMP()">CIBIL Score Check</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">Hidden loan charges that cost more than the rate</div><p class="smp-featured-desc">Processing fees, pre-payment penalties &amp; MOD charges explained</p><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-wealth"><div class="smp-col"><div class="smp-col-title">SYSTEMATIC INVESTING</div><a href="mutual-funds.html" class="smp-link">Mutual Funds</a><a href="sip.html" class="smp-link">SIP</a><a href="nps.html" class="smp-link">NPS</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">How ₹5,000/month SIP grows to ₹1 Crore</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-insurance"><div class="smp-col"><div class="smp-col-title">INSURANCE</div><a href="term-insurance.html" class="smp-link">Term Insurance</a><a href="health-insurance.html" class="smp-link">Health Insurance</a><a href="motor-insurance.html" class="smp-link">Motor Insurance</a></div><div class="smp-featured"><div class="smp-featured-label">FEATURED GUIDE</div><div class="smp-featured-title">7 health insurance mistakes Indian families make</div><a href="blog.html" class="smp-featured-link">Read guide →</a></div></div>
+                            <div class="smp-content" id="smp-tools"><div class="smp-col"><div class="smp-col-title">LOAN TOOLS</div><a href="#" class="smp-link" onclick="closeSMP()">EMI Calculator</a><a href="#" class="smp-link" onclick="closeSMP()">Eligibility Checker</a></div><div class="smp-featured"><div class="smp-featured-label">FREE SERVICE</div><div class="smp-featured-title">Got a sanction letter? Get it reviewed free</div><a href="#" class="smp-featured-link" onclick="closeSMP()">Learn more →</a></div></div>
+                            <div class="smp-content" id="smp-advisory"><div class="smp-col"><div class="smp-col-title">OUR SERVICES</div><a href="advisory.html" class="smp-link">Loan Advisory</a><a href="advisory.html" class="smp-link">Financial Planning</a></div><div class="smp-featured smp-featured-cta"><div class="smp-featured-label">FREE ADVISORY</div><div class="smp-featured-title">Book a 45-minute financial review</div><a href="advisory.html" class="smp-featured-btn">Book Free Call</a></div></div>
+                            <div class="smp-footer-bar"><span>Need help choosing? <a href="advisory.html">Book a 45-minute call →</a></span><a href="tel:+919876543210" class="smp-footer-cta">Talk to an Advisor →</a></div>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="nav-link nav-plain">Learn</a><a href="blog.html" class="nav-link nav-plain">Blog</a>
+                    <a href="about.html" class="nav-link nav-plain">About</a>
+                    <a href="contact.html" class="nav-link nav-plain">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="tel:+919876543210" class="nav-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+91 98765 43210</span></a>
+                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <div class="mm-group-title">Loans</div><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a>
+        <div class="mm-group-title">Wealth</div><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a>
+        <div class="mm-group-title">Insurance</div><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a>
+        <div class="mm-group-title">More</div><a href="learn.html">Learn</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+        <a href="../index.html#get-started" class="btn-signup">Talk to an Advisor</a>
+    </div>
+    <div class="smp-overlay" id="smpOverlay" onclick="closeSMP()"></div>
+
+    <section class="product-hero">
+        <div class="product-hero-inner">
+            <div class="product-hero-content">
+                <div class="product-hero-badge">AUTO LOAN</div>
+                <h1 class="product-hero-title">Drive Home Your Dream Car with the Best Auto Loan</h1>
+                <p class="product-hero-subtitle">Get up to 90% on-road funding for new and used cars from India's top banks. Compare rates, get same-day approval, and drive away in your new car faster.</p>
+                <div class="product-hero-stats">
+                    <div><div class="phs-val">8.75%</div><div class="phs-label">From p.a.</div></div>
+                    <div><div class="phs-val">90%</div><div class="phs-label">On-Road Funding</div></div>
+                    <div><div class="phs-val">₹1,598</div><div class="phs-label">EMI per ₹1L</div></div>
+                </div>
+                <div class="product-hero-cta">
+                    <a href="../index.html#get-started" class="btn-primary">Apply Now</a>
+                    <a href="contact.html" class="btn-outline">Talk to Advisor</a>
+                </div>
+            </div>
+            <div class="product-hero-visual">
+                <div class="pvcard-title">Auto Loan Snapshot</div>
+                <div class="pvcard-rows">
+                    <div class="pvcard-row"><span class="pvcard-key">Car Value</span><span class="pvcard-val positive">₹12 Lakhs</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Loan Amount (90%)</span><span class="pvcard-val positive">₹10.8 Lakhs</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Interest Rate</span><span class="pvcard-val positive">8.75% p.a.</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Monthly EMI</span><span class="pvcard-val">₹22,400/mo</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Tenure</span><span class="pvcard-val">5 Years</span></div>
+                    <div class="pvcard-row"><span class="pvcard-key">Approval</span><span class="pvcard-val positive">Same Day</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">KEY FEATURES</div><h2 class="section-title">Why Finance Your Car Through FinGarage?</h2></div></div>
+        <div class="features-grid-pg">
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div><div class="fc-title-pg">New &amp; Used Car Loans</div><p class="fc-desc-pg">We facilitate auto loans for brand new cars as well as certified pre-owned vehicles up to 7 years old. Used car loans are available at competitive rates with quick processing.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="fc-title-pg">Up to 90% On-Road Funding</div><p class="fc-desc-pg">Finance up to 90% of the on-road price including registration, insurance, and accessories. Some banks offer 100% ex-showroom funding for premium salary customers.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="fc-title-pg">Same-Day Approval</div><p class="fc-desc-pg">For pre-approved customers and complete documentation, in-principle approval is issued the same day. Disbursal to the dealer is completed within 24–48 hours.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="fc-title-pg">Flexible Tenure 1–7 Years</div><p class="fc-desc-pg">Choose a repayment tenure between 12 and 84 months based on your monthly budget. Longer tenure reduces EMI; we help you find the tenure that fits your cash flow.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 7v1a3 3 0 006 0V7m6 1a3 3 0 006 0V7M3 7l9-4 9 4M5 21V7m14 14V7"/></svg></div><div class="fc-title-pg">Multiple Lender Options</div><p class="fc-desc-pg">We compare auto loan offers from HDFC Bank, SBI, ICICI, Axis, Kotak, and NBFCs like Mahindra Finance and Shriram Finance to get you the best rate for your profile.</p></div>
+            <div class="feature-card-pg"><div class="fc-icon-pg" style="background:rgba(0,208,156,0.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d09c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div><div class="fc-title-pg">EV Loans at Special Rates</div><p class="fc-desc-pg">Electric vehicle loans are available at specially discounted rates from multiple banks and green financing institutions, making your transition to EV even more affordable.</p></div>
+        </div>
+    </section>
+
+    <section class="eligibility-section-pg">
+        <div class="eligibility-inner-pg">
+            <div>
+                <div class="section-eyebrow">ELIGIBILITY</div>
+                <h2 class="section-title">Who Can Apply?</h2>
+                <p class="section-subtitle">Auto loans are one of the easiest credit products to get approved — available for salaried, self-employed, and business owners with a stable income.</p>
+                <ul class="elig-list">
+                    <li><span class="elig-check">✓</span>Indian resident aged 21–65 years</li>
+                    <li><span class="elig-check">✓</span>Salaried: minimum monthly income ₹15,000; self-employed: ITR of ₹1.5L+ per year</li>
+                    <li><span class="elig-check">✓</span>CIBIL score of 650 or above (700+ for best rates)</li>
+                    <li><span class="elig-check">✓</span>Minimum 1 year of employment / 2 years of business vintage</li>
+                    <li><span class="elig-check">✓</span>Residence stability — at least 1 year at current address</li>
+                    <li><span class="elig-check">✓</span>Valid driving licence (helps but not mandatory for all lenders)</li>
+                </ul>
+            </div>
+            <div>
+                <div style="background:var(--bg-card,#fff);border-radius:16px;padding:28px;border:1.5px solid var(--border-color,#e5e7eb);">
+                    <h4 style="font-size:15px;font-weight:700;color:var(--text-primary,#1a1a2e);margin-bottom:16px;">Documents Required</h4>
+                    <ul class="elig-list">
+                        <li><span class="elig-check">✓</span>Aadhaar Card &amp; PAN Card</li>
+                        <li><span class="elig-check">✓</span>Latest 3 months' salary slips or ITR</li>
+                        <li><span class="elig-check">✓</span>Bank statements (last 3–6 months)</li>
+                        <li><span class="elig-check">✓</span>Car dealer quotation / proforma invoice</li>
+                        <li><span class="elig-check">✓</span>Residence address proof</li>
+                        <li><span class="elig-check">✓</span>Passport-size photograph</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><div class="section-eyebrow">THE PROCESS</div><h2 class="section-title">How It Works</h2></div></div>
+        <div class="steps-grid-pg">
+            <div class="step-card-pg"><div class="step-num-pg">1</div><div class="step-title-pg">Choose Your Car</div><p class="step-desc-pg">Pick your car and get a proforma invoice from the dealer. Share this with us along with your income and personal details for an eligibility assessment.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">2</div><div class="step-title-pg">Compare Loan Offers</div><p class="step-desc-pg">We present auto loan offers from 10+ lenders ranked by interest rate, processing fee, and prepayment flexibility so you can pick the best option.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">3</div><div class="step-title-pg">Submit Documents</div><p class="step-desc-pg">Upload KYC and income documents through our secure portal. We handle bank coordination, dealer liaison, and RC hypothecation formalities.</p></div>
+            <div class="step-card-pg"><div class="step-num-pg">4</div><div class="step-title-pg">Disbursal to Dealer</div><p class="step-desc-pg">Once approved, the loan amount is disbursed directly to the dealer within 24–48 hours. You just drive away in your new car.</p></div>
+        </div>
+    </section>
+
+    <section class="faq-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 48px;padding:0 24px;"><h2 class="section-title">Frequently Asked Questions</h2></div></div>
+        <div class="faq-list-pg">
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I get an auto loan for a used car?</div><div class="faq-a-pg">Yes, used car loans are available for vehicles up to 7 years old. The loan-to-value (LTV) for used cars is typically 70–80% of the valuation. Interest rates for used cars are slightly higher than new car loans (1–3% more) due to higher risk. We partner with lenders who have strong used car loan programs.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">What is the maximum funding I can get on an auto loan?</div><div class="faq-a-pg">For new cars, most banks fund up to 85–90% of the on-road price. Some lenders offer up to 100% ex-showroom price for high-CIBIL salaried applicants. For used cars, funding is typically 70–80% of the assessed market value. The exact amount depends on your income, CIBIL score, and the lender's policies.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Is there any prepayment charge on auto loans?</div><div class="faq-a-pg">Most banks allow foreclosure after 6–12 EMIs with a prepayment charge of 2–5% on the outstanding principal. Some lenders offer zero foreclosure charges after 2 years. We help you select a lender with flexible prepayment terms if early repayment is part of your plan.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Can I get an auto loan with a low CIBIL score?</div><div class="faq-a-pg">Auto loans are secured (the car serves as collateral), so some lenders are more flexible on CIBIL compared to personal loans. Applicants with CIBIL 650–700 can often get approved, though at higher interest rates. We identify the right lender based on your profile to maximise approval chances.</div></div>
+            <div class="faq-item-pg"><div class="faq-q-pg">Does EMI start before I take delivery of the car?</div><div class="faq-a-pg">Typically, your first EMI starts one month after disbursal to the dealer. Since disbursal and delivery usually happen simultaneously, EMIs start from the month after delivery. For pre-delivery disbursal cases, the bank may charge simple interest (pre-EMI) until the first full EMI kicks in.</div></div>
+        </div>
+    </section>
+
+    <section class="product-cta-section">
+        <div class="product-cta-inner">
+            <h2 class="product-cta-title">Ready to Drive Your Dream Car Home?</h2>
+            <p class="product-cta-sub">Get same-day auto loan approval at the best rate. Our advisors compare 10+ lenders and handle all the paperwork — zero stress.</p>
+            <div class="product-cta-btns"><a href="../index.html#get-started" class="btn-cta-white">Apply Now</a><a href="tel:+919876543210" class="btn-cta-outline">Call Us: +91 98765 43210</a></div>
+        </div>
+    </section>
+
+    <section class="related-section-pg">
+        <div class="container"><div class="section-header" style="text-align:center;max-width:600px;margin:0 auto 32px;padding:0 24px;"><h2 class="section-title" style="font-size:22px;">You May Also Be Interested In</h2></div></div>
+        <div class="related-grid-pg">
+            <a href="personal-loan.html" class="related-card-pg"><div class="related-card-name">Personal Loan</div><div class="related-card-desc">Up to ₹40L with zero collateral, disbursed in 24 hours</div></a>
+            <a href="home-loan.html" class="related-card-pg"><div class="related-card-name">Home Loan</div><div class="related-card-desc">Buy your dream home at India's best interest rates</div></a>
+            <a href="top-up-loan.html" class="related-card-pg"><div class="related-card-name">Top-Up Loan</div><div class="related-card-desc">Extra funds on your existing home loan in 3–5 days</div></a>
+            <a href="business-loan.html" class="related-card-pg"><div class="related-card-name">Business Loan</div><div class="related-card-desc">Grow your business with funding up to ₹5 Crores</div></a>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="../index.html" class="footer-logo"><svg width="160" height="32" viewBox="0 0 380 80" fill="none"><text x="0" y="60" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="42" fill="#00d09c">FinGarage</text></svg></a><p class="footer-desc">Professional financial assistance company helping customers access personal loans, business loans, and financial solutions through trusted banking partners.</p><div class="footer-contact-details" style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;line-height:1.8;"><p><strong>Email:</strong> support@aarzencapital.in</p><p><strong>Phone:</strong> +91 98765 43210</p><p><strong>Address:</strong> Plot No. 123, Financial District, Hyderabad, Telangana – 500032</p></div></div><div class="footer-links-grid"><div class="footer-col"><h4>Loans</h4><a href="home-loan.html">Home Loan</a><a href="personal-loan.html">Personal Loan</a><a href="business-loan.html">Business Loan</a><a href="lap.html">Loan Against Property</a><a href="education-loan.html">Education Loan</a></div><div class="footer-col"><h4>Wealth</h4><a href="mutual-funds.html">Mutual Funds</a><a href="sip.html">SIP</a><a href="nps.html">NPS</a><a href="tax-planning.html">Tax Planning</a><a href="goal-planning.html">Goal Planning</a></div><div class="footer-col"><h4>Insurance</h4><a href="term-insurance.html">Term Insurance</a><a href="health-insurance.html">Health Insurance</a><a href="motor-insurance.html">Motor Insurance</a><a href="group-insurance.html">Group Insurance</a></div><div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="advisory.html">Advisory</a></div></div></div><div class="footer-bottom"><div class="footer-regulatory"><p>FinGarage is a financial assistance and loan facilitation company and not a direct lender. Loan approvals are subject to eligibility, documentation, and partner bank/NBFC policies.</p></div><div class="footer-copyright"><p>&copy; 2025 FinGarage. All Rights Reserved.</p></div></div></div></footer>
+    <script src="../product-pages.js"></script>
+</body>
+</html>
