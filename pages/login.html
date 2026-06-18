@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .lg-shell { max-width: 720px; margin: 0 auto; }
+    .lg-demo-note { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--fg-amber); background: rgba(245,166,35,.12); padding: 8px 14px; border-radius: 999px; }
+    .lg-roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+    @media (max-width: 620px) { .lg-roles { grid-template-columns: 1fr; } }
+    .lg-role { text-align: center; cursor: pointer; border: 2px solid var(--fg-line); transition: border-color .15s, transform .15s, box-shadow .15s; }
+    .lg-role:hover { transform: translateY(-3px); box-shadow: var(--fg-shadow); }
+    .lg-role.sel { border-color: var(--fg-green); box-shadow: 0 8px 24px rgba(0,208,156,.2); }
+    .lg-role-ico { font-size: 34px; }
+    .lg-role h3 { margin: 10px 0 4px; }
+    .lg-role p { margin: 0; font-size: 13px; color: var(--fg-muted); }
+    .lg-field { margin-top: 14px; }
+    .lg-field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .lg-field input { width: 100%; font-family: var(--fg-font); font-size: 15px; padding: 12px 14px; border: 1.5px solid var(--fg-line); border-radius: var(--fg-radius-sm); background: var(--fg-bg); }
+    .lg-field input:focus { outline: none; border-color: var(--fg-green); }
+    .lg-deco { opacity: .8; }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+    <section class="fg-section">
+      <div class="fg-wrap">
+        <div class="lg-shell fg-reveal">
+          <div class="fg-center">
+            <span class="lg-demo-note">🔓 Demo account — no real authentication</span>
+            <h1 class="fg-h1" id="lgHeading">Welcome to FinGarage</h1>
+          </div>
+          <div id="lgBody"></div>
+          <p class="fg-center" style="font-size:12.5px;color:var(--fg-muted);margin-top:22px">
+            This is a learning prototype. No passwords are stored or checked — pick a role to explore the demo. Virtual money for learning — not investment advice.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('');
+
+    var body = document.getElementById('lgBody');
+    var heading = document.getElementById('lgHeading');
+
+    function dashFor(role) {
+      return role === 'parent' ? 'parent-dashboard.html'
+           : role === 'school' ? 'for-schools.html'
+           : 'student-dashboard.html';
+    }
+
+    if (FG.auth.isLoggedIn()) {
+      var role = FG.auth.role();
+      var name = (FG.state.user && FG.state.user.name) || 'Friend';
+      heading.textContent = "You're already in";
+      body.innerHTML =
+        '<div class="fg-card fg-center" style="margin-top:8px">' +
+          '<p class="fg-lead fg-center">You\'re logged in as <strong>' + name + '</strong> (' + role + ').</p>' +
+          '<div class="fg-hero-btns" style="justify-content:center">' +
+            '<a href="' + dashFor(role) + '" class="fg-btn fg-btn-primary fg-btn-lg">Go to my dashboard</a>' +
+            '<button id="lgLogout" class="fg-btn fg-btn-ghost fg-btn-lg">Log out</button>' +
+          '</div>' +
+        '</div>';
+      document.getElementById('lgLogout').addEventListener('click', function () {
+        FG.auth.logout();
+        location.reload();
+      });
+    } else {
+      heading.textContent = 'Pick a role to explore';
+      body.innerHTML =
+        '<p class="fg-lead fg-center" style="margin:0 auto 24px">Choose how you want to experience FinGarage. You can switch any time.</p>' +
+        '<div class="lg-roles">' +
+          roleCard('student', '🧑‍🎓', 'Student', 'Learn, play and invest virtually') +
+          roleCard('parent', '👨‍👩‍👧', 'Parent', 'Track and approve your child') +
+          roleCard('school', '🏫', 'School', 'Run a financial-literacy program') +
+        '</div>' +
+        '<div class="fg-card" style="margin-top:18px">' +
+          '<div class="lg-field"><label for="lgName">Your name (optional)</label>' +
+            '<input id="lgName" type="text" placeholder="e.g. Aarav Sharma" autocomplete="name"></div>' +
+          '<div class="lg-field lg-deco"><label for="lgEmail">Email</label>' +
+            '<input id="lgEmail" type="email" placeholder="demo@fingarage.in" autocomplete="off"></div>' +
+          '<div class="lg-field lg-deco"><label for="lgPass">Password</label>' +
+            '<input id="lgPass" type="password" placeholder="••••••••" autocomplete="off"></div>' +
+          '<button id="lgContinue" class="fg-btn fg-btn-primary fg-btn-block fg-btn-lg" style="margin-top:18px">Continue</button>' +
+        '</div>';
+
+      var selected = 'student';
+      var cards = body.querySelectorAll('.lg-role');
+      function paint() {
+        cards.forEach(function (c) { c.classList.toggle('sel', c.getAttribute('data-role') === selected); });
+      }
+      cards.forEach(function (c) {
+        c.addEventListener('click', function () { selected = c.getAttribute('data-role'); paint(); });
+      });
+      paint();
+
+      document.getElementById('lgContinue').addEventListener('click', function () {
+        var nameVal = (document.getElementById('lgName').value || '').trim();
+        FG.auth.login(selected, nameVal || null);
+        FG.toast('Welcome to FinGarage! 🎉');
+        window.location.href = dashFor(selected);
+      });
+    }
+
+    function roleCard(role, ico, title, desc) {
+      return '<div class="fg-card lg-role" data-role="' + role + '" role="button" tabindex="0" aria-label="Select role ' + title + '">' +
+        '<div class="lg-role-ico">' + ico + '</div>' +
+        '<h3 class="fg-h3">' + title + '</h3>' +
+        '<p>' + desc + '</p>' +
+      '</div>';
+    }
+
+    // keyboard accessibility for role cards
+    body.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('lg-role')) {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
+  </script>
+</body>
+</html>

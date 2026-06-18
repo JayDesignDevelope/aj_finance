@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parent Dashboard | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .fg-demo-chip { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:var(--fg-muted); background:var(--fg-bg-2); border:1px solid var(--fg-line); border-radius:999px; padding:5px 12px; }
+    .fg-dash-head { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+    .fg-dash-hi { font-size:13px; font-weight:700; color:var(--fg-muted); text-transform:uppercase; letter-spacing:.05em; }
+    .fg-widget { background:#fff; border:1px solid var(--fg-line); border-radius:var(--fg-radius); padding:22px; }
+    .fg-widget h3 { font-size:15px; font-weight:800; margin:0 0 14px; display:flex; align-items:center; gap:8px; }
+    .fg-meta { font-size:13px; color:var(--fg-muted); line-height:1.5; }
+    .fg-ring-wrap { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .fg-big { font-size:30px; font-weight:800; letter-spacing:-.02em; }
+    .fg-ro { font-size:11px; font-weight:700; color:var(--fg-muted); background:var(--fg-bg-2); border-radius:999px; padding:3px 9px; }
+    .fg-report { background:linear-gradient(150deg,#eef2fb,#f0fdf8); border:1px solid var(--fg-line); border-radius:var(--fg-radius); padding:24px; line-height:1.7; font-size:15px; }
+    .fg-report b { color:var(--fg-green-d); }
+    .fg-plan { background:var(--fg-ink); color:#fff; border-radius:var(--fg-radius); padding:28px; }
+    .fg-plan h2 { color:#fff; margin:0 0 8px; }
+    .fg-plan .fg-meta { color:rgba(255,255,255,.7); }
+    .fg-plan-status { display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin:18px 0; }
+    .fg-pill { font-size:13px; font-weight:800; padding:8px 16px; border-radius:999px; }
+    .fg-pill.on { background:rgba(0,208,156,.18); color:#00e6ad; }
+    .fg-pill.off { background:rgba(245,166,35,.18); color:#f5a623; }
+    .fg-note { background:var(--fg-bg-2); border:1px solid var(--fg-line); border-left:4px solid var(--fg-amber); border-radius:14px; padding:16px 18px; font-size:13px; color:var(--fg-muted); line-height:1.6; }
+    .fg-note b { color:var(--fg-ink); }
+    .fg-payoff { font-size:24px; font-weight:800; letter-spacing:-.02em; }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-dash-head fg-reveal">
+          <div>
+            <div class="fg-dash-hi">Parent Dashboard</div>
+            <h1 class="fg-h1" style="margin:4px 0 6px" id="hiTitle"></h1>
+            <p class="fg-lead" style="font-size:15px;margin:0" id="hiSub"></p>
+          </div>
+          <span class="fg-demo-chip" title="Showing seeded demo data">🧪 Demo data</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm" style="padding-top:0">
+      <div class="fg-wrap">
+        <div class="fg-grid fg-grid-2 fg-reveal">
+
+          <!-- Child Learning Progress -->
+          <div class="fg-widget">
+            <h3>🎓 Child Learning Progress</h3>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div class="fg-level-badge" id="lvlBadge">L3</div>
+              <div>
+                <div class="fg-level-grade" id="lvlGrade"></div>
+                <div style="font-size:18px;font-weight:800" id="lvlName"></div>
+              </div>
+            </div>
+            <div class="fg-progress" style="margin-top:16px"><span id="lvlBar"></span></div>
+            <p class="fg-meta" style="margin-top:10px" id="lvlSub"></p>
+          </div>
+
+          <!-- Financial Discipline Score -->
+          <div class="fg-widget">
+            <h3>🎯 Financial Discipline Score</h3>
+            <div class="fg-ring-wrap">
+              <div class="fg-ring" id="discRing"></div>
+              <div>
+                <div class="fg-big" id="discLabel"></div>
+                <p class="fg-meta" id="discMeta"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Performance -->
+          <div class="fg-widget">
+            <h3>🧠 Quiz Performance</h3>
+            <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+              <div class="fg-big" id="quizPct"></div>
+              <div class="fg-meta" id="quizCount"></div>
+            </div>
+            <div class="fg-progress indigo" style="margin-top:14px"><span id="quizBar"></span></div>
+            <p class="fg-meta" style="margin-top:10px">Accuracy across all quizzes taken so far.</p>
+          </div>
+
+          <!-- Investment Status & Portfolio -->
+          <div class="fg-widget">
+            <h3>💹 Investment Status &amp; Portfolio <span class="fg-ro">Read-only</span></h3>
+            <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+              <div class="fg-big" id="pfValue"></div>
+              <div style="font-weight:800;font-size:15px" id="pfReturn"></div>
+            </div>
+            <p class="fg-meta" style="margin-top:8px" id="pfSub"></p>
+            <p class="fg-meta" style="margin-top:6px" id="sipLine"></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Monthly Parent Report -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-reveal">
+        <h2 class="fg-h2" style="margin-bottom:16px">🗓️ Monthly Parent Report</h2>
+        <div class="fg-report" id="report"></div>
+      </div>
+    </section>
+
+    <!-- Parent Approved Wealth Plan -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-reveal">
+        <div class="fg-plan">
+          <span class="fg-eyebrow" style="color:#00e6ad">Compliance control</span>
+          <h2 class="fg-h2">Parent Approved Student Wealth Plan</h2>
+          <p class="fg-meta">A guided monthly SIP for your child. Nothing real moves without your approval — you are always in control.</p>
+          <div class="fg-plan-status">
+            <span class="fg-pill" id="planPill"></span>
+            <span class="fg-meta" id="planAmt"></span>
+          </div>
+          <button class="fg-btn fg-btn-primary fg-btn-lg" id="planToggle"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- KYC / Compliance note -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-reveal">
+        <div class="fg-note">
+          <b>⚠️ KYC &amp; Compliance:</b> All learning, scores and portfolios on FinGarage are
+          <b>virtual and educational only — not investment advice.</b> Any real SIP requires
+          <b>parent approval and completed KYC</b> through a SEBI-regulated provider before a single
+          rupee is invested. You can pause the plan at any time.
+        </div>
+      </div>
+    </section>
+
+    <!-- Payoff -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-center fg-reveal">
+        <p class="fg-payoff fg-grad-text">"My child is becoming financially smart."</p>
+      </div>
+    </section>
+
+  </main>
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('dashboard');
+
+    var S = FG.state;
+    var L = S.learning;
+    var child = S.user.childName || 'your child';
+    var childFirst = child.split(' ')[0];
+
+    document.getElementById('hiTitle').innerHTML = "How " + childFirst + " is doing 👨‍👩‍👧";
+    document.getElementById('hiSub').textContent =
+      child + ' · ' + S.user.grade + ' · Level ' + L.level + ' · ' + L.streak + '-day streak.';
+
+    // ---- Child Learning Progress ----
+    (function () {
+      var lvl = FG.learning.levelObj();
+      var pct = FG.learning.levelPctFor(lvl.id);
+      var b = document.getElementById('lvlBadge');
+      b.textContent = 'L' + lvl.id; b.style.background = lvl.color;
+      document.getElementById('lvlGrade').textContent = lvl.grade;
+      document.getElementById('lvlName').textContent = lvl.name;
+      document.getElementById('lvlBar').style.width = pct + '%';
+      document.getElementById('lvlSub').textContent =
+        pct + '% of Level ' + lvl.id + ' complete — ' + lvl.tagline;
+    })();
+
+    // ---- Financial Discipline Score (derived 0-100 from moneyScore + streak) ----
+    (function () {
+      var disc = Math.round(FG.clamp((L.moneyScore / 1000) * 70 + FG.clamp(L.streak, 0, 30) / 30 * 30, 0, 100));
+      var label = disc >= 80 ? 'Excellent' : disc >= 60 ? 'Good' : 'Building';
+      var col = disc >= 80 ? '#00d09c' : disc >= 60 ? '#5367ff' : '#f5a623';
+      var r = 56, c = 2 * Math.PI * r, dash = c * (disc / 100);
+      document.getElementById('discRing').innerHTML =
+        '<svg width="132" height="132" viewBox="0 0 132 132">' +
+          '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="#e8eaf1" stroke-width="12"></circle>' +
+          '<circle cx="66" cy="66" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="12" stroke-linecap="round" ' +
+            'stroke-dasharray="' + dash + ' ' + c + '"></circle>' +
+        '</svg>' +
+        '<div class="fg-ring-num"><b>' + disc + '</b><small>/ 100</small></div>';
+      document.getElementById('discLabel').textContent = label;
+      document.getElementById('discMeta').textContent =
+        'Based on Money Score (' + L.moneyScore + ') and a ' + L.streak + '-day learning streak.';
+    })();
+
+    // ---- Quiz Performance ----
+    (function () {
+      var q = L.quizzes;
+      var pct = q.taken ? Math.round((q.correct / q.taken) * 100) : 0;
+      document.getElementById('quizPct').textContent = pct + '%';
+      document.getElementById('quizCount').textContent = q.correct + ' of ' + q.taken + ' correct';
+      document.getElementById('quizBar').style.width = pct + '%';
+    })();
+
+    // ---- Investment Status & Portfolio (read-only) ----
+    (function () {
+      var total = FG.portfolio.totalValue();
+      var ret = FG.portfolio.returnsPct();
+      document.getElementById('pfValue').textContent = FG.fmtINR(total);
+      var rEl = document.getElementById('pfReturn');
+      rEl.textContent = FG.pct(ret);
+      rEl.className = ret >= 0 ? 'fg-up' : 'fg-down';
+      document.getElementById('pfSub').textContent =
+        'Virtual portfolio, started at ' + FG.fmtINR(S.portfolio.startValue) +
+        ' · ' + S.portfolio.holdings.length + ' holdings.';
+      var sip = S.portfolio.sip;
+      document.getElementById('sipLine').textContent =
+        'Monthly SIP: ' + FG.fmtINR(sip.amount) + ' · ' + sip.months + ' months in · ' +
+        (sip.approvedByParent ? 'parent approved.' : 'awaiting your approval.');
+    })();
+
+    // ---- Monthly Parent Report (runtime-composed) ----
+    (function () {
+      var q = L.quizzes;
+      var acc = q.taken ? Math.round((q.correct / q.taken) * 100) : 0;
+      var lvl = FG.learning.levelObj();
+      var ret = FG.portfolio.returnsPct();
+      var month = new Date().toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+      document.getElementById('report').innerHTML =
+        '<b>' + month + ' summary for ' + child + '</b><br>' +
+        'This month, ' + childFirst + ' reached <b>Level ' + lvl.id + ' (' + lvl.name + ')</b> and kept a ' +
+        '<b>' + L.streak + '-day learning streak</b> going. Their Money Score now stands at <b>' +
+        L.moneyScore + '/1000</b>. They answered <b>' + q.correct + ' of ' + q.taken + '</b> quiz questions ' +
+        'correctly (<b>' + acc + '% accuracy</b>) and earned <b>' + L.badges.length + ' badges</b>. ' +
+        'Their virtual portfolio is at <b>' + FG.fmtINR(FG.portfolio.totalValue()) + '</b> (' + FG.pct(ret) + '), ' +
+        'with a parent-approved <b>' + FG.fmtINR(S.portfolio.sip.amount) + '/month SIP</b> running for ' +
+        S.portfolio.sip.months + ' months. Keep encouraging the daily habit!';
+    })();
+
+    // ---- Parent Approved Wealth Plan toggle ----
+    function renderPlan() {
+      var sip = S.portfolio.sip;
+      var on = !!sip.approvedByParent;
+      var pill = document.getElementById('planPill');
+      pill.textContent = on ? '✅ Approved & Active' : '⏸ Paused — awaiting approval';
+      pill.className = 'fg-pill ' + (on ? 'on' : 'off');
+      document.getElementById('planAmt').textContent =
+        FG.fmtINR(sip.amount) + '/month · ' + sip.months + ' months in.';
+      document.getElementById('planToggle').textContent = on ? 'Pause Plan' : 'Approve Plan';
+    }
+    renderPlan();
+
+    document.getElementById('planToggle').addEventListener('click', function () {
+      var sip = S.portfolio.sip;
+      sip.approvedByParent = !sip.approvedByParent;
+      sip.active = sip.approvedByParent;
+      FG.save();
+      renderPlan();
+      // refresh the read-only SIP line
+      document.getElementById('sipLine').textContent =
+        'Monthly SIP: ' + FG.fmtINR(sip.amount) + ' · ' + sip.months + ' months in · ' +
+        (sip.approvedByParent ? 'parent approved.' : 'awaiting your approval.');
+      FG.toast(sip.approvedByParent
+        ? 'Wealth plan approved — ' + childFirst + "'s SIP is active."
+        : 'Wealth plan paused. You can re-approve anytime.');
+    });
+  </script>
+</body>
+</html>

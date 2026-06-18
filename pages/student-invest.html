@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Invest | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .si-banner {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 14px; justify-content: center;
+      background: linear-gradient(135deg, #f4fbf8 0%, #eef0ff 100%);
+      border: 1px solid var(--fg-line); border-radius: var(--fg-radius);
+      padding: 18px 24px; text-align: center;
+    }
+    .si-banner .ic { font-size: 26px; }
+    .si-banner p { font-size: 15px; font-weight: 700; color: #2a2a44; margin: 0; }
+    .si-banner p b { color: var(--fg-green-d); }
+
+    .si-charts { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
+    .si-chart-card { padding: 22px 24px; }
+    .si-chart-card h3 { font-size: 16px; font-weight: 800; margin: 0 0 4px; }
+    .si-chart-card .sub { font-size: 12.5px; color: var(--fg-muted); margin: 0 0 14px; }
+    .si-canvas-wrap { position: relative; width: 100%; }
+    canvas { display: block; width: 100%; }
+    .si-legend { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+    .si-legend-row { display: flex; align-items: center; gap: 9px; font-size: 13px; }
+    .si-legend-row .swatch { width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0; }
+    .si-legend-row .nm { font-weight: 700; flex: 1; }
+    .si-legend-row .vl { font-weight: 800; color: #2a2a44; }
+    .si-legend-empty { font-size: 13px; color: var(--fg-muted); }
+
+    .si-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .si-table th, .si-table td { padding: 12px 12px; text-align: left; border-bottom: 1px solid var(--fg-line); }
+    .si-table th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-muted); font-weight: 800; }
+    .si-table td.num, .si-table th.num { text-align: right; }
+    .si-asset-name { font-weight: 800; display: flex; align-items: center; gap: 9px; }
+    .si-asset-name .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+    .si-asset-name small { display: block; font-weight: 600; color: var(--fg-muted); font-size: 11.5px; }
+    .si-risk { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+    .si-risk.Low { background: rgba(0,208,156,.13); color: var(--fg-green-d); }
+    .si-risk.Medium { background: rgba(245,166,35,.16); color: #b9760c; }
+    .si-risk.High { background: rgba(235,91,60,.13); color: #c0341b; }
+    .si-controls { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; justify-content: flex-end; }
+    .si-amt {
+      width: 96px; font-family: inherit; font-size: 13px; font-weight: 700; color: var(--fg-ink);
+      padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--fg-line); background: #fff; outline: none;
+    }
+    .si-amt:focus { border-color: var(--fg-green); }
+    .si-chip {
+      font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer;
+      padding: 7px 10px; border-radius: 9px; border: 1.5px solid var(--fg-line);
+      background: var(--fg-bg-2); color: #3a3a55; transition: border-color .15s, color .15s;
+    }
+    .si-chip:hover { border-color: var(--fg-green); color: var(--fg-green-d); }
+    .si-mini-btn {
+      font-family: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; padding: 8px 14px; border-radius: 10px; border: none;
+    }
+    .si-mini-btn.buy { background: var(--fg-green); color: #04231c; }
+    .si-mini-btn.buy:hover { background: var(--fg-green-d); }
+    .si-mini-btn.sell { background: #fff; color: #c0341b; border: 1.5px solid rgba(235,91,60,.4); }
+    .si-mini-btn.sell:hover { background: rgba(235,91,60,.08); }
+    .si-table-wrap { overflow-x: auto; }
+    .si-empty { text-align: center; color: var(--fg-muted); padding: 26px; font-size: 14px; }
+
+    .si-sip-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 22px; align-items: start; }
+    .si-sip-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
+    .si-sip-status {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; border-radius: 999px; padding: 7px 14px;
+    }
+    .si-sip-status.pending { background: rgba(245,166,35,.16); color: #b9760c; }
+    .si-sip-status.approved { background: rgba(0,208,156,.14); color: var(--fg-green-d); }
+    .si-sip-status.none { background: var(--fg-bg-2); color: var(--fg-muted); }
+    .si-flow { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+    .si-flow-step {
+      flex: 1; min-width: 120px; background: #fff; border: 1px solid var(--fg-line); border-radius: 14px; padding: 14px 16px;
+    }
+    .si-flow-step .n { font-size: 12px; font-weight: 800; color: var(--fg-green-d); }
+    .si-flow-step .t { font-size: 13.5px; font-weight: 700; margin-top: 4px; line-height: 1.4; }
+    .si-compliance {
+      font-size: 12.5px; color: var(--fg-muted); line-height: 1.55; background: #fff8ef;
+      border: 1px solid rgba(245,166,35,.3); border-radius: 12px; padding: 13px 16px; margin-top: 14px;
+    }
+    .vm-note { font-size: 12.5px; color: var(--fg-muted); text-align: center; margin-top: 22px; }
+    .vm-note b { color: #3a3a55; }
+
+    @media (max-width: 860px) {
+      .si-charts { grid-template-columns: 1fr; }
+      .si-sip-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- ════════════ HEADER + STATS ════════════ -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">📈 Portfolio Simulator</span>
+          <h1 class="fg-h1">Practice investing, <span class="fg-grad-text">risk-free</span></h1>
+          <div class="si-banner fg-mt">
+            <span class="ic">🎁</span>
+            <p>Every student gets <b>₹1,00,000 virtual money</b> to practice investing.</p>
+          </div>
+        </div>
+        <div class="fg-grid fg-grid-4 fg-mt-lg" id="statTiles"></div>
+      </div>
+    </section>
+
+    <!-- ════════════ CHARTS ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="si-charts">
+          <div class="fg-card si-chart-card">
+            <h3>Portfolio value</h3>
+            <p class="sub">Simulated value of your holdings over the last weeks.</p>
+            <div class="si-canvas-wrap"><canvas id="valueChart" width="640" height="240" role="img" aria-label="Portfolio value line chart"></canvas></div>
+          </div>
+          <div class="fg-card si-chart-card">
+            <h3>Allocation</h3>
+            <p class="sub">How your money is split across assets.</p>
+            <div class="si-canvas-wrap"><canvas id="allocChart" width="240" height="240" role="img" aria-label="Allocation donut chart"></canvas></div>
+            <div class="si-legend" id="allocLegend"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ ASSET MARKET ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">The market</span>
+          <h2 class="fg-h2">Buy &amp; sell virtual assets</h2>
+          <p class="fg-lead fg-center">Pick an asset, choose an amount (type ₹ or tap a chip), then buy or sell. Watch your stats and charts update live.</p>
+        </div>
+        <div class="fg-card fg-mt-lg si-table-wrap">
+          <table class="si-table">
+            <thead>
+              <tr>
+                <th>Asset</th><th>Type</th><th>Risk</th><th class="num">Price</th><th class="num">Trade</th>
+              </tr>
+            </thead>
+            <tbody id="marketBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ HOLDINGS ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">Your portfolio</span>
+          <h2 class="fg-h2">Holdings</h2>
+        </div>
+        <div class="fg-card fg-mt-lg si-table-wrap">
+          <table class="si-table">
+            <thead>
+              <tr>
+                <th>Asset</th><th class="num">Units</th><th class="num">Invested</th><th class="num">Current value</th><th class="num">P/L</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+        </div>
+        <div class="fg-center fg-mt">
+          <button class="fg-btn fg-btn-ghost" onclick="resetPortfolio()">↺ Reset portfolio</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ LEADERBOARD ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">School league</span>
+          <h2 class="fg-h2">Investing leaderboard</h2>
+          <p class="fg-lead fg-center">See how your virtual returns stack up against classmates this month.</p>
+        </div>
+        <div class="fg-board fg-mt-lg" id="leaderboard"></div>
+      </div>
+    </section>
+
+    <!-- ════════════ PARENT-APPROVED PLAN ════════════ -->
+    <section class="fg-section-sm fg-reveal">
+      <div class="fg-wrap">
+        <div class="fg-center">
+          <span class="fg-eyebrow">Real money, the safe way</span>
+          <h2 class="fg-h2">Parent Approved Student Wealth Plan</h2>
+          <p class="fg-lead fg-center">When you're ready to graduate from virtual money to a real, tiny SIP, your parent approves it first. That's the law — and it's how good wealth habits start.</p>
+        </div>
+        <div class="fg-card fg-mt-lg" style="padding:26px 28px;">
+          <div class="si-flow">
+            <div class="si-flow-step"><div class="n">Step 1</div><div class="t">You learn &amp; practice with virtual money here.</div></div>
+            <div class="si-flow-step"><div class="n">Step 2</div><div class="t">You request a small ₹1,000/month SIP.</div></div>
+            <div class="si-flow-step"><div class="n">Step 3</div><div class="t">Your parent reviews &amp; approves it.</div></div>
+            <div class="si-flow-step"><div class="n">Step 4</div><div class="t">The real SIP starts — supervised &amp; safe.</div></div>
+          </div>
+          <div class="si-sip-grid fg-mt">
+            <div>
+              <h3 class="fg-h3" style="font-size:18px;">Request your monthly SIP</h3>
+              <p style="font-size:14px;color:var(--fg-muted);line-height:1.55;">We'll send a ₹1,000/month SIP request to your parent for approval. No money moves until they say yes.</p>
+              <div class="si-sip-form">
+                <button class="fg-btn fg-btn-primary" onclick="requestSip()">Request ₹1,000/month SIP →</button>
+                <span id="sipStatus"></span>
+              </div>
+            </div>
+            <div>
+              <div class="si-compliance">
+                <b>Compliance note:</b> FinGarage is an educational platform. Students cannot invest real money on their own. Any real SIP requires verified parent/guardian approval and is operated through the parent's regulated investment account. Virtual money on this page carries no real value.
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="vm-note"><b>Virtual money for learning — not investment advice.</b></p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('invest');
+
+    /* ───────────── leaderboard peers (you slot in by virtual returns) ───────────── */
+    var PEERS = [
+      { name: 'Diya Mehta',    av: '👩‍🎓', ret: 14.8 },
+      { name: 'Kabir Rao',     av: '🧑‍🎓', ret: 11.2 },
+      { name: 'Ananya Iyer',   av: '👩‍🎓', ret: 8.6 },
+      { name: 'Rohan Gupta',   av: '🧑‍🎓', ret: 5.1 },
+      { name: 'Saanvi Nair',   av: '👩‍🎓', ret: 2.4 },
+      { name: 'Vihaan Joshi',  av: '🧑‍🎓', ret: -1.3 }
+    ];
+
+    /* ───────────── stat tiles ───────────── */
+    function renderStats() {
+      var el = document.getElementById('statTiles');
+      if (!el) return;
+      var total = FG.portfolio.totalValue();
+      var cash = FG.state.portfolio.cash;
+      var invested = total - cash;
+      var ret = FG.portfolio.returnsPct();
+      var retCls = ret >= 0 ? 'fg-up' : 'fg-down';
+      el.innerHTML =
+        tile('Total Value', FG.fmtINR(total), 'Cash + holdings', '') +
+        tile('Invested', FG.fmtINR(invested), 'In the market', '') +
+        tile('Cash', FG.fmtINR(cash), 'Available to invest', '') +
+        '<div class="fg-stat"><div class="fg-stat-label">Returns</div>' +
+          '<div class="fg-stat-value ' + retCls + '">' + FG.pct(ret) + '</div>' +
+          '<div class="fg-stat-sub">vs ₹1,00,000 start</div></div>';
+    }
+    function tile(label, value, sub, cls) {
+      return '<div class="fg-stat"><div class="fg-stat-label">' + label + '</div>' +
+        '<div class="fg-stat-value ' + cls + '">' + value + '</div>' +
+        '<div class="fg-stat-sub">' + sub + '</div></div>';
+    }
+
+    /* ───────────── value-over-time history (synthesized from priceOf) ───────────── */
+    function buildHistory(points) {
+      // sample portfolio value across a range of t (older → now), weighted by current holdings
+      var holdings = FG.state.portfolio.holdings;
+      var cash = FG.state.portfolio.cash;
+      var series = [];
+      var span = 11; // ~weeks of t to look back over
+      for (var i = 0; i < points; i++) {
+        var t = -span + (span * i / (points - 1)); // t from -span up to ~0 (now)
+        var hv = 0;
+        for (var j = 0; j < holdings.length; j++) {
+          var a = FG.assetById(holdings[j].assetId);
+          if (a) hv += FG.priceOf(a, t) * holdings[j].units;
+        }
+        series.push(cash + hv);
+      }
+      return series;
+    }
+
+    function drawValueChart() {
+      var cv = document.getElementById('valueChart');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var W = cv.width, H = cv.height;
+      ctx.clearRect(0, 0, W, H);
+      var data = buildHistory(28);
+      var padL = 8, padR = 8, padT = 14, padB = 14;
+      var min = Math.min.apply(null, data), max = Math.max.apply(null, data);
+      if (max - min < 1) { max = min + 1; }
+      var pad = (max - min) * 0.12; min -= pad; max += pad;
+      function x(i) { return padL + (W - padL - padR) * (i / (data.length - 1)); }
+      function y(v) { return padT + (H - padT - padB) * (1 - (v - min) / (max - min)); }
+
+      // gridlines
+      ctx.strokeStyle = '#eef0f5'; ctx.lineWidth = 1;
+      for (var g = 0; g <= 4; g++) {
+        var gy = padT + (H - padT - padB) * (g / 4);
+        ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(W - padR, gy); ctx.stroke();
+      }
+
+      var up = data[data.length - 1] >= data[0];
+      var line = up ? '#00d09c' : '#eb5b3c';
+
+      // area fill
+      var grad = ctx.createLinearGradient(0, padT, 0, H - padB);
+      grad.addColorStop(0, up ? 'rgba(0,208,156,.22)' : 'rgba(235,91,60,.20)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.moveTo(x(0), y(data[0]));
+      for (var i = 1; i < data.length; i++) ctx.lineTo(x(i), y(data[i]));
+      ctx.lineTo(x(data.length - 1), H - padB);
+      ctx.lineTo(x(0), H - padB);
+      ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+
+      // line
+      ctx.beginPath(); ctx.moveTo(x(0), y(data[0]));
+      for (var k = 1; k < data.length; k++) ctx.lineTo(x(k), y(data[k]));
+      ctx.strokeStyle = line; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.stroke();
+
+      // end dot
+      ctx.beginPath(); ctx.arc(x(data.length - 1), y(data[data.length - 1]), 4, 0, Math.PI * 2);
+      ctx.fillStyle = line; ctx.fill();
+      ctx.beginPath(); ctx.arc(x(data.length - 1), y(data[data.length - 1]), 7, 0, Math.PI * 2);
+      ctx.strokeStyle = line; ctx.globalAlpha = 0.3; ctx.lineWidth = 2; ctx.stroke(); ctx.globalAlpha = 1;
+    }
+
+    function drawAllocChart() {
+      var cv = document.getElementById('allocChart');
+      var legend = document.getElementById('allocLegend');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var W = cv.width, H = cv.height;
+      ctx.clearRect(0, 0, W, H);
+
+      var holdings = FG.state.portfolio.holdings;
+      var slices = holdings.map(function (h) {
+        var a = FG.assetById(h.assetId);
+        return { a: a, val: a ? FG.priceOf(a) * h.units : 0 };
+      }).filter(function (s) { return s.a && s.val > 0.5; });
+      var cash = FG.state.portfolio.cash;
+      if (cash > 0.5) slices.push({ a: { name: 'Cash', color: '#c5cbda' }, val: cash });
+
+      var total = slices.reduce(function (s, x) { return s + x.val; }, 0);
+      var cx = W / 2, cy = H / 2, rOut = Math.min(W, H) / 2 - 6, rIn = rOut * 0.62;
+
+      if (total <= 0 || !slices.length) {
+        ctx.beginPath(); ctx.arc(cx, cy, rOut, 0, Math.PI * 2); ctx.arc(cx, cy, rIn, 0, Math.PI * 2, true);
+        ctx.fillStyle = '#eef0f5'; ctx.fill('evenodd');
+        if (legend) legend.innerHTML = '<div class="si-legend-empty">No holdings yet — buy an asset to see your mix.</div>';
+        return;
+      }
+
+      var start = -Math.PI / 2;
+      slices.forEach(function (s) {
+        var ang = (s.val / total) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, rOut, start, start + ang);
+        ctx.closePath();
+        ctx.fillStyle = s.a.color || '#999'; ctx.fill();
+        start += ang;
+      });
+      // punch the hole
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath(); ctx.arc(cx, cy, rIn, 0, Math.PI * 2); ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+
+      // center label
+      ctx.fillStyle = '#14142b'; ctx.textAlign = 'center';
+      ctx.font = '800 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(FG.fmtShortINR(total), cx, cy - 2);
+      ctx.fillStyle = '#5b5b78'; ctx.font = '700 10px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('TOTAL', cx, cy + 14);
+
+      if (legend) {
+        legend.innerHTML = slices.map(function (s) {
+          var pc = Math.round((s.val / total) * 100);
+          return '<div class="si-legend-row"><span class="swatch" style="background:' + (s.a.color || '#999') + '"></span>' +
+            '<span class="nm">' + s.a.name + '</span><span class="vl">' + pc + '%</span></div>';
+        }).join('');
+      }
+    }
+
+    /* ───────────── asset market ───────────── */
+    function renderMarket() {
+      var body = document.getElementById('marketBody');
+      if (!body) return;
+      body.innerHTML = FG.ASSETS.map(function (a) {
+        var price = FG.priceOf(a);
+        return '<tr>' +
+          '<td><div class="si-asset-name"><span class="dot" style="background:' + a.color + '"></span><span>' + a.name + '</span></div></td>' +
+          '<td>' + a.type + '</td>' +
+          '<td><span class="si-risk ' + a.risk + '">' + a.risk + '</span></td>' +
+          '<td class="num">' + FG.fmtINR(price) + '</td>' +
+          '<td class="num"><div class="si-controls">' +
+            '<input class="si-amt" type="number" min="0" step="500" placeholder="₹" id="amt_' + a.id + '" aria-label="Amount in rupees for ' + a.name + '">' +
+            '<button class="si-chip" onclick="setAmt(\'' + a.id + '\',5000)">₹5K</button>' +
+            '<button class="si-chip" onclick="setAmt(\'' + a.id + '\',10000)">₹10K</button>' +
+            '<button class="si-mini-btn buy" onclick="doBuy(\'' + a.id + '\')">Buy</button>' +
+            '<button class="si-mini-btn sell" onclick="doSell(\'' + a.id + '\')">Sell</button>' +
+          '</div></td>' +
+        '</tr>';
+      }).join('');
+    }
+    function setAmt(id, v) { var i = document.getElementById('amt_' + id); if (i) i.value = v; }
+    function readAmt(id) {
+      var i = document.getElementById('amt_' + id);
+      var v = i ? parseFloat(i.value) : NaN;
+      return (isNaN(v) || v <= 0) ? 0 : v;
+    }
+
+    function doBuy(id) {
+      var rupees = readAmt(id);
+      var a = FG.assetById(id);
+      if (rupees <= 0) { FG.toast('Enter an amount first 🙂'); return; }
+      if (rupees > FG.state.portfolio.cash) {
+        FG.toast('Not enough cash — you have ' + FG.fmtINR(FG.state.portfolio.cash));
+        return;
+      }
+      if (FG.portfolio.buy(id, rupees)) {
+        FG.toast('Bought ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset') + ' 📈');
+        setAmt(id, '');
+        renderAll();
+      }
+    }
+    function doSell(id) {
+      var rupees = readAmt(id);
+      var a = FG.assetById(id);
+      var h = FG.state.portfolio.holdings.filter(function (x) { return x.assetId === id; })[0];
+      if (!h) { FG.toast("You don't hold " + (a ? a.name : 'this asset') + ' yet'); return; }
+      if (rupees <= 0) { FG.toast('Enter an amount to sell 🙂'); return; }
+      if (FG.portfolio.sell(id, rupees)) {
+        FG.toast('Sold ' + FG.fmtShortINR(rupees) + ' of ' + (a ? a.name : 'asset') + ' 💸');
+        setAmt(id, '');
+        renderAll();
+      }
+    }
+
+    /* ───────────── holdings ───────────── */
+    function renderHoldings() {
+      var body = document.getElementById('holdingsBody');
+      if (!body) return;
+      var holdings = FG.state.portfolio.holdings;
+      if (!holdings.length) {
+        body.innerHTML = '<tr><td colspan="5" class="si-empty">No holdings yet. Buy an asset above to get started!</td></tr>';
+        return;
+      }
+      body.innerHTML = holdings.map(function (h) {
+        var a = FG.assetById(h.assetId);
+        if (!a) return '';
+        var cur = FG.priceOf(a) * h.units;
+        var invested = h.avgPrice * h.units;
+        var pl = cur - invested;
+        var plCls = pl >= 0 ? 'fg-up' : 'fg-down';
+        var plPct = invested > 0 ? (pl / invested) * 100 : 0;
+        return '<tr>' +
+          '<td><div class="si-asset-name"><span class="dot" style="background:' + a.color + '"></span><span>' + a.name + '<small>' + a.type + '</small></span></div></td>' +
+          '<td class="num">' + h.units.toFixed(1) + '</td>' +
+          '<td class="num">' + FG.fmtINR(invested) + '</td>' +
+          '<td class="num">' + FG.fmtINR(cur) + '</td>' +
+          '<td class="num ' + plCls + '">' + (pl >= 0 ? '+' : '') + FG.fmtINR(pl) + '<br><small>' + FG.pct(plPct) + '</small></td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    /* ───────────── leaderboard ───────────── */
+    function renderLeaderboard() {
+      var el = document.getElementById('leaderboard');
+      if (!el) return;
+      var me = { name: (FG.state.user.name || 'You') + ' (You)', av: FG.state.user.avatar || '🧑‍🎓', ret: FG.portfolio.returnsPct(), me: true };
+      var rows = PEERS.slice();
+      rows.push(me);
+      rows.sort(function (a, b) { return b.ret - a.ret; });
+      el.innerHTML = rows.map(function (r, i) {
+        var rank = i + 1;
+        var rCls = rank <= 3 ? ' top' : '';
+        var retCls = r.ret >= 0 ? 'fg-up' : 'fg-down';
+        return '<div class="fg-board-row' + (r.me ? ' me' : '') + '">' +
+          '<span class="fg-board-rank' + rCls + '">' + rank + '</span>' +
+          '<span class="fg-board-av">' + r.av + '</span>' +
+          '<span class="fg-board-name">' + r.name + '</span>' +
+          '<span class="fg-board-score ' + retCls + '">' + FG.pct(r.ret) + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ───────────── SIP request ───────────── */
+    function requestSip() {
+      FG.state.portfolio.sip = { active: true, amount: 1000, approvedByParent: false, months: 0 };
+      FG.save();
+      FG.learning.award('sip-starter');
+      FG.toast('Sent to your parent for approval 📨');
+      renderSipStatus();
+    }
+    function renderSipStatus() {
+      var el = document.getElementById('sipStatus');
+      if (!el) return;
+      var sip = FG.state.portfolio.sip || {};
+      if (sip.active && sip.approvedByParent) {
+        el.innerHTML = '<span class="si-sip-status approved">✅ Approved — ₹' + sip.amount + '/month SIP active</span>';
+      } else if (sip.active) {
+        el.innerHTML = '<span class="si-sip-status pending">⏳ Pending parent approval</span>';
+      } else {
+        el.innerHTML = '<span class="si-sip-status none">No SIP requested yet</span>';
+      }
+    }
+
+    /* ───────────── reset ───────────── */
+    function resetPortfolio() {
+      FG.state.portfolio.cash = FG.state.portfolio.startValue;
+      FG.state.portfolio.holdings = [];
+      FG.save();
+      FG.toast('Portfolio reset to ₹1,00,000 ✨');
+      renderAll();
+    }
+
+    /* ───────────── master render ───────────── */
+    function renderAll() {
+      renderStats();
+      renderMarket();
+      renderHoldings();
+      renderLeaderboard();
+      drawValueChart();
+      drawAllocChart();
+    }
+
+    /* ───────────── init ───────────── */
+    renderAll();
+    renderSipStatus();
+    window.addEventListener('resize', function () { drawValueChart(); drawAllocChart(); });
+    if (FG.revealInit) FG.revealInit();
+  </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Finance | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .ff-hero { background: linear-gradient(140deg, #0f2b4a, #143a6a); border-radius: 26px; color: #fff; padding: 56px 48px; }
+    .ff-hero .fg-h1 { color: #fff; }
+    .ff-hero .fg-lead { color: rgba(255,255,255,.82); }
+    .ff-eyebrow { background: rgba(14,165,233,.2); color: #9ddcfb; }
+    .ff-cat-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .ff-cat-ico { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; font-size: 22px; color: #fff; }
+    .ff-cat-head h2 { margin: 0; }
+    .ff-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 920px) { .ff-links { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 620px) { .ff-links { grid-template-columns: repeat(2, 1fr); } }
+    .ff-link { display: block; text-decoration: none; color: var(--fg-ink); font-weight: 700; font-size: 14.5px; background: #fff; border: 1px solid var(--fg-line); border-radius: var(--fg-radius-sm); padding: 14px 16px; transition: border-color .15s, transform .15s, box-shadow .15s; }
+    .ff-link:hover { border-color: var(--fg-green); transform: translateY(-2px); box-shadow: var(--fg-shadow-sm); }
+    .ff-legacy-note { font-size: 13px; color: var(--fg-muted); background: var(--fg-bg-2); border-radius: var(--fg-radius-sm); padding: 14px 18px; }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="ff-hero fg-reveal">
+          <span class="fg-eyebrow ff-eyebrow">Future Finance</span>
+          <h1 class="fg-h1">For when you're ready for the real thing</h1>
+          <p class="fg-lead">FinGarage is all about learning money the playful way first. But when you grow up and want the real-world products — loans, investments, insurance and advisory — these classic pages are here waiting. Learn the concept on the platform, then explore the product here.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-card fg-reveal">
+          <h3 class="fg-h3">📚 Learning first, products later</h3>
+          <p style="color:var(--fg-muted);font-size:15px;line-height:1.6;margin:0 0 12px">
+            Start with the gamified levels, games and the virtual portfolio. Once a concept clicks — SIPs, mutual funds, term insurance, home loans — these pages explain the real-world version. Think of them as your reference shelf for when school is behind you.
+          </p>
+          <p class="ff-legacy-note">Heads up: these legacy pages use FinGarage's older styling and aren't part of the gamified learning experience. They're kept here for reference and for the real-world journey ahead.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap" id="catalog"></div>
+    </section>
+
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('');
+
+    var CATS = [
+      {
+        title: 'Loans', ico: '🏦', color: '#5367ff',
+        links: [
+          ['home-loan.html', 'Home Loan'],
+          ['personal-loan.html', 'Personal Loan'],
+          ['top-up-loan.html', 'Top-up Loan'],
+          ['auto-loan.html', 'Auto Loan'],
+          ['education-loan.html', 'Education Loan'],
+          ['business-loan.html', 'Business Loan'],
+          ['msme-loan.html', 'MSME Loan'],
+          ['working-capital.html', 'Working Capital'],
+          ['lap.html', 'Loan Against Property'],
+          ['las.html', 'Loan Against Securities'],
+          ['bridge-financing.html', 'Bridge Financing'],
+          ['project-funding.html', 'Project Funding'],
+          ['unsecured-business-loan.html', 'Unsecured Business Loan']
+        ]
+      },
+      {
+        title: 'Wealth & Investing', ico: '📈', color: '#00d09c',
+        links: [
+          ['mutual-funds.html', 'Mutual Funds'],
+          ['sip.html', 'SIP'],
+          ['stp.html', 'STP'],
+          ['swp.html', 'SWP'],
+          ['pms.html', 'PMS'],
+          ['aif.html', 'AIF'],
+          ['bonds.html', 'Bonds'],
+          ['reits.html', 'REITs'],
+          ['nps.html', 'NPS'],
+          ['wealth-management.html', 'Wealth Management']
+        ]
+      },
+      {
+        title: 'Insurance', ico: '🛡️', color: '#f5a623',
+        links: [
+          ['term-insurance.html', 'Term Insurance'],
+          ['health-insurance.html', 'Health Insurance'],
+          ['motor-insurance.html', 'Motor Insurance'],
+          ['home-insurance.html', 'Home Insurance'],
+          ['family-floater.html', 'Family Floater'],
+          ['critical-illness.html', 'Critical Illness'],
+          ['senior-citizen-cover.html', 'Senior Citizen Cover'],
+          ['group-insurance.html', 'Group Insurance'],
+          ['child-plan.html', 'Child Plan'],
+          ['ulip.html', 'ULIP']
+        ]
+      },
+      {
+        title: 'Planning & Advisory', ico: '🧭', color: '#9b51e0',
+        links: [
+          ['tax-planning.html', 'Tax Planning'],
+          ['retirement-planning.html', 'Retirement Planning'],
+          ['retirement-plan.html', 'Retirement Plan'],
+          ['goal-planning.html', 'Goal Planning'],
+          ['portfolio-advisory.html', 'Portfolio Advisory'],
+          ['advisory.html', 'Advisory']
+        ]
+      },
+      {
+        title: 'Company', ico: '🏢', color: '#eb5b3c',
+        links: [
+          ['about.html', 'About'],
+          ['blog.html', 'Blog'],
+          ['contact.html', 'Contact']
+        ]
+      }
+    ];
+
+    var html = CATS.map(function (cat) {
+      var links = cat.links.map(function (l) {
+        return '<a class="ff-link" href="' + l[0] + '">' + l[1] + '</a>';
+      }).join('');
+      return '<div class="fg-reveal" style="margin-bottom:44px">' +
+        '<div class="ff-cat-head">' +
+          '<div class="ff-cat-ico" style="background:' + cat.color + '">' + cat.ico + '</div>' +
+          '<h2 class="fg-h2">' + cat.title + '</h2>' +
+        '</div>' +
+        '<div class="ff-links">' + links + '</div>' +
+      '</div>';
+    }).join('');
+
+    document.getElementById('catalog').innerHTML = html;
+    FG.revealInit();
+  </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup Club | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .sc-hero { background: linear-gradient(140deg, #2a1a4a, #4a2a7a); border-radius: 26px; color: #fff; padding: 56px 48px; position: relative; overflow: hidden; }
+    .sc-hero::after { content: '🚀'; position: absolute; right: 40px; top: 30px; font-size: 120px; opacity: .14; }
+    .sc-hero .fg-h1 { color: #fff; }
+    .sc-hero .fg-lead { color: rgba(255,255,255,.82); }
+    .sc-eyebrow { background: rgba(155,81,224,.22); color: #d7b7f5; }
+    .sc-module-num { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-weight: 800; color: #fff; background: var(--fg-purple); margin-bottom: 12px; }
+    .sc-canvas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 620px) { .sc-canvas { grid-template-columns: 1fr; } }
+    .sc-field label { display: block; font-size: 13px; font-weight: 700; color: var(--fg-ink); margin-bottom: 6px; }
+    .sc-field input { width: 100%; font-family: var(--fg-font); font-size: 15px; padding: 12px 14px; border: 1.5px solid var(--fg-line); border-radius: var(--fg-radius-sm); background: var(--fg-bg); }
+    .sc-field input:focus { outline: none; border-color: var(--fg-purple); }
+    .sc-pitch { margin-top: 22px; background: linear-gradient(135deg, rgba(155,81,224,.1), rgba(83,103,255,.08)); border: 1.5px dashed var(--fg-purple); border-radius: var(--fg-radius); padding: 22px; display: none; }
+    .sc-pitch.show { display: block; }
+    .sc-pitch-label { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-purple); }
+    .sc-pitch-text { font-size: 18px; font-weight: 700; line-height: 1.5; margin-top: 8px; color: var(--fg-ink); }
+    .sc-note { font-size: 12.5px; color: var(--fg-muted); margin-top: 14px; }
+    .sc-band-btn { background: var(--fg-purple) !important; color: #fff !important; }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="sc-hero fg-reveal">
+          <span class="fg-eyebrow sc-eyebrow">Level 5 · Founder Mindset · College</span>
+          <h1 class="fg-h1">Startup Club — think like a founder</h1>
+          <p class="fg-lead">The companies you invest in were once just an idea on a napkin. In the Startup Club you learn how businesses actually make money, raise funding and grow — then build your own startup idea and pitch it. Tied to FinGarage's highest learning level.</p>
+          <div class="fg-hero-btns">
+            <a href="#canvas" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Build your startup ✨</a>
+            <a href="learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See learning levels</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-grid fg-grid-2 fg-reveal">
+          <div>
+            <span class="fg-eyebrow sc-eyebrow">What it is</span>
+            <h2 class="fg-h2">From investor to founder</h2>
+            <p class="fg-lead">Most money education stops at "how to save and invest." The Startup Club goes one step further: it teaches you to think like the people who <em>build</em> the companies. Understanding business models, revenue and valuation makes you a sharper investor and an aspiring entrepreneur.</p>
+          </div>
+          <div class="fg-card">
+            <h3 class="fg-h3">You'll learn to</h3>
+            <div class="fg-chip-list">
+              <span class="fg-chip">Spot a real problem</span>
+              <span class="fg-chip">Design a business model</span>
+              <span class="fg-chip">Make money make sense</span>
+              <span class="fg-chip">Understand valuation</span>
+              <span class="fg-chip">Read funding rounds</span>
+              <span class="fg-chip">Pitch with confidence</span>
+            </div>
+            <p class="sc-note">Virtual money for learning — not investment advice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow sc-eyebrow">The curriculum</span>
+          <h2 class="fg-h2">Seven founder modules</h2>
+          <p class="fg-lead fg-center">The full Founder Mindset track — each module is a building block of how startups are born, grow and get funded.</p>
+        </div>
+        <div class="fg-grid fg-grid-3 fg-mt-lg fg-reveal" id="modules"></div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm" id="canvas">
+      <div class="fg-wrap">
+        <div class="fg-grid fg-grid-2 fg-reveal" style="align-items:start">
+          <div>
+            <span class="fg-eyebrow sc-eyebrow">Idea canvas</span>
+            <h2 class="fg-h2">Build your startup</h2>
+            <p class="fg-lead">Every great company starts by answering four questions. Fill them in and we'll spin up a one-line starter pitch you can refine.</p>
+          </div>
+          <div class="fg-card">
+            <form id="canvasForm" novalidate>
+              <div class="sc-canvas">
+                <div class="sc-field">
+                  <label for="ideaName">Idea name</label>
+                  <input id="ideaName" type="text" placeholder="e.g. ChaiPay" required>
+                </div>
+                <div class="sc-field">
+                  <label for="problem">Problem you solve</label>
+                  <input id="problem" type="text" placeholder="e.g. canteens have long queues" required>
+                </div>
+                <div class="sc-field">
+                  <label for="customer">Who's the customer</label>
+                  <input id="customer" type="text" placeholder="e.g. college students" required>
+                </div>
+                <div class="sc-field">
+                  <label for="revenue">How you make money</label>
+                  <input id="revenue" type="text" placeholder="e.g. ₹2 per order" required>
+                </div>
+              </div>
+              <button type="submit" class="fg-btn fg-btn-primary fg-btn-block sc-band-btn fg-mt">Generate my pitch 🚀</button>
+            </form>
+            <div class="sc-pitch" id="pitchBox" aria-live="polite">
+              <span class="sc-pitch-label">Your starter pitch</span>
+              <p class="sc-pitch-text" id="pitchText"></p>
+            </div>
+            <p class="sc-note">Virtual money for learning — not investment advice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-cta-band fg-reveal">
+          <span class="fg-eyebrow sc-eyebrow">Play it out</span>
+          <h2 class="fg-h2">Run your company in Startup Builder</h2>
+          <p class="fg-lead">Take an idea, make decisions, raise rounds and watch your valuation grow — all virtual, all learning.</p>
+          <div class="fg-hero-btns" style="justify-content:center">
+            <a href="money-games.html" class="fg-btn fg-btn-primary fg-btn-lg sc-band-btn">Open Startup Builder 🚀</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow sc-eyebrow">Young founders</span>
+          <h2 class="fg-h2">Startup Club leaderboard</h2>
+          <p class="fg-lead fg-center">Top virtual valuations from this season's founders. Build, pitch and climb the board.</p>
+        </div>
+        <div class="fg-board fg-mt-lg fg-reveal" style="max-width:640px;margin-left:auto;margin-right:auto" id="board"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('startup');
+
+    // --- Founder modules (Level 5 topics) ---
+    (function () {
+      var topics = FG.LEVELS[4].topics;
+      var blurbs = {
+        'Business Models': 'How a company creates and captures value — the engine behind every startup.',
+        'Revenue': 'The money coming in. Where it comes from and how often it repeats.',
+        'Profit': 'What is left after costs. The difference between busy and successful.',
+        'Startup Valuation': 'What is a company worth, and why? Learn how investors put a number on a dream.',
+        'Funding Rounds': 'Seed, Series A, B and beyond — how startups raise money to grow.',
+        'Entrepreneurship': 'The mindset, habits and grit of people who build things from zero.',
+        'Pitching Ideas': 'Telling your story so clearly that people want to back you.'
+      };
+      var html = topics.map(function (t, i) {
+        return '<div class="fg-card fg-card-hover">' +
+          '<div class="sc-module-num">' + (i + 1) + '</div>' +
+          '<h3 class="fg-h3">' + t + '</h3>' +
+          '<p style="color:var(--fg-muted);font-size:14px;line-height:1.55;margin:0">' + (blurbs[t] || '') + '</p>' +
+        '</div>';
+      }).join('');
+      document.getElementById('modules').innerHTML = html;
+    })();
+
+    // --- Idea canvas → starter pitch ---
+    (function () {
+      var form = document.getElementById('canvasForm');
+      var box = document.getElementById('pitchBox');
+      var out = document.getElementById('pitchText');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = (document.getElementById('ideaName').value || 'My Startup').trim();
+        var problem = (document.getElementById('problem').value || 'a real everyday problem').trim();
+        var customer = (document.getElementById('customer').value || 'people who need it').trim();
+        var revenue = (document.getElementById('revenue').value || 'a simple, repeatable fee').trim();
+        var pitch = name + ' helps ' + customer + ' beat ' + problem +
+          ', and makes money through ' + revenue + '.';
+        out.textContent = pitch;
+        box.classList.add('show');
+        FG.toast('Pitch generated! 🚀');
+      });
+    })();
+
+    // --- Young-founders leaderboard ---
+    (function () {
+      var founders = [
+        { name: 'Ananya Iyer', av: '👩‍💻', val: 1250000 },
+        { name: 'Vivaan Mehta', av: '🧑‍💼', val: 980000 },
+        { name: 'Diya Krishnan', av: '👩‍🔬', val: 760000 },
+        { name: 'Arjun Reddy', av: '🧑‍🎨', val: 540000 },
+        { name: 'Saanvi Nair', av: '👩‍🎓', val: 410000 },
+        { name: 'Kabir Joshi', av: '🧑‍🚀', val: 285000 }
+      ];
+      var html = founders.map(function (f, i) {
+        var rank = i + 1;
+        return '<div class="fg-board-row">' +
+          '<div class="fg-board-rank' + (rank <= 3 ? ' top' : '') + '">' + rank + '</div>' +
+          '<div class="fg-board-av">' + f.av + '</div>' +
+          '<div class="fg-board-name">' + f.name + '</div>' +
+          '<div class="fg-board-score">' + FG.fmtShortINR(f.val) + '</div>' +
+        '</div>';
+      }).join('');
+      document.getElementById('board').innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Schools | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    .fg-hero-art { background: linear-gradient(150deg, #f3eefb, #eef2fb); border-radius: 26px; padding: 30px; border: 1px solid var(--fg-line); }
+    .fg-feat-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 24px; margin-bottom: 14px; background: var(--fg-bg-2); }
+    .fg-disc { font-size: 12.5px; color: var(--fg-muted); margin-top: 14px; }
+    /* curriculum table */
+    .fg-table-wrap { overflow-x: auto; border: 1px solid var(--fg-line); border-radius: var(--fg-radius); background: #fff; }
+    table.fg-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    table.fg-table th, table.fg-table td { text-align: left; padding: 15px 18px; border-bottom: 1px solid var(--fg-line); font-size: 14px; vertical-align: top; }
+    table.fg-table th { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-muted); background: var(--fg-bg-2); }
+    table.fg-table tr:last-child td { border-bottom: 0; }
+    table.fg-table .lvl-dot { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #fff; font-weight: 800; font-size: 13px; }
+    /* invite form */
+    .fg-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fg-form .full { grid-column: 1 / -1; }
+    .fg-form label { display: block; font-size: 13px; font-weight: 600; color: var(--fg-ink); margin-bottom: 6px; }
+    .fg-form input { width: 100%; box-sizing: border-box; font-family: var(--fg-font); font-size: 15px; padding: 12px 14px; border: 1px solid var(--fg-line); border-radius: 12px; background: #fff; color: var(--fg-ink); }
+    .fg-form input:focus { outline: none; border-color: var(--fg-green); box-shadow: 0 0 0 3px rgba(0,208,156,.15); }
+    @media (max-width: 620px) { .fg-form { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- HERO -->
+    <header class="fg-hero">
+      <div class="fg-wrap">
+        <div class="fg-hero-grid">
+          <div>
+            <span class="fg-eyebrow">🏫 For Schools</span>
+            <h1 class="fg-h1">Bring real <span class="fg-grad-text">financial literacy</span> to every classroom.</h1>
+            <p class="fg-lead">FinGarage gives your school a ready-made, gamified money curriculum mapped to class levels — with a school dashboard, trainer visits, student reports and inter-class competitions that make money the favourite subject.</p>
+            <div class="fg-hero-btns">
+              <a href="#invite" class="fg-btn fg-btn-primary fg-btn-lg">Invite FinGarage to Your School</a>
+              <a href="learn.html" class="fg-btn fg-btn-ghost fg-btn-lg">See the Curriculum</a>
+            </div>
+            <p class="fg-disc">Virtual money for learning — not investment advice.</p>
+          </div>
+          <div class="fg-hero-art">
+            <div class="fg-grid fg-grid-2">
+              <div class="fg-stat"><div class="fg-stat-label">📚 Levels</div><div class="fg-stat-value">5</div><div class="fg-stat-sub">Class 9 → College</div></div>
+              <div class="fg-stat"><div class="fg-stat-label">🎮 Games</div><div class="fg-stat-value">11</div><div class="fg-stat-sub">Play-to-learn</div></div>
+              <div class="fg-stat"><div class="fg-stat-label">🏆 Competitions</div><div class="fg-stat-value">Live</div><div class="fg-stat-sub">Inter-class fun</div></div>
+              <div class="fg-stat"><div class="fg-stat-label">📊 Reports</div><div class="fg-stat-value">Per class</div><div class="fg-stat-sub">For every teacher</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- WHAT YOUR SCHOOL GETS -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap fg-center fg-reveal">
+        <span class="fg-eyebrow">What your school gets</span>
+        <h2 class="fg-h2">A complete money-learning program, ready to teach</h2>
+        <p class="fg-lead fg-center">From curriculum to trainers to competitions — everything you need to make financial literacy stick.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <div class="fg-grid fg-grid-3 fg-reveal" id="featGrid"></div>
+      </div>
+    </section>
+
+    <!-- CURRICULUM TABLE -->
+    <section class="fg-section">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow">The curriculum</span>
+          <h2 class="fg-h2">5 levels, mapped to your classes</h2>
+          <p class="fg-lead fg-center">A progressive ladder from first rupee to founder thinking — aligned to the right age group.</p>
+        </div>
+        <div class="fg-table-wrap fg-mt-lg fg-reveal">
+          <table class="fg-table">
+            <thead>
+              <tr><th>Level</th><th>Name</th><th>Class range</th><th>Focus &amp; key topics</th></tr>
+            </thead>
+            <tbody id="curriculumBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVITE FORM -->
+    <section class="fg-section-sm" id="invite">
+      <div class="fg-wrap">
+        <div class="fg-center fg-reveal">
+          <span class="fg-eyebrow">Let's talk</span>
+          <h2 class="fg-h2">Invite us to your school</h2>
+          <p class="fg-lead fg-center">Tell us a little about your school and our team will reach out to plan a session.</p>
+        </div>
+        <div class="fg-card fg-mt-lg fg-reveal" style="max-width:640px;margin-left:auto;margin-right:auto">
+          <form class="fg-form" id="inviteForm" novalidate>
+            <div class="full">
+              <label for="schoolName">School name</label>
+              <input id="schoolName" name="schoolName" type="text" placeholder="e.g. Delhi Public School" required>
+            </div>
+            <div>
+              <label for="contactName">Your name</label>
+              <input id="contactName" name="contactName" type="text" placeholder="e.g. Priya Verma" required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@school.edu" required>
+            </div>
+            <div class="full">
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" placeholder="e.g. Bengaluru" required>
+            </div>
+            <div class="full">
+              <button type="submit" class="fg-btn fg-btn-primary fg-btn-lg fg-btn-block">Invite FinGarage to Your School</button>
+            </div>
+          </form>
+          <p class="fg-disc">We'll never share your details. Virtual money for learning — not investment advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="fg-section">
+      <div class="fg-wrap">
+        <div class="fg-cta-band fg-reveal">
+          <span class="fg-eyebrow">Make money the favourite subject</span>
+          <h2 class="fg-h2">Ready to bring FinGarage to your school?</h2>
+          <p class="fg-lead">Join schools across India turning financial literacy into a game students love.</p>
+          <div class="fg-hero-btns" style="justify-content:center">
+            <a href="#invite" class="fg-btn fg-btn-primary fg-btn-lg">Invite FinGarage to Your School</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script src="../fg-app.js"></script>
+  <script>
+    FG.mountChrome('schools');
+
+    // Features
+    var FEATURES = [
+      { ico: '📚', name: 'Financial Literacy Curriculum', desc: '5 structured levels of money lessons, mapped to class age groups.' },
+      { ico: '📊', name: 'School Dashboard', desc: 'See participation, progress and scores across every class.' },
+      { ico: '🧑‍🏫', name: 'Trainer Visits', desc: 'Our trainers run engaging sessions and teacher onboarding on-site.' },
+      { ico: '📝', name: 'Student Reports', desc: 'Per-student and per-class reports your teachers can act on.' },
+      { ico: '🏆', name: 'Competitions', desc: 'Inter-class quizzes and money challenges that drive excitement.' }
+    ];
+    document.getElementById('featGrid').innerHTML = FEATURES.map(function (f) {
+      return '<div class="fg-card fg-card-hover">' +
+        '<div class="fg-feat-ico">' + f.ico + '</div>' +
+        '<h3 class="fg-h3">' + f.name + '</h3>' +
+        '<p class="fg-lead" style="font-size:14.5px">' + f.desc + '</p>' +
+      '</div>';
+    }).join('');
+
+    // Curriculum table from FG.LEVELS
+    document.getElementById('curriculumBody').innerHTML = FG.LEVELS.map(function (lv) {
+      var topics = lv.topics.slice(0, 4).join(', ');
+      return '<tr>' +
+        '<td><span class="lvl-dot" style="background:' + lv.color + '">' + lv.id + '</span></td>' +
+        '<td><strong>' + lv.name + '</strong></td>' +
+        '<td>' + lv.grade + '</td>' +
+        '<td>' + lv.tagline + '<br><span style="color:var(--fg-muted);font-size:12.5px">' + topics + '…</span></td>' +
+      '</tr>';
+    }).join('');
+
+    // Invite form — local only, no network call
+    document.getElementById('inviteForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      FG.toast('Thanks! Our team will reach out to your school.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

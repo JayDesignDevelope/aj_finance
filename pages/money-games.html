@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Games | FinGarage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../fg-platform.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='2' y='26' font-size='28' font-weight='800' fill='%2300d09c'>F</text></svg>">
+  <style>
+    /* ---------------- game hub cards ---------------- */
+    .gm-card { cursor: pointer; display: flex; flex-direction: column; gap: 4px; border-top: 4px solid var(--accent, var(--fg-green)); }
+    .gm-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .gm-card-top { display: flex; align-items: center; justify-content: space-between; }
+    .gm-ico { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; font-size: 26px; background: color-mix(in srgb, var(--accent) 16%, #fff); }
+    .gm-tag { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; }
+    .gm-tag.classic { background: #eef0fb; color: #5367ff; }
+    .gm-tag.new { background: #e6fbf4; color: #00b386; }
+    .gm-name { font-size: 18px; font-weight: 800; margin-top: 12px; }
+    .gm-sub { font-size: 13.5px; color: var(--fg-muted); }
+    .gm-play { margin-top: 12px; font-weight: 700; font-size: 13px; color: var(--accent); }
+
+    /* ---------------- game panel ---------------- */
+    .gm-panel { display: none; }
+    .gm-panel.active { display: block; }
+    .gm-grid.hidden { display: none; }
+    .gm-back { margin-bottom: 18px; }
+    .gm-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+    .gm-head .gm-ico { width: 56px; height: 56px; }
+    .gm-stage { background: #fff; border: 1px solid var(--fg-line); border-radius: var(--fg-radius); padding: 26px; margin-top: 22px; }
+    .gm-scorebar { display: flex; gap: 14px; flex-wrap: wrap; margin: 4px 0 18px; }
+    .gm-score { background: var(--fg-bg-2); border-radius: 14px; padding: 12px 18px; min-width: 120px; }
+    .gm-score b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+    .gm-score span { font-size: 12.5px; color: var(--fg-muted); font-weight: 600; }
+    .gm-instr { background: #f0fdf8; border: 1px solid #cdeee2; border-radius: 14px; padding: 14px 16px; font-size: 13.5px; color: #2f5a4d; margin-bottom: 18px; }
+    .gm-result { border-radius: 16px; padding: 20px; margin-top: 18px; font-size: 15px; line-height: 1.55; }
+    .gm-result.win { background: #e9fbf3; border: 1px solid #aee9d2; color: #0a6b4e; }
+    .gm-result.lose { background: #fdeee9; border: 1px solid #f3cab9; color: #9a3a1f; }
+    .gm-result.info { background: #eef0fb; border: 1px solid #c7cdf3; color: #2c3580; }
+    .gm-result h3 { font-size: 19px; margin: 0 0 6px; }
+
+    /* allocation rows */
+    .gm-alloc { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--fg-line); }
+    .gm-alloc:last-of-type { border-bottom: 0; }
+    .gm-alloc-name { flex: 1 1 130px; font-weight: 700; font-size: 14px; }
+    .gm-alloc-name small { display: block; font-weight: 500; color: var(--fg-muted); font-size: 11.5px; }
+    .gm-alloc input[type=range] { flex: 2 1 160px; accent-color: var(--fg-green); }
+    .gm-alloc-val { flex: 0 0 96px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .gm-total { display: flex; justify-content: space-between; align-items: center; font-weight: 800; margin-top: 14px; padding-top: 12px; border-top: 2px dashed var(--fg-line); }
+    .gm-total.bad { color: var(--fg-coral); }
+    .gm-total.ok { color: var(--fg-green-d); }
+
+    /* slider rows for sip/goal */
+    .gm-slider { margin: 16px 0; }
+    .gm-slider label { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+    .gm-slider input[type=range] { width: 100%; accent-color: var(--fg-green); }
+
+    /* choice cards / option buttons */
+    .gm-choices { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .gm-choice { flex: 1 1 150px; text-align: left; background: #fff; border: 1.5px solid var(--fg-line); border-radius: 14px; padding: 14px 16px; cursor: pointer; font: inherit; transition: .15s; }
+    .gm-choice:hover { border-color: var(--fg-green); transform: translateY(-2px); }
+    .gm-choice b { display: block; font-size: 15px; margin-bottom: 3px; }
+    .gm-choice span { font-size: 12.5px; color: var(--fg-muted); }
+    .gm-choice:disabled { opacity: .5; cursor: default; transform: none; }
+
+    .gm-card-q { background: var(--fg-bg-2); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    .gm-card-q .gm-qmsg { font-size: 15.5px; font-weight: 600; line-height: 1.5; }
+    .gm-meta { font-size: 13px; color: var(--fg-muted); margin-bottom: 10px; font-weight: 600; }
+
+    .gm-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px){ .gm-2col { grid-template-columns: 1fr; } }
+
+    canvas.gm-canvas { width: 100%; height: auto; display: block; background: #fbfcfe; border: 1px solid var(--fg-line); border-radius: 14px; margin-top: 8px; }
+
+    .gm-fb { font-size: 14px; margin-top: 14px; padding: 12px 14px; border-radius: 12px; }
+    .gm-fb.good { background: #e9fbf3; color: #0a6b4e; }
+    .gm-fb.bad { background: #fdeee9; color: #9a3a1f; }
+
+    .gm-trade { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+    .gm-disc { font-size: 12.5px; color: var(--fg-muted); margin-top: 18px; }
+    .gm-mini { font-size: 13px; color: var(--fg-muted); }
+  </style>
+</head>
+<body class="fg-page">
+  <main id="fg-main">
+
+    <!-- HERO -->
+    <header class="fg-section-sm" style="padding-top:64px;">
+      <div class="fg-wrap fg-center">
+        <span class="fg-eyebrow">🎮 Money Games</span>
+        <h1 class="fg-h1">Play your way to <span class="fg-grad-text">money smarts.</span></h1>
+        <p class="fg-lead fg-center">Eleven genuinely playable mini-games — invest, budget, build credit, dodge scams and grow a startup. Earn XP and badges while you learn. All money is virtual.</p>
+      </div>
+    </header>
+
+    <section class="fg-section-sm">
+      <div class="fg-wrap">
+        <!-- HUB GRID -->
+        <div id="gm-grid" class="fg-grid fg-grid-3 gm-grid"></div>
+
+        <!-- GAME PANEL (one container, filled per game) -->
+        <div id="gm-panel" class="gm-panel">
+          <button class="fg-btn fg-btn-ghost gm-back" onclick="closeGame()">← All games</button>
+          <div class="gm-head">
+            <div class="gm-ico" id="gm-panel-ico" style="--accent:var(--fg-green)"></div>
+            <div>
+              <h2 class="fg-h3" id="gm-panel-name" style="margin:0">Game</h2>
+              <p class="gm-mini" id="gm-panel-sub"></p>
+            </div>
+          </div>
+          <div class="gm-stage" id="gm-stage"></div>
+        </div>
+
+        <p class="gm-disc fg-center">Virtual money for learning — not investment advice.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../fg-app.js"></script>
+  <script>
+  FG.mountChrome('games');
+
+  /* ============================================================
+     SHARED HELPERS
+     ============================================================ */
+  var GRID  = document.getElementById('gm-grid');
+  var PANEL = document.getElementById('gm-panel');
+  var STAGE = document.getElementById('gm-stage');
+  var rupee = FG.fmtINR;
+  function rand(a, b){ return a + Math.random() * (b - a); }
+  function randint(a, b){ return Math.floor(rand(a, b + 1)); }
+  function el(html){ var d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+  /* ============================================================
+     HUB
+     ============================================================ */
+  function renderHub(){
+    GRID.innerHTML = '';
+    FG.GAMES.forEach(function(g){
+      var card = el(
+        '<div class="fg-card fg-card-hover gm-card" tabindex="0" role="button" style="--accent:' + g.color + '">' +
+          '<div class="gm-card-top">' +
+            '<div class="gm-ico">' + g.icon + '</div>' +
+            '<span class="gm-tag ' + (g.tag === 'Classic' ? 'classic' : 'new') + '">' + g.tag + '</span>' +
+          '</div>' +
+          '<div class="gm-name">' + g.name + '</div>' +
+          '<div class="gm-sub">' + g.sub + '</div>' +
+          '<div class="gm-play">Play now →</div>' +
+        '</div>'
+      );
+      card.addEventListener('click', function(){ openGame(g.id); });
+      card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openGame(g.id); } });
+      GRID.appendChild(card);
+    });
+  }
+
+  /* router */
+  var GAME_INIT = {}; // id -> function(stageEl)
+  function openGame(id){
+    var g = FG.GAMES.filter(function(x){ return x.id === id; })[0];
+    if(!g) return;
+    GRID.classList.add('hidden');
+    PANEL.classList.add('active');
+    document.getElementById('gm-panel-ico').textContent = g.icon;
+    document.getElementById('gm-panel-ico').style.setProperty('--accent', g.color);
+    document.getElementById('gm-panel-ico').style.background = 'color-mix(in srgb,' + g.color + ' 16%,#fff)';
+    document.getElementById('gm-panel-name').textContent = g.name;
+    document.getElementById('gm-panel-sub').textContent = g.sub;
+    STAGE.innerHTML = '';
+    STAGE.dataset.accent = g.color;
+    (GAME_INIT[id] || function(){ STAGE.textContent = 'Coming soon.'; })(STAGE, g);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function closeGame(){
+    PANEL.classList.remove('active');
+    GRID.classList.remove('hidden');
+    STAGE.innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.openGame = openGame;
+  window.closeGame = closeGame;
+
+  function scorebar(items){ // [{label,id,value}]
+    return '<div class="gm-scorebar">' + items.map(function(s){
+      return '<div class="gm-score"><b id="' + s.id + '">' + s.value + '</b><span>' + s.label + '</span></div>';
+    }).join('') + '</div>';
+  }
+  function instr(t){ return '<div class="gm-instr">💡 ' + t + '</div>'; }
+
+  /* ============================================================
+     1. ₹1 LAKH CHALLENGE  (invest)
+     ============================================================ */
+  GAME_INIT.invest = function(s){
+    var assets = [
+      { name:'Equity Mutual Fund', sub:'High risk · high reward', lo:-18, hi:34, def:25 },
+      { name:'Nifty 50 Index',     sub:'Market average',          lo:-12, hi:26, def:25 },
+      { name:'Gold',               sub:'Safe haven',              lo:-6,  hi:18, def:15 },
+      { name:'Govt Bonds',         sub:'Low risk, steady',        lo:4,   hi:8,  def:15 },
+      { name:'Fixed Deposit',      sub:'Guaranteed return',       lo:6,   hi:7,  def:10 },
+      { name:'Cash / Savings',     sub:'No growth, full safety',  lo:3,   hi:4,  def:10 }
+    ];
+    var POT = 100000;
+    s.innerHTML =
+      scorebar([{label:'To allocate', id:'inv-left', value:'100%'}, {label:'Capital', id:'inv-cap', value:rupee(POT)}]) +
+      instr('Spread ₹1,00,000 across assets so the weights total exactly 100%. Then simulate one year of plausible returns.') +
+      '<div id="inv-rows"></div>' +
+      '<div class="gm-total" id="inv-total"></div>' +
+      '<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">' +
+        '<button class="fg-btn fg-btn-primary" id="inv-go">Simulate 1 year</button>' +
+        '<button class="fg-btn fg-btn-ghost" id="inv-reset">Reset weights</button>' +
+      '</div>' +
+      '<div id="inv-out"></div>';
+    var rows = s.querySelector('#inv-rows');
+    function draw(){
+      rows.innerHTML = assets.map(function(a, i){
+        return '<div class="gm-alloc">' +
+          '<div class="gm-alloc-name">' + a.name + '<small>' + a.sub + '</small></div>' +
+          '<input type="range" min="0" max="100" step="5" value="' + a.def + '" data-i="' + i + '" aria-label="' + a.name + ' weight">' +
+          '<div class="gm-alloc-val" id="inv-v' + i + '">' + a.def + '%</div>' +
+        '</div>';
+      }).join('');
+      rows.querySelectorAll('input').forEach(function(inp){
+        inp.addEventListener('input', function(){
+          var i = +inp.dataset.i; assets[i].def = +inp.value;
+          rows.querySelector('#inv-v' + i).textContent = inp.value + '%';
+          tally();
+        });
+      });
+      tally();
+    }
+    function total(){ return assets.reduce(function(t,a){ return t + a.def; }, 0); }
+    function tally(){
+      var t = total();
+      document.getElementById('inv-left').textContent = (100 - t) + '%';
+      var tot = s.querySelector('#inv-total');
+      tot.className = 'gm-total ' + (t === 100 ? 'ok' : 'bad');
+      tot.innerHTML = '<span>Total allocated</span><span>' + t + '% ' + (t===100?'✓':'(must equal 100%)') + '</span>';
+      s.querySelector('#inv-go').disabled = (t !== 100);
+    }
+    s.querySelector('#inv-reset').onclick = function(){ assets.forEach(function(a,i){ a.def = [25,25,15,15,10,10][i]; }); draw(); s.querySelector('#inv-out').innerHTML=''; };
+    s.querySelector('#inv-go').onclick = function(){
+      var finalV = 0, lines = '';
+      assets.forEach(function(a){
+        var amt = POT * a.def / 100;
+        var r = rand(a.lo, a.hi);
+        var fv = amt * (1 + r/100);
+        finalV += fv;
+        if(a.def > 0) lines += '<div class="gm-alloc"><div class="gm-alloc-name">' + a.name + ' <small>' + a.def + '% → return ' + r.toFixed(1) + '%</small></div><div class="gm-alloc-val">' + rupee(fv) + '</div></div>';
+      });
+      var gain = finalV - POT, pc = gain/POT*100;
+      var win = gain >= 0;
+      if(pc >= 14){ FG.learning.award('investor'); FG.toast('🏆 Top investor! Badge earned'); }
+      else FG.toast(win ? 'Nice — your money grew!' : 'Markets dipped. Try a steadier mix.');
+      s.querySelector('#inv-out').innerHTML =
+        lines +
+        '<div class="gm-result ' + (win?'win':'lose') + '">' +
+          '<h3>' + (win?'📈 Portfolio grew!':'📉 Portfolio dipped') + '</h3>' +
+          'Final value: <b>' + rupee(finalV) + '</b><br>' +
+          (win?'Gain':'Loss') + ': <b>' + rupee(Math.abs(gain)) + ' (' + FG.pct(pc) + ')</b><br>' +
+          '<button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'invest\')">Play again</button>' +
+        '</div>';
+      s.querySelector('#inv-out').querySelector('.gm-result').scrollIntoView({behavior:'smooth', block:'nearest'});
+    };
+    draw();
+  };
+
+  /* ============================================================
+     2. BUDGET BOSS  (budget)
+     ============================================================ */
+  GAME_INIT.budget = function(s){
+    var INCOME = 30000;
+    var cats = [
+      { name:'Needs', sub:'Rent, food, transport, bills', def:15000, ideal:50 },
+      { name:'Wants', sub:'Outings, gadgets, fun',        def:9000,  ideal:30 },
+      { name:'Savings', sub:'Investments & emergency fund',def:6000,  ideal:20 }
+    ];
+    s.innerHTML =
+      scorebar([{label:'Monthly income', id:'bd-inc', value:rupee(INCOME)}, {label:'Unallocated', id:'bd-left', value:'₹0'}]) +
+      instr('Allocate your ₹30,000 salary across Needs, Wants and Savings. The 50/30/20 rule is a great target — how close can you get?') +
+      '<div id="bd-rows"></div>' +
+      '<div class="gm-total" id="bd-total"></div>' +
+      '<button class="fg-btn fg-btn-primary" id="bd-go" style="margin-top:16px">Grade my budget</button>' +
+      '<div id="bd-out"></div>';
+    var rows = s.querySelector('#bd-rows');
+    rows.innerHTML = cats.map(function(c,i){
+      return '<div class="gm-alloc">' +
+        '<div class="gm-alloc-name">' + c.name + '<small>' + c.sub + '</small></div>' +
+        '<input type="range" min="0" max="30000" step="500" value="' + c.def + '" data-i="' + i + '" aria-label="' + c.name + '">' +
+        '<div class="gm-alloc-val" id="bd-v' + i + '">' + rupee(c.def) + '</div></div>';
+    }).join('');
+    function tally(){
+      var t = cats.reduce(function(a,c){return a+c.def;},0);
+      document.getElementById('bd-left').textContent = rupee(INCOME - t);
+      var tot = s.querySelector('#bd-total');
+      tot.className = 'gm-total ' + (t === INCOME ? 'ok' : 'bad');
+      tot.innerHTML = '<span>Total allocated</span><span>' + rupee(t) + (t===INCOME?' ✓':' (use exactly '+rupee(INCOME)+')') + '</span>';
+      s.querySelector('#bd-go').disabled = (t !== INCOME);
+    }
+    rows.querySelectorAll('input').forEach(function(inp){
+      inp.addEventListener('input', function(){ var i=+inp.dataset.i; cats[i].def=+inp.value; rows.querySelector('#bd-v'+i).textContent=rupee(cats[i].def); tally(); });
+    });
+    s.querySelector('#bd-go').onclick = function(){
+      var pcts = cats.map(function(c){ return Math.round(c.def/INCOME*100); });
+      var dev = Math.abs(pcts[0]-50)+Math.abs(pcts[1]-30)+Math.abs(pcts[2]-20);
+      var score = Math.max(0, 100 - dev*1.5);
+      var grade = score>=90?'A+':score>=80?'A':score>=65?'B':score>=50?'C':'D';
+      var win = score>=65;
+      if(score>=90){ FG.learning.award('saver'); FG.toast('🏆 Budgeting boss! Badge earned'); } else FG.toast(win?'Solid budget!':'Rebalance toward 50/30/20.');
+      s.querySelector('#bd-out').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '">' +
+          '<h3>Grade: ' + grade + ' &nbsp;(' + Math.round(score) + '/100)</h3>' +
+          'Your split — Needs <b>' + pcts[0] + '%</b> · Wants <b>' + pcts[1] + '%</b> · Savings <b>' + pcts[2] + '%</b><br>' +
+          'Ideal (50/30/20) — Needs 50% · Wants 30% · Savings 20%.<br>' +
+          (pcts[2] < 20 ? '💡 Try saving a bit more next month.' : '💪 Great savings discipline!') +
+          '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'budget\')">Play again</button>' +
+        '</div>';
+    };
+    tally();
+  };
+
+  /* ============================================================
+     3. CIBIL BUILDER  (cibil)
+     ============================================================ */
+  GAME_INIT.cibil = function(s){
+    var rounds = shuffle([
+      { q:'Your credit card bill of ₹18,000 is due. You…', a:[
+        {t:'Pay full amount on time', d:'+45 · Best for your score', v:45},
+        {t:'Pay minimum due only', d:'-20 · Interest piles up', v:-20},
+        {t:'Skip it this month', d:'-60 · A missed payment hurts a lot', v:-60} ]},
+      { q:'You have a ₹1,00,000 card limit. You spend…', a:[
+        {t:'₹25,000 (25% usage)', d:'+35 · Low utilisation is healthy', v:35},
+        {t:'₹60,000 (60% usage)', d:'-15 · Getting high', v:-15},
+        {t:'₹95,000 (95% usage)', d:'-45 · Maxed out looks risky', v:-45} ]},
+      { q:'A bank offers you a 4th credit card. You…', a:[
+        {t:'Politely decline — you have enough', d:'+20 · Avoids hard enquiries', v:20},
+        {t:'Apply for it', d:'-25 · A hard enquiry dips your score', v:-25} ]},
+      { q:'Your oldest credit card has no annual fee. You…', a:[
+        {t:'Keep it open', d:'+30 · Long history helps', v:30},
+        {t:'Close it', d:'-25 · Shortens credit age', v:-25} ]},
+      { q:'You took a personal loan. Each month you…', a:[
+        {t:'Pay EMIs on time via auto-debit', d:'+40 · Builds trust', v:40},
+        {t:'Pay whenever you remember', d:'-35 · Late EMIs reported', v:-35} ]},
+      { q:'You spot a wrong ₹5,000 charge on your report. You…', a:[
+        {t:'Dispute it with the bureau', d:'+25 · Errors fixed improve score', v:25},
+        {t:'Ignore it', d:'-10 · Wrong data drags score', v:-10} ]},
+      { q:'You want a home loan in 2 years. Smart move now?', a:[
+        {t:'Maintain a healthy mix & pay on time', d:'+30 · Score keeps climbing', v:30},
+        {t:'Take many small loans fast', d:'-30 · Looks credit-hungry', v:-30} ]}
+    ]).slice(0, 6);
+    var score = 650, i = 0;
+    s.innerHTML =
+      scorebar([{label:'CIBIL score', id:'cb-score', value:score}, {label:'Round', id:'cb-round', value:'1 / '+rounds.length}]) +
+      instr('Make smart credit decisions. Each choice moves your CIBIL score (300–900). Aim for the 750+ band lenders love.') +
+      '<div class="fg-progress" style="margin-bottom:18px"><span id="cb-bar" style="width:' + ((score-300)/600*100) + '%"></span></div>' +
+      '<div id="cb-body"></div>';
+    function render(){
+      if(i >= rounds.length){ return finish(); }
+      var r = rounds[i];
+      document.getElementById('cb-round').textContent = (i+1) + ' / ' + rounds.length;
+      var body = s.querySelector('#cb-body');
+      body.innerHTML = '<div class="gm-card-q"><div class="gm-qmsg">' + r.q + '</div></div><div class="gm-choices"></div>';
+      var ch = body.querySelector('.gm-choices');
+      r.a.forEach(function(opt){
+        var b = el('<button class="gm-choice"><b>' + opt.t + '</b><span></span></button>');
+        b.onclick = function(){
+          score = FG.clamp(score + opt.v, 300, 900);
+          document.getElementById('cb-score').textContent = score;
+          document.getElementById('cb-bar').style.width = ((score-300)/600*100) + '%';
+          ch.querySelectorAll('button').forEach(function(x){ x.disabled = true; });
+          b.querySelector('span').textContent = opt.d;
+          b.style.borderColor = opt.v >= 0 ? 'var(--fg-green)' : 'var(--fg-coral)';
+          FG.toast((opt.v>=0?'👍 ':'👎 ') + (opt.v>=0?'+':'') + opt.v + ' points');
+          setTimeout(function(){ i++; render(); }, 1100);
+        };
+        ch.appendChild(b);
+      });
+    }
+    function band(v){ return v>=800?'Excellent':v>=750?'Very Good':v>=700?'Good':v>=650?'Fair':'Needs work'; }
+    function finish(){
+      var win = score >= 750;
+      if(score>=800){ FG.learning.award('credit-pro'); FG.toast('🏆 Credit pro! Badge earned'); }
+      s.querySelector('#cb-body').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '">' +
+          '<h3>Final score: ' + score + ' — ' + band(score) + '</h3>' +
+          (win ? 'Lenders will offer you the best interest rates. 🎉' : 'Keep paying on time and using under 30% of your limit to climb higher.') +
+          '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'cibil\')">Play again</button>' +
+        '</div>';
+    }
+    render();
+  };
+
+  /* ============================================================
+     4. SIP MAGIC  (sipmagic) + canvas growth curve
+     ============================================================ */
+  GAME_INIT.sipmagic = function(s){
+    s.innerHTML =
+      instr('Move the sliders to see how a monthly SIP compounds. Watch your invested money (blue) grow into a much bigger pot (green) — that is the magic of compounding.') +
+      '<div class="gm-slider"><label>Monthly investment <span id="sp-aL">₹5,000</span></label><input id="sp-a" type="range" min="500" max="50000" step="500" value="5000"></div>' +
+      '<div class="gm-slider"><label>Duration <span id="sp-yL">15 years</span></label><input id="sp-y" type="range" min="1" max="40" step="1" value="15"></div>' +
+      '<div class="gm-slider"><label>Expected annual return <span id="sp-rL">12%</span></label><input id="sp-r" type="range" min="4" max="20" step="1" value="12"></div>' +
+      '<div class="fg-grid fg-grid-3" style="margin:18px 0">' +
+        '<div class="fg-stat"><div class="fg-stat-label">Invested</div><div class="fg-stat-value" id="sp-inv" style="font-size:22px"></div></div>' +
+        '<div class="fg-stat"><div class="fg-stat-label">Wealth gained</div><div class="fg-stat-value fg-up" id="sp-gain" style="font-size:22px"></div></div>' +
+        '<div class="fg-stat"><div class="fg-stat-label">Future value</div><div class="fg-stat-value" id="sp-fv" style="font-size:22px"></div></div>' +
+      '</div>' +
+      '<canvas class="gm-canvas" id="sp-cv" width="640" height="280"></canvas>' +
+      '<p class="gm-mini" style="margin-top:8px">🟦 Total invested &nbsp; 🟩 Portfolio value</p>';
+    var a = s.querySelector('#sp-a'), y = s.querySelector('#sp-y'), r = s.querySelector('#sp-r');
+    var cv = s.querySelector('#sp-cv'), ctx = cv.getContext('2d');
+    function calc(){
+      var amt=+a.value, yrs=+y.value, rate=+r.value/100, n=yrs*12, mr=rate/12;
+      var fv = mr===0 ? amt*n : amt*((Math.pow(1+mr,n)-1)/mr)*(1+mr);
+      var inv = amt*n;
+      s.querySelector('#sp-aL').textContent = rupee(amt);
+      s.querySelector('#sp-yL').textContent = yrs + (yrs===1?' year':' years');
+      s.querySelector('#sp-rL').textContent = (+r.value) + '%';
+      s.querySelector('#sp-inv').textContent = FG.fmtShortINR(inv);
+      s.querySelector('#sp-gain').textContent = FG.fmtShortINR(fv-inv);
+      s.querySelector('#sp-fv').textContent = FG.fmtShortINR(fv);
+      drawCurve(amt, yrs, mr, fv);
+    }
+    function drawCurve(amt, yrs, mr, fvMax){
+      var W=cv.width, H=cv.height, pad=42;
+      ctx.clearRect(0,0,W,H);
+      var invSeries=[], valSeries=[], val=0, maxV=fvMax||1;
+      for(var m=0;m<=yrs*12;m++){
+        if(m>0) val = val*(1+mr) + amt;
+        if(m%Math.max(1,Math.round(yrs*12/120))===0 || m===yrs*12){ invSeries.push([m, amt*m]); valSeries.push([m, val]); }
+      }
+      function X(m){ return pad + (m/(yrs*12))*(W-pad-12); }
+      function Y(v){ return H-28 - (v/maxV)*(H-28-12); }
+      // axis
+      ctx.strokeStyle='#e8eaf1'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(pad,12); ctx.lineTo(pad,H-28); ctx.lineTo(W-12,H-28); ctx.stroke();
+      function plot(series, color, fill){
+        ctx.beginPath();
+        series.forEach(function(p,idx){ var x=X(p[0]), yy=Y(p[1]); idx===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy); });
+        if(fill){ ctx.lineTo(X(series[series.length-1][0]),H-28); ctx.lineTo(X(0),H-28); ctx.closePath(); ctx.fillStyle=fill; ctx.fill(); }
+        else { ctx.strokeStyle=color; ctx.lineWidth=2.5; ctx.stroke(); }
+      }
+      plot(valSeries, null, 'rgba(0,208,156,.16)');
+      plot(invSeries, null, 'rgba(83,103,255,.14)');
+      plot(valSeries, '#00b386', false);
+      plot(invSeries, '#5367ff', false);
+      ctx.fillStyle='#5b5b78'; ctx.font='11px Plus Jakarta Sans, sans-serif';
+      ctx.fillText('0', pad-4, H-12); ctx.fillText(yrs+'y', W-30, H-12);
+      ctx.fillText(FG.fmtShortINR(maxV), 4, 16);
+    }
+    [a,y,r].forEach(function(inp){ inp.addEventListener('input', calc); });
+    calc();
+  };
+
+  /* ============================================================
+     5. POCKET MONEY CHALLENGE  (pocket)
+     ============================================================ */
+  GAME_INIT.pocket = function(s){
+    var WEEKS = 6, ALLOW = 500;
+    var week = 1, cash = 0, savings = 0, invested = 0;
+    var events = shuffle([
+      'Friend\'s birthday — gift costs ₹150 if you go out.',
+      'Your favourite game is 40% off this week!',
+      'Bus fare went up — small extra cost this week.',
+      'You found a ₹100 note in your old jacket! (+₹100)',
+      'Festival bonus from grandparents! (+₹200)',
+      'A canteen treat is tempting everyone.',
+      'Your invested money grew a little this week.',
+      'Sale on stationery you actually need.'
+    ]);
+    s.innerHTML =
+      scorebar([
+        {label:'Week', id:'pk-wk', value:'1 / '+WEEKS},
+        {label:'Wallet', id:'pk-cash', value:'₹0'},
+        {label:'Savings', id:'pk-sav', value:'₹0'},
+        {label:'Invested', id:'pk-inv', value:'₹0'}
+      ]) +
+      instr('Each week you get ₹500 pocket money. Decide what to do with it. Saving builds a buffer; investing can grow — but events happen! Survive 6 weeks with the most wealth.') +
+      '<div id="pk-body"></div>';
+    function upd(){
+      document.getElementById('pk-wk').textContent = Math.min(week,WEEKS) + ' / ' + WEEKS;
+      document.getElementById('pk-cash').textContent = rupee(cash);
+      document.getElementById('pk-sav').textContent = rupee(savings);
+      document.getElementById('pk-inv').textContent = rupee(invested);
+    }
+    function render(){
+      if(week > WEEKS) return finish();
+      cash += ALLOW;
+      var ev = events[(week-1) % events.length];
+      // apply lucky bonuses encoded in some events
+      if(ev.indexOf('+₹100')>-1) cash += 100;
+      if(ev.indexOf('+₹200')>-1) cash += 200;
+      if(ev.indexOf('invested money grew')>-1 && invested>0){ invested = Math.round(invested*1.08); }
+      upd();
+      s.querySelector('#pk-body').innerHTML =
+        '<div class="gm-meta">Week ' + week + ' · You have ' + rupee(cash) + ' in your wallet</div>' +
+        '<div class="gm-card-q"><div class="gm-qmsg">📣 ' + ev + '</div></div>' +
+        '<p class="gm-mini" style="margin-bottom:8px">What will you do with this week\'s money?</p>' +
+        '<div class="gm-choices" id="pk-ch"></div>';
+      var ch = s.querySelector('#pk-ch');
+      var opts = [
+        { t:'Spend it all', d:'Fun now, nothing saved', fn:function(){ cash -= ALLOW; if(cash<0)cash=0; } },
+        { t:'Save half, keep half', d:'Balanced', fn:function(){ savings += ALLOW/2; cash -= ALLOW/2; } },
+        { t:'Save all of it', d:'Safe buffer', fn:function(){ savings += ALLOW; cash -= ALLOW; } },
+        { t:'Invest all of it', d:'Risky but can grow', fn:function(){ invested += ALLOW; cash -= ALLOW; } }
+      ];
+      opts.forEach(function(o){
+        var b = el('<button class="gm-choice"><b>' + o.t + '</b><span>' + o.d + '</span></button>');
+        b.onclick = function(){ o.fn(); upd(); week++; render(); };
+        ch.appendChild(b);
+      });
+    }
+    function finish(){
+      // invested has small final swing
+      invested = Math.round(invested * rand(0.95, 1.18));
+      var net = cash + savings + invested;
+      upd();
+      var win = (savings + invested) >= ALLOW*WEEKS*0.4;
+      if((savings+invested) >= ALLOW*WEEKS*0.6){ FG.learning.award('saver'); FG.toast('🏆 Money-wise! Badge earned'); }
+      s.querySelector('#pk-body').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '">' +
+          '<h3>' + (win?'🎉 Well played!':'Season over') + '</h3>' +
+          'Wallet ' + rupee(cash) + ' · Savings <b>' + rupee(savings) + '</b> · Invested <b>' + rupee(invested) + '</b><br>' +
+          'Total net worth: <b>' + rupee(net) + '</b> from ' + rupee(ALLOW*WEEKS) + ' of pocket money.<br>' +
+          (win ? 'You built a healthy saving habit. 💪' : 'Try saving or investing more next time.') +
+          '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'pocket\')">Play again</button>' +
+        '</div>';
+    }
+    render();
+  };
+
+  /* ============================================================
+     6. STARTUP BUILDER  (startup)
+     ============================================================ */
+  GAME_INIT.startup = function(s){
+    var val = 1000000; // ₹10 L seed valuation
+    var i = 0;
+    var steps = [
+      { q:'Your idea: a study-help app. First, you should…', a:[
+        {t:'Talk to 50 students first', d:'Validate demand', m:1.6},
+        {t:'Build everything for a year in secret', d:'Risky, no feedback', m:0.7} ]},
+      { q:'How will you make money?', a:[
+        {t:'Freemium subscription', d:'Scalable revenue', m:1.5},
+        {t:'Figure it out later', d:'Investors dislike this', m:0.6} ]},
+      { q:'First hire?', a:[
+        {t:'A strong engineer', d:'Builds the product', m:1.4},
+        {t:'Five interns at once', d:'Hard to manage early', m:0.8} ]},
+      { q:'A VC offers ₹2 Cr for 60% of your company. You…', a:[
+        {t:'Negotiate to 20% for ₹1.5 Cr', d:'Keep control', m:1.7},
+        {t:'Grab the cash, give 60%', d:'You lose control', m:0.75} ]},
+      { q:'Growth is flat. You…', a:[
+        {t:'Run small experiments & talk to users', d:'Data-driven', m:1.5},
+        {t:'Spend it all on flashy ads', d:'Burns cash fast', m:0.7} ]},
+      { q:'A big company wants to acquire you. You…', a:[
+        {t:'Negotiate hard — you have traction', d:'Maximise value', m:1.6},
+        {t:'Panic-sell cheap', d:'Leave money on table', m:0.8} ]}
+    ];
+    s.innerHTML =
+      scorebar([{label:'Valuation', id:'su-val', value:FG.fmtShortINR(val)}, {label:'Decision', id:'su-step', value:'1 / '+steps.length}]) +
+      instr('You are a founder. Make 6 key decisions — each multiplies (or shrinks) your startup valuation. Aim to build a unicorn-track company!') +
+      '<div id="su-body"></div>';
+    function upd(){ document.getElementById('su-val').textContent = FG.fmtShortINR(val); document.getElementById('su-step').textContent = Math.min(i+1,steps.length)+' / '+steps.length; }
+    function render(){
+      if(i >= steps.length) return finish();
+      var st = steps[i]; upd();
+      s.querySelector('#su-body').innerHTML = '<div class="gm-card-q"><div class="gm-qmsg">' + st.q + '</div></div><div class="gm-choices" id="su-ch"></div>';
+      var ch = s.querySelector('#su-ch');
+      st.a.forEach(function(o){
+        var b = el('<button class="gm-choice"><b>' + o.t + '</b><span>' + o.d + '</span></button>');
+        b.onclick = function(){
+          var before = val; val = Math.round(val * o.m * rand(0.92, 1.1));
+          ch.querySelectorAll('button').forEach(function(x){x.disabled=true;});
+          var up = val >= before;
+          FG.toast((up?'📈 ':'📉 ') + 'Valuation ' + (up?'up to ':'down to ') + FG.fmtShortINR(val));
+          upd();
+          setTimeout(function(){ i++; render(); }, 900);
+        };
+        ch.appendChild(b);
+      });
+    }
+    function finish(){
+      var verdict, cls;
+      if(val >= 50000000){ verdict='🦄 Unicorn track! Investors are lining up.'; cls='win'; FG.learning.award('founder'); FG.toast('🏆 Founder badge earned'); }
+      else if(val >= 10000000){ verdict='🚀 Strong scale-up. Great fundamentals.'; cls='win'; }
+      else if(val >= 2000000){ verdict='🌱 Steady small business. Room to grow.'; cls='info'; }
+      else { verdict='📉 Struggled — wiser calls needed next round.'; cls='lose'; }
+      s.querySelector('#su-body').innerHTML =
+        '<div class="gm-result ' + cls + '"><h3>Final valuation: ' + FG.fmtShortINR(val) + '</h3>' + verdict +
+        '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'startup\')">Play again</button></div>';
+    }
+    render();
+  };
+
+  /* ============================================================
+     7. STOCK MARKET SIMULATOR  (stocksim) + canvas ticker
+     ============================================================ */
+  GAME_INIT.stocksim = function(s){
+    var TURNS = 15, turn = 0, cash = 50000, shares = 0;
+    var price = 100, hist = [100];
+    s.innerHTML =
+      scorebar([
+        {label:'Turn', id:'st-turn', value:'0 / '+TURNS},
+        {label:'Cash', id:'st-cash', value:rupee(cash)},
+        {label:'Shares', id:'st-sh', value:'0'},
+        {label:'Net worth', id:'st-nw', value:rupee(cash)}
+      ]) +
+      instr('You start with ₹50,000. The price of "FinGarage Ltd" ticks each turn. Buy low, sell high, and finish 15 turns with the highest net worth. Buy/Sell trades 10 shares.') +
+      '<canvas class="gm-canvas" id="st-cv" width="640" height="240"></canvas>' +
+      '<div class="gm-meta" id="st-pl" style="margin-top:10px"></div>' +
+      '<div class="gm-trade">' +
+        '<button class="fg-btn fg-btn-primary" id="st-buy">Buy 10</button>' +
+        '<button class="fg-btn fg-btn-dark" id="st-sell">Sell 10</button>' +
+        '<button class="fg-btn fg-btn-ghost" id="st-next">Next turn →</button>' +
+      '</div><div id="st-out"></div>';
+    var cv = s.querySelector('#st-cv'), ctx = cv.getContext('2d');
+    function nw(){ return cash + shares*price; }
+    function upd(){
+      document.getElementById('st-turn').textContent = turn + ' / ' + TURNS;
+      document.getElementById('st-cash').textContent = rupee(cash);
+      document.getElementById('st-sh').textContent = shares;
+      document.getElementById('st-nw').textContent = rupee(nw());
+      s.querySelector('#st-pl').textContent = 'Current price: ' + rupee(price) + (shares?(' · Holdings worth ' + rupee(shares*price)):'');
+      draw();
+    }
+    function draw(){
+      var W=cv.width,H=cv.height,pad=8;
+      ctx.clearRect(0,0,W,H);
+      var mx=Math.max.apply(null,hist), mn=Math.min.apply(null,hist); if(mx===mn){mx+=1;mn-=1;}
+      ctx.strokeStyle='#00b386'; ctx.lineWidth=2.5; ctx.beginPath();
+      hist.forEach(function(p,idx){
+        var x = pad + idx/(TURNS)* (W-pad*2);
+        var yy = H-20 - (p-mn)/(mx-mn)*(H-36);
+        idx===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy);
+      });
+      ctx.stroke();
+      // last dot
+      var lx = pad + (hist.length-1)/(TURNS)*(W-pad*2);
+      var ly = H-20 - (price-mn)/(mx-mn)*(H-36);
+      ctx.fillStyle='#00b386'; ctx.beginPath(); ctx.arc(lx,ly,4,0,7); ctx.fill();
+      ctx.fillStyle='#5b5b78'; ctx.font='11px Plus Jakarta Sans, sans-serif';
+      ctx.fillText(rupee(mx), 4, 12); ctx.fillText(rupee(mn), 4, H-6);
+    }
+    function tick(){
+      turn++;
+      var drift = rand(-0.12, 0.13);
+      price = Math.max(20, Math.round(price * (1 + drift)));
+      hist.push(price);
+      if(turn >= TURNS) return finish();
+      upd();
+      FG.toast(drift>=0 ? '📈 Price rose to ' + rupee(price) : '📉 Price fell to ' + rupee(price));
+    }
+    s.querySelector('#st-buy').onclick = function(){ var c=price*10; if(c>cash){FG.toast('Not enough cash');return;} cash-=c; shares+=10; upd(); };
+    s.querySelector('#st-sell').onclick = function(){ if(shares<10){FG.toast('No shares to sell');return;} shares-=10; cash+=price*10; upd(); };
+    s.querySelector('#st-next').onclick = tick;
+    function finish(){
+      var profit = nw() - 50000, win = profit > 0;
+      upd();
+      ['st-buy','st-sell','st-next'].forEach(function(id){ s.querySelector('#'+id).disabled=true; });
+      if(profit >= 15000){ FG.learning.award('trader'); FG.toast('🏆 Sharp trader! Badge earned'); }
+      s.querySelector('#st-out').innerHTML =
+        '<div class="gm-result ' + (win?'win':'lose') + '"><h3>' + (win?'💹 You beat the market!':'📉 The market beat you') + '</h3>' +
+        'Final net worth: <b>' + rupee(nw()) + '</b><br>' + (win?'Profit':'Loss') + ': <b>' + rupee(Math.abs(profit)) + '</b><br>' +
+        '<button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'stocksim\')">Play again</button></div>';
+    }
+    upd();
+  };
+
+  /* ============================================================
+     8. INFLATION CHALLENGE  (inflation)
+     ============================================================ */
+  GAME_INIT.inflation = function(s){
+    var ROUNDS = 6, round = 0, money = 10000, basket = 1000, power = 0, baseBasket = 1000;
+    // "basket" = cost of a fixed basket of goods, rises each round
+    s.innerHTML =
+      scorebar([
+        {label:'Round', id:'if-r', value:'0 / '+ROUNDS},
+        {label:'Money', id:'if-m', value:rupee(money)},
+        {label:'Basket cost', id:'if-b', value:rupee(basket)},
+        {label:'Power preserved', id:'if-p', value:'0%'}
+      ]) +
+      instr('Prices rise every round (inflation!). Keeping cash idle loses purchasing power. Spend Now, Save (small interest) or Invest (beats inflation, but varies). Preserve the value of your money over 6 rounds.') +
+      '<div id="if-body"></div>';
+    function preserved(){ return Math.round((money / basket) / (baseBasket===0?1:(10000/baseBasket)) ); }
+    function powerPct(){
+      // how many baskets you can still buy vs the start (start could buy 10 baskets)
+      var startBaskets = 10000 / baseBasket;
+      var nowBaskets = money / basket;
+      return Math.round(nowBaskets / startBaskets * 100);
+    }
+    function upd(){
+      document.getElementById('if-r').textContent = Math.min(round,ROUNDS) + ' / ' + ROUNDS;
+      document.getElementById('if-m').textContent = rupee(money);
+      document.getElementById('if-b').textContent = rupee(basket);
+      document.getElementById('if-p').textContent = powerPct() + '%';
+    }
+    function render(){
+      if(round >= ROUNDS) return finish();
+      round++;
+      var inflation = rand(0.05, 0.11);
+      basket = Math.round(basket * (1 + inflation));
+      upd();
+      s.querySelector('#if-body').innerHTML =
+        '<div class="gm-meta">Round ' + round + ' · Inflation this round: ' + (inflation*100).toFixed(1) + '% · A basket of goods now costs ' + rupee(basket) + '</div>' +
+        '<div class="gm-card-q"><div class="gm-qmsg">Your ' + rupee(money) + ' buys less each round. What do you do?</div></div>' +
+        '<div class="gm-choices" id="if-ch"></div>';
+      var ch = s.querySelector('#if-ch');
+      var opts = [
+        { t:'Spend ₹2,000 now', d:'Beat future price rises on goods you need', fn:function(){ money = Math.max(0, money-2000); } },
+        { t:'Keep as cash', d:'Safe, but inflation erodes it', fn:function(){} },
+        { t:'Save (FD ~6%)', d:'Small guaranteed growth', fn:function(){ money = Math.round(money*1.06); } },
+        { t:'Invest (equity)', d:'Aims to beat inflation — but varies', fn:function(){ money = Math.round(money * rand(0.96, 1.18)); } }
+      ];
+      opts.forEach(function(o){
+        var b = el('<button class="gm-choice"><b>' + o.t + '</b><span>' + o.d + '</span></button>');
+        b.onclick = function(){ o.fn(); upd(); render(); };
+        ch.appendChild(b);
+      });
+    }
+    function finish(){
+      var p = powerPct(), win = p >= 95;
+      if(p >= 105){ FG.learning.award('inflation-beater'); FG.toast('🏆 You beat inflation! Badge earned'); }
+      s.querySelector('#if-body').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '"><h3>Purchasing power preserved: ' + p + '%</h3>' +
+        (p>=105 ? 'You actually grew your real wealth ahead of inflation! 🎉'
+                : win ? 'You held your ground against rising prices. 👍'
+                      : 'Inflation ate into your money. Saving/investing beats idle cash.') +
+        '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'inflation\')">Play again</button></div>';
+    }
+    render();
+  };
+
+  /* ============================================================
+     9. GOAL PLANNER  (goal) + canvas
+     ============================================================ */
+  GAME_INIT.goal = function(s){
+    s.innerHTML =
+      instr('Set a money goal and a timeline, then choose how much you save monthly and your expected return. The chart shows whether — and when — you reach your dream.') +
+      '<div class="gm-slider"><label>Goal amount <span id="go-gL">₹5,00,000</span></label><input id="go-g" type="range" min="50000" max="2000000" step="50000" value="500000"></div>' +
+      '<div class="gm-slider"><label>Timeline <span id="go-yL">5 years</span></label><input id="go-y" type="range" min="1" max="20" step="1" value="5"></div>' +
+      '<div class="gm-slider"><label>Monthly saving <span id="go-mL">₹6,000</span></label><input id="go-m" type="range" min="500" max="50000" step="500" value="6000"></div>' +
+      '<div class="gm-slider"><label>Expected return <span id="go-rL">10%</span></label><input id="go-r" type="range" min="2" max="18" step="1" value="10"></div>' +
+      '<canvas class="gm-canvas" id="go-cv" width="640" height="260"></canvas>' +
+      '<div id="go-out" style="margin-top:6px"></div>';
+    var g=s.querySelector('#go-g'),y=s.querySelector('#go-y'),m=s.querySelector('#go-m'),r=s.querySelector('#go-r');
+    var cv=s.querySelector('#go-cv'),ctx=cv.getContext('2d');
+    function calc(){
+      var goal=+g.value, yrs=+y.value, mon=+m.value, mr=(+r.value/100)/12, n=yrs*12;
+      s.querySelector('#go-gL').textContent=rupee(goal);
+      s.querySelector('#go-yL').textContent=yrs+(yrs===1?' year':' years');
+      s.querySelector('#go-mL').textContent=rupee(mon);
+      s.querySelector('#go-rL').textContent=(+r.value)+'%';
+      // build series, find month goal met
+      var val=0, series=[0], metMonth=-1;
+      for(var k=1;k<=n;k++){ val = val*(1+mr)+mon; series.push(val); if(metMonth<0 && val>=goal) metMonth=k; }
+      var fv=val, met = fv>=goal;
+      draw(series, goal, n, metMonth);
+      var out=s.querySelector('#go-out');
+      if(met){
+        var yy=Math.floor(metMonth/12), mm=metMonth%12;
+        out.innerHTML='<div class="gm-result win"><h3>🎯 Goal reached!</h3>You hit '+rupee(goal)+' in about <b>'+yy+'y '+mm+'m</b> and end with <b>'+rupee(fv)+'</b>.'+(metMonth<n?' That\'s ahead of schedule! 🎉':'')+'</div>';
+        FG.learning.award('goal-getter');
+      } else {
+        var need = goal/((Math.pow(1+mr,n)-1)/ (mr||1) * (1+(mr||0)) || 1);
+        out.innerHTML='<div class="gm-result info"><h3>Almost there</h3>At this rate you reach <b>'+rupee(fv)+'</b> of your '+rupee(goal)+' goal. Try saving about <b>'+rupee(Math.ceil(need/500)*500)+'</b>/month or extending the timeline.</div>';
+      }
+    }
+    function draw(series, goal, n, metMonth){
+      var W=cv.width,H=cv.height,pad=46;
+      ctx.clearRect(0,0,W,H);
+      var maxV=Math.max(goal, series[series.length-1])*1.05;
+      function X(i){ return pad + i/n*(W-pad-14); }
+      function Y(v){ return H-26 - v/maxV*(H-40); }
+      ctx.strokeStyle='#e8eaf1'; ctx.beginPath(); ctx.moveTo(pad,8); ctx.lineTo(pad,H-26); ctx.lineTo(W-14,H-26); ctx.stroke();
+      // goal line
+      ctx.strokeStyle='#f5a623'; ctx.setLineDash([6,5]); ctx.beginPath(); ctx.moveTo(pad,Y(goal)); ctx.lineTo(W-14,Y(goal)); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle='#b8780f'; ctx.font='11px Plus Jakarta Sans, sans-serif'; ctx.fillText('Goal '+FG.fmtShortINR(goal), pad+4, Y(goal)-4);
+      // savings curve fill + line
+      ctx.beginPath(); series.forEach(function(v,i){ var x=X(i),yy=Y(v); i===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy); });
+      ctx.lineTo(X(n),H-26); ctx.lineTo(X(0),H-26); ctx.closePath(); ctx.fillStyle='rgba(0,208,156,.15)'; ctx.fill();
+      ctx.beginPath(); series.forEach(function(v,i){ var x=X(i),yy=Y(v); i===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy); });
+      ctx.strokeStyle='#00b386'; ctx.lineWidth=2.5; ctx.stroke();
+      if(metMonth>0){ var mx=X(metMonth); ctx.fillStyle='#00b386'; ctx.beginPath(); ctx.arc(mx,Y(goal),5,0,7); ctx.fill(); }
+      ctx.fillStyle='#5b5b78'; ctx.fillText('0', pad-4, H-10); ctx.fillText((n/12)+'y', W-32, H-10);
+    }
+    [g,y,m,r].forEach(function(inp){ inp.addEventListener('input', calc); });
+    calc();
+  };
+
+  /* ============================================================
+     10. SCAM DETECTION  (scam)
+     ============================================================ */
+  GAME_INIT.scam = function(s){
+    var items = shuffle([
+      { msg:'"Congrats! You won ₹10 lakh in KBC lottery. Pay ₹4,999 processing fee to claim."', scam:true, why:'Real lotteries never ask you to pay to receive a prize.' },
+      { msg:'Your bank app sends an OTP: "Do NOT share this OTP with anyone, including bank staff."', scam:false, why:'Genuine banks warn you to never share OTPs.' },
+      { msg:'"Your KYC is suspended! Click this link and enter your card PIN to reactivate now."', scam:true, why:'Banks never ask for your PIN via links. PIN + link = fraud.' },
+      { msg:'"Double your money in 7 days — guaranteed 200% returns. Invest today!"', scam:true, why:'Guaranteed high returns are impossible. Classic Ponzi bait.' },
+      { msg:'A mutual fund\'s SEBI-registered factsheet shows past returns with a risk warning.', scam:false, why:'Regulated, transparent, with risk disclosure — legitimate.' },
+      { msg:'"I am from your bank. Read me the OTP we just sent to verify your account."', scam:true, why:'No real bank employee will ever ask for your OTP.' },
+      { msg:'"Work from home! Pay ₹2,000 registration and earn ₹50,000/month easily."', scam:true, why:'Legit jobs don\'t charge you to start. Upfront-fee = scam.' },
+      { msg:'Your UPI app asks you to APPROVE a "collect request" to RECEIVE money.', scam:true, why:'You never approve/enter PIN to receive money — only to pay.' }
+    ]);
+    var i = 0, score = 0;
+    s.innerHTML =
+      scorebar([{label:'Caught right', id:'sc-score', value:'0'}, {label:'Message', id:'sc-i', value:'1 / '+items.length}]) +
+      instr('Read each message and decide: Scam or Safe? Spotting fraud protects your money. You will see why after each answer.') +
+      '<div id="sc-body"></div>';
+    function render(){
+      if(i >= items.length) return finish();
+      var it = items[i];
+      document.getElementById('sc-i').textContent = (i+1) + ' / ' + items.length;
+      s.querySelector('#sc-body').innerHTML =
+        '<div class="gm-card-q"><div class="gm-qmsg">📩 ' + it.msg + '</div></div>' +
+        '<div class="gm-choices">' +
+          '<button class="gm-choice" id="sc-scam"><b>🚩 Scam</b><span>This looks like fraud</span></button>' +
+          '<button class="gm-choice" id="sc-safe"><b>✅ Safe</b><span>This is legitimate</span></button>' +
+        '</div><div id="sc-fb"></div>';
+      function answer(guess){
+        var right = (guess === it.scam);
+        if(right) score++;
+        document.getElementById('sc-score').textContent = score;
+        s.querySelector('#sc-scam').disabled = true; s.querySelector('#sc-safe').disabled = true;
+        FG.toast(right ? '✅ Correct!' : '❌ Not quite');
+        s.querySelector('#sc-fb').innerHTML = '<div class="gm-fb ' + (right?'good':'bad') + '">' +
+          (right?'Correct — ':'Actually this is ') + (it.scam?'this is a SCAM. ':'SAFE. ') + it.why + '</div>' +
+          '<button class="fg-btn fg-btn-primary" style="margin-top:12px" id="sc-next">Next →</button>';
+        s.querySelector('#sc-next').onclick = function(){ i++; render(); };
+      }
+      s.querySelector('#sc-scam').onclick = function(){ answer(true); };
+      s.querySelector('#sc-safe').onclick = function(){ answer(false); };
+    }
+    function finish(){
+      var win = score >= Math.ceil(items.length*0.75);
+      if(score === items.length){ FG.learning.award('scam-buster'); FG.toast('🏆 Perfect! Scam-buster badge'); }
+      s.querySelector('#sc-body').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '"><h3>You caught ' + score + ' / ' + items.length + '</h3>' +
+        (win ? 'Sharp eyes! You can spot most frauds. 🛡️' : 'Stay alert — re-read the tips and try again.') +
+        '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'scam\')">Play again</button></div>';
+    }
+    render();
+  };
+
+  /* ============================================================
+     11. GOOD DEBT vs BAD DEBT  (debt)
+     ============================================================ */
+  GAME_INIT.debt = function(s){
+    var items = shuffle([
+      { msg:'Education loan to study engineering at a top college', good:true, why:'Invests in earning power — classic good debt.' },
+      { msg:'EMI on the latest ₹1.5 lakh phone you can\'t really afford', good:false, why:'A depreciating want bought on credit — bad debt.' },
+      { msg:'Home loan for a house you will live in for 20 years', good:true, why:'An appreciating asset with tax benefits — good debt.' },
+      { msg:'Payday loan at 30% interest to fund a weekend trip', good:false, why:'Sky-high interest for a non-essential — bad debt.' },
+      { msg:'Business loan to buy machines that increase your output', good:true, why:'Generates income above its cost — good debt.' },
+      { msg:'Credit card debt rolled over month after month at 40% APR', good:false, why:'Expensive revolving debt — avoid carrying it.' },
+      { msg:'Low-interest loan for skill certification that boosts salary', good:true, why:'Raises future income more than it costs — good debt.' },
+      { msg:'Borrowing to gamble on a "hot tip" crypto coin', good:false, why:'Borrowing to speculate is very risky — bad debt.' }
+    ]);
+    var i = 0, score = 0;
+    s.innerHTML =
+      scorebar([{label:'Sorted right', id:'db-score', value:'0'}, {label:'Scenario', id:'db-i', value:'1 / '+items.length}]) +
+      instr('Good debt builds wealth or income (education, home, business). Bad debt funds wants at high cost. Sort each loan correctly!') +
+      '<div id="db-body"></div>';
+    function render(){
+      if(i >= items.length) return finish();
+      var it = items[i];
+      document.getElementById('db-i').textContent = (i+1) + ' / ' + items.length;
+      s.querySelector('#db-body').innerHTML =
+        '<div class="gm-card-q"><div class="gm-qmsg">💳 ' + it.msg + '</div></div>' +
+        '<div class="gm-choices">' +
+          '<button class="gm-choice" id="db-good"><b>👍 Good Debt</b><span>Builds wealth or income</span></button>' +
+          '<button class="gm-choice" id="db-bad"><b>👎 Bad Debt</b><span>Costly funding of wants</span></button>' +
+        '</div><div id="db-fb"></div>';
+      function answer(guess){
+        var right = (guess === it.good);
+        if(right) score++;
+        document.getElementById('db-score').textContent = score;
+        s.querySelector('#db-good').disabled = true; s.querySelector('#db-bad').disabled = true;
+        FG.toast(right ? '✅ Correct!' : '❌ Not quite');
+        s.querySelector('#db-fb').innerHTML = '<div class="gm-fb ' + (right?'good':'bad') + '">' +
+          (right?'Correct — ':'Actually this is ') + (it.good?'GOOD debt. ':'BAD debt. ') + it.why + '</div>' +
+          '<button class="fg-btn fg-btn-primary" style="margin-top:12px" id="db-next">Next →</button>';
+        s.querySelector('#db-next').onclick = function(){ i++; render(); };
+      }
+      s.querySelector('#db-good').onclick = function(){ answer(true); };
+      s.querySelector('#db-bad').onclick = function(){ answer(false); };
+    }
+    function finish(){
+      var win = score >= Math.ceil(items.length*0.75);
+      if(score === items.length){ FG.learning.award('debt-wise'); FG.toast('🏆 Perfect! Debt-wise badge'); }
+      s.querySelector('#db-body').innerHTML =
+        '<div class="gm-result ' + (win?'win':'info') + '"><h3>You sorted ' + score + ' / ' + items.length + '</h3>' +
+        (win ? 'You know which debt works for you. ⚖️' : 'Review the feedback — good debt grows you, bad debt drains you.') +
+        '<br><button class="fg-btn fg-btn-ghost" style="margin-top:12px" onclick="openGame(\'debt\')">Play again</button></div>';
+    }
+    render();
+  };
+
+  /* ---------------- boot ---------------- */
+  renderHub();
+  if (FG.revealInit) FG.revealInit();
+  </script>
+</body>
+</html>
