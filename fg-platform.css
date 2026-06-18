@@ -146,7 +146,7 @@ body.fg-page * { box-sizing: border-box; }
 @media (max-width: 1080px) {
   .fgnav-links { display: none; }
   .fgnav-burger { display: flex; }
-  .fgn-cta, .fgn-dash { display: none; }
+  .fgn-cta, .fgn-dash, .fgn-main { display: none; }
 }
 
 /* ================================ FOOTER ================================== */
@@ -179,9 +179,9 @@ body.fg-page * { box-sizing: border-box; }
 /* money-score ring */
 .fg-ring { position: relative; width: 132px; height: 132px; }
 .fg-ring svg { transform: rotate(-90deg); }
-.fg-ring-num { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
-.fg-ring-num b { font-size: 30px; font-weight: 800; display: block; line-height: 1; }
-.fg-ring-num small { font-size: 11px; color: var(--fg-muted); font-weight: 600; }
+.fg-ring-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; line-height: 1; padding: 14%; box-sizing: border-box; }
+.fg-ring-num b { font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -.01em; }
+.fg-ring-num small { font-size: 11px; color: var(--fg-muted); font-weight: 700; margin-top: 4px; line-height: 1; }
 
 /* level cards */
 .fg-level {
@@ -258,6 +258,12 @@ body.fg-page * { box-sizing: border-box; }
 
 /* professional icons (FG.icon) */
 .fg-ic { display: inline-block; vertical-align: middle; flex: none; }
+/* "Main site" link in the academy nav (back to the main FinGarage site) */
+.fgn-main { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; color: var(--fg-muted); text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--fg-line); white-space: nowrap; }
+.fgn-main:hover { color: var(--fg-ink); border-color: var(--fg-green); background: var(--fg-bg-2); }
+.fgn-main-ic { transform: rotate(180deg); }
+/* toast aligns an optional leading icon with its text */
+.fg-toast { display: inline-flex; align-items: center; gap: 8px; }
 .fgn-chip-flame { display: inline-flex; align-items: center; gap: 4px; }
 .fgn-avatar { color: var(--fg-ink); display: inline-grid; place-items: center; }
 .fg-badge-icon .fg-ic { color: var(--fg-green-d); }

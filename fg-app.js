@@ -379,16 +379,19 @@
       return '<a href="' + href(n, p) + '" class="fgn-link' + (n.id === activeId ? ' active' : '') + '">' + n.label + '</a>';
     }).join('');
 
+    // Link back to the main FinGarage site (academy is a sub-site).
+    var mainLink = '<a href="' + p.R + 'index.html" class="fgn-main" title="Back to the main FinGarage site">' + icon('arrow-right', { size: 14, cls: 'fgn-main-ic' }) + 'Main site</a>';
+
     var right;
     if (loggedIn) {
-      right =
+      right = mainLink +
         '<a href="' + p.P + 'academy-learn.html" class="fgn-chip" title="Money Score / Streak">' +
           '<span class="fgn-chip-flame">' + icon('flame', { size: 14 }) + state.learning.streak + '</span>' +
           '<span class="fgn-chip-score">' + state.learning.moneyScore + '</span>' +
         '</a>' +
         '<button class="fgn-avatar" onclick="FG._logout()" title="' + state.user.name + ' — click to log out">' + icon('user', { size: 18 }) + '</button>';
     } else {
-      right =
+      right = mainLink +
         '<a href="' + p.P + 'login.html" class="fgn-login">Login</a>' +
         '<a href="' + p.P + 'for-students.html" class="fgn-cta">Get Started</a>';
     }
@@ -409,6 +412,7 @@
         '<div class="fgnav-mobile" id="fgnavMobile">' + links +
           '<a href="' + p.P + (loggedIn ? dashTo : 'login.html') + '" class="fgn-link">' + (loggedIn ? 'Dashboard' : 'Login') + '</a>' +
           '<a href="' + p.P + 'contact.html" class="fgn-link">Contact</a>' +
+          '<a href="' + p.R + 'index.html" class="fgn-link">← Main FinGarage site</a>' +
         '</div>' +
       '</nav>';
 
@@ -492,7 +496,7 @@
   function toast(msg) {
     var t = document.querySelector('.fg-toast');
     if (!t) { t = document.createElement('div'); t.className = 'fg-toast'; document.body.appendChild(t); }
-    t.textContent = msg; t.classList.add('show');
+    t.innerHTML = msg; t.classList.add('show'); // msg may include an FG.icon(...) SVG
     clearTimeout(_toastTimer);
     _toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
   }
