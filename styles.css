@@ -411,13 +411,30 @@ img { max-width: 100%; }
 }
 
 .hero-subtitle {
-    font-size: 18px;
-    color: var(--dark-secondary);
-    line-height: 1.7;
     margin-bottom: 32px;
-    max-width: 500px;
+    max-width: 580px;
     animation: fadeInUp 0.6s ease 0.2s forwards;
     opacity: 0;
+    text-align: left;
+}
+
+.hero-subtitle-lead {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.hero-subtitle-body {
+    font-size: 15px;
+    color: var(--dark-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle-body:last-child {
+    margin-bottom: 0;
 }
 
 .hero-cta {
@@ -1927,6 +1944,16 @@ img { max-width: 100%; }
 
     .hero-subtitle {
         font-size: 16px;
+    }
+
+    .hero-subtitle-lead {
+        font-size: 17px;
+        margin-bottom: 12px;
+    }
+
+    .hero-subtitle-body {
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 
     .hero-cta {
@@ -5312,7 +5339,7 @@ body.dark-mode .testimonial-name { color: var(--text-primary) !important; }
     letter-spacing: -2.4px;
 }
 .hero-subtitle {
-    max-width: 545px;
+    max-width: 580px;
 }
 .hero-visual {
     min-width: 0;
@@ -5487,6 +5514,8 @@ body.dark-mode .wealth-visual-art {
         letter-spacing: -1.5px;
     }
     .hero-subtitle { font-size: 15px; }
+    .hero-subtitle-lead { font-size: 16.5px; }
+    .hero-subtitle-body { font-size: 13.5px; }
     .hero-cta { margin-bottom: 34px; }
     .hero-stats {
         display: grid;
