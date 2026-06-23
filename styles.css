@@ -5900,3 +5900,328 @@ body.dark-mode .ils-card:hover { box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
         gap: 12px;
     }
 }
+
+/* ===== New Rebrand Sections ===== */
+
+/* About FinGarage Section */
+.about-fg-section {
+    padding: 90px 24px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.about-fg-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-fg-left {
+    max-width: 620px;
+}
+
+.about-fg-right {
+    background: var(--light-bg);
+    padding: 44px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+
+.about-fg-subtitle {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.about-fg-title {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--dark);
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+}
+
+.about-fg-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--dark-secondary);
+    margin-bottom: 20px;
+}
+
+.about-fg-mission-box {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1.5px dashed var(--border);
+}
+
+.about-fg-mission-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--dark-secondary);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.about-fg-mission-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.4;
+}
+
+/* LIFT Framework Section */
+.lift-section {
+    padding: 90px 24px;
+    background: var(--light-bg);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.lift-grid {
+    max-width: var(--max-width);
+    margin: 48px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.lift-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: var(--transition);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.lift-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary);
+}
+
+.lift-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: var(--white);
+}
+
+.lift-card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.lift-card-desc {
+    font-size: 14.5px;
+    color: var(--dark-secondary);
+    line-height: 1.6;
+}
+
+/* One Roof Ecosystem Section */
+.one-roof-section {
+    padding: 90px 24px;
+    background: var(--light-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.one-roof-grid {
+    max-width: var(--max-width);
+    margin: 48px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.one-roof-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--card-shadow);
+}
+
+.one-roof-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary);
+}
+
+.one-roof-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.one-roof-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.one-roof-desc {
+    font-size: 14px;
+    color: var(--dark-secondary);
+    line-height: 1.55;
+}
+
+/* Vision & Mission Section */
+.vm-section {
+    padding: 90px 24px;
+    background: var(--light-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.vm-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.vm-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.vm-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+}
+
+.vm-card.vision-card::before {
+    background: var(--primary);
+}
+
+.vm-card.mission-card::before {
+    background: var(--blue);
+}
+
+.vm-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.vm-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.vm-desc {
+    font-size: 16px;
+    color: var(--dark-secondary);
+    line-height: 1.7;
+}
+
+/* Academy banner lists & layout enhancement */
+.academy-banner-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.academy-banner-column h4 {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+}
+
+.academy-banner-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.academy-banner-list-item {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #4a4d61;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* Responsive Rules for Ecosystem */
+@media (max-width: 1024px) {
+    .one-roof-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 860px) {
+    .about-fg-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .lift-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .vm-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 560px) {
+    .lift-grid, .one-roof-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-fg-right {
+        padding: 24px;
+    }
+    .vm-card {
+        padding: 32px;
+    }
+    .academy-banner-details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
