@@ -334,12 +334,11 @@ img { max-width: 100%; }
 
 /* ===== Hero Section ===== */
 .hero {
-    padding-top: 60px;
+    padding-top: 0;
     padding-bottom: 40px;
     background: linear-gradient(180deg, #f4f7fe 0%, #ffffff 60%);
-    min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     overflow: hidden;
 }
 
@@ -350,7 +349,7 @@ img { max-width: 100%; }
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
-    align-items: center;
+    align-items: start;
 }
 
 .hero-badge {
@@ -772,7 +771,7 @@ img { max-width: 100%; }
 /* ===== Ticker Section ===== */
 .ticker-section {
     background: transparent;
-    padding: 16px 24px 0;
+    padding: 0 24px;
     overflow: hidden;
     margin-top: var(--nav-height);
 }
@@ -783,7 +782,7 @@ img { max-width: 100%; }
     max-width: 1080px;
     margin: 0 auto;
     background: transparent;
-    padding: 12px 0;
+    padding: 4px 0;
 }
 
 .ticker-wrap::before,
@@ -5299,7 +5298,7 @@ body.dark-mode .testimonial-name { color: var(--text-primary) !important; }
     --hero-window: rgba(220,250,242,0.72);
     position: relative;
     isolation: isolate;
-    padding-top: calc(var(--nav-height) + 54px);
+    padding-top: 16px;
     padding-bottom: 34px;
     background:
         radial-gradient(circle at 78% 30%, rgba(0,208,156,0.13), transparent 30%),

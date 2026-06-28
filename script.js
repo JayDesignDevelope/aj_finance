@@ -1346,18 +1346,11 @@ faqItems.forEach(item => {
     });
 });
 
-// ===== Loan Application Logic =====
+// ===== Contact Form Logic =====
 const applyForm = document.getElementById('applyForm');
 const applySuccess = document.getElementById('applySuccess');
 
-// The ONE integration point between this public site and the CRM:
-// the loan application posts straight into the CRM as a Website lead.
-// Set window.CRM_API_URL on the deployed site (e.g. https://api.yourcrm.in/api).
 const CRM_API_URL = (typeof window !== 'undefined' && window.CRM_API_URL) || 'http://localhost:4000/api';
-const LOAN_TYPE_LABEL = {
-    personal: 'Personal Loan', business: 'Business Loan', home: 'Home Loan',
-    lap: 'Loan Against Property', working: 'Working Capital',
-};
 
 if (applyForm) {
     applyForm.addEventListener('submit', async (e) => {
@@ -1365,14 +1358,11 @@ if (applyForm) {
 
         const name = document.getElementById('appName').value.trim();
         const phone = document.getElementById('appPhone').value.trim();
-        const loanType = document.getElementById('appLoanType').value;
-        const city = document.getElementById('appCity').value.trim();
-        const income = parseFloat(document.getElementById('appIncome').value) || 0;
         const email = (document.getElementById('appEmail') || {}).value?.trim() || '';
         const message = (document.getElementById('appMessage') || {}).value?.trim() || '';
         const consent = document.getElementById('appConsent').checked;
 
-        if (!name || !phone || !loanType || !city || !income || !consent) {
+        if (!name || !phone || !consent) {
             alert('Please fill in all required fields and provide consent.');
             return;
         }
@@ -1382,17 +1372,15 @@ if (applyForm) {
         }
 
         const submitBtn = applyForm.querySelector('button[type="submit"]');
-        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
 
-        // Send into the CRM (best-effort: the applicant still sees success
-        // even if the CRM is briefly unreachable; the error is logged).
         try {
             await fetch(CRM_API_URL + '/leads/capture', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name, phone, email, city, income,
-                    product: LOAN_TYPE_LABEL[loanType] || 'Other',
+                    name, phone, email,
+                    product: 'Website Contact',
                     notes: message,
                 }),
             });
@@ -2205,22 +2193,6 @@ window.addEventListener('load', initTypoAnimations, { once: true });
       img.addEventListener('error', function () { swapIfBroken(this); });
     }
   });
-})();
-
-/* ================================================================
-   DARK MODE TOGGLE
-   ================================================================ */
-(function () {
-    var toggle = document.getElementById('darkToggle');
-    if (!toggle) return;
-    var stored = localStorage.getItem('aj-dark-mode');
-    if (stored === 'dark') document.body.classList.add('dark-mode');
-
-    toggle.addEventListener('click', function () {
-        document.body.classList.toggle('dark-mode');
-        var isDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('aj-dark-mode', isDark ? 'dark' : 'light');
-    });
 })();
 
 /* ================================================================

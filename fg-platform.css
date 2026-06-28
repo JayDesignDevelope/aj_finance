@@ -102,7 +102,8 @@ body.fg-page * { box-sizing: border-box; }
 .fgnav.scrolled { border-bottom-color: var(--fg-line); box-shadow: 0 6px 24px rgba(20,20,43,.05); }
 .fgnav-in { max-width: 1240px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; gap: 18px; }
 
-.fgn-logo { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+.fgn-logo { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
+.fgn-logo-img { width: 40px; height: 40px; display: block; object-fit: contain; flex-shrink: 0; }
 .fgn-logo-mark {
   width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
   font-weight: 800; font-size: 15px; color: #04231c;

@@ -401,7 +401,7 @@
       '<nav class="fgnav" id="fgnav">' +
         '<div class="fgnav-in">' +
           '<a href="' + p.P + 'academy.html" class="fgn-logo">' +
-            '<span class="fgn-logo-mark">FG</span><span class="fgn-logo-txt">FinGarage</span>' +
+            '<img src="' + p.R + 'assets/brand/fingarage-mark-transparent.png" alt="FinGarage" class="fgn-logo-img" style="width:40px;height:40px;display:block;object-fit:contain;">' +
           '</a>' +
           '<div class="fgnav-links" id="fgnavLinks">' + links + '</div>' +
           '<div class="fgnav-right">' + right + '</div>' +
@@ -421,7 +421,7 @@
       '<footer class="fgfoot">' +
         '<div class="fgfoot-in">' +
           '<div class="fgfoot-brand">' +
-            '<div class="fgn-logo"><span class="fgn-logo-mark">FG</span><span class="fgn-logo-txt">FinGarage</span></div>' +
+            '<div class="fgn-logo"><img src="' + p.R + 'assets/brand/fingarage-mark-transparent.png" alt="FinGarage" class="fgn-logo-img" style="width:40px;height:40px;display:block;object-fit:contain;"></div>' +
             '<p>India\'s money-learning playground. Learn money, practice investing, and build wealth habits from school age — with students, parents and schools together.</p>' +
             '<p class="fgfoot-mission">Learn → Practice → Invest → Compete → Build Wealth</p>' +
           '</div>' +

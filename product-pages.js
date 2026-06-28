@@ -1,18 +1,6 @@
 /* Shared product page JS */
 (function() {
-    // Restore dark mode preference
-    if (localStorage.getItem('aj-dark-mode') === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
     document.addEventListener('DOMContentLoaded', function() {
-        // Dark toggle
-        var toggle = document.getElementById('darkToggle');
-        if (toggle) {
-            toggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                localStorage.setItem('aj-dark-mode', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-            });
-        }
         // FAQ accordion
         document.querySelectorAll('.faq-q-pg').forEach(function(btn) {
             btn.addEventListener('click', function() {
