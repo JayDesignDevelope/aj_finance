@@ -655,35 +655,37 @@ function updateRangeBackgrounds() {
 }
 
 // Sync inputs with range sliders
-sipAmount.addEventListener('input', () => {
-    sipAmountRange.value = sipAmount.value;
-    calculateSIP();
-});
-sipAmountRange.addEventListener('input', () => {
-    sipAmount.value = sipAmountRange.value;
-    calculateSIP();
-});
+if (sipAmount && sipAmountRange && sipReturn && sipReturnRange && sipYears && sipYearsRange) {
+    sipAmount.addEventListener('input', () => {
+        sipAmountRange.value = sipAmount.value;
+        calculateSIP();
+    });
+    sipAmountRange.addEventListener('input', () => {
+        sipAmount.value = sipAmountRange.value;
+        calculateSIP();
+    });
 
-sipReturn.addEventListener('input', () => {
-    sipReturnRange.value = sipReturn.value;
-    calculateSIP();
-});
-sipReturnRange.addEventListener('input', () => {
-    sipReturn.value = sipReturnRange.value;
-    calculateSIP();
-});
+    sipReturn.addEventListener('input', () => {
+        sipReturnRange.value = sipReturn.value;
+        calculateSIP();
+    });
+    sipReturnRange.addEventListener('input', () => {
+        sipReturn.value = sipReturnRange.value;
+        calculateSIP();
+    });
 
-sipYears.addEventListener('input', () => {
-    sipYearsRange.value = sipYears.value;
-    calculateSIP();
-});
-sipYearsRange.addEventListener('input', () => {
-    sipYears.value = sipYearsRange.value;
-    calculateSIP();
-});
+    sipYears.addEventListener('input', () => {
+        sipYearsRange.value = sipYears.value;
+        calculateSIP();
+    });
+    sipYearsRange.addEventListener('input', () => {
+        sipYears.value = sipYearsRange.value;
+        calculateSIP();
+    });
 
-// Initial calculation
-calculateSIP();
+    // Initial calculation
+    calculateSIP();
+}
 
 // ============================================================
 // ===== INIT ON PAGE LOAD =====
